@@ -32,28 +32,31 @@ h1, h3, h4, h5, p {
 
 /*
   ========================================
-  Buttons
+  Layout
   ========================================
 */
 
-.btn {
-  border-radius: 5px;
-  display: inline-block;
-  margin: 0;
+.group:before,
+.group:after {
+  content: "";
+  display: table;
 }
-.btn-alt {
-  border: 1px solid #dfe2e5;
-  padding: 10px 30px;
+.group:after {
+  clear: both;
 }
-
-/*
-  ========================================
-  Home
-  ========================================
-*/
-
-.hero {
-  padding: 22px 80px 66px 80px;
+.group {
+  clear: both;
+  *zoom: 1;
 }
 
+nav {
+  float: left;
+  margin: 0 1.5%;
+  width: 0%;
+}
 
+section {
+  float: right;
+  margin: 0 1.5%;
+  width: 0%;
+}
