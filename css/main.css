@@ -17,7 +17,7 @@
   margin: 0 auto;
   padding-left: 30px;
   padding-right: 30px;
-  width: 960px;
+  width: 600px;
 }
 
 /*
@@ -49,14 +49,44 @@ h1, h3, h4, h5, p {
   *zoom: 1;
 }
 
+.logo {
+  border-top: 10px solid #648880;
+  float: left;
+  font-size: 24px;
+  font-weight: 100;
+  /*letter-spacing: .5px;*/
+  /*line-height: 44px;*/
+  /*padding: 40px 0 22px 0;*/
+  /*text-transform: uppercase;*/
+}
+
+header {
+  float: left;  
+  margin: 0 1.5%;
+}
+
 nav {
   float: left;
   margin: 0 1.5%;
-  width: 0%;
+  width: 100px;
+}
+
+footer {
+  float: left;
 }
 
 section {
-  float: right;
+  float: left;
   margin: 0 1.5%;
-  width: 0%;
+}
+
+body {
+  color: #888;
+  font: 300 16px/22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+img {
+  float: left;
+  padding: 4px;
+  margin-right: 60px
 }
