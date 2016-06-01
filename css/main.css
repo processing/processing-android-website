@@ -49,7 +49,7 @@ h1, h3, h4, h5, p {
   *zoom: 1;
 }
 
-.logo {
+h1.logo {
   border-top: 10px solid #648880;
   float: left;
   font-size: 24px;
@@ -58,6 +58,14 @@ h1, h3, h4, h5, p {
   /*line-height: 44px;*/
   /*padding: 40px 0 22px 0;*/
   /*text-transform: uppercase;*/
+}
+
+h2 {
+  font-size: 22px;  
+}
+
+h3 {
+  font-size: 20px;  
 }
 
 header {
@@ -86,7 +94,12 @@ body {
 }
 
 img {
+  width: 600px;
+}
+
+img.logo {
+  width: 64px;
   float: left;
   padding: 4px;
-  margin-right: 60px
+  margin-right: 60px  
 }
