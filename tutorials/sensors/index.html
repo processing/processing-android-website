@@ -30,41 +30,127 @@
       
             <section class="container">
             	<h2>Using the sensors</h2>
-                <p>
+                <p>                
                 How to access accelerometer, GPS, compass, etc.
                 </p>
 
                 <h3>Sensor API in the Android SDK</h3>
-                https://developer.android.com/reference/android/hardware/Sensor.html
-                <p>
                 
+                <p>
+                Processing does not include functions to access the sensors, but you can import the packages in the <a href="https://developer.android.com/reference/android/hardware/Sensor.html">Android SDK</a> that allow you to do so. 
                 </p>
 
-                <h3>Permissions</h3>
+                <h3>Creating a sensor manager</h3>
                 <p>
-                If you want to load data from the internet, or otherwise connect to other servers, you'll need to enable INTERNET permission for your sketch. To do so, use Tools → Android Permissions to bring up the permissions editor. Check the box next to internet.
-                </p>
-                <p>
-                If you want to use methods like saveStrings() or createWriter, you'll need to enable WRITE_EXTERNAL_STORAGE so that you can save things to the built-in flash a plug-in card.
-                </p>
-                <p>
-                There are similar permissions for access to the phone, compass, etc. Look through the list in the permissions dialog, or check out other documentation that explains Android permissions in greater detail.
+                Once the sketch starts and calls the setup() function, we can grab the context of the activity that contains the
+                sketch, and using it to initialize the sensor manager:
                 </p>
 
-                <h3>Accelerometer</h3>
+                <blockquote>
+                import android.content.Context;
+                import android.hardware.Sensor;
+                import android.hardware.SensorEvent;
+                import android.hardware.SensorEventListener;
+                import android.hardware.SensorManager;
+
+                void setup() {
+                  fullScreen(P3D);
+  
+                  context = getActivity();
+                  sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+                }
+
+                void draw() {
+
+                }
+                </blockquote>
+
+                <h3>Sensor event listener</h3>
                 <p>
-                How to use accelerometer data
+                We need a "listener" that will notify the sketch that new data is coming from the sensor. A listener for each sensor is 
+                implemented using the base SensorEventListener class from Android:
                 </p>
 
-                <h3>Compass</h3>
+                <blockquote>
+                import android.content.Context;
+                import android.hardware.Sensor;
+                import android.hardware.SensorEvent;
+                import android.hardware.SensorEventListener;
+                import android.hardware.SensorManager;
+
+                void setup() {
+                  fullScreen(P3D);
+  
+                  context = getActivity();
+                  sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+
+                  accSensorEventListener = new MySensorEventListener();                    
+                }
+
+                void draw() {
+
+                }
+
+                class MySensorEventListener implements SensorEventListener {
+                  public void onSensorChanged(SensorEvent event) {                  
+                    accValues = event.values;
+                  }
+                  public void onAccuracyChanged(Sensor sensor, int accuracy) {
+                  }
+                }                
+                </blockquote>
+
+                <h3>Getting the sensor data</h3>
                 <p>
-                How to use compass data
+                Once the event listener is ready, we create the sensor and pass it to the listener:
+                </p>    
+
+                <blockquote>
+                import android.content.Context;
+                import android.hardware.Sensor;
+                import android.hardware.SensorEvent;
+                import android.hardware.SensorEventListener;
+                import android.hardware.SensorManager;
+
+                Sensor accSensor;
+
+                void setup() {
+                  fullScreen(P3D);
+  
+                  context = getActivity();
+                  sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+
+                  accSensorEventListener = new MySensorEventListener();  
+                  accSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+                  sensorManager.registerListener(accSensorEventListener, accSensor, SensorManager.SENSOR_DELAY_GAME);
+                }
+
+                void draw() {
+
+                }
+
+                class MySensorEventListener implements SensorEventListener {
+                  public void onSensorChanged(SensorEvent event) {                  
+                    accValues = event.values;
+                  }
+                  public void onAccuracyChanged(Sensor sensor, int accuracy) {
+                  }
+                }                
+                </blockquote>
+
+                <p>
+                In this case, the data from the accelerometer will be stored in the accValues array, for x, y, and z. We can
+                use these values in the draw() function:
                 </p>
 
-                <h3>GPS</h3>
-                <p>
-                How to use GPS data
-                </p>                
+                <blockquote>
+                void draw() {
+                  background(157);
+                  lights();
+                  translate(x, y, z);
+                  sphere(50);
+                }                    
+                </blockquote>
             </section>
 
         </div>
