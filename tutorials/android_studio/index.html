@@ -36,42 +36,55 @@
 
                 <h3>General steps</h3>
                 <p>
-You should only use Eclipse/Android Studio for Android development if you've already spent time learning how to develop Android applications using Eclipse/Android Studio (separately from Processing), and want to make use of the Processing core library. Android development in Eclipse/Android Studio is significantly more difficult than desktop Processing/Java development with Eclipse. Take time to learn it if you're going this route: get a book, read some Android development tutorials, etc.
+                You should only use Eclipse/Android Studio for Android development if you've already spent time learning how to develop Android applications using Eclipse/Android Studio (separately from Processing), and want to make use of the Processing core library. Android development in Eclipse/Android Studio is significantly more difficult than desktop Processing/Java development with Eclipse. Take time to learn it if you're going this route: get a book, read some Android development tutorials, etc.
+                </p>
 
-In case you already know how to develop Android apps using these advanced IDEs, it is not that difficult either. All our core code is bundled inside the android-core.zip file. You just need to rename this file to android-core.jar and add it as a dependency to your project. Step by step procedure for both the IDEs is as follows :
-
-Make sure you have a file android-core.zip inside sketchbook/modes/AndroidMode/ directory. If not, probably you haven't downloaded the Android mode yet.
-Create an Android project if you haven't already created one.
-In case of Eclipse, copy this android-core.zip to /libs folder and in case of Android Studio, copy this to /app/libs folder. In both cases, create the libs folder if it doesn't exist already.
-Rename android-core.zip to android-core.jar.
-Now,
-For Eclipse : Open eclipse. Now, right click on the jar file and then select Build Path > Add to Build Path.
-For Android Studio : Either restart the studio or resync the gradle files.
-Also, note that instead of the 'data' folder, you have to use the 'assets' folder. If you're converting a Processing project, rename your data folder to assets. Or if you have files you'd like to get at with loadStrings(), put them in the assets folder.
+                <p>
+                In case you already know how to develop Android apps using these advanced IDEs, it is not that difficult either. All our core code is bundled inside the android-core.zip file. You just need to rename this file to android-core.jar and add it as a dependency to your project. Step by step procedure for both the IDEs is as follows:
+                <ul>
+                  <li>Make sure you have a file android-core.zip inside sketchbook/modes/AndroidMode/ directory. If not, probably you haven't downloaded the Android mode yet.</li>
+                  <li>Create an Android project if you haven't already created one.</li>
+                  <li>In case of Eclipse, copy this android-core.zip to /libs folder and in case of Android Studio, copy this to /app/libs folder. In both cases, create the libs folder if it doesn't exist already.</li>
+                  <li>Rename android-core.zip to android-core.jar.</li>
+                  <li>Now,
+                  For Eclipse : Open eclipse. Now, right click on the jar file and then select Build Path > Add to Build Path.
+                  For Android Studio : Either restart the studio or resync the gradle files.
+                  Also, note that instead of the 'data' folder, you have to use the 'assets' folder. If you're converting a Processing project, rename your data folder to assets. Or if you have files you'd like to get at with loadStrings(), put them in the assets folder.
+                  </li>
+                </ul>
                 </p>
 
                 <h3>Minimal project</h3>
                 <p>
-Android Studio is the default IDE from Google to develop Processing apps, with the ADT plugin for Eclipse no longer supported. This sample project for AS was created using AS 1.5.1. As for the general steps to use Processing in AS:
-
-Create a new project with an empty activity, and then add the Processing's sketch class and a minimal main activity to launch the fragment containing the sketch.
-The project depends on android-core.jar, which can be obtained from by simply renaming the android-core.zip file bundled with the mode, copying it into the app/libs folder, as explained earlier, and adding it as module dependency.
-You might also need to edit a few more files so the project is properly configured:
-The main manifest file, where we need to specify the main and launcher activity with the intent filter:
-The layout file, to make sure that the Processing fragment uses the entire screen with a frame layout.
-The strings file, to set the name of the app and its main activity.
-Change the default style to hide the action bar.
-Fragments give you the possibility of embedding several Processing sketches in a single Android app, check out this sample Android Studio project from Umair Khan to learn how.
+                Android Studio is the default IDE from Google to develop Processing apps, with the ADT plugin for Eclipse <a href="http://android-developers.blogspot.com/2015/06/an-update-on-eclipse-android-developer.html">no longer supported</a>. This <a href="https://github.com/codeanticode/processing-android-3.0-samples/tree/master/androidstudio-sample">sample project for AS</a> was created using AS 1.5.1. As for the general steps to use Processing in AS:
                 </p>
+                <ul>
+                <li>Create a new project with an empty activity, and then add the Processing's <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/java/com/example/androidstudiosample/Sketch.java">sketch class</a> and a minimal <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/java/com/example/androidstudiosample/MainActivity.java">main activity</a> to launch the fragment containing the sketch.</li>
+                <li>The project depends on android-core.jar, which can be obtained from by simply renaming the android-core.zip file bundled with the mode, copying it into the app/libs folder, as explained earlier, and adding it as module dependency.</li>
+                <li>You might also need to edit a few more files so the project is properly configured:
+                * The <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/AndroidManifest.xml">main manifest file</a>, where we need to specify the main and launcher activity with the intent filter:
+                * The <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/res/layout/activity_main.xml">layout file</a>, to make sure that the Processing fragment uses the entire screen with a frame layout.
+                * The <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/res/values/strings.xml">strings file</a>, to set the name of the app and its main activity.</a>
+                <li>Change the <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/res/values/styles.xml">default style</a> to hide the action bar.</li>
+                </ul>
+                <a href="http://developer.android.com/reference/android/app/Fragment.html">Fragments</a> give you the possibility of embedding several Processing sketches in a single Android app, check out this <a href="https://github.com/omerjerk/ProcessingAndroidDemo">sample Android Studio project</a> from <a href="https://github.com/omerjerk">Umair Khan</a> to learn how.
+                
 
                 <h3>Debugging the core library</h3>
                 <p>
-You can also help us make Processing for Android better! Either Android Studio and Eclipse+ADT allows you to debug an android app and step into the android-mode source code to understand how things work under the hood, and also find and fix bugs. In the case of Eclipse, this is actually fairly easy, all you need to do is to add the android-core project as a dependency to your main project (instead of the android-core.jar file as explained so far), and making sure that it is added to the Order and Export list in the Java Build Path. But as pointed out already, Android Studio is the only officially supported IDE for Android looking forward, so it is a better idea to use it instead.
+                You can also help us make Processing for Android better! Either Android Studio and Eclipse+ADT allows you to debug an android app and step into the android-mode source code to understand how things work under the hood, and also find and fix bugs. In the case of Eclipse, this is actually fairly easy, all you need to do is to add the <a href="https://github.com/processing/processing-android/tree/master/core">android-core project</a> as a dependency to your main project (instead of the android-core.jar file as explained so far), and making sure that it is added to the Order and Export list in the Java Build Path. But as pointed out already, Android Studio is the only officially supported IDE for Android looking forward, so it is a better idea to use it instead.
+                </p>
 
-It turns our that working with multi-project setups and depending libraries is a little bit more involved in Android Studio, at least that was my initial experience. All dependencies need to be added as subfolders alongside the main app project, and configured as Android library projects, as explained in this guide. The steps indicated in this post are also useful to understand how to work with libraries in Android Studio. Summarizing these guides, I put together another sample project where the main app depends on android-core, which is included as an Android library. A couple of important notes:
+                <p>
+                It turns our that working with multi-project setups and depending libraries is a little bit more involved in Android Studio, at least that was my initial experience. All dependencies need to be added as subfolders alongside the main app project, and configured as Android library projects, as explained <a href="http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Dependencies-Android-Libraries-and-Multi-project-setup">in this guide</a>. The steps indicated in <a href="http://stackoverflow.com/a/16639227">this post</a> are also useful to understand how to work with libraries in Android Studio. Summarizing these guides, I put together <a href="https://github.com/codeanticode/processing-android-3.0-samples/tree/master/androidstudio-debug">another sample project</a> where the main app depends on android-core, which is included as an Android library. A couple of important notes:
+                </p>
 
-The build.gradle file for android-core needs to correctly identify the project as an android library, set the location of the manifest file, minimum and target SDK levels, etc.
-Assets used by android-core, for instance shaders, need to be inside the assets folder directly inside the root of the library, and also indicated in the build file. The resource-loading code needs to be updated accordingly to reflect this location, such as here.
+                <p>
+                The <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-debug/libs/android-core/build.gradle">build.gradle</a> file for android-core needs to correctly identify the project as an android library, set the location of the manifest file, minimum and target SDK levels, etc.
+                </p>
+
+                <p>
+                Assets used by android-core, for instance shaders, need to be inside the <a href="https://github.com/codeanticode/processing-android-3.0-samples/tree/master/androidstudio-debug/libs/android-core/assets/shaders">assets folder</a> directly inside the root of the library, and also indicated in the <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-debug/libs/android-core/build.gradle#L21">build file</a>. The resource-loading code needs to be updated accordingly to reflect this location, such as <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-debug/libs/android-core/src/processing/opengl/PGraphicsOpenGL.java#L142">here</a>.
                 </p>                
             </section>
 
