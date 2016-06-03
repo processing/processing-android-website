@@ -34,21 +34,120 @@
                 Write VR apps using Google Cardboard
                 </p>
 
+                <h3>Google Cardboard</h3>
+                <p>
+                <a href="https://vr.google.com/cardboard/index.html">The Google Cardboard project</a> lets you use your smartphone as a platform to get started with Virtual Reality. You can use the Android mode to adapt 3D sketchs to run in stereo mode and respond to the head movement.
+                </p>
+
                 <h3>Requirements</h3>
                 <p>
-                Library, what else?
+                You need a smartphone with gyroscope sensors for head tracking, and the <a href="https://vr.google.com/cardboard/get-cardboard/">Cardboard headset</a> itself.
+                <p>Then, you have to install the Cardboard library separately.
                 </p>
 
-                <h3>Movement, stereo renderer</h3>
+                <h3>Getting started</h3>
                 <p>
-                Simple code
+                After installing the library, you need to switch to the Cardboard option in the Android menu:    
+                </p>    
+
+                <img src="../../css/images/cardboard_selection.png" alt="Cardboard selection">
+
+                <p>
+                A basic sketch for Cardboard needs to include the import of the library, and the STEREO renderer:
+                </p> 
+
+                <blockquote>
+                import processing.cardboard.*;
+
+                void setup() {
+                  fullScreen(PCardboard.STEREO);
+                }                
+
+                void draw() {
+                }
+                </blockquote>
+
+                <h3>Creating a 3D scene</h3>
+
+                <p>
+                Because performance is very important in VR to keep the framerate consistent, we can make use
+                of PShape objects to store geometry that does not change during the exection of the app:    
+                <p>
+
+                <blockquote>
+                import processing.cardboard.*;
+
+                PShape grid;
+                PShape cubes;
+
+                void setup() {
+                  fullScreen(PCardboard.STEREO);
+  
+                  grid = createShape();
+                  grid.beginShape(LINES);
+                  grid.stroke(255);
+                  for (int x = -10000; x &lt; +10000; x += 250) {
+                    grid.vertex(x, -1000, +10000);
+                    grid.vertex(x, -1000, -10000);
+                  }
+                  for (int z = -10000; z &lt; +10000; z += 250) {
+                    grid.vertex(+10000, -1000, z);
+                    grid.vertex(-10000, -1000, z);      
+                  }  
+                  grid.endShape();  
+  
+                  cubes = createShape(GROUP);
+                  for (int i = 0; i &lt; 100; i++) {
+                    float x = random(-1000, +1000); 
+                    float y = random(-1000, +1000);
+                    float z = random(-1000, +1000);
+    
+                    float r = 100 * noise(x, y, z);
+                    PShape cube = createShape(BOX, r, r, r);
+                    cube.setStroke(false);
+                    cube.setFill(color(180));
+                    cube.translate(x, y, z);
+                    cubes.addChild(cube);
+                  }
+                }
+
+                void draw() {
+                  background(0);
+                  ambientLight(150, 150, 150);
+                  pointLight(255, 255, 255, 0, 0, 0);
+                  translate(width/2, height/2);
+                  shape(cubes);
+                  shape(grid);
+                }                
+                </blockquote>
+
+                <p>
+                You should get the following output in your phone:
                 </p>
 
-                <h3>Selection</h3>
+                <img src="../../css/images/stereo_rendering.png" alt="Stereo rendering">
+
+                <h3>Selecting objects</h3>
                 <p>
-                Eye rays
+                We can calculate the rays that go in straight lines from the viewers eye, and intersect them
+                with the objects in the scene:                
                 </p>                
-            </section>
+
+                <blockquote>
+                private boolean isLookingAtObject() {
+                  float[] initVec = {0, 0, 0, 1.0f};
+                  float[] objPositionVec = new float[4];
+
+                  // Convert object space to camera space. Use the headView from onNewFrame.
+                  Matrix.multiplyMM(modelView, 0, headView, 0, modelCube, 0);
+                  Matrix.multiplyMV(objPositionVec, 0, modelView, 0, initVec, 0);
+
+                  float pitch = (float) Math.atan2(objPositionVec[1], -objPositionVec[2]);
+                  float yaw = (float) Math.atan2(objPositionVec[0], -objPositionVec[2]);
+
+                  return Math.abs(pitch) &lt; PITCH_LIMIT && Math.abs(yaw) &lt; YAW_LIMIT;
+                }
+                </section>
 
         </div>
 
