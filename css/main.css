@@ -18,7 +18,9 @@
   padding-left: 30px;
   padding-right: 30px;
   width: 600px;
+  background-color: #ffffff;
   font-family: 'Merriweather', serif;
+  font-size: 18;
   font-weight: 300;
 }
 
@@ -32,7 +34,7 @@ h1, h2, h3, h4, h5 {
   font-family: 'Merriweather', serif;
   font-weight: 300;  
   font-style: bold;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 }
 
 h2 {
@@ -74,6 +76,12 @@ p {
   *zoom: 1;
 }
 
+a {
+  text-decoration: none;
+  font-weight: normal;
+  color: #2c7bb5;
+}
+
 header {
   background-color: #7cab47;
   width: 100%;
@@ -82,29 +90,98 @@ header {
 }
 
 h1.title {
-  margin-top: 54px;
+  margin-top: 60px;
   margin-left: 40px;
   color: #ffffff;
   font-family: 'Merriweather', serif;
   font-size: 50px;
 }
 
-nav {
+
+/* ================ RIBBON ================== */
+
+#ribbon {
+  width: 100%;
+  height: 46px;
+  background-color: #666666;
+  font-size: 14px;
+  font-family: 'Merriweather', serif;
+  background: linear-gradient(to bottom, #666666, #898989);
+}
+
+#ribbon ul {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+#ribbon ul.left {
+  float: left;
+}
+
+#ribbon ul.right {
+  float: right;
+}
+
+#ribbon ul.righthighlight {
+  float: right;
+}
+
+#ribbon ul li {
+  display: inline-block;
+  margin: 0;
+  padding: 12px 10px 12px 10px;
+  list-style: none;
+  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+#ribbon ul.left li {
+  float: left;
+  border-right: 1px solid #1a1a1a;
+}
+
+#ribbon ul.right li {
+  float: right;
+  border-left: 1px solid #1a1a1a;
+}
+
+#ribbon ul.righthighlight li {
+  background-color: black;
+  float: right;
+  border-left: 1px solid #1a1a1a;
+}
+
+#ribbon ul.righthighlight li a {
+  color: white;
+  font-weight: bold;
+}
+
+#ribbon ul li a {
+  color: #b2b2b2;
+}
+
+#ribbon ul li.highlight {
+  background-color: #373737;
+  border-right: none;
+}
+
+#ribbon ul li.highlight a {
+  color: white;
+  font-weight: bold;
+}
+
+nav.site {
   float: left;
   margin-top: 45px;
   margin-left: 40px;
   width: 214px;
+  line-height: 30px;
   font-family: 'Merriweather', serif;
 }
 
 .main-text {
   margin-top: 45px;
-}
-
-a {
-  text-decoration: none;
-  font-weight: normal;
-  color: #2c7bb5;
 }
 
 footer {
