@@ -18,6 +18,8 @@
   padding-left: 30px;
   padding-right: 30px;
   width: 600px;
+  font-family: 'Merriweather', serif;
+  font-weight: 300;
 }
 
 /*
@@ -26,8 +28,31 @@
   ========================================
 */
 
-h1, h3, h4, h5, p {
+h1, h2, h3, h4, h5 {
+  font-family: 'Merriweather', serif;
+  font-weight: 300;  
+  font-style: bold;
   margin-bottom: 22px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+h3 {
+  font-size: 18px;  
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+p {
+  margin-bottom: 20px;
 }
 
 /*
@@ -49,34 +74,37 @@ h1, h3, h4, h5, p {
   *zoom: 1;
 }
 
-h1.logo {
-  border-top: 10px solid #648880;
-  float: left;
-  font-size: 24px;
-  font-weight: 100;
-  /*letter-spacing: .5px;*/
-  /*line-height: 44px;*/
-  /*padding: 40px 0 22px 0;*/
-  /*text-transform: uppercase;*/
-}
-
-h2 {
-  font-size: 22px;  
-}
-
-h3 {
-  font-size: 20px;  
-}
-
 header {
+  background-color: #7cab47;
+  width: 100%;
+  height: 140px;
   float: left;  
-  margin: 0 1.5%;
+}
+
+h1.title {
+  margin-top: 54px;
+  margin-left: 40px;
+  color: #ffffff;
+  font-family: 'Merriweather', serif;
+  font-size: 50px;
 }
 
 nav {
   float: left;
-  margin: 0 1.5%;
-  width: 100px;
+  margin-top: 45px;
+  margin-left: 40px;
+  width: 214px;
+  font-family: 'Merriweather', serif;
+}
+
+.main-text {
+  margin-top: 45px;
+}
+
+a {
+  text-decoration: none;
+  font-weight: normal;
+  color: #2c7bb5;
 }
 
 footer {
