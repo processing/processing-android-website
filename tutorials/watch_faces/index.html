@@ -1,34 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    	<meta charset="utf-8">
-    	<link rel="stylesheet" href="../../css/main.css">
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="http://android.processing.org/test/favicon.png">
+        <link rel="stylesheet" href="../../css/main.css">
         <title>Processing for Android</title>
     </head>
     
     <body>
 
-        <header class="container">
-            <img class="logo" src="../../css/images/logo.png" alt="Processing for Android logo">
-            <h1 class="logo">
-            <a href="index.html">Processing <br> for Android</a>
-            </h1>
+        <div id="ribbon">
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="http://p5js.org/">p5.js</a></li>
+                <li><a href="http://py.processing.org/">Processing.py</a></li>
+                <li class="highlight"><a href="http://android.processing.org/test/">Processing for Android</a></li>
+            </ul>
+            <ul class="right">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+            <div class="clear"></div>
+        <div>
+
+        <header>            
+            <h1 class="title">Processing for Android</h1>
         </header>
 
         <div class="group">
 
-            <nav>
+            <nav class="site">
+                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo"><br><br><br><br>
                 <a href="../../index.html">Cover</a><br>
-                <a href="../../beta.html">Beta</a><br>  
-                <a href="../../install.html">Installation</a><br>
-                <a href="../../reference.html">Reference</a><br>                
-                <a href="../../tutorials.html">Tutorials</a><br>
-                <a href="../../libraries.html">Libraries</a><br>                
+                <a href="../../beta.html">Beta</a><br>
+                <a href="../../install.html">Install</a><br>
+                <a href="../../reference.html">Reference</a><br>
+                <a id="selected" href="../index.html">Tutorials</a><br>      
                 <a href="https://forum.processing.org/two/categories/android">Forum</a><br>
-                <a href="https://github.com/processing/processing-android">Development</a><br>
+                <a class="foundation" href="https://github.com/processing/processing-android">GitHub</a><br>
             </nav>
       
-            <section class="container">
+            <section class="container main-text">
             	<h2>Creating watch faces (beta)</h2>
                 <p>
                 Use the Android Mode to develop interactive watch faces
@@ -44,13 +56,13 @@
                 First of all, developing for a smartwatch requires to pair the device with a phone that will function as a bridge between the computer you are runnig Processing on, and the watch. To do so, you have to setup the devices for debugging over Bluetooth, which is explained <a heref="https://developer.android.com/training/wearables/apps/bt-debugging.html">here</a>. Once you have done this, you can select the Watch Face option in the Android menu:
                 </p>
 
-                <img src="../../css/images/watchface_selection.png" alt="Watch face selection">
+                <img src="imgs/watchface_selection.png" alt="Watch face selection">
 
                 <p>
                 After setting up BT debugging and selecting the Watch Face option in Processing, you should see your smartwach in the device list:
                 </p>
 
-                <img src="../../css/images/smartwatch_selection.png" alt="Smartwach selection">                
+                <img src="imgs/smartwatch_selection.png" alt="Smartwach selection">                
 
                 <h3>Simple watch face</h3>
                 <p>

@@ -211,6 +211,10 @@ body {
   font: 300 16px/22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-img {
+/*img {
   width: 600px;
-}
+}*/
+
+/* ================ TUTORIALS ================== */
+
+#Tutorials .curated-item p { padding-right: 14px; }
