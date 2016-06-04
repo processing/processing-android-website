@@ -48,55 +48,60 @@
 
                 <h3>Installing the SDK</h3>
                 <p>
-                The first time you run the Android mode after <a href="../../install.html">installing it</a> through the CM or manually, you will be presented with this window, asking to either locate a pre-installed SDK, or download the SDK automatically:
+                The first time you open the Android mode after <a href="../../install.html">installing it</a> through the CM or manually, you will see this window, asking to either locate a pre-installed SDK, or download the SDK automatically:
                 </p>
                 <img src="imgs/sdk_install.png" alt="SDK install">
-                <p>In the case you select the "Locate SDK path manually", you need to have an SDK that inckudes Android 4.0.3 (API level 15) or higher. To manually download and install the SDK, go to <a href="https://developer.android.com/studio/index.html">this page</a>, scroll down to the command line tools section and select the one for your OS.
+                <p>If you want to use an Android SDK already downloaded to your computer, you should use the "Locate SDK path manually" and select the folder containing the SDK. However, this SDK should include Android 4.0.3 (API level 15)
+                or higher. In order to manually download and install the SDK, go to <a href="https://developer.android.com/studio/index.html">this page</a>, scroll down to the command line tools section and select the one for your OS. Doing this could be convenient if you plan to use the SDK from different development tools (command line, Android Studio, etc.) in addition to Processing. However, the SDK that Processing downloads and installs automatically gets stored inside the mode folder, and does not interfere with any other SDK installed in your computer.
                 </p>
 
                 <p>
-                If the SDK was installed succesfully, and you connect a device to the computer, you should see it in the "Select device" list:
+                If the SDK was located or installed succesfully, you should see your Android device in the "Select device" list after connecting it to the computer:
                 </p>
 
                 <img src="imgs/select_device.png" alt="Device selection">
 
                 <h3>Writing a simple sketch</h3>
                 <p>
-                Let's try writing a very simple sketch to run on the device. The following code is an adaptation of an example in the Interactivity tutorial for Processing, where the fullScreen() function allows us to use the entire screen of the device:
+                Let's write a simple Processing sketch to run on your Android phone or tablet and make sure everything works as expected. In the following code, we should see half of the screen receiving a touchpress painted black. Note that nothing in this sketch is really specific to Android, so you could run it in the Java mode as well. This portability of Processing sketches (as long as they rely on any platform-specific features) is useful for testing, as the Java mode includes an integrated debugger that can help to solve errors in the code more easily.
                 </p>
 
-                <code>
-                void setup() {
-                  fullScreen();
-                  noStroke();
-                  fill(0);
-                }
 
-                void draw() {
-                  background(204);
-                  if (mouseX &lt; width/2) {
-                    rect(0, 0, width/2, height); // Left
-                  } else {
-                    rect(width/2, 0, width/2, height); // Right
-                  }
-                }           
-                </code>
+<pre><code>
+void setup() {
+  fullScreen();
+  noStroke();
+  fill(0);
+}
 
+void draw() {
+  background(204);
+  if (mousePressed) {
+    if (mouseX &lt; width/2) {
+      rect(0, 0, width/2, height); // Left
+    } else {
+      rect(width/2, 0, width/2, height); // Right
+    }
+  }
+}
+</code>
+</pre>
 
-                <h3>Running on the device</h3>
+                <h3>Running the sketch on your device</h3>
                 <p>
-                Before testing your sketch on your device, you must:
-                Turn on "USB Debugging" on your device - this process varies by device and which version of the OS you have installed. Try one of the following:
-                Menu → Applications → Development, then enable USB debugging
-                On the Nexus tablets, Settings → About tablet, then click on the Build number seven times to activate USB debugging (so weird).
-                Connecting to Android Wear devices requires USB Debugging as well on your Wear device. Further info on connecting to your Wear device can be found on Google's Debugging over Bluetooth
-                If you are running Windows or Linux, you need to read Google's Using Hardware Devices documentation to install a special USB driver and take care of additional settings.
+                Before hitting the run button or selecting "Run on Device" under the Sketch menu, make sure to:
+                <ul>
+                <li>Turn on "USB Debugging" on the device - this process varies by device and which version of the OS you have installed. In most of the cases, this setting is located in the <em>Developer Options</em>, under system Setting. On Android 4.2 and higher the Developer Options are hidden by default, but you can enable them by following <a href="https://developer.android.com/studio/run/device.html#developer-device-options">these instructions</a>.</li>
+                <li>If you are running Windows, you need to follow <a href="https://developer.android.com/studio/run/oem-usb.html">Google's documentation</a> to install a special USB driver and take care of additional settings.</li>
+                </ul>
                 </p>
 
-                <h3>Running on the emulator</h3>
+                <h3>Running the sketch on the emulator</h3>
                 <p>
                 Processing will start the Android emulator (which can take a long time), and then will launch thr sketch on it. Don't close the emulator after testing one sketch, just leave it open so you don't need to wait for the next sketch you want to run!
                 </p>                
+
+                <h3>If everything went well...</h3>
             </section>
 
         </div>

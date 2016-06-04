@@ -211,6 +211,10 @@ body {
   font: 300 16px/22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+code {
+  font-family: monospace, "Courier New", Courier;
+}
+
 /*img {
   width: 600px;
 }*/
