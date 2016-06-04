@@ -1,34 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    	<meta charset="utf-8">
-    	<link rel="stylesheet" href="css/main.css">
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="http://android.processing.org/test/favicon.png">
+        <link rel="stylesheet" href="css/main.css">
         <title>Processing for Android</title>
     </head>
     
     <body>
 
-        <header class="container">
-            <img class="logo" src="css/images/logo.png" alt="Processing for Android logo">
-            <h1 class="logo">
-            <a href="index.html">Processing <br> for Android</a>
-            </h1>
+        <div id="ribbon">
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="http://p5js.org/">p5.js</a></li>
+                <li><a href="http://py.processing.org/">Processing.py</a></li>
+                <li class="highlight"><a href="http://android.processing.org/test/">Processing for Android</a></li>
+            </ul>
+            <ul class="right">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+            <div class="clear"></div>
+        <div>
+
+        <header>            
+            <h1 class="title">Processing for Android</h1>
         </header>
 
         <div class="group">
 
-            <nav>
+            <nav class="site">
+                <img class="logo" src="css/images/logo.png" alt="Processing for Android logo"><br><br><br><br>
                 <a href="index.html">Cover</a><br>
                 <a href="beta.html">Beta</a><br>
-                <a href="install.html">Installation</a><br>
+                <a id="selected" href="install.html">Install</a><br>
                 <a href="reference.html">Reference</a><br>                
-                <a href="tutorials.html">Tutorials</a><br>
-                <a href="libraries.html">Libraries</a><br>                
+                <a href="tutorials.html">Tutorials</a><br>      
                 <a href="https://forum.processing.org/two/categories/android">Forum</a><br>
-                <a href="https://github.com/processing/processing-android">Development</a><br>
+                <a class="foundation" href="https://github.com/processing/processing-android">GitHub</a><br>
             </nav>
       
-            <section class="container">
+            <section class="container main-text">
                 <h2>Stable releases</h2>
                 <p>
                 The latest stable release of the Android mode can be installed through the Contribution Manager (CM) in the PDE. To open the CM, click the arrow in the mode selector in the menu bar in the PDE, and choose "Add Mode...": 
