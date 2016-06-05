@@ -10,7 +10,8 @@
     
     <body>
 
-        <div id="ribbon">
+        <!-- <div id="ribbon"> -->
+        <nav class="ring">        
             <ul class="left">
                 <li><a href="https://processing.org/">Processing</a></li>
                 <li><a href="http://p5js.org/">p5.js</a></li>
@@ -20,8 +21,9 @@
             <ul class="right">
                 <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
             </ul>
-            <div class="clear"></div>
-        <div>
+        </nav>   
+<!--             <div class="clear"></div>
+        <div> -->
 
         <header>            
             <h1 class="title">Processing for Android</h1>
@@ -50,7 +52,9 @@
                 <p>
                 The first time you open the Android mode after <a href="../../install.html">installing it</a> through the CM or manually, you will see this window, asking to either locate a pre-installed SDK, or download the SDK automatically:
                 </p>
-                <img src="imgs/sdk_install.png" alt="SDK install">
+
+                <p><img class="body-image" src="imgs/sdk_install.png" alt="SDK install"></p>
+
                 <p>If you want to use an Android SDK already downloaded to your computer, you should use the "Locate SDK path manually" and select the folder containing the SDK. However, this SDK should include Android 4.0.3 (API level 15)
                 or higher. In order to manually download and install the SDK, go to <a href="https://developer.android.com/studio/index.html">this page</a>, scroll down to the command line tools section and select the one for your OS. Doing this could be convenient if you plan to use the SDK from different development tools (command line, Android Studio, etc.) in addition to Processing. However, the SDK that Processing downloads and installs automatically gets stored inside the mode folder, and does not interfere with any other SDK installed in your computer.
                 </p>
@@ -59,7 +63,7 @@
                 If the SDK was located or installed succesfully, you should see your Android device in the "Select device" list after connecting it to the computer:
                 </p>
 
-                <img src="imgs/select_device.png" alt="Device selection">
+                <p><img class="body-image" src="imgs/select_device.png" alt="Device selection"></p>
 
                 <h3>Writing a simple sketch</h3>
                 <p>
@@ -91,8 +95,9 @@ void draw() {
                 <p>
                 Before hitting the run button or selecting "Run on Device" under the Sketch menu, make sure to:
                 <ul>
-                <li>Turn on "USB Debugging" on the device - this process varies by device and which version of the OS you have installed. In most of the cases, this setting is located in the <em>Developer Options</em>, under system Setting. On Android 4.2 and higher the Developer Options are hidden by default, but you can enable them by following <a href="https://developer.android.com/studio/run/device.html#developer-device-options">these instructions</a>.</li>
-                <li>If you are running Windows, you need to follow <a href="https://developer.android.com/studio/run/oem-usb.html">Google's documentation</a> to install a special USB driver and take care of additional settings.</li>
+                    <li>Turn on "USB Debugging" on the device - this process varies by device and which version of the OS you have installed. In most of the cases, this setting is located in the <em>Developer Options</em>, under system Setting. On Android 4.2 and higher the Developer Options are hidden by default, but you can enable them by following <a href="https://developer.android.com/studio/run/device.html#developer-device-options">these instructions</a>.</li>
+                    
+                    <li>If you are running Windows, you need to follow <a href="https://developer.android.com/studio/run/oem-usb.html">Google's documentation</a> to install a special USB driver and take care of additional settings.</li>
                 </ul>
                 </p>
 
@@ -101,7 +106,11 @@ void draw() {
                 Processing will start the Android emulator (which can take a long time), and then will launch thr sketch on it. Don't close the emulator after testing one sketch, just leave it open so you don't need to wait for the next sketch you want to run!
                 </p>                
 
-                <h3>If everything went well...</h3>
+                <h3>If everything goes well...</h3>
+
+                <p>Then the sketch shuld behave something like this:</p> 
+
+                <p><img src="imgs/getting_started.gif" alt="Getting Started Sketch"></p>
             </section>
 
         </div>

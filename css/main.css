@@ -20,7 +20,7 @@
   width: 600px;
   background-color: #ffffff;
   font-family: 'Merriweather', serif;
-  font-size: 18;
+  font-size: 14px;
   font-weight: 300;
 }
 
@@ -98,9 +98,13 @@ h1.title {
 }
 
 
+/* ================== RANDOM CLASSES =============== */
+/*.clear { clear: both; }*/
+
+
 /* ================ RIBBON ================== */
 
-#ribbon {
+nav.ring {
   width: 100%;
   height: 46px;
   background-color: #666666;
@@ -109,25 +113,25 @@ h1.title {
   background: linear-gradient(to bottom, #666666, #898989);
 }
 
-#ribbon ul {
+nav.ring ul {
   display: inline-block;
   margin: 0;
   padding: 0;
 }
 
-#ribbon ul.left {
+nav.ring ul.left {
   float: left;
 }
 
-#ribbon ul.right {
+nav.ring ul.right {
   float: right;
 }
 
-#ribbon ul.righthighlight {
+nav.ring ul.righthighlight {
   float: right;
 }
 
-#ribbon ul li {
+nav.ring ul li {
   display: inline-block;
   margin: 0;
   padding: 12px 10px 12px 10px;
@@ -136,37 +140,37 @@ h1.title {
   /*background-color: rgba(0, 0, 0, 0.12);*/
 }
 
-#ribbon ul.left li {
+nav.ring ul.left li {
   float: left;
   border-right: 1px solid #1a1a1a;
 }
 
-#ribbon ul.right li {
+nav.ring ul.right li {
   float: right;
   border-left: 1px solid #1a1a1a;
 }
 
-#ribbon ul.righthighlight li {
+nav.ring ul.righthighlight li {
   background-color: black;
   float: right;
   border-left: 1px solid #1a1a1a;
 }
 
-#ribbon ul.righthighlight li a {
+nav.ring ul.righthighlight li a {
   color: white;
   font-weight: bold;
 }
 
-#ribbon ul li a {
+nav.ring ul li a {
   color: #b2b2b2;
 }
 
-#ribbon ul li.highlight {
+nav.ring ul li.highlight {
   background-color: #373737;
   border-right: none;
 }
 
-#ribbon ul li.highlight a {
+nav.ring ul li.highlight a {
   color: white;
   /*font-weight: bold;*/
 }
@@ -181,6 +185,8 @@ nav.site {
   line-height: 30px;
   font-family: 'Merriweather', serif;
 }
+
+/* ================ SITE STYLE ================== */
 
 img.logo {
   width: 92px;
@@ -215,9 +221,22 @@ code {
   font-family: monospace, "Courier New", Courier;
 }
 
-/*img {
-  width: 600px;
-}*/
+.body-image {
+  width: 480px;
+  margin: 0 auto
+}
+
+/*
+  ========================================
+  Lists
+  ========================================
+*/
+
+ul {
+  display: block;
+  list-style: disc;
+   padding-left: 12px;
+}
 
 /* ================ TUTORIALS ================== */
 
