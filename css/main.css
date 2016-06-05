@@ -57,6 +57,10 @@ p {
   margin-bottom: 20px;
 }
 
+pre {
+  margin-bottom: 20px; 
+}
+
 /*
   ========================================
   Layout
@@ -235,9 +239,14 @@ code {
 ul {
   display: block;
   list-style: disc;
-   padding-left: 12px;
+  padding-left: 12px;
 }
 
+ol {
+  display: block;
+  list-style: decimal;
+  padding-left: 12px;  
+}
 /* ================ TUTORIALS ================== */
 
 #Tutorials .curated-item p { padding-right: 14px; }

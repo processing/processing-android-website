@@ -10,7 +10,7 @@
     
     <body>
 
-        <div id="ribbon">
+        <nav class="ring">        
             <ul class="left">
                 <li><a href="https://processing.org/">Processing</a></li>
                 <li><a href="http://p5js.org/">p5.js</a></li>
@@ -20,8 +20,7 @@
             <ul class="right">
                 <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
             </ul>
-            <div class="clear"></div>
-        <div>
+        </nav>   
 
         <header>            
             <h1 class="title">Processing for Android</h1>
@@ -49,120 +48,140 @@
                 <h3>Sensor API in the Android SDK</h3>
                 
                 <p>
-                Processing does not include functions to access the sensors, but you can import the packages in the <a href="https://developer.android.com/reference/android/hardware/Sensor.html">Android SDK</a> that allow you to do so. 
+                Smartphones and tablets include many different sensors, for example accelerometers, gyroscopes, magnetic field sensors, and barometers, which allow to collect information about the movement and location of the device, and about its surroundings. Wearable devices (smartwatches, fitness bands)also incorporate sensors that can take bodily, like heartrate and fingerprints.</p>
+                <p>While the Processing language does not offer specialized functions to read data from these sensors sensors, you can import the packages in the <a href="https://developer.android.com/reference/android/hardware/Sensor.html">Android SDK</a> that allow collect sensor measurements from your sketch. 
                 </p>
 
                 <h3>Creating a sensor manager</h3>
                 <p>
+                The first step to use the sensor API is to obtain the cntext of the activity that contains the sketch, and use this activity to initialize the sensor manager that we will use to 
                 Once the sketch starts and calls the setup() function, we can grab the context of the activity that contains the
-                sketch, and using it to initialize the sensor manager:
+                sketch, and using it to initialize the sensor manager that we will use the sensor and the "listener" object that will allow us to listen to the sensor from our sketch:
                 </p>
 
-                <blockquote>
-                import android.content.Context;
-                import android.hardware.Sensor;
-                import android.hardware.SensorEvent;
-                import android.hardware.SensorEventListener;
-                import android.hardware.SensorManager;
+<pre><code>
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 
-                void setup() {
-                  fullScreen(P3D);
+Context context;
+SensorManager sensorManager;
+
+void setup() {
+  fullScreen(P3D);
   
-                  context = getActivity();
-                  sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
-                }
+  context = getActivity();
+  sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+}
 
-                void draw() {
+void draw() {
 
-                }
-                </blockquote>
+}
+</code></pre>
 
                 <h3>Sensor event listener</h3>
                 <p>
-                We need a "listener" that will notify the sketch that new data is coming from the sensor. A listener for each sensor is 
-                implemented using the base SensorEventListener class from Android:
+                Now we implement a "listener" class that will notify the sketch that new data is coming from the sensor. A listener for each sensor is derived using the base SensorEventListener class from the Android SDK:
                 </p>
 
-                <blockquote>
-                import android.content.Context;
-                import android.hardware.Sensor;
-                import android.hardware.SensorEvent;
-                import android.hardware.SensorEventListener;
-                import android.hardware.SensorManager;
+<pre><code>
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 
-                void setup() {
-                  fullScreen(P3D);
+Context context;
+SensorManager sensorManager;
+MySensorEventListener listener;
+
+void setup() {
+  fullScreen(P3D);
   
-                  context = getActivity();
-                  sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+  context = getActivity();
+  sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
 
-                  accSensorEventListener = new MySensorEventListener();                    
-                }
+  listener = new MySensorEventListener();                    
+}
 
-                void draw() {
+void draw() {
 
-                }
+}
 
-                class MySensorEventListener implements SensorEventListener {
-                  public void onSensorChanged(SensorEvent event) {                  
-                    accValues = event.values;
-                  }
-                  public void onAccuracyChanged(Sensor sensor, int accuracy) {
-                  }
-                }                
-                </blockquote>
+class MySensorEventListener implements SensorEventListener {
+  public void onSensorChanged(SensorEvent event) {                  
+    accValues = event.values;
+  }
+  public void onAccuracyChanged(Sensor sensor, int accuracy) {
+  }
+}
+</code></pre>
 
                 <h3>Getting the sensor data</h3>
                 <p>
                 Once the event listener is ready, we create the sensor and pass it to the listener:
                 </p>    
 
-                <blockquote>
-                import android.content.Context;
-                import android.hardware.Sensor;
-                import android.hardware.SensorEvent;
-                import android.hardware.SensorEventListener;
-                import android.hardware.SensorManager;
+<pre><code>
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 
-                Sensor accSensor;
+Context context;
+SensorManager sensorManager;
+MySensorEventListener listener;
+Sensor accSensor;
+float x, y, z;
 
-                void setup() {
-                  fullScreen(P3D);
+void setup() {
+  fullScreen(P3D);
   
-                  context = getActivity();
-                  sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+  context = getActivity();
+  sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
 
-                  accSensorEventListener = new MySensorEventListener();  
-                  accSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-                  sensorManager.registerListener(accSensorEventListener, accSensor, SensorManager.SENSOR_DELAY_GAME);
-                }
+  accSensorEventListener = new MySensorEventListener();  
+  accSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+  sensorManager.registerListener(accSensorEventListener, accSensor, SensorManager.SENSOR_DELAY_GAME);
+}
 
-                void draw() {
+void draw() {
 
-                }
+}
 
-                class MySensorEventListener implements SensorEventListener {
-                  public void onSensorChanged(SensorEvent event) {                  
-                    accValues = event.values;
-                  }
-                  public void onAccuracyChanged(Sensor sensor, int accuracy) {
-                  }
-                }                
-                </blockquote>
+class MySensorEventListener implements SensorEventListener {
+  public void onSensorChanged(SensorEvent event) {                  
+    x = event.values[0];
+    y = event.values[1];
+    z = event.values[2];
+  }
+  public void onAccuracyChanged(Sensor sensor, int accuracy) {
+  }
+}                
+</code></pre>
 
                 <p>
                 In this case, the data from the accelerometer will be stored in the accValues array, for x, y, and z. We can
                 use these values in the draw() function:
                 </p>
 
-                <blockquote>
-                void draw() {
-                  background(157);
-                  lights();
-                  translate(x, y, z);
-                  sphere(50);
-                }                    
-                </blockquote>
+<pre><code>
+void draw() {
+  background(157);
+  lights();
+  translate(x, y, z);
+  sphere(50);
+}                    
+</code></pre>
+
+                <h3>Accessing other sensors</h3>
+
+                <p>Other sensors can be accessed in a very similary way, all you need to check Google's documentation and examples to use the correct classes and interpret the sensor values.</p>
+                <p>You could also use the <a href="http://ketai.org/">Ketai library</a> from Daniel Sauter and Jesus Duran, which wraps all of this handling code and makes very easy to simple obtain sensor values. Ketai can be installed through the Contribution manager.</p>
+
             </section>
 
         </div>

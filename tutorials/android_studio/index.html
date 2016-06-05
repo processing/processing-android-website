@@ -10,7 +10,7 @@
     
     <body>
 
-        <div id="ribbon">
+        <nav class="ring">        
             <ul class="left">
                 <li><a href="https://processing.org/">Processing</a></li>
                 <li><a href="http://p5js.org/">p5.js</a></li>
@@ -20,8 +20,7 @@
             <ul class="right">
                 <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
             </ul>
-            <div class="clear"></div>
-        <div>
+        </nav>   
 
         <header>            
             <h1 class="title">Processing for Android</h1>
@@ -71,15 +70,18 @@
                 Android Studio is the default IDE from Google to develop Processing apps, with the ADT plugin for Eclipse <a href="http://android-developers.blogspot.com/2015/06/an-update-on-eclipse-android-developer.html">no longer supported</a>. This <a href="https://github.com/codeanticode/processing-android-3.0-samples/tree/master/androidstudio-sample">sample project for AS</a> was created using AS 1.5.1. As for the general steps to use Processing in AS:
                 </p>
                 <ul>
-                <li>Create a new project with an empty activity, and then add the Processing's <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/java/com/example/androidstudiosample/Sketch.java">sketch class</a> and a minimal <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/java/com/example/androidstudiosample/MainActivity.java">main activity</a> to launch the fragment containing the sketch.</li>
-                <li>The project depends on android-core.jar, which can be obtained from by simply renaming the android-core.zip file bundled with the mode, copying it into the app/libs folder, as explained earlier, and adding it as module dependency.</li>
-                <li>You might also need to edit a few more files so the project is properly configured:
-                * The <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/AndroidManifest.xml">main manifest file</a>, where we need to specify the main and launcher activity with the intent filter:
-                * The <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/res/layout/activity_main.xml">layout file</a>, to make sure that the Processing fragment uses the entire screen with a frame layout.
-                * The <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/res/values/strings.xml">strings file</a>, to set the name of the app and its main activity.</a>
-                <li>Change the <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/res/values/styles.xml">default style</a> to hide the action bar.</li>
+                    <li>Create a new project with an empty activity, and then add the Processing's <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/java/com/example/androidstudiosample/Sketch.java">sketch class</a> and a minimal <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/java/com/example/androidstudiosample/MainActivity.java">main activity</a> to launch the fragment containing the sketch.</li>
+                    <li>The project depends on android-core.jar, which can be obtained from by simply renaming the android-core.zip file bundled with the mode, copying it into the app/libs folder, as explained earlier, and adding it as module dependency.</li>
+                    <li>You might also need to edit a few more files so the project is properly configured:
+                        <ol>
+                            <li>The <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/AndroidManifest.xml">main manifest file</a>, where we need to specify the main and launcher activity with the intent filter</li>
+                            <li>The <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/res/layout/activity_main.xml">layout file</a>, to make sure that the Processing fragment uses the entire screen with a frame layout.</li>
+                            <li>The <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/res/values/strings.xml">strings file</a>, to set the name of the app and its main activity.</a></li>
+                            <li>Change the <a href="https://github.com/codeanticode/processing-android-3.0-samples/blob/master/androidstudio-sample/app/src/main/res/values/styles.xml">default style</a> to hide the action bar.</li>
+                        </ol>
+                    </li>
                 </ul>
-                <a href="http://developer.android.com/reference/android/app/Fragment.html">Fragments</a> give you the possibility of embedding several Processing sketches in a single Android app, check out this <a href="https://github.com/omerjerk/ProcessingAndroidDemo">sample Android Studio project</a> from <a href="https://github.com/omerjerk">Umair Khan</a> to learn how.
+                <p><a href="http://developer.android.com/reference/android/app/Fragment.html">Fragments</a> give you the possibility of embedding several Processing sketches in a single Android app, check out this <a href="https://github.com/omerjerk/ProcessingAndroidDemo">sample Android Studio project</a> from <a href="https://github.com/omerjerk">Umair Khan</a> to learn how.</p>
                 
 
                 <h3>Debugging the core library</h3>

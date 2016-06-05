@@ -10,7 +10,7 @@
     
     <body>
 
-        <div id="ribbon">
+        <nav class="ring">        
             <ul class="left">
                 <li><a href="https://processing.org/">Processing</a></li>
                 <li><a href="http://p5js.org/">p5.js</a></li>
@@ -20,8 +20,7 @@
             <ul class="right">
                 <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
             </ul>
-            <div class="clear"></div>
-        <div>
+        </nav>   
 
         <header>            
             <h1 class="title">Processing for Android</h1>
@@ -56,45 +55,45 @@
                 Technically, they are an <a href="https://developer.android.com/reference/android/service/wallpaper/WallpaperService.html">Android Service</a>, designed to run for a long time in the background. With the Android mode in Processing, you don't need to implement these low-level details, and instead focus on the drawing code. Virtually any 2D or 3D sketch can be built as a live wallpaper. All you need to do is to select the Wallpaper option in the Android menu:
                 </p>
 
-                <img src="imgs/wallpaper_selection.png" alt="Wallpaper selection">
+                <img class="body-image" src="imgs/wallpaper_selection.png" alt="Wallpaper selection">
 
                 <h3>Creating a wallpaper</h3>
                 <p>
                 Let's write a simple wallpaper that uses the compass orientation to create a geometrical pattern. Based on the sensors tutorial, we can start off with the following code:
                 </p>
 
-                <blockquote>
-                import android.content.Context;
-                import android.hardware.Sensor;
-                import android.hardware.SensorEvent;
-                import android.hardware.SensorEventListener;
-                import android.hardware.SensorManager;
+<pre><code>
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 
-                Context context;
-                Sensor compass;
-                float direction;
+Context context;
+Sensor compass;
+float direction;
 
-                void setup() {
-                  fullScreen();
+void setup() {
+  fullScreen();
   
-                  context = (Context) surface.getComponent();
-                  SensorManager sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
-                  CompassEventListener listener = new CompassEventListener();
-                  compass = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-                  sensorManager.registerListener(listener, compass, SensorManager.SENSOR_DELAY_NORMAL);
-                }
+  context = (Context) surface.getComponent();
+  SensorManager sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+  CompassEventListener listener = new CompassEventListener();
+  compass = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+  sensorManager.registerListener(listener, compass, SensorManager.SENSOR_DELAY_NORMAL);
+}
 
-                void draw() {
-                }
+void draw() {
+}
 
-                class CompassEventListener implements SensorEventListener {
-                  public void onSensorChanged(SensorEvent event) {
-                    float x = event.values[0];
-                    direction = -x * PI / 180;
-                  }
-                  public void onAccuracyChanged(Sensor sensor, int accuracy) { }
-                }                
-                </blockquote>
+class CompassEventListener implements SensorEventListener {
+  public void onSensorChanged(SensorEvent event) {
+    float x = event.values[0];
+    direction = -x * PI / 180;
+  }
+  public void onAccuracyChanged(Sensor sensor, int accuracy) { }
+}                
+</code></pre>
 
                 <p>
                 Note that the context required to retrieve the sensor manager is obtained from the app component associated to the
@@ -104,55 +103,55 @@
                 idea to keep a low update rate, that's still ok for the purpose of generating the background. In fact you can set your own rate:
                 </p>
 
-                <blockquote>
-                int READING_RATE = 100000; // time in us
-                sensorManager.registerListener(listener, compass, READING_RATE);
-                </blockquote>
+<pre><code>
+int READING_RATE = 100000; // time in us
+sensorManager.registerListener(listener, compass, READING_RATE);
+</code></pre>
 
                 <p>
                 Now we can implement the drawing function. Let's use a bunch of particles that move following the direction of the magentic field, 
                 plus a small perturbabtion from the noise function:
                 </p>
 
-                <blockquote>
-                void setup() {
-                  fullScreen();
-                  frameRate(15);
+<pre><code>
+void setup() {
+  fullScreen();
+  frameRate(15);
   
-                  context = (Context) surface.getComponent();
-                  SensorManager sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
-                  CompassEventListener listener = new CompassEventListener();
-                  compass = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-                  sensorManager.registerListener(listener, compass, SensorManager.SENSOR_DELAY_NORMAL);
+  context = (Context) surface.getComponent();
+  SensorManager sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+  CompassEventListener listener = new CompassEventListener();
+  compass = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+  sensorManager.registerListener(listener, compass, SensorManager.SENSOR_DELAY_NORMAL);
   
-                  background(255);
-                  noStroke();
-                  fill(150, 50);
-                  particles = new PVector[100];
-                  for (int i = 0; i &lr; 100; i++) {
-                    particles[i] = new PVector(random(width), random(height));
-                  }
-                }
+  background(255);
+  noStroke();
+  fill(150, 50);
+  particles = new PVector[100];
+  for (int i = 0; i &lr; 100; i++) {
+    particles[i] = new PVector(random(width), random(height));
+  }
+}
 
-                void draw() {
-                  float dirx = cos(direction);
-                  float diry = sin(direction);
-                  for (int i = 0; i &lr; 100; i++) {
-                    PVector v = particles[i];
-                    float vx = v.x;
-                    float vy = v.y;
-                    v.x += dirx + noise(vx / 100.0, vy / 100.0, millis() / 1000.0);
-                    v.y += diry + noise(vx / 100.0, vy / 100.0, millis() / 1000.0);
-                    if (v.x &lr; 0 || width &lr; v.x) {
-                      v.x = random(width);
-                    }
-                    if (v.y &lr; 0 || height &lr; v.y) {
-                      v.y = random(height);
-                    } 
-                    ellipse(v.x, v.y, 10, 10);
-                  } 
-                }
-                </blockquote>    
+void draw() {
+  float dirx = cos(direction);
+  float diry = sin(direction);
+  for (int i = 0; i &lr; 100; i++) {
+    PVector v = particles[i];
+    float vx = v.x;
+    float vy = v.y;
+    v.x += dirx + noise(vx / 100.0, vy / 100.0, millis() / 1000.0);
+    v.y += diry + noise(vx / 100.0, vy / 100.0, millis() / 1000.0);
+    if (v.x &lr; 0 || width &lr; v.x) {
+      v.x = random(width);
+    }
+    if (v.y &lr; 0 || height &lr; v.y) {
+      v.y = random(height);
+    } 
+    ellipse(v.x, v.y, 10, 10);
+  } 
+}
+</code></pre>
 
                 <h3>Installation</h3>
                 <p>
