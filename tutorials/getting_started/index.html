@@ -45,18 +45,17 @@
             <section class="container main-text">
             	<h2>Getting started</h2>
                 <p>
-                In this tutorial you will learn how to setup your system to develop in Android
+                In this tutorial you will learn how to use the Android Mode in Processing to create your apps.
                 </p>
 
                 <h3>Installing the SDK</h3>
                 <p>
-                The first time you open the Android mode after <a href="../../install.html">installing it</a> through the CM or manually, you will see this window, asking to either locate a pre-installed SDK, or download the SDK automatically:
+                The first time you open the Android mode after <a href="../../install.html" target="_black">installing it</a> through the CM or manually, you will see this window, asking to either locate a pre-installed Android SDK, or download the Android SDK automatically:
                 </p>
 
                 <p><img class="body-image" src="imgs/sdk_install.png" alt="SDK install"></p>
 
-                <p>If you want to use an Android SDK already downloaded to your computer, you should use the "Locate SDK path manually" and select the folder containing the SDK. However, this SDK should include Android 4.0.3 (API level 15)
-                or higher. In order to manually download and install the SDK, go to <a href="https://developer.android.com/studio/index.html">this page</a>, scroll down to the command line tools section and select the one for your OS. Doing this could be convenient if you plan to use the SDK from different development tools (command line, Android Studio, etc.) in addition to Processing. However, the SDK that Processing downloads and installs automatically gets stored inside the mode folder, and does not interfere with any other SDK installed in your computer.
+                <p>If you want to use an SDK already downloaded to your computer, choose the "Locate SDK path manually" option and select the folder containing the SDK. However, this SDK should include Android 4.0.3 (API level 15) or higher if you are using version 3.0.x of the mode, or Android 5.0 (API level 21) if you are using 4.0+. In order to manually download and install the SDK, go to <a href="https://developer.android.com/studio/index.html#downloads" target="_black">this page</a>, scroll down to the command line tools section and select the one for your Oerating System. Doing this could be convenient if you plan to use the same SDK from different development tools (command line, Android Studio, etc.) in addition to Processing. However, keep in mind that the SDK that Processing downloads and installs automatically gets stored inside the mode folder, and does not interfere with any other SDK installed in your computer.
                 </p>
 
                 <p>
@@ -67,9 +66,8 @@
 
                 <h3>Writing a simple sketch</h3>
                 <p>
-                Let's write a simple Processing sketch to run on your Android phone or tablet and make sure everything works as expected. In the following code, we should see half of the screen receiving a touchpress painted black. Note that nothing in this sketch is really specific to Android, so you could run it in the Java mode as well. This portability of Processing sketches (as long as they rely on any platform-specific features) is useful for testing, as the Java mode includes an integrated debugger that can help to solve errors in the code more easily.
+                Let's write a short Processing sketch to run on your Android phone or tablet and make sure everything works as expected. In the following code, we paint black the half of the screen receiving a touchpress. Note that nothing in this sketch is really specific to Android, so you could run it in the Java mode as well. This portability of Processing sketches (as long as they don't rely on any platform-specific features) is useful for testing, as the Java mode includes an integrated debugger that can help to spot errors in the code more easily.
                 </p>
-
 
 <pre><code>
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
@@ -96,24 +94,32 @@
                 <ul>
                     <li>Turn on "USB Debugging" on the device - this process varies by device and which version of the OS you have installed. In most of the cases, this setting is located in the <em>Developer Options</em>, under system Setting. On Android 4.2 and higher the Developer Options are hidden by default, but you can enable them by following <a href="https://developer.android.com/studio/run/device.html#developer-device-options">these instructions</a>.</li>
                     
-                    <li>If you are running Windows, you need to follow <a href="https://developer.android.com/studio/run/oem-usb.html">Google's documentation</a> to install a special USB driver and take care of additional settings.</li>
+                    <li>If you are running Windows, you need to follow <a href="https://developer.android.com/studio/run/oem-usb.html">Google's documentation</a> to install a special USB driver and take care of additional settings. If you downloaded the Android SDK automatically in Processing, then the latest USB drivers will be inside the mode folder, under the temp subfolder.</li>
                 </ul>
                 </p>
+                
+                <p>If everything goes well, then your sketch should do something like this on your phone:</p> 
+
+                <p><img class="body-image" src="imgs/getting_started.gif" alt="Getting Started Sketch"></p>
+
 
                 <h3>Running the sketch on the emulator</h3>
                 <p>
-                Processing will start the Android emulator (which can take a long time), and then will launch thr sketch on it. Don't close the emulator after testing one sketch, just leave it open so you don't need to wait for the next sketch you want to run!
-                </p>
+                If you don't have a device to run your sketch on, you can still use the software emulator. The first time you run a sketch in the emulator, Processing will ask you to download the system image needed by the emulator to boot up:
+
+                <p><img class="body-image" src="imgs/download_emulator.png" alt="Device selection"></p>
+
+                <p>After finishing the donwload, which can take a few minutes depending on your internet connection (the system images are around 300MB in size), Processing will start the emulator, and then will launch thr sketch in it.</p>
 
                 <div class="butterbar">
-                Sometimes the sketch does not run the first time right after the emulator boots up. Just try running it again after the emulator is done.
+                Since the emulator typically takes a long time to start up, the sketch might fail to run in the first attempt since the emulator is not yet ready. If this happens, just try running the sketch in the emulator again.
                 </div>
 
-                <h3>If everything goes well...</h3>
+                <p>Another important tip is not to close the emulator after testing one sketch, just leave it open so you don't need to wait for the emulator to boot up again the next time!</p>
 
-                <p>Then your sketch should do something like this on your phone:</p> 
+                <p>Depending on what you are running, the emulator appear in a separate window, more or less like this:</p>
 
-                <p><img class="body-image" src="imgs/getting_started.gif" alt="Getting Started Sketch"></p>
+                <p><img class="body-image" src="imgs/emulator.png" alt="Device selection"></p>
             </section>
 
         </div>
