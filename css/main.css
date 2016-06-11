@@ -225,12 +225,17 @@ code {
   font-family: monospace, "Courier New", Courier;
 }
 
+sup { 
+  vertical-align: super;
+  font-size: smaller;
+}
+
 /*.center {
   margin: auto;
 }*/
 
 .body-image {
-  width: 480px;  
+  max-width: 480px;  
   display: block;
   margin-left: auto;
   margin-right: auto;  

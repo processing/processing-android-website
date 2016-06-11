@@ -42,148 +42,163 @@
             <section class="container main-text">
             	<h2>Using the sensors</h2>
                 <p>                
-                How to access accelerometer, GPS, compass, etc.
+                In this tutorial we will learn how to read motion sensor data from Processing.
                 </p>
 
                 <h3>Sensor API in the Android SDK</h3>
                 
                 <p>
-                Smartphones and tablets include many different sensors, for example accelerometers, gyroscopes, magnetic field sensors, and barometers, which allow to collect information about the movement and location of the device, and about its surroundings. Wearable devices (smartwatches, fitness bands)also incorporate sensors that can take bodily, like heartrate and fingerprints.</p>
-                <p>While the Processing language does not offer specialized functions to read data from these sensors sensors, you can import the packages in the <a href="https://developer.android.com/reference/android/hardware/Sensor.html">Android SDK</a> that allow collect sensor measurements from your sketch. 
+                Smartphones and tablets include many different types of <a href="https://developer.android.com/guide/topics/sensors/sensors_overview.html" target="_black">sensors</a>, for example accelerometers, gyroscopes, magnetometers, and thermometers. These sensors allow us to obtain information about the movement, environment, and position of the device.</p>
+                <p>While the Processing language does not have specialized functions to read data from these sensors, you can import the packages in the <a href="https://developer.android.com/reference/android/hardware/Sensor.html" target="_black">Android SDK</a> that receive sensor measurements from your sketch. 
                 </p>
 
                 <h3>Creating a sensor manager</h3>
                 <p>
-                The first step to use the sensor API is to obtain the cntext of the activity that contains the sketch, and use this activity to initialize the sensor manager that we will use to 
-                Once the sketch starts and calls the setup() function, we can grab the context of the activity that contains the
-                sketch, and using it to initialize the sensor manager that we will use the sensor and the "listener" object that will allow us to listen to the sensor from our sketch:
+                In the first example, we will create a sketch that responds to changes in acceleration, so we will be using the data from the accelerometer. The first step to use the sensor API is to obtain the context of the activity that contains the sketch, and to obtain a sensor manager from this context. Then, we can get the sensor we need in our core, in this case an accelerometer. We do all of this in the <code>setup()</code> function:
                 </p>
 
 <pre><code>
 <span style="color: #33997E;">import</span> android.content.Context;
 <span style="color: #33997E;">import</span> android.hardware.Sensor;
-<span style="color: #33997E;">import</span> android.hardware.SensorEvent;
-<span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
 <span style="color: #33997E;">import</span> android.hardware.SensorManager;
 
 Context&nbsp;context;
-SensorManager&nbsp;sensorManager;
+SensorManager&nbsp;manager;
+Sensor&nbsp;sensor;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
 &nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
 &nbsp;&nbsp;
 &nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
-&nbsp;&nbsp;sensorManager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+&nbsp;&nbsp;sensor&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-
 }
-</code></pre>
-
-                <h3>Sensor event listener</h3>
-                <p>
-                Now we implement a "listener" class that will notify the sketch that new data is coming from the sensor. A listener for each sensor is derived using the base SensorEventListener class from the Android SDK:
-                </p>
-
-<pre><code>
-<span style="color: #33997E;">import</span> android.content.Context;
-<span style="color: #33997E;">import</span> android.hardware.Sensor;
-<span style="color: #33997E;">import</span> android.hardware.SensorEvent;
-<span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
-<span style="color: #33997E;">import</span> android.hardware.SensorManager;
-
-Context&nbsp;context;
-SensorManager&nbsp;sensorManager;
-MySensorEventListener&nbsp;listener;
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
-&nbsp;&nbsp;
-&nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
-&nbsp;&nbsp;sensorManager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
-
-&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> MySensorEventListener();                    
-}
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-
-}
-
-<span style="color: #33997E;">class</span> MySensorEventListener <span style="color: #33997E;">implements</span> SensorEventListener {
-&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {                  
-&nbsp;&nbsp;&nbsp;&nbsp;accValues&nbsp;=&nbsp;event.values;
-&nbsp;&nbsp;}
-&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onAccuracyChanged(Sensor sensor, <span style="color: #E2661A;">int</span> accuracy) {
-&nbsp;&nbsp;}
-}
-</code></pre>
-
-                <h3>Getting the sensor data</h3>
-                <p>
-                Once the event listener is ready, we create the sensor and pass it to the listener:
-                </p>    
-
-<pre><code>
-<span style="color: #33997E;">import</span> android.content.Context;
-<span style="color: #33997E;">import</span> android.hardware.Sensor;
-<span style="color: #33997E;">import</span> android.hardware.SensorEvent;
-<span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
-<span style="color: #33997E;">import</span> android.hardware.SensorManager;
-
-Context&nbsp;context;
-SensorManager&nbsp;sensorManager;
-MySensorEventListener&nbsp;listener;
-Sensor&nbsp;accSensor;
-<span style="color: #E2661A;">float</span> x, y, z;
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
-&nbsp;&nbsp;
-&nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
-&nbsp;&nbsp;sensorManager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
-
-&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> MySensorEventListener();  
-&nbsp;&nbsp;accSensor&nbsp;=&nbsp;sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-&nbsp;&nbsp;sensorManager.registerListener(listener,&nbsp;accSensor,&nbsp;SensorManager.SENSOR_DELAY_GAME);
-}
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-
-}
-
-<span style="color: #33997E;">class</span> MySensorEventListener <span style="color: #33997E;">implements</span> SensorEventListener {
-&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {                  
-&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;=&nbsp;event.values[0];
-&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;=&nbsp;event.values[1];
-&nbsp;&nbsp;&nbsp;&nbsp;z&nbsp;=&nbsp;event.values[2];
-&nbsp;&nbsp;}
-&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onAccuracyChanged(Sensor sensor, <span style="color: #E2661A;">int</span> accuracy) {
-&nbsp;&nbsp;}
-}&nbsp;&nbsp;&nbsp;
- 
 </code></pre>
 
                 <div class="butterbar">
-                In version 4.0, getActivity() needs to be called from the surface object available in PApplet: 
-                <pre> 
-                context = surface.getActivity();
-                </pre>
+                In Android Mode 4.0 and higher, <code>getActivity()</code> needs to be called from the surface object that exists in PApplet and holds all the information relevant to the drawing surface of the sketch:<br><br>
+                <code>context = surface.getActivity();</code>
                 </div>
 
+
+                <h3>Adding a sensor listener</h3>
                 <p>
-                In this case, the data from the accelerometer will be stored in the accValues array, for x, y, and z. We can
-                use these values in the draw() function:
+                Now we need to add a "listener" class that will notify the sketch that new data is coming from the sensor. A listener for each sensor is derived from the base <a href="https://developer.android.com/reference/android/hardware/SensorEventListener.html" target="_black">SensorEventListener class</a> in the Android SDK. Once we have a listener instance in the sketch, we can register the listener with the manager:
                 </p>
 
 <pre><code>
+<span style="color: #33997E;">import</span> android.content.Context;
+<span style="color: #33997E;">import</span> android.hardware.Sensor;
+<span style="color: #33997E;">import</span> android.hardware.SensorManager;
+<span style="color: #33997E;">import</span> android.hardware.SensorEvent;
+<span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
+
+Context&nbsp;context;
+SensorManager&nbsp;manager;
+Sensor&nbsp;sensor;
+AccelerometerListener&nbsp;listener;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
+&nbsp;&nbsp;
+&nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
+&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+&nbsp;&nbsp;sensor&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> AccelerometerListener();
+&nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_GAME);
+}
+
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">background</span>(157);
-&nbsp;&nbsp;<span style="color: #006699;">lights</span>();
-&nbsp;&nbsp;<span style="color: #006699;">translate</span>(x, y, z);
-&nbsp;&nbsp;<span style="color: #006699;">sphere</span>(50);
-}&nbsp;&nbsp;
+}
+
+<span style="color: #33997E;">class</span> AccelerometerListener <span style="color: #33997E;">implements</span> SensorEventListener {
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onAccuracyChanged(Sensor sensor, <span style="color: #E2661A;">int</span> accuracy) {
+&nbsp;&nbsp;}
+}
 </code></pre>
+
+                <p>You probaby noticed the <code>SensorManager.SENSOR_DELAY_GAME</code> argument in the listener registration. This argument sets the rate by which the sensor gets data. Faster rates mean more responsiveness, but also more battery consumption. There are several pre-defined rate constants in addition to <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_GAME" target="_black"><code>SENSOR_DELAY_GAME</code></a>, you can also use <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_FASTEST" target="_black"><code>SENSOR_DELAY_FASTEST</code></a>, <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_NORMAL" target="_black"><code>SENSOR_DELAY_NORMAL</code></a>, and <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_GAME" target="_black"><code>SENSOR_DELAY_UI</code></a>.</p>
+
+                <h3>Reading the sensor data</h3>
+                <p>
+                The event listener has two methods, <code>onSensorChanged()</code> and <code>onAccuracyChanged()</code>. We only need to use <code>onSensorChanged()</code> to get the data from the sensor. In the case of the accelerometer, the data consists in three float numbers, representing the acceleraton along the X, Y, and Z axis of the device, defined as follows:
+                </p>    
+
+                <p><img class="body-image" src="imgs/axis_device.png" alt="Device axis"></p>
+
+                <p>As a first test, we can simply print these values to the screen, and verify that if we place the phone flat on the table with the screen facing up, then we should see a Z acceleration of 9.81 m/s<sup>2</sup>, corresponding to the <a href="https://developer.android.com/guide/topics/sensors/sensors_motion.html#sensors-motion-accel" target="_black">force of gravity</a>.</p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> android.content.Context;
+<span style="color: #33997E;">import</span> android.hardware.Sensor;
+<span style="color: #33997E;">import</span> android.hardware.SensorManager;
+<span style="color: #33997E;">import</span> android.hardware.SensorEvent;
+<span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
+
+Context&nbsp;context;
+SensorManager&nbsp;manager;
+Sensor&nbsp;sensor;
+AccelerometerListener&nbsp;listener;
+<span style="color: #E2661A;">float</span> ax, ay, az;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
+&nbsp;&nbsp;
+&nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
+&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+&nbsp;&nbsp;sensor&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> AccelerometerListener();
+&nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_GAME);
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">textFont</span>(<span style="color: #006699;">createFont</span>(<span style="color: #7D4793;">&quot;Arial&quot;</span>, 60));
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;X: &quot;</span> + ax, 10, 60);
+&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Y: &quot;</span> + ay, 10, 120);
+&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Z: &quot;</span> + az, 10, 180);
+}
+
+<span style="color: #33997E;">class</span> AccelerometerListener <span style="color: #33997E;">implements</span> SensorEventListener {
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {
+&nbsp;&nbsp;&nbsp;&nbsp;ax&nbsp;=&nbsp;event.values[0];
+&nbsp;&nbsp;&nbsp;&nbsp;ay&nbsp;=&nbsp;event.values[1];
+&nbsp;&nbsp;&nbsp;&nbsp;az&nbsp;=&nbsp;event.values[2];&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onAccuracyChanged(Sensor sensor, <span style="color: #E2661A;">int</span> accuracy) {
+&nbsp;&nbsp;}
+}
+</code></pre>
+
+                <p>
+                As a <a href="https://developer.android.com/guide/topics/sensors/sensors_overview.html#sensors-practices" target="_black">best practice</a> for using sensors, it is recommended to unregister the listener when the sketch's activity is paused to reduce battery usage, and then registering it again when the activity resumes. We can achieve this adding the following code to our sketch:
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onResume() {
+&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onResume();
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_GAME);
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onPause() {
+&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onPause();
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;manager.unregisterListener(listener);
+&nbsp;&nbsp;}
+}
+</code></pre>
+
+                <p>
+                We need to check for a null manager instance because <code>onPause()</code> or <code>onResume()</code> could be called before the <code>setup()</code> function in our sketch.
+                </p> 
 
                 <h3>Accessing other sensors</h3>
 
