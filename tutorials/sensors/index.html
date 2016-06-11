@@ -30,13 +30,12 @@
 
             <nav class="site">
                 <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo"><br><br><br><br>
-                <a href="../../index.html">Cover</a><br>
-                <a href="../../beta.html">Beta</a><br>
+                <a href="../../index.html">Home</a><br>
                 <a href="../../install.html">Install</a><br>
                 <a href="../../reference.html">Reference</a><br>
-                <a id="selected" href="../index.html">Tutorials</a><br>      
-                <a href="https://forum.processing.org/two/categories/android">Forum</a><br>
-                <a class="foundation" href="https://github.com/processing/processing-android">GitHub</a><br>
+                <a id="selected" href="../index.html">Tutorials</a><br> 
+                <a href="https://forum.processing.org/two/categories/android" target="_black">Forum</a><br>
+                <a href="https://github.com/processing/processing-android" target="_black">GitHub</a><br>
             </nav>
       
             <section class="container main-text">
@@ -60,23 +59,23 @@
                 </p>
 
 <pre><code>
-import android.content.Context;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+<span style="color: #33997E;">import</span> android.content.Context;
+<span style="color: #33997E;">import</span> android.hardware.Sensor;
+<span style="color: #33997E;">import</span> android.hardware.SensorEvent;
+<span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
+<span style="color: #33997E;">import</span> android.hardware.SensorManager;
 
-Context context;
-SensorManager sensorManager;
+Context&nbsp;context;
+SensorManager&nbsp;sensorManager;
 
-void setup() {
-  fullScreen(P3D);
-  
-  context = getActivity();
-  sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
+&nbsp;&nbsp;
+&nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
+&nbsp;&nbsp;sensorManager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
 }
 
-void draw() {
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
 
 }
 </code></pre>
@@ -87,35 +86,35 @@ void draw() {
                 </p>
 
 <pre><code>
-import android.content.Context;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+<span style="color: #33997E;">import</span> android.content.Context;
+<span style="color: #33997E;">import</span> android.hardware.Sensor;
+<span style="color: #33997E;">import</span> android.hardware.SensorEvent;
+<span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
+<span style="color: #33997E;">import</span> android.hardware.SensorManager;
 
-Context context;
-SensorManager sensorManager;
-MySensorEventListener listener;
+Context&nbsp;context;
+SensorManager&nbsp;sensorManager;
+MySensorEventListener&nbsp;listener;
 
-void setup() {
-  fullScreen(P3D);
-  
-  context = getActivity();
-  sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
+&nbsp;&nbsp;
+&nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
+&nbsp;&nbsp;sensorManager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
 
-  listener = new MySensorEventListener();                    
+&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> MySensorEventListener();                    
 }
 
-void draw() {
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
 
 }
 
-class MySensorEventListener implements SensorEventListener {
-  public void onSensorChanged(SensorEvent event) {                  
-    accValues = event.values;
-  }
-  public void onAccuracyChanged(Sensor sensor, int accuracy) {
-  }
+<span style="color: #33997E;">class</span> MySensorEventListener <span style="color: #33997E;">implements</span> SensorEventListener {
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {                  
+&nbsp;&nbsp;&nbsp;&nbsp;accValues&nbsp;=&nbsp;event.values;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onAccuracyChanged(Sensor sensor, <span style="color: #E2661A;">int</span> accuracy) {
+&nbsp;&nbsp;}
 }
 </code></pre>
 
@@ -125,43 +124,51 @@ class MySensorEventListener implements SensorEventListener {
                 </p>    
 
 <pre><code>
-import android.content.Context;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+<span style="color: #33997E;">import</span> android.content.Context;
+<span style="color: #33997E;">import</span> android.hardware.Sensor;
+<span style="color: #33997E;">import</span> android.hardware.SensorEvent;
+<span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
+<span style="color: #33997E;">import</span> android.hardware.SensorManager;
 
-Context context;
-SensorManager sensorManager;
-MySensorEventListener listener;
-Sensor accSensor;
-float x, y, z;
+Context&nbsp;context;
+SensorManager&nbsp;sensorManager;
+MySensorEventListener&nbsp;listener;
+Sensor&nbsp;accSensor;
+<span style="color: #E2661A;">float</span> x, y, z;
 
-void setup() {
-  fullScreen(P3D);
-  
-  context = getActivity();
-  sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
+&nbsp;&nbsp;
+&nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
+&nbsp;&nbsp;sensorManager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
 
-  accSensorEventListener = new MySensorEventListener();  
-  accSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-  sensorManager.registerListener(accSensorEventListener, accSensor, SensorManager.SENSOR_DELAY_GAME);
+&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> MySensorEventListener();  
+&nbsp;&nbsp;accSensor&nbsp;=&nbsp;sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+&nbsp;&nbsp;sensorManager.registerListener(listener,&nbsp;accSensor,&nbsp;SensorManager.SENSOR_DELAY_GAME);
 }
 
-void draw() {
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
 
 }
 
-class MySensorEventListener implements SensorEventListener {
-  public void onSensorChanged(SensorEvent event) {                  
-    x = event.values[0];
-    y = event.values[1];
-    z = event.values[2];
-  }
-  public void onAccuracyChanged(Sensor sensor, int accuracy) {
-  }
-}                
+<span style="color: #33997E;">class</span> MySensorEventListener <span style="color: #33997E;">implements</span> SensorEventListener {
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {                  
+&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;=&nbsp;event.values[0];
+&nbsp;&nbsp;&nbsp;&nbsp;y&nbsp;=&nbsp;event.values[1];
+&nbsp;&nbsp;&nbsp;&nbsp;z&nbsp;=&nbsp;event.values[2];
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onAccuracyChanged(Sensor sensor, <span style="color: #E2661A;">int</span> accuracy) {
+&nbsp;&nbsp;}
+}&nbsp;&nbsp;&nbsp;
+ 
 </code></pre>
+
+                <div class="butterbar">
+                In version 4.0, getActivity() needs to be called from the surface object available in PApplet: 
+                <pre> 
+                context = surface.getActivity();
+                </pre>
+                </div>
 
                 <p>
                 In this case, the data from the accelerometer will be stored in the accValues array, for x, y, and z. We can
@@ -169,12 +176,12 @@ class MySensorEventListener implements SensorEventListener {
                 </p>
 
 <pre><code>
-void draw() {
-  background(157);
-  lights();
-  translate(x, y, z);
-  sphere(50);
-}                    
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(157);
+&nbsp;&nbsp;<span style="color: #006699;">lights</span>();
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(x, y, z);
+&nbsp;&nbsp;<span style="color: #006699;">sphere</span>(50);
+}&nbsp;&nbsp;
 </code></pre>
 
                 <h3>Accessing other sensors</h3>

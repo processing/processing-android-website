@@ -2,6 +2,11 @@
 <html lang="en">
     <head>
     	<meta charset="utf-8">
+        <meta name="Author" content="Casey Reas &amp; Ben Fry with Android Mode text by Andres Colubri">
+        <meta name="Publisher" content="Processing Foundation">
+        <meta name="Keywords" content="Processing, Interactive Media, Electronic Arts, Programming, Java, Ben Fry, Casey Reas, Android">
+        <meta name="Description" content="Android Mode for Processing extends the Processing Development Environment with Android support for apps, wallpapers, watch faces, and Cardboard.">
+        <meta name="Copyright" content="All contents copyright Processing Foundation">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
         <link rel="icon" type="image/png" href="http://android.processing.org/test/favicon.png">
     	<link rel="stylesheet" href="css/main.css">
@@ -30,32 +35,26 @@
 
             <nav class="site">
                 <img class="logo" src="imgs/logo.png" alt="Processing for Android logo"><br><br><br><br>
-                <a id="selected" href="index.html">Cover</a><br>
-                <a href="beta.html">Beta</a><br>
+                <a id="selected" href="index.html">Home</a><br>
                 <a href="install.html">Install</a><br>
                 <a href="reference/index.html">Reference</a><br>
                 <a href="tutorials/index.html">Tutorials</a><br>
-                <a href="https://forum.processing.org/two/categories/android">Forum</a><br>
-                <a class="foundation" href="https://github.com/processing/processing-android">GitHub</a><br>
+                <a href="https://forum.processing.org/two/categories/android" target="_black">Forum</a><br>
+                <a href="https://github.com/processing/processing-android" target="_black">GitHub</a><br>
             </nav>
       
             <section class="container main-text">
                 <p>
-                Processing for Android a project within the Processing community to bring up-to-date support for Android development into the Processing environment. The main component of this project is the <em>Android Mode</em>, a <a href="https://processing.org/reference/environment/#Programming_modes">programming mode</a> for the Processing Development Environment (PDE) that allows you to create Android apps using the Processing language. With this mode, you can run Processing sketches in Android devices with little or no changes in the code, while also being able to access the Android SDK for advanced functionality (sensors, geolocation, etc.)
+                Processing for Android allows you to create Android apps using Processing. You can run Processing sketches on Android devices (phones, tablets, smartwatches) with little or no changes in the code, and without having to take care of repetitive tasks such as installing the SDK files, creating project folders, or setting default assets. You can also access the Android SDK to get sensor data and other advanced features, and export your sketch as a signed package to upload to the Google Play Store.
                 </p>
 
                 <p>
-                The mode takes care of repetitive tasks such as installing the SDK files, creating project folders, and setting default assets. All you need to do is to write your sketch as you would normally do when working in the Java mode, and then simply run it on your Android device or the emulator. You can also export your sketch as a signed package to upload to the Google Play Store.
-                </p>
-
-                <p>
-                The current version of the mode (3.0) allows you to create regular Android apps. The upcoming 4.0 version, currently in <a href="beta.html">beta stage</a>, adds support for <a href="http://android-developers.blogspot.com/2010/02/live-wallpapers.html">live wallpapers</a>, <a href="https://developer.android.com/training/wearables/watch-faces/index.html">watch faces</a>, and <a href="https://vr.google.com/cardboard/index.html">Google Cardboard</a>. Stay tuned for updates from the Contribution Manager in the PDE, or the Processing twitter channel!  
-                </p>
+                The current 3.0 version of the mode lets you to develop regular Android apps. The upcoming 4.0 version will add support for <a href="http://android-developers.blogspot.com/2010/02/live-wallpapers.html" target="_black">live wallpapers</a>, <a href="https://developer.android.com/training/wearables/watch-faces/index.html" target="_black">watch faces</a>, and <a href="https://vr.google.com/cardboard/index.html" target="_black">Google Cardboard</a>. Stay tuned for updates from the Contribution Manager in the PDE, or Processing's <a href="https://twitter.com/processingOrg" target="_black">twitter channel</a>!</p>
                 <br>
 
-                <h2 >Team</h2>
-                <p >
-                As with the rest of the Processing project, this is a collective effort. Work on the Android mode started in 2010 with <a href="http://www.benfry.com/">Ben Fry</a> and <a href="http://mrfeinberg.com/">Jonathan Feinberg</a> creating the basic pieces, and <a href="http://andrescolubri.net">Andres Colubri</a> developing the GLES renderer. During Google Summer of Code 2014, <a href="https://github.com/imilka">Imil Ziyaztdinov</a> implemented signed package export, device selection, and automatic SDK download. Shortly afterwards, as part of Google Summer of Code 2015, <a href="https://github.com/omerjerk">Umair Khan</a> updated the mode to work in Processing 3, refactored the core library to use Fragments, and wrote a video playback and capture library. In 2016, with support from <a href="https://www.creativelab5.com/">Google Creative Lab</a>, Andres Colubri extended the mode to include live wallpapers, watch faces, and Cardboard apps. For a full list of contributors, check <a href="https://github.com/processing/processing-android/graphs/contributors">this page</a>.
+                <h2>Team</h2>
+                <p>
+                Like the rest of the Processing project, Processing for Android is a collective effort. Work started in 2010 with <a href="http://www.benfry.com/" target="_black">Ben Fry</a> and <a href="http://mrfeinberg.com/" target="_black">Jonathan Feinberg</a> creating the basic pieces of the Android mode and core library, and <a href="http://andrescolubri.net" target="_black">Andres Colubri</a> developing the OpenGL ES renderer. During Google Summer of Code 2014, <a href="https://github.com/imilka" target="_black">Imil Ziyaztdinov</a> implemented signed package export, device selection, and automatic SDK download. Shortly afterwards, as part of Google Summer of Code 2015, <a href="https://github.com/omerjerk" target="_black">Umair Khan</a> updated the mode to work in Processing 3, refactored the core library to use Fragments, and wrote a video playback and capture library. In 2016, with support from <a href="https://www.creativelab5.com/" target="_black">Google Creative Lab</a>, Andres Colubri extended the mode to include live wallpapers, watch faces, and Cardboard apps. For a full list of contributors, check <a href="https://github.com/processing/processing-android/graphs/contributors" target="_black">this page</a>.
                 </p>
      
             </section>

@@ -33,13 +33,12 @@
 
             <nav class="site">
                 <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo"><br><br><br><br>
-                <a href="../../index.html">Cover</a><br>
-                <a href="../../beta.html">Beta</a><br>
+                <a href="../../index.html">Home</a><br>
                 <a href="../../install.html">Install</a><br>
                 <a href="../../reference.html">Reference</a><br>
-                <a id="selected" href="../index.html">Tutorials</a><br>      
-                <a href="https://forum.processing.org/two/categories/android">Forum</a><br>
-                <a class="foundation" href="https://github.com/processing/processing-android">GitHub</a><br>
+                <a id="selected" href="../index.html">Tutorials</a><br> 
+                <a href="https://forum.processing.org/two/categories/android" target="_black">Forum</a><br>
+                <a href="https://github.com/processing/processing-android" target="_black">GitHub</a><br>
             </nav>
       
             <section class="container main-text">
@@ -72,21 +71,21 @@
 
 
 <pre><code>
-void setup() {
-  fullScreen();
-  noStroke();
-  fill(0);
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0);
 }
 
-void draw() {
-  background(204);
-  if (mousePressed) {
-    if (mouseX &lt; width/2) {
-      rect(0, 0, width/2, height); // Left
-    } else {
-      rect(width/2, 0, width/2, height); // Right
-    }
-  }
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(204);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mousePressed</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mouseX</span> &amp;lt; <span style="color: #D94A7A;">width</span>/2) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">rect</span>(0, 0, <span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>); <span style="color: #666666;">// Left</span>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">rect</span>(<span style="color: #D94A7A;">width</span>/2, 0, <span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>); <span style="color: #666666;">// Right</span>
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;}
 }
 </code></pre>
 
@@ -103,13 +102,17 @@ void draw() {
                 <h3>Running the sketch on the emulator</h3>
                 <p>
                 Processing will start the Android emulator (which can take a long time), and then will launch thr sketch on it. Don't close the emulator after testing one sketch, just leave it open so you don't need to wait for the next sketch you want to run!
-                </p>                
+                </p>
+
+                <div class="butterbar">
+                Sometimes the sketch does not run the first time right after the emulator boots up. Just try running it again after the emulator is done.
+                </div>
 
                 <h3>If everything goes well...</h3>
 
-                <p>Then the sketch shuld behave something like this:</p> 
+                <p>Then your sketch should do something like this on your phone:</p> 
 
-                <p><img src="imgs/getting_started.gif" alt="Getting Started Sketch"></p>
+                <p><img class="body-image" src="imgs/getting_started.gif" alt="Getting Started Sketch"></p>
             </section>
 
         </div>
