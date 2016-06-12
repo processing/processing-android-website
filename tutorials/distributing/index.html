@@ -42,35 +42,34 @@
             <section class="container main-text">
             	<h2>Distributing apps</h2>
                 <p>
-                How to distribute your sketches as apps that other users can install
+                In this tutorial we will review the steps to publish your Processing sketch as an app in the Google Play store.
                 </p>
 
                 <h3>Creating a keystore</h3>
                 <p>
-                Processing simplifies the packaging of your sketch as a signed app that can be uploaded to the market,
-                with the "Export Signed Package" option in the mode:
+                The Android Mode simplifies the publishing of your sketch by <a href="https://developer.android.com/studio/publish/app-signing.html" target="_black">signing</a> and <a href="https://developer.android.com/studio/command-line/zipalign.html" target="_black">aligning</a> the app, so you can upload it to the Google Play Developer Console without any extra additional steps. All you need to do is to select the "Export Signed Package" option under the File menu:
                 </p>
 
                 <p><img class="body-image" src="imgs/export_option.png" alt="Export signed package"></p>
 
                 <p>
-                Once selecting this option, Processing will ask to create a new keystore to hold the private key to 
-                sign the app:                    
+                Once selecting this option, Processing will ask to create a new keystore to hold the private release key to 
+                sign the app package:
                 </p>
 
                 <p><img class="body-image" src="imgs/kestore_manager.png" alt="Keystore manager"></p>
 
                 <p>
-                Remember this password, as you will have to use it when uploading the app package to Google Play, and every time exporting a new sketch, although you can reset it.
+                Remember this password, as you will have to use it every time you export a new signed package. However, you can reset it and create a new key.
                 </p>
 
                 <p>
-                The signed package will be saved in a bin folder the sketch's folder, under the name [Sketch name]-release-signed.apk. With this file and the private key, you can follow the <a href="https://support.google.com/googleplay/android-developer/answer/113469?hl=en">instructions from Google</a>.
+                The signed (and aligned) package will be saved in the bin subfolder the sketch's folder, under the name [Sketch name]-release-signed-aligned.apk. With this file , you can follow the <a href="https://developer.android.com/distribute/googleplay/start.html">instructions from Google</a> to complete the publishing process.
                 </p>
 
                 <h3>Setting custom icons</h3>
                 <p>
-                Android mode uses a set of default icons for the app. You can use your own icons by creating the files icon-32, 48, 72, and 96 in png format and placing them in the sketch's folder. Follow the <a href="https://www.google.com/design/spec/style/icons.html">icon design guidelines from Google</a>.                
+                Android mode uses a set of default icons for the app. You should use your own icons by creating the files icon-32, 48, 72, 96, 144, and 192 in .PNG format and placing them in the sketch's folder before exporting the signed package. Follow the <a href="https://www.google.com/design/spec/style/icons.html">icon design guidelines from Google</a> in order to create your icons.
                 </p>
             </section>
 
