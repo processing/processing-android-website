@@ -67,7 +67,7 @@ SensorManager&nbsp;manager;
 Sensor&nbsp;sensor;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
 &nbsp;&nbsp;
 &nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
 &nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
@@ -102,7 +102,7 @@ Sensor&nbsp;sensor;
 AccelerometerListener&nbsp;listener;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
 &nbsp;&nbsp;
 &nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
 &nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
@@ -147,7 +147,7 @@ AccelerometerListener&nbsp;listener;
 <span style="color: #E2661A;">float</span> ax, ay, az;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
 &nbsp;&nbsp;
 &nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
 &nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
@@ -200,10 +200,173 @@ AccelerometerListener&nbsp;listener;
                 We need to check for a null manager instance because <code>onPause()</code> or <code>onResume()</code> could be called before the <code>setup()</code> function in our sketch.
                 </p> 
 
-                <h3>Accessing other sensors</h3>
 
-                <p>Other sensors can be accessed in a very similary way, all you need to check Google's documentation and examples to use the correct classes and interpret the sensor values.</p>
-                <p>You could also use the <a href="http://ketai.org/">Ketai library</a> from Daniel Sauter and Jesus Duran, which wraps all of this handling code and makes very easy to simple obtain sensor values. Ketai can be installed through the Contribution manager.</p>
+                <h3>A more complex example using Box2D</h3>
+
+                <p>One possible use of the sensor data is to control the movement of graphical elements in our sketch. The values from the accelerometer directy represent the force the device is subject to, so if we use those to control the behaviour of particles in the code, then we could pair behaviours in the code with movements in real space.</p>
+
+                <p>In order to achieve this goal, we will make use of the <a href="https://github.com/shiffman/Box2D-for-Processing" target="_black">Box2D for Processing</a> library by Daniel Shiffman. Although this library was not explicility created for Android, since it is written in pure Java, then it can be used from sketches in the Android mode!</p>
+
+                <p>We will combine the basic code from the previous example to read accelerometer data with a simple Box2D's simulation where the borders of the screen define the boundaries of walls of the space, and a number of boxes bounce around under the acceleration measured by the device. The full code of the example is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/sensors/ex2_boxes" target="_black">here</a>.</p>
+
+                <p>Without the accelerometer data, we can write the Box2D code as follows (the implementation of the Box and Wall classes is not included, check the full example code on GitHub):</p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> shiffman.box2d.*;
+<span style="color: #33997E;">import</span> org.jbox2d.collision.shapes.*;
+<span style="color: #33997E;">import</span> org.jbox2d.common.*;
+<span style="color: #33997E;">import</span> org.jbox2d.dynamics.*;
+
+Box2DProcessing&nbsp;box2d;
+<span style="color: #E2661A;">ArrayList</span>&lt;Box&gt; boxes;
+<span style="color: #E2661A;">ArrayList</span>&lt;Wall&gt; walls;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P2D</span>);
+&nbsp;&nbsp;orientation(PORTRAIT);
+&nbsp;&nbsp;
+&nbsp;&nbsp;box2d&nbsp;=&nbsp;<span style="color: #33997E;">new</span> Box2DProcessing(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;box2d.createWorld();
+&nbsp;&nbsp;box2d.setGravity(0,&nbsp;-10);
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #666666;">// A group of boxes</span>
+&nbsp;&nbsp;boxes&nbsp;=&nbsp;<span style="color: #33997E;">new</span> <span style="color: #E2661A;">ArrayList</span>&lt;Box&gt;();
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i &lt; 20; i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;Box&nbsp;p&nbsp;=&nbsp;<span style="color: #33997E;">new</span> Box(<span style="color: #006699;">random</span>(200, <span style="color: #D94A7A;">width</span>-200), <span style="color: #006699;">random</span>(200, <span style="color: #D94A7A;">height</span>-200));
+&nbsp;&nbsp;&nbsp;&nbsp;boxes.<span style="color: #006699;">add</span>(p);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #666666;">// Invisible walls</span>
+&nbsp;&nbsp;walls&nbsp;=&nbsp;<span style="color: #33997E;">new</span> <span style="color: #E2661A;">ArrayList</span>&lt;Wall&gt;();
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(<span style="color: #D94A7A;">width</span>/2, -25, <span style="color: #D94A7A;">width</span>, 50));
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>+25, <span style="color: #D94A7A;">width</span>, 50));
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(-25, <span style="color: #D94A7A;">height</span>/2, 50, <span style="color: #D94A7A;">height</span>));
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(<span style="color: #D94A7A;">width</span>+25, <span style="color: #D94A7A;">height</span>/2, 50, <span style="color: #D94A7A;">height</span>));
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(255);  
+&nbsp;&nbsp;
+&nbsp;&nbsp;box2d.step();
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (Box b: boxes) {
+&nbsp;&nbsp;&nbsp;&nbsp;b.display();
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>mousePressed</b></span>() {
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (Box b: boxes) {
+&nbsp;&nbsp;&nbsp;&nbsp;b.shake();
+&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;
+}
+</code></pre>                
+
+                <p>In this code we used the constant acceleration along Y of (0, -10), but now we can link the gravitational force in Box2D to the acceleration values from the sensor by doing:</p> 
+
+<pre><code>
+&nbsp;&nbsp;box2d.setGravity(-ax,&nbsp;-ay);
+</code></pre>                
+
+                <p>So the final code for the sketch combining Box2D with the accelermeter data would be:</p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> android.content.Context;
+<span style="color: #33997E;">import</span> android.hardware.Sensor;
+<span style="color: #33997E;">import</span> android.hardware.SensorManager;
+<span style="color: #33997E;">import</span> android.hardware.SensorEvent;
+<span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
+
+<span style="color: #33997E;">import</span> shiffman.box2d.*;
+<span style="color: #33997E;">import</span> org.jbox2d.collision.shapes.*;
+<span style="color: #33997E;">import</span> org.jbox2d.common.*;
+<span style="color: #33997E;">import</span> org.jbox2d.dynamics.*;
+
+Context&nbsp;context;
+SensorManager&nbsp;manager;
+Sensor&nbsp;sensor;
+AccelerometerListener&nbsp;listener;
+<span style="color: #E2661A;">float</span> ax, ay, az;
+
+Box2DProcessing&nbsp;box2d;
+<span style="color: #E2661A;">ArrayList</span>&lt;Box&gt; boxes;
+<span style="color: #E2661A;">ArrayList</span>&lt;Wall&gt; walls;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P2D</span>);
+&nbsp;&nbsp;orientation(PORTRAIT);
+&nbsp;&nbsp;
+&nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
+&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+&nbsp;&nbsp;sensor&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> AccelerometerListener();
+&nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);
+&nbsp;&nbsp;
+&nbsp;&nbsp;box2d&nbsp;=&nbsp;<span style="color: #33997E;">new</span> Box2DProcessing(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;box2d.createWorld();
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #666666;">// A group of boxes</span>
+&nbsp;&nbsp;boxes&nbsp;=&nbsp;<span style="color: #33997E;">new</span> <span style="color: #E2661A;">ArrayList</span>&lt;Box&gt;();
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i &lt; 20; i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;Box&nbsp;p&nbsp;=&nbsp;<span style="color: #33997E;">new</span> Box(<span style="color: #006699;">random</span>(200, <span style="color: #D94A7A;">width</span>-200), <span style="color: #006699;">random</span>(200, <span style="color: #D94A7A;">height</span>-200));
+&nbsp;&nbsp;&nbsp;&nbsp;boxes.<span style="color: #006699;">add</span>(p);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #666666;">// Invisible walls</span>
+&nbsp;&nbsp;walls&nbsp;=&nbsp;<span style="color: #33997E;">new</span> <span style="color: #E2661A;">ArrayList</span>&lt;Wall&gt;();
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(<span style="color: #D94A7A;">width</span>/2, -25, <span style="color: #D94A7A;">width</span>, 50));
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>+25, <span style="color: #D94A7A;">width</span>, 50));
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(-25, <span style="color: #D94A7A;">height</span>/2, 50, <span style="color: #D94A7A;">height</span>));
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(<span style="color: #D94A7A;">width</span>+25, <span style="color: #D94A7A;">height</span>/2, 50, <span style="color: #D94A7A;">height</span>));
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(255);  
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #666666;">// update gravity from accelerometer data.</span>
+&nbsp;&nbsp;box2d.setGravity(-ax,&nbsp;-ay);
+&nbsp;&nbsp;
+&nbsp;&nbsp;box2d.step();
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (Box b: boxes) {
+&nbsp;&nbsp;&nbsp;&nbsp;b.display();
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>mousePressed</b></span>() {
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (Box b: boxes) {
+&nbsp;&nbsp;&nbsp;&nbsp;b.shake();
+&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;
+}
+
+<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onResume() {
+&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onResume();
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_GAME);
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onPause() {
+&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onPause();
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;manager.unregisterListener(listener);
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">class</span> AccelerometerListener <span style="color: #33997E;">implements</span> SensorEventListener {
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {
+&nbsp;&nbsp;&nbsp;&nbsp;ax&nbsp;=&nbsp;event.values[0];
+&nbsp;&nbsp;&nbsp;&nbsp;ay&nbsp;=&nbsp;event.values[1];
+&nbsp;&nbsp;&nbsp;&nbsp;az&nbsp;=&nbsp;event.values[2];&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onAccuracyChanged(Sensor sensor, <span style="color: #E2661A;">int</span> accuracy) {
+&nbsp;&nbsp;}
+}
+</code></pre>
+
+                <h3>Using other sensors</h3>
+
+                <p>Google's <a href="https://developer.android.com/guide/topics/sensors/sensors_motion.html" target="_black">developer documentation</a> provides detailed information on how to get data from other motion sensors.</p>
+                <p>Alternatively, you could also use the <a href="http://ketai.org/" target="_black">Ketai library</a> from Daniel Sauter and Jesus Duran, which wraps all of the handling code and makes it very simple to obtain values from different sensors. Ketai can be installed through the Contribution manager.</p>
 
             </section>
 
