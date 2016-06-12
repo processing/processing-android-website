@@ -230,9 +230,9 @@ sup {
   font-size: smaller;
 }
 
-/*.center {
-  margin: auto;
-}*/
+b {
+    font-weight: bold;
+}
 
 .body-image {
   max-width: 480px;  
