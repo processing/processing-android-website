@@ -54,118 +54,221 @@
                 Live wallpapers are a special type of applications that generate animated and interactive backgrounds in the home screen of the device. Technically, they are an <a href="https://developer.android.com/reference/android/service/wallpaper/WallpaperService.html">Android Service</a>, designed to run for a long time in the background. With the Android mode in Processing, you don't need to worry these low-level details, and instead focus on the drawing code. Virtually any 2D or 3D sketch can be built as a live wallpaper. All you need to do is to select the Wallpaper option under the Android menu:
                 </p>
 
-                <img class="body-image" src="imgs/wallpaper_selection.png" alt="Wallpaper selection">
+                <p><img class="body-image" src="imgs/wallpaper_selection.png" alt="Wallpaper selection"></p>
 
                 <h3>Creating a wallpaper</h3>
+
                 <p>
-                Let's start by writing a simple wallpaper just transitions the background between randomly selected colors.
-                </p>
-
-
-
-                <h3>Creating a wallpaper</h3>
-                <p>
-                Let's write a simple wallpaper that uses the compass orientation to create a geometrical pattern. Based on the sensors tutorial, we can start off with the following code:
+                Let's start by writing a simple wallpaper that just transitions the background between randomly selected colors. We will use the <a href="https://processing.org/reference/colorMode_.html" target="_black">HSB color mode</a> to create smooth transitions across the hue and the saturation of consecutive colors. We can test this sketch using Java mode first, to figure out the correct timing of the transitions. In our first version, we simply change the hue and saturation every 5 seconds:
                 </p>
 
 <pre><code>
-import android.content.Context;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+<span style="color: #E2661A;">float</span> currH, currB;
+<span style="color: #E2661A;">int</span> lastChange = 0;
 
-Context context;
-Sensor compass;
-float direction;
-
-void setup() {
-  fullScreen();
-  
-  context = surface.getActivity();
-  SensorManager sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
-  CompassEventListener listener = new CompassEventListener();
-  compass = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-  sensorManager.registerListener(listener, compass, SensorManager.SENSOR_DELAY_NORMAL);
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">size</span>(400, 400);
+&nbsp;&nbsp;<span style="color: #006699;">colorMode</span>(<span style="color: #718A62;">HSB</span>, 100);
+&nbsp;&nbsp;currH&nbsp;=&nbsp;100;
+&nbsp;&nbsp;currB&nbsp;=&nbsp;100;
 }
 
-void draw() {
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(currH, currB, 100);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (5000 &lt; <span style="color: #006699;">millis</span>() - lastChange) { 
+&nbsp;&nbsp;&nbsp;&nbsp;pickNextColor();
+&nbsp;&nbsp;&nbsp;&nbsp;lastChange&nbsp;=&nbsp;<span style="color: #006699;">millis</span>();
+&nbsp;&nbsp;}
 }
 
-class CompassEventListener implements SensorEventListener {
-  public void onSensorChanged(SensorEvent event) {
-    float x = event.values[0];
-    direction = -x * PI / 180;
-  }
-  public void onAccuracyChanged(Sensor sensor, int accuracy) { }
-}                
+<span style="color: #33997E;">void</span> pickNextColor() {
+&nbsp;&nbsp;currH&nbsp;=&nbsp;<span style="color: #006699;">random</span>(100);
+&nbsp;&nbsp;currB&nbsp;=&nbsp;<span style="color: #006699;">random</span>(100);
+}
+</code></pre>                
+
+                <p>We can now add <a href="https://processing.org/examples/easing.html" target="_black">easing</a> to smoothly transition between the colors:</p>
+
+<pre><code>
+<span style="color: #E2661A;">float</span> currH, currB;
+<span style="color: #E2661A;">float</span> nextH, nextB;
+<span style="color: #E2661A;">float</span> easing = 0.001;
+<span style="color: #E2661A;">int</span> lastChange = 0;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">size</span>(400, 400);
+&nbsp;&nbsp;<span style="color: #006699;">colorMode</span>(<span style="color: #718A62;">HSB</span>, 100);
+&nbsp;&nbsp;currH&nbsp;=&nbsp;nextH&nbsp;=&nbsp;100;
+&nbsp;&nbsp;currB&nbsp;=&nbsp;nextH&nbsp;=&nbsp;100;
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(currH, currB, 100);
+&nbsp;&nbsp;updateCurrColor();
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (5000 &lt; <span style="color: #006699;">millis</span>() - lastChange) { 
+&nbsp;&nbsp;&nbsp;&nbsp;pickNextColor();
+&nbsp;&nbsp;&nbsp;&nbsp;lastChange&nbsp;=&nbsp;<span style="color: #006699;">millis</span>();
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">void</span> pickNextColor() {
+&nbsp;&nbsp;nextH&nbsp;=&nbsp;<span style="color: #006699;">random</span>(100);
+&nbsp;&nbsp;nextB&nbsp;=&nbsp;<span style="color: #006699;">random</span>(100);
+}
+
+<span style="color: #33997E;">void</span> updateCurrColor() {
+&nbsp;&nbsp;<span style="color: #666666;">// Easing between current and next colors</span>
+&nbsp;&nbsp;currH&nbsp;+=&nbsp;easing&nbsp;*&nbsp;(nextH&nbsp;-&nbsp;currH);
+&nbsp;&nbsp;currB&nbsp;+=&nbsp;easing&nbsp;*&nbsp;(nextB&nbsp;-&nbsp;currB);
+}
 </code></pre>
 
+                <p>Once you are satisfied with the transition and easing times, you need to replace <code>size(400, 400)</code> with <code>fullScreen()</code> before running the sketch on the device to make sure that the wallpaper uses the entire screen of the device.</p>
+
+                <p>After the wallpaper sketch has been installed on the device, it won't show up right away, you need to open the wallpaper selector, and scroll through the availalable wallpapers until you find yours. The wallpaper selector will look different depending on the Android version in your deveice and what other wallpapers are installed, on Android 5.0 and newer it should look like something like this:</p>
+
+                <p><img class="body-image" src="imgs/wallpaper_selector.png" alt="Wallpaper selector"></p>
+
+                <h3>Using sensor data in the wallpaper</h3>
+
                 <p>
-                Note that the context required to retrieve the sensor manager is obtained from the app component associated to the
-                surface, which is a PWallpaper object. PWallpaper extends WallpaperService, which extends Service, and ultimately ContextWrapper 
-                and Context. The delay to obtain the sensor data is set to <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_NORMAL">SENSOR_DELAY_NORMAL</a>, which is the slowest from all the default rates and suitable for a wallaper. An important
-                consideration with wallpapers is to keep battery use at a minimum, as they run in the background constantly. So, when using sensors is a good 
-                idea to keep a low update rate, that's still ok for the purpose of generating the background. In fact you can set your own rate:
+                In the <a href="../sensors/index.html" target="_black">sensors tutorial</a> we saw how to use the sensor API in Android to read acceleration values. We can use the same technique to obtain sensor information to construct a compass. In this case we need both accelerometer and geomagnetic sensor data, in order to determine a our orientation with respect to the Earth's magnetic axis. We start with the following template:
                 </p>
 
+<pre><code>
+<span style="color: #33997E;">import</span> android.content.Context;
+<span style="color: #33997E;">import</span> android.hardware.Sensor;
+<span style="color: #33997E;">import</span> android.hardware.SensorManager;
+<span style="color: #33997E;">import</span> android.hardware.SensorEvent;
+<span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
+
+Context&nbsp;context;
+SensorManager&nbsp;manager;
+SensorListener&nbsp;listener;
+Sensor&nbsp;accelerometer;
+Sensor&nbsp;magnetometer;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P2D</span>);
+&nbsp;&nbsp;orientation(PORTRAIT);
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(255);
+}
+
+<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onResume() {
+&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onResume();  
+
+&nbsp;&nbsp;context&nbsp;=&nbsp;(Context)&nbsp;surface.getComponent();
+&nbsp;&nbsp;
+&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> SensorListener();
+&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+&nbsp;&nbsp;accelerometer&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+&nbsp;&nbsp;magnetometer&nbsp;&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
+&nbsp;&nbsp;manager.registerListener(listener,&nbsp;accelerometer,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);
+&nbsp;&nbsp;manager.registerListener(listener,&nbsp;magnetometer,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);
+}
+
+<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onPause() {
+&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onPause();
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) manager.unregisterListener(listener);
+}
+
+<span style="color: #33997E;">class</span> SensorListener <span style="color: #33997E;">implements</span> SensorEventListener {
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span>[] gravity = <span style="color: #33997E;">new</span> <span style="color: #E2661A;">float</span>[3];
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span>[] geomagnetic = <span style="color: #33997E;">new</span> <span style="color: #E2661A;">float</span>[3];
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span>[] I = <span style="color: #33997E;">new</span> <span style="color: #E2661A;">float</span>[16];
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span>[] R = <span style="color: #33997E;">new</span> <span style="color: #E2661A;">float</span>[16];
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span> orientation[] = <span style="color: #33997E;">new</span> <span style="color: #E2661A;">float</span>[3]; 
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (event.accuracy == SensorManager.SENSOR_STATUS_ACCURACY_LOW) <span style="color: #33997E;">return</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (event.sensor.getType() ==  Sensor.TYPE_MAGNETIC_FIELD) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">arrayCopy</span>(event.values, geomagnetic);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (event.sensor.getType() ==  Sensor.TYPE_ACCELEROMETER) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">arrayCopy</span>(event.values, gravity);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onAccuracyChanged(Sensor sensor, <span style="color: #E2661A;">int</span> accuracy) { }
+}              
+</code></pre>
+
+                <p>A couple of important things to note here:</p> 
+
+                <ul> 
+                <li>First, we get the context using <code>context = (Context) surface.getComponent()</code> instead of <code>surface.getActivity()</code>, as it is the case with regular apps. This API might change in next 4.0 beta releases of the Android mode.</li>
+
+                <li>The same event listener is used to get acceleration and the geomagnetic field, and we use the value returned by <code>event.sensor.getType()</code> to determine with sensor we are receiving values from in <code>onSensorChanged</code></li>
+
+                <li>The rate to read the sensor data is set to <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_NORMAL">SENSOR_DELAY_NORMAL</a>, which is the slowest from all the default rates. It is important to keep battery use in wallpapers at a minimum, as they run in the background constantly. So, when using sensors is a good idea to keep a low update rate, but it is still ok for the purpose of generating the background. In fact you can set your own rate by doing:
 <pre><code>
 int READING_RATE = 100000; // time in us
 sensorManager.registerListener(listener, compass, READING_RATE);
-</code></pre>
+</code></pre>                
+                </li>
 
-                <p>
-                Now we can implement the drawing function. Let's use a bunch of particles that move following the direction of the magentic field, 
-                plus a small perturbabtion from the noise function:
-                </p>
+                <p>The gravity and geomagnetic vectors encode all the information required to determine the orientation of the device in relation to the Earth's surface. The <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#getRotationMatrix(float[], float[], float[], float[])" target="_black"><code>getRotationMatrix()</code></a> computes the inclination and rotation matrices, from which we can obtain the orientation of the device in relation to the direction of the geomagnetic field with the <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#getOrientation(float[], float[])" target="_black">getOrientation()</a> function. The complete implementation of <code>onSensorChanged()</code> would read:</p>
 
 <pre><code>
-void setup() {
-  fullScreen();
-  frameRate(15);
-  
-  context = (Context) surface.getComponent();
-  SensorManager sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
-  CompassEventListener listener = new CompassEventListener();
-  compass = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-  sensorManager.registerListener(listener, compass, SensorManager.SENSOR_DELAY_NORMAL);
-  
-  background(255);
-  noStroke();
-  fill(150, 50);
-  particles = new PVector[100];
-  for (int i = 0; i &lr; 100; i++) {
-    particles[i] = new PVector(random(width), random(height));
-  }
-}
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (event.accuracy == SensorManager.SENSOR_STATUS_ACCURACY_LOW) <span style="color: #33997E;">return</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (event.sensor.getType() ==  Sensor.TYPE_MAGNETIC_FIELD) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">arrayCopy</span>(event.values, geomagnetic);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (event.sensor.getType() ==  Sensor.TYPE_ACCELEROMETER) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">arrayCopy</span>(event.values, gravity);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (SensorManager.getRotationMatrix(R, I, gravity, geomagnetic)) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SensorManager.getOrientation(R,&nbsp;orientation);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;azimuth&nbsp;+=&nbsp;easing&nbsp;*&nbsp;(orientation[0]&nbsp;-&nbsp;azimuth);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pitch&nbsp;+=&nbsp;easing&nbsp;*&nbsp;(orientation[1]&nbsp;-&nbsp;pitch);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roll&nbsp;+=&nbsp;easing&nbsp;*&nbsp;(orientation[2]&nbsp;-&nbsp;roll);
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;}
+</code></pre>
 
-void draw() {
-  float dirx = cos(direction);
-  float diry = sin(direction);
-  for (int i = 0; i &lr; 100; i++) {
-    PVector v = particles[i];
-    float vx = v.x;
-    float vy = v.y;
-    v.x += dirx + noise(vx / 100.0, vy / 100.0, millis() / 1000.0);
-    v.y += diry + noise(vx / 100.0, vy / 100.0, millis() / 1000.0);
-    if (v.x &lr; 0 || width &lr; v.x) {
-      v.x = random(width);
-    }
-    if (v.y &lr; 0 || height &lr; v.y) {
-      v.y = random(height);
-    } 
-    ellipse(v.x, v.y, 10, 10);
-  } 
+            <p>The last step is to implement the drawing code for the compass. A simple one could be:</p>
+
+<pre><code>
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(255);
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span> cx = <span style="color: #D94A7A;">width</span> * 0.5;
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span> cy = <span style="color: #D94A7A;">height</span> * 0.4;
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span> radius = 0.8 * cx;
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(cx, cy);
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">noFill</span>();
+&nbsp;&nbsp;<span style="color: #006699;">stroke</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">strokeWeight</span>(2);
+&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(0, 0, radius*2, radius*2);
+&nbsp;&nbsp;<span style="color: #006699;">line</span>(0, -cy, 0, -radius);
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(192, 0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();    
+&nbsp;&nbsp;<span style="color: #006699;">rotate</span>(-azimuth);
+&nbsp;&nbsp;<span style="color: #006699;">beginShape</span>();
+&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(-30, 40);
+&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(30, 40);
+&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(0, -radius);
+&nbsp;&nbsp;<span style="color: #006699;">endShape</span>();
 }
 </code></pre>
 
-                <h3>Installation</h3>
-                <p>
-                When you run the sketch on the device, you won't see it right away. You need to open the wallpaper selector, and browse the installed 
-                wallpapers until you find the one you just run from Processing.
-                </p>
-            </section>
+            <p>This should give us the following wallpaper:</p>
 
+            <p><img class="body-image" src="imgs/compass_wallpaper.png" alt="Compass wallpaper"></p>
+
+            <p>The complete sketch code is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/wallpapers/ex2_compass" target="_black">here</a></p>
+
+            </section>
         </div>
 
         <footer class="container">
