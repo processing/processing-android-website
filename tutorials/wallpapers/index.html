@@ -49,13 +49,19 @@
                 (This tutorial is applicable only to <a href="../../beta.html">version 4+</a> of the mode)
                 </p>                    
 
-                <h3>What is a live wallpaper</h3>
+                <h3>What is a live wallpaper?</h3>
                 <p>
-                Live wallpapers are a special type of applications that generate animated and interactive backgrounds in the home screen of the device.
-                Technically, they are an <a href="https://developer.android.com/reference/android/service/wallpaper/WallpaperService.html">Android Service</a>, designed to run for a long time in the background. With the Android mode in Processing, you don't need to implement these low-level details, and instead focus on the drawing code. Virtually any 2D or 3D sketch can be built as a live wallpaper. All you need to do is to select the Wallpaper option in the Android menu:
+                Live wallpapers are a special type of applications that generate animated and interactive backgrounds in the home screen of the device. Technically, they are an <a href="https://developer.android.com/reference/android/service/wallpaper/WallpaperService.html">Android Service</a>, designed to run for a long time in the background. With the Android mode in Processing, you don't need to worry these low-level details, and instead focus on the drawing code. Virtually any 2D or 3D sketch can be built as a live wallpaper. All you need to do is to select the Wallpaper option under the Android menu:
                 </p>
 
                 <img class="body-image" src="imgs/wallpaper_selection.png" alt="Wallpaper selection">
+
+                <h3>Creating a wallpaper</h3>
+                <p>
+                Let's start by writing a simple wallpaper just transitions the background between randomly selected colors.
+                </p>
+
+
 
                 <h3>Creating a wallpaper</h3>
                 <p>
@@ -76,7 +82,7 @@ float direction;
 void setup() {
   fullScreen();
   
-  context = (Context) surface.getComponent();
+  context = surface.getActivity();
   SensorManager sensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
   CompassEventListener listener = new CompassEventListener();
   compass = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);

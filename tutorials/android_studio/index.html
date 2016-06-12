@@ -41,14 +41,12 @@
       
             <section class="container main-text">
             	<h2>Developing with Android Studio</h2>
-                <p>
-                Follow this tutorial if you want to use Android Studio for Android development.
-                </p>
+                <p>Use Android Studio for advanced Android development with Processing's core library.</p>
 
                 <h3>General steps</h3>
 
                 <p>
-                You should only use Android Studio for Android development if you've already spent time learning how to develop Android applications using Android Studio (separately from Processing), and want to make use of the Processing core library. Android development in Android Studio is significantly more difficult than desktop Processing/Java development with Eclipse. Take time to learn it if you're going this route: get a book, read some Android development tutorials, check Google's <a href="https://developer.android.com/training/index.html" target="_black">developer materials</a>, etc.
+                You should only use <a href="https://developer.android.com/studio/index.html" target="_black">Android Studio</a> for Android development if you've already spent time learning how to develop Android applications using Android Studio (separately from Processing), and want to make use of the Processing core library. Android development in Android Studio is significantly more difficult than desktop Processing/Java development with Eclipse. Take time to learn it if you're going this route: get a book, read some Android development tutorials, check Google's <a href="https://developer.android.com/training/index.html" target="_black">developer materials</a>, etc.
                 </p>
 
                 <p>
@@ -57,19 +55,19 @@
                 <p><b>1.</b> Create an Android project if you haven't already created one:</p>
                 <p><img class="body-image" src="imgs/1_new_project.png" alt="New project"></p>
 
-                <p><b>2.</b>  Select the target device:</p>
+                <p><b>2.</b> Select the target device:</p>
                 <p><img class="body-image" src="imgs/2_target.png" alt="Select target"></p>
 
-                <p><b>3.</b>  Add an empty activity:</p>
+                <p><b>3.</b> Add an empty activity:</p>
                 <p><img class="body-image" src="imgs/3_add_activity.png" alt="Add activity"></p>
 
-                <p><b>4.</b>  Set the name for the main activity class and the layout file:</p>
+                <p><b>4.</b> Set the name for the main activity class and the layout file:</p>
                 <p><img class="body-image" src="imgs/4_customize_activity.png" alt="Customize activity"></p>
 
-                <p><b>5.</b>  Copy android-core.jar to /app/libs, and add it as file dependency to the project:</p>
+                <p><b>5.</b> Copy android-core.jar to /app/libs, and add it as file dependency to the project:</p>
                 <p><img class="body-image" src="imgs/5_module_settings.png" alt="Module settings"></p>
 
-                <p><b>6.</b>  Then, write your sketch code by extending PApplet:</p> 
+                <p><b>6.</b> Then, write your sketch code by extending PApplet:</p> 
              
 <pre><code>
 // Sketch.java
@@ -92,7 +90,7 @@ public class Sketch extends PApplet {
 }
 </code></pre>
 
-                <p><b>7.</b>  Initialize the sketch in the main activity:</p> 
+                <p><b>7.</b> Initialize the sketch in the main activity:</p> 
 
 <pre><code>
 // MainActivity.java    
@@ -117,7 +115,7 @@ public class MainActivity extends Activity {
 }    
 </code></pre>
 
-                <p><b>8.</b>  Finally create a simple layout for the main activity:</p> 
+                <p><b>8.</b> Finally, create a simple layout for the main activity:</p> 
 
 <pre>
 &lt;!-- activity_main.xml -->
