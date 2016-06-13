@@ -96,54 +96,91 @@
                 </p>
 
 
+                <h3>Representing time</h3>
 
-
-                <p>
-                You can use the time values to generate shapes that change as hours, minutes, and seconds go by. Tap events can also be
-                captured with the mousePressed function and the mouseX/mouseY built-in variables:
+                <p>You can use the time values to generate patterns and shapes that change as hours, minutes, and seconds go by. In the following code, we paint the screen black from left to right from midnight to midnight. We can also tap the screen to add dots to the uncovered area, and making them dissapear once they are reached at a specific time during the day:
                 </p>
 
 <pre><code>
-ArrayList&lt;PVector&gt; pos;
+<span style="color: #E2661A;">ArrayList</span>&lt;<span style="color: #E2661A;">PVector</span>&gt; dots;
+<span style="color: #E2661A;">int</span> totalMin = 24 * 60;
 
-void setup() {
-  fullScreen();
-  frameRate(1);
-  pos = new ArrayList&lt;PVector&gt;();
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
+&nbsp;&nbsp;<span style="color: #006699;">frameRate</span>(1);
+&nbsp;&nbsp;dots&nbsp;=&nbsp;<span style="color: #33997E;">new</span> <span style="color: #E2661A;">ArrayList</span>&lt;<span style="color: #E2661A;">PVector</span>&gt;();
 }
 
-void draw() {
-  int time = hour() * 60 + minute();
-  if (time == 0) pos.clear();
-  float x = map(time, 0, 24 * 60, 0, width);
-  if (ambientMode) {
-    background(0);
-    noFill();
-    stroke(255);    
-    line(x, 0, x, height);
-    for (PVector p: pos) {
-      ellipse(p.x, p.y, 10, 10);
-    }    
-  } else {
-    background(255);
-    fill(0);
-    noStroke();
-    rect(0, 0, x, height);
-    for (PVector p: pos) {
-      if (p.x &lt; x) {
-        fill(255);        
-      } else {
-        fill(0);        
-      }
-      ellipse(p.x, p.y, 10, 10);
-    }    
-  }
-} 
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #E2661A;">int</span> time = <span style="color: #006699;">hour</span>() * 60 + <span style="color: #006699;">minute</span>();
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (time == 0) dots.<span style="color: #006699;">clear</span>();
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span> x = <span style="color: #006699;">map</span>(time, 0, totalMin, 0, <span style="color: #D94A7A;">width</span>);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (ambientMode) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">noFill</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">stroke</span>(255);    
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">line</span>(x, 0, x, <span style="color: #D94A7A;">height</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">PVector</span> d: dots) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d.x, d.y, 10, 10);
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(255);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">rect</span>(0, 0, x, <span style="color: #D94A7A;">height</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">PVector</span> d: dots) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(d.x, d.y, 10, 10);
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = dots.<span style="color: #006699;">size</span>()-1; i &gt;= 0; i--) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">PVector</span> d = dots.<span style="color: #006699;">get</span>(i);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (d.x &lt; x) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dots.<span style="color: #006699;">remove</span>(i);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;}&nbsp;&nbsp;
+}&nbsp;
 
-void mousePressed() {
-  pos.add(new PVector(mouseX, mouseY));
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>mousePressed</b></span>() {
+&nbsp;&nbsp;dots.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> <span style="color: #006699;">PVector</span>(<span style="color: #D94A7A;">mouseX</span>, <span style="color: #D94A7A;">mouseY</span>));
 }
 </code></pre>
+
+                <p>Let's make the watch vibrate when a dot is swallowed by the black tide of time! In order to access the <a href="https://developer.android.com/reference/android/os/Vibrator.html" target="_black">vibrator</a> in the watch, we need to enable the appropriate permission, by opening the "Sketch Permissions" option under the Android menu in the PDE and selecting the appropriate permission:
+                </p>
+
+                <p><img class="body-image" src="imgs/vibrate_permissions.png" alt="Watch face selection"></p>
+
+                <p>After importing the Vibrator and Context classes, we initialize the vibrator instance in <code>setup()</code>:</p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> android.os.Vibrator;
+<span style="color: #33997E;">import</span> android.content.Context;
+&nbsp;&nbsp;
+<span style="color: #E2661A;">ArrayList</span>&lt;<span style="color: #E2661A;">PVector</span>&gt; dots;
+<span style="color: #E2661A;">int</span> totalMin = 24 * 60;
+Vibrator&nbsp;vibrator;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
+&nbsp;&nbsp;<span style="color: #006699;">frameRate</span>(1);
+&nbsp;&nbsp;dots&nbsp;=&nbsp;<span style="color: #33997E;">new</span> <span style="color: #E2661A;">ArrayList</span>&lt;<span style="color: #E2661A;">PVector</span>&gt;();
+&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;(Context)&nbsp;surface.getComponent();
+&nbsp;&nbsp;vibrator&nbsp;=&nbsp;(Vibrator)&nbsp;context.getSystemService(Context.VIBRATOR_SERVICE);
+}
+</code></pre>                
+
+                <p>The vibrator() method allows us to set a vibration for a period of time expressed in milliseconds, so for half second vibration:</p>
+
+<pre><code>                
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = dots.<span style="color: #006699;">size</span>()-1; i &gt;= 0; i--) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">PVector</span> d = dots.<span style="color: #006699;">get</span>(i);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (d.x &lt; x) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dots.<span style="color: #006699;">remove</span>(i);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vibrator.vibrate(500);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;}&nbsp;&nbsp;
+</code></pre>    
 
             </section>
 
