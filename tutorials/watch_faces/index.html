@@ -32,8 +32,7 @@
                 <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo"><br><br><br><br>
                 <a href="../../index.html">Cover</a><br>
                 <a href="../../install.html">Install</a><br>
-                <a href="../../libraries.html">Libraries</a><br>                
-                <a href="../../reference.html">Reference</a><br>
+                <a href="../../reference/index.html">Reference</a><br>
                 <a id="selected" href="../index.html">Tutorials</a><br>      
                 <a href="https://forum.processing.org/two/categories/android">Forum</a><br>
                 <a class="foundation" href="https://github.com/processing/processing-android">GitHub</a><br>
@@ -42,54 +41,62 @@
             <section class="container main-text">
             	<h2>Creating watch faces (beta)</h2>
                 <p>
-                Use the Android Mode to develop interactive watch faces
+                Use the Android Mode to develop interactive watch faces.
                 </p>
+
+                <p>
+                (This tutorial is applicable only to <a href="../../beta.html">version 4+</a> of the mode)
+                </p>                
 
                 <h3>Smartwatches</h3>
                 <p>
-                <a href="https://www.android.com/wear/">Android smartwatches</a> allow you to install custom watch faces that display time in original ways that make use of the affordances of the digital clock, and you could also interact with. Developing watch faces require some special consideration, due to the limitations of the device in terms of screen size, and battery life. Google has published some guidelines for <a href="https://developer.android.com/training/wearables/watch-faces/index.html">watch face design</a>.
+                <a href="https://www.android.com/wear/">Android Wear</a> allows you to create custom smartwatch faces that can represent time by taking advantage of the display and interaction capabilities of these devices. You can also get wearer's data (steps, hearth rate) to visualize his or her physical activities in various ways. Developing watch faces require some special consideration though, due to the limitations of these devices in terms of screen size and battery life. Google has published some guidelines for <a href="https://developer.android.com/training/wearables/watch-faces/index.html">watch face design</a>.
                 </p>
 
                 <h3>Getting ready</h3>
                 <p>
-                First of all, developing for a smartwatch requires to pair the device with a phone that will function as a bridge between the computer you are runnig Processing on, and the watch. To do so, you have to setup the devices for debugging over Bluetooth, which is explained <a heref="https://developer.android.com/training/wearables/apps/bt-debugging.html">here</a>. Once you have done this, you can select the Watch Face option in the Android menu:
+                First of all, developing for a smartwatch requires to pair the watch with a phone that will function as a bridge between the computer you are runnig Processing on, and the watch. To do so, you have to setup the devices for debugging over Bluetooth, which is explained <a heref="https://developer.android.com/training/wearables/apps/bt-debugging.html">here</a>. Once you have done this, you can select the Watch Face option in the Android menu:
                 </p>
 
-                <img class="body-image" src="imgs/watchface_selection.png" alt="Watch face selection">
+                <p><img class="body-image" src="imgs/watchface_selection.png" alt="Watch face selection"></p>
 
                 <p>
-                After setting up BT debugging and selecting the Watch Face option in Processing, you should see your smartwach in the device list:
+                After setting up BT debugging and selecting the Watch Face option in Processing, you won't see the watch in the list of connected devices. But this is ok, the watch faces are not installed directly on the watch, but first on the phone paired to it and then get copies automatically over to the watch.
                 </p>
 
-                <img class="body-image" src="imgs/smartwatch_selection.png" alt="Smartwach selection">                
 
-                <h3>Simple watch face</h3>
+                <h3>A very simple watch face</h3>
                 <p>
                 As a very simple first attempt at creating a watch face, let's just display the time using text. The structure of the sketch is very straightfoward: 
                 </p>
 
 <pre><code>
-void setup() {
-  fullScreen();
-  frameRate(1);
-  textFont(createFont("Roboto", 48));
-  fill(255);
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
+&nbsp;&nbsp;<span style="color: #006699;">frameRate</span>(1);
+&nbsp;&nbsp;<span style="color: #006699;">textFont</span>(<span style="color: #006699;">createFont</span>(<span style="color: #7D4793;">&quot;Roboto&quot;</span>, 48));
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255);
 }
 
-void draw() {
-  background(0);
-  translate(0, +insetBottom/2);
-  if (!ambientMode) {
-    String str = hour() + " " + minute() + " " + second();
-    float w = textWidth(str);
-    text(str, (width - w)/2, height/2 + 24);     
-  }
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(0, +insetBottom/2);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (!ambientMode) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">String</span> str = <span style="color: #006699;">hour</span>() + <span style="color: #7D4793;">&quot;:&quot;</span> + <span style="color: #006699;">minute</span>() + <span style="color: #7D4793;">&quot;:&quot;</span> + <span style="color: #006699;">second</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> w = <span style="color: #006699;">textWidth</span>(str);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(str, (<span style="color: #D94A7A;">width</span> - w)/2, <span style="color: #D94A7A;">height</span>/2 + 24);     
+&nbsp;&nbsp;}
 }
 </code></pre>
 
                 <p>
-                A couple of things to observe in this sketch is the use of a frame rate of 1 because the text only changes 1 every second, so it does not make sense to update the frame any faster. Also we use the insetBottom built-in variable to account for watches that have a chin in the bottom of the screen, like the Moto 360. This variable will be zero otherwise. 
+                A couple of things to observe in this code is the use of a frame rate of 1 because the text only changes once every second, so it there is no need to update the screen any faster (which consumes more battery). Also, the watch face is drawn only if the built-in variable <code>ambientMode</code> is false. When this variable is true, the person wearing the watch is lookint at it, so it switched to ambient mode in order to save battery. When the watch is in ambient mode, the display is updated only once every minute, and it is recommended keep most of the screen black and render only a simplified version of the watch face.</p> 
+
+                <p>Also, we use the <code>insetBottom</code> built-in variable to account for watches that have a "chin" in the bottom of the screen, like the Moto 360, so the entire drawing needs to be shifted down by half of that value in order to be properly centered. Another important built-in variable that we are not using in this case is <code>isRound</code>, which tells you whether the shape of the watch is either round or square. For a complete list of the built-in variables available in watch faces, please take a look at the <a href="../../reference/index.html" target="_black">reference page</a>.
                 </p>
+
+
+
 
                 <p>
                 You can use the time values to generate shapes that change as hours, minutes, and seconds go by. Tap events can also be
