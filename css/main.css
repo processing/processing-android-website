@@ -204,7 +204,7 @@ img.logo {
 }
 
 .main-text {
-  margin-top: 45px;
+  margin-top: 80px;
 }
 
 .footinfo {
@@ -220,6 +220,10 @@ img.logo {
 
   padding-left: 250px;
   padding-top: 30px;    
+}
+
+small {
+  font-size: 85%;
 }
 
 section {
