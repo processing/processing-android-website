@@ -1,34 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-    	<meta charset="utf-8">
-    	<link rel="stylesheet" href="css/main.css">
+        <meta charset="utf-8">
+        <meta name="Author" content="Casey Reas &amp; Ben Fry with Android Mode text by Andres Colubri">
+        <meta name="Publisher" content="Processing Foundation">
+        <meta name="Keywords" content="Processing, Interactive Media, Electronic Arts, Programming, Java, Ben Fry, Casey Reas, Android">
+        <meta name="Description" content="Android Mode for Processing extends the Processing Development Environment with Android support for apps, wallpapers, watch faces, and Cardboard.">
+        <meta name="Copyright" content="All contents copyright Processing Foundation">        
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="http://android.processing.org/test/favicon.png">
+        <link rel="stylesheet" href="../css/main.css">
         <title>Processing for Android</title>
     </head>
     
     <body>
 
-        <header class="container">
-            <img class="logo" src="imgs/logo.png" alt="Processing for Android logo"><br><br><br><br>
-            <h1 class="logo">
-            <a href="index.html">Processing <br> for Android</a>
-            </h1>
+        <nav class="ring">        
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="http://p5js.org/">p5.js</a></li>
+                <li><a href="http://py.processing.org/">Processing.py</a></li>
+                <li class="highlight"><a href="http://android.processing.org/test/">Processing for Android</a></li>
+            </ul>
+            <ul class="right">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav> 
+
+        <header>            
+            <h1 class="title">Processing for Android</h1>
         </header>
 
         <div class="group">
 
-            <nav>
-                <a href="index.html">Cover</a><br>
-                <a href="beta.html">Beta</a><br>
-                <a href="install.html">Installation</a><br>
-                <a href="reference.html">Reference</a><br>                
-                <a href="tutorials.html">Tutorials</a><br>
-                <a href="libraries.html">Libraries</a><br>                
-                <a href="https://forum.processing.org/two/categories/android">Forum</a><br>
-                <a href="https://github.com/processing/processing-android">Development</a><br>
+            <nav class="site">
+                <img class="logo" src="../imgs/logo.png" alt="Processing for Android logo"><br><br><br><br>
+                <a href="../index.html">Home</a><br>
+                <a href="../install.html">Install</a><br>
+                <a id="selected" href="index.html">Reference</a><br>
+                <a href="../tutorials/index.html">Tutorials</a><br>
+                <a href="https://forum.processing.org/two/categories/android" target="_black">Forum</a><br>
+                <a href="https://github.com/processing/processing-android" target="_black">GitHub</a><br>
             </nav>
       
-            <section class="container">
+            <section class="container main-text">
                 <h2>API Changed, Gone, or Forgotten</h2>
                 <ul>
                  <li>The package for the core library remains processing.core on Android. Early releases used processing.android.core in an attempt to avoid confusion between the two platforms. Unfortunately, this requires all libraries—even those that make only basic use of PApplet features—to maintain separate sets of code for each. Because this would needlessly affect nearly all libraries, we've decided to just use the same package naming. This makes us cringe a little, but the alternative is perpetual annoyance at maintaining separate code bases for libraries for which only the package imports differ. In practice, there is little chance for processing.core packages for both platforms to ever collide with one another, since they require completely separate classpaths to build.</li>
@@ -49,7 +64,7 @@
         </div>
 
         <footer class="container">
-            <small>&copy; The Processing Foundation</small>
+            <small>&copy; The Processing Foundation. Processing for Android is a <a href="../team.html">collaborative project</a>.</small>
         </footer>
     </body>
 </html>
