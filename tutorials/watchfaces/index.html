@@ -182,6 +182,84 @@ Vibrator&nbsp;vibrator;
 &nbsp;&nbsp;}&nbsp;&nbsp;
 </code></pre>    
 
+                <h3>Counting steps</h3>
+
+                <p>Most Android devices, including smartwatches, include a <a href="https://developer.android.com/guide/topics/sensors/sensors_motion.html#sensors-motion-stepcounter" target="_black">step counter sensor</a> that we access in the same way as with other sensors we used in other tutorials. The skeleton for the sketch would be:</p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> android.content.Context;
+<span style="color: #33997E;">import</span> android.hardware.Sensor;
+<span style="color: #33997E;">import</span> android.hardware.SensorManager;
+<span style="color: #33997E;">import</span> android.hardware.SensorEvent;
+<span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
+
+Context&nbsp;context;
+SensorManager&nbsp;manager;
+Sensor&nbsp;sensor;
+SensorListener&nbsp;listener;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
+&nbsp;&nbsp;<span style="color: #006699;">frameRate</span>(1);
+&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;(Context)&nbsp;surface.getComponent();
+&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+&nbsp;&nbsp;sensor&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);&nbsp;&nbsp;
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+}
+
+<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onResume() {
+&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onResume();
+&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;(Context)&nbsp;surface.getComponent();
+&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+&nbsp;&nbsp;sensor&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);&nbsp;&nbsp;
+&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> SensorListener();  
+&nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);
+}
+
+<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onPause() {
+&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onPause();
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) manager.unregisterListener(listener);
+}
+
+<span style="color: #33997E;">class</span> SensorListener <span style="color: #33997E;">implements</span> SensorEventListener {
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) { }
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onAccuracyChanged(Sensor sensor, <span style="color: #E2661A;">int</span> accuracy) { }
+}
+</code></pre> 
+
+                <p>In this code we define the manager, sensor, and listener in the same way as in previous examples. The sensor value holding the step count is <code>event.values[0]</code>, which we can store in our own variable:</p>
+
+<pre><code>
+<span style="color: #E2661A;">int</span> offset = -1;
+<span style="color: #E2661A;">int</span> steps;
+
+...
+
+<span style="color: #33997E;">class</span> SensorListener <span style="color: #33997E;">implements</span> SensorEventListener {
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (offset == -1) offset = (<span style="color: #E2661A;">int</span>)event.values[0]; 
+&nbsp;&nbsp;&nbsp;&nbsp;steps&nbsp;=&nbsp;(<span style="color: #E2661A;">int</span>)event.values[0] - offset;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onAccuracyChanged(Sensor sensor, <span style="color: #E2661A;">int</span> accuracy) { }
+}
+</code></pre>    
+
+                <p>And finally we use the step count values in the draw function, for example here simply to print them as text:</p>
+  
+<pre><code>
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(0, +insetBottom/2);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (!ambientMode) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">String</span> str = steps + <span style="color: #7D4793;">&quot; steps&quot;</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> w = <span style="color: #006699;">textWidth</span>(str);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(str, (<span style="color: #D94A7A;">width</span> - w)/2, <span style="color: #D94A7A;">height</span>/2 + 24);     
+&nbsp;&nbsp;}
+}
+</code></pre>    
+
             </section>
 
         </div>
