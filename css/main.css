@@ -15,8 +15,8 @@
 }
 .container {
   margin: 0 auto;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 0px;
+  padding-right: 0px;
   width: 600px;
   background-color: #ffffff;
   font-family: 'Merriweather', serif;
@@ -207,8 +207,19 @@ img.logo {
   margin-top: 45px;
 }
 
-footer {
-  float: left;
+.footinfo {
+/*  margin: 0 auto;
+  padding-left: 0px;
+  padding-right: 0px;
+  width: 600px;
+  */
+  background-color: #ffffff;
+  font-family: 'Merriweather', serif;
+  font-size: 14px;
+  font-weight: 300;
+
+  padding-left: 250px;
+  padding-top: 30px;    
 }
 
 section {
