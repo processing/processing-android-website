@@ -50,7 +50,7 @@
 
                 <h3>What is a live wallpaper?</h3>
                 <p>
-                Live wallpapers are a special type of applications that generate animated and interactive backgrounds in the home screen of the device. Technically, they are an <a href="https://developer.android.com/reference/android/service/wallpaper/WallpaperService.html">Android Service</a>, designed to run for a long time in the background. With the Android mode in Processing, you don't need to worry these low-level details, and instead focus on the drawing code. Virtually any 2D or 3D sketch can be built as a live wallpaper. All you need to do is to select the Wallpaper option under the Android menu:
+                Live wallpapers are a special type of applications that generate animated and interactive backgrounds in the home screen of the device. Technically, they are an <a href="https://developer.android.com/reference/android/service/wallpaper/WallpaperService.html">Android Service</a>, designed to run for a long time in the background. With the Android mode in Processing, you don't need to worry about these low-level details, and instead focus on the drawing code. Virtually any 2D or 3D sketch can be built as a live wallpaper. All you need to do is to select the Wallpaper option under the Android menu:
                 </p>
 
                 <p><img class="body-image" src="imgs/wallpaper_selection.png" alt="Wallpaper selection"></p>
@@ -58,7 +58,7 @@
                 <h3>Creating a wallpaper</h3>
 
                 <p>
-                Let's start by writing a simple wallpaper that just transitions the background between randomly selected colors. We will use the <a href="https://processing.org/reference/colorMode_.html" target="_black">HSB color mode</a> to create smooth transitions across the hue and the saturation of consecutive colors. We can test this sketch using Java mode first, to figure out the correct timing of the transitions. In our first version, we simply change the hue and saturation every 5 seconds:
+                Let's start by writing a simple wallpaper that just transitions the background between randomly selected colors. We will use the <a href="https://processing.org/reference/colorMode_.html" target="_black">HSB color mode</a> to create smooth transitions across the hue and the saturation of consecutive colors. We can test this sketch using Java mode first, to figure out the correct timing of the transitions. In our first version, we simply change the hue and saturation every 5 seconds without any transition:
                 </p>
 
 <pre><code>
@@ -124,14 +124,14 @@
 
                 <p>Once you are satisfied with the transition and easing times, you need to replace <code>size(400, 400)</code> with <code>fullScreen()</code> before running the sketch on the device to make sure that the wallpaper uses the entire screen of the device.</p>
 
-                <p>After the wallpaper sketch has been installed on the device, it won't show up right away, you need to open the wallpaper selector, and scroll through the availalable wallpapers until you find yours. The wallpaper selector will look different depending on the Android version in your deveice and what other wallpapers are installed, on Android 5.0 and newer it should look like something like this:</p>
+                <p>After the wallpaper sketch has been installed on the device, it won't show up right away. You need to open the wallpaper selector, and scroll through the availalable wallpapers until you find yours. The wallpaper selector will look different depending on the Android version in your deveice and what other wallpapers are installed, on Android 5.0 and newer it should look something like this:</p>
 
                 <p><img class="body-image" src="imgs/wallpaper_selector.png" alt="Wallpaper selector"></p>
 
                 <h3>Using sensor data in the wallpaper</h3>
 
                 <p>
-                In the <a href="../sensors/index.html" target="_black">sensors tutorial</a> we saw how to use the sensor API in Android to read acceleration values. We can use the same technique to obtain sensor information to construct a compass. In this case we need both accelerometer and geomagnetic sensor data, in order to determine a our orientation with respect to the Earth's magnetic axis. We start with the following template:
+                In the <a href="../sensors/index.html" target="_black">sensors tutorial</a> we saw how to use the sensor API in Android to read acceleration values. We can use the same technique to obtain sensor information needed to construct a compass. In this case, we need both accelerometer and geomagnetic sensor data, in order to determine the device's orientation with respect to the Earth's magnetic axis. We start with the following template:
                 </p>
 
 <pre><code>
@@ -201,9 +201,10 @@ Sensor&nbsp;magnetometer;
                 <ul> 
                 <li>First, we get the context using <code>context = (Context) surface.getComponent()</code> instead of <code>surface.getActivity()</code>, as it is the case with regular apps. This API might change in next 4.0 beta releases of the Android mode.</li>
 
-                <li>The same event listener is used to get acceleration and the geomagnetic field, and we use the value returned by <code>event.sensor.getType()</code> to determine with sensor we are receiving values from in <code>onSensorChanged</code></li>
+                <li>The same event listener is used to get acceleration and the geomagnetic field, and we use the value returned by <code>event.sensor.getType()</code> to determine which sensor we are receiving values from in <code>onSensorChanged()</code>.</li>
 
-                <li>The rate to read the sensor data is set to <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_NORMAL">SENSOR_DELAY_NORMAL</a>, which is the slowest from all the default rates. It is important to keep battery use in wallpapers at a minimum, as they run in the background constantly. So, when using sensors is a good idea to keep a low update rate, but it is still ok for the purpose of generating the background. In fact you can set your own rate by doing:
+                <li>The rate to read the sensor data is set to <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_NORMAL">SENSOR_DELAY_NORMAL</a>, which is the slowest from all the default rates. It is important to keep battery use in wallpapers at a minimum, as they run in the background constantly. So, when using sensors is a good idea to keep a low update rate that it is still ok for the purpose of generating the background. In fact, you can set a custom rate by doing:
+
 <pre><code>
 int READING_RATE = 100000; // time in us
 sensorManager.registerListener(listener, compass, READING_RATE);

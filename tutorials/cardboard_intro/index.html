@@ -50,7 +50,7 @@
 
                 <h3>Google Cardboard</h3>
                 <p>
-                <a href="https://vr.google.com/cardboard/index.html">The Google Cardboard platform</a> lets you use your smartphone as a quick entry point to Virtual Reality. The Android Mode supports Google Cardboard, and you should be able to write 3D sketches that run on the phone as Cardboard apps in stereo mode and respond to the head movement. If you need to get started with 3D in Processing, please check <a href="https://processing.org/tutorials/p3d/" target="_black">this tutorial</a> out.
+                <a href="https://vr.google.com/cardboard/index.html">The Google Cardboard platform</a> lets you use your smartphone as a quick entry point to Virtual Reality. The Android mode supports Google Cardboard, and you should be able to write 3D sketches that run on the phone as Cardboard apps in stereo mode and respond to the head movement. If you first need to get started with 3D in Processing, check <a href="https://processing.org/tutorials/p3d/" target="_black">this tutorial</a> out.
                 </p>
 
                 <h3>Requirements</h3>
@@ -69,7 +69,7 @@
                 <p><img class="body-image" src="imgs/cardboard_selection.png" alt="Cardboard selection"></p>
 
                 <p>
-                A basic sketch for Cardboard needs to include the import of the library, and the STEREO renderer:
+                A basic sketch for Cardboard needs to include the library import, and the STEREO renderer:
                 </p> 
 
 <pre><code>
@@ -159,7 +159,7 @@
 
                 <p>In this example, we will create a 3D scene with a few more objects. Let's start by defining a 2D grid as a reference.</p>
 
-                <p>Because performance is very important in VR to keep the framerate as high as possible and avoid <a href="Avoiding simulator sickness" target="_black">simulation sickness</a> in the user, we should rely on PShape objects to store static geometry and avoid re-generating it in every frame:
+                <p>Because performance is very important in VR to keep the framerate as high as possible and avoid <a href="Avoiding simulator sickness" target="_black">simulation sickness</a> in the user, we could rely on PShape objects to store static geometry and so avoid re-generating it in every frame:
                 <p>
 
 <pre><code>
@@ -192,7 +192,7 @@
 </code></pre>
 
                 <p>
-                Now we can add some objects! In order to optimize performance, we can group several 3D shapes inside a single PShape group, like so:
+                Now we can add some objects! In order to optimize performance, we can group several 3D shapes inside a single PShape group, which is faster than handling each object separately, like so:
                 </p>
 
 <pre><code>
@@ -242,7 +242,7 @@
 }
 </code></pre>
 
-                <p>The final result should look something like this:</p>
+                <p>The final result should look like this, depending on your viewpoint:</p>
 
                 <p><img class="body-image" src="imgs/grid_and_boxes.png" alt="Grid and boxes"></p>
 

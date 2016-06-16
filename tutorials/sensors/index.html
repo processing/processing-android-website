@@ -47,12 +47,12 @@
                 
                 <p>
                 Smartphones and tablets include many different types of <a href="https://developer.android.com/guide/topics/sensors/sensors_overview.html" target="_black">sensors</a>, for example accelerometers, gyroscopes, magnetometers, and thermometers. These sensors allow us to obtain information about the movement, environment, and position of the device.</p>
-                <p>While the Processing language does not have specialized functions to read data from these sensors, you can import the packages in the <a href="https://developer.android.com/reference/android/hardware/Sensor.html" target="_black">Android SDK</a> that receive sensor measurements from your sketch. 
+                <p>While the Processing language does not have specialized functions to read data from these sensors, you can import the packages in the <a href="https://developer.android.com/reference/android/hardware/Sensor.html" target="_black">Android SDK</a> that receive sensor measurements into your sketch. 
                 </p>
 
                 <h3>Creating a sensor manager</h3>
                 <p>
-                In the first example, we will create a sketch that responds to changes in acceleration, so we will be using the data from the accelerometer. The first step to use the sensor API is to obtain the context of the activity that contains the sketch, and to obtain a sensor manager from this context. Then, we can get the sensor we need in our core, in this case an accelerometer. We do all of this in the <code>setup()</code> function:
+                In the first example, we will create a sketch that responds to changes in acceleration, so we will be using the data from the accelerometer. The first step to use the sensor API is to obtain the context of the activity that contains the sketch, and get a sensor manager from this context. Then, we can initialize the sensor we need in our sketch, in this case an accelerometer. We do all of this in the <code>setup()</code> function:
                 </p>
 
 <pre><code>
@@ -84,7 +84,7 @@ Sensor&nbsp;sensor;
 
                 <h3>Adding a sensor listener</h3>
                 <p>
-                Now we need to add a "listener" class that will notify the sketch that new data is coming from the sensor. A listener for each sensor is derived from the base <a href="https://developer.android.com/reference/android/hardware/SensorEventListener.html" target="_black">SensorEventListener class</a> in the Android SDK. Once we have a listener instance in the sketch, we can register the listener with the manager:
+                Now we need to add a "listener" class that will notify the sketch that new data is available from the sensor. A listener for each sensor is derived from the base <a href="https://developer.android.com/reference/android/hardware/SensorEventListener.html" target="_black">SensorEventListener class</a> in the Android SDK. Once we have a listener instance in the sketch, we can register the listener with the manager:
                 </p>
 
 <pre><code>
@@ -120,16 +120,16 @@ AccelerometerListener&nbsp;listener;
 }
 </code></pre>
 
-                <p>You probaby noticed the <code>SensorManager.SENSOR_DELAY_GAME</code> argument in the listener registration. This argument sets the rate by which the sensor gets data. Faster rates mean more responsiveness, but also more battery consumption. There are several pre-defined rate constants in addition to <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_GAME" target="_black"><code>SENSOR_DELAY_GAME</code></a>, you can also use <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_FASTEST" target="_black"><code>SENSOR_DELAY_FASTEST</code></a>, <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_NORMAL" target="_black"><code>SENSOR_DELAY_NORMAL</code></a>, and <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_GAME" target="_black"><code>SENSOR_DELAY_UI</code></a>.</p>
+                <p>You probaby noticed the <code>SensorManager.SENSOR_DELAY_GAME</code> argument in the listener registration. This argument sets the rate at which the sensor is updated with new data. Faster rates mean more responsiveness, but also more battery consumption. There are several pre-defined rate constants in addition to <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_GAME" target="_black"><code>SENSOR_DELAY_GAME</code></a>, you can also use <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_FASTEST" target="_black"><code>SENSOR_DELAY_FASTEST</code></a>, <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_NORMAL" target="_black"><code>SENSOR_DELAY_NORMAL</code></a>, and <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_GAME" target="_black"><code>SENSOR_DELAY_UI</code></a>.</p>
 
                 <h3>Reading the sensor data</h3>
                 <p>
-                The event listener has two methods, <code>onSensorChanged()</code> and <code>onAccuracyChanged()</code>. We only need to use <code>onSensorChanged()</code> to get the data from the sensor. In the case of the accelerometer, the data consists in three float numbers, representing the acceleraton along the X, Y, and Z axis of the device, defined as follows:
+                The event listener has two methods, <code>onSensorChanged()</code> and <code>onAccuracyChanged()</code>. We only need to use <code>onSensorChanged()</code> to get the data from the sensor. In the case of the accelerometer, the data consists of three float numbers, representing the acceleration along the X, Y, and Z axis of the device, defined as follows:
                 </p>    
 
                 <p><img class="body-image" src="imgs/axis_device.png" alt="Device axis"></p>
 
-                <p>As a first test, we can simply print these values to the screen, and verify that if we place the phone flat on the table with the screen facing up, then we should see a Z acceleration of 9.81 m/s<sup>2</sup>, corresponding to the <a href="https://developer.android.com/guide/topics/sensors/sensors_motion.html#sensors-motion-accel" target="_black">force of gravity</a>.</p>
+                <p>As a first test, we can simply print these values to the screen, and verify that if we place the phone flat on the table with the screen facing up, then we see a Z acceleration of 9.81 m/s<sup>2</sup>, corresponding to the <a href="https://developer.android.com/guide/topics/sensors/sensors_motion.html#sensors-motion-accel" target="_black">force of gravity</a>.</p>
 
 <pre><code>
 <span style="color: #33997E;">import</span> android.content.Context;
@@ -201,11 +201,11 @@ AccelerometerListener&nbsp;listener;
 
                 <h3>A more complex example using Box2D</h3>
 
-                <p>One possible use of the sensor data is to control the movement of graphical elements in our sketch. The values from the accelerometer directy represent the force the device is subject to, so if we use those to control the behaviour of particles in the code, then we could pair behaviours in the code with movements in real space.</p>
+                <p>One possible use of the sensor data is to control the movement of graphical elements in our sketch. The values from the accelerometer directy represent the force the device is subject to, so if we use those to control the behaviour of, say, a rigid body system, then we could pair behaviours in the code with movements in real space.</p>
 
-                <p>In order to achieve this goal, we will make use of the <a href="https://github.com/shiffman/Box2D-for-Processing" target="_black">Box2D for Processing</a> library by Daniel Shiffman. Although this library was not explicility created for Android, since it is written in pure Java, then it can be used from sketches in the Android mode!</p>
+                <p>In order to achieve this goal, we will make use of the <a href="https://github.com/shiffman/Box2D-for-Processing" target="_black">Box2D for Processing</a> library by Daniel Shiffman. Although this library was not created for Android, it can still be used from sketches in the Android mode since it is written in Java!</p>
 
-                <p>We will combine the basic code from the previous example to read accelerometer data with a simple Box2D's simulation where the borders of the screen define the boundaries of walls of the space, and a number of boxes bounce around under the acceleration measured by the device. The full code of the example is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/sensors/ex2_boxes" target="_black">here</a>.</p>
+                <p>We will combine the basic code from the previous example to read accelerometer data with a simple Box2D simulation where the borders of the screen define the boundaries of the simulation, and a number of boxes bounce around under the acceleration measured by the device. The full code of the example is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/sensors/ex2_boxes" target="_black">here</a>.</p>
 
                 <p>Without the accelerometer data, we can write the Box2D code as follows (the implementation of the Box and Wall classes is not included, check the full example code on GitHub):</p>
 

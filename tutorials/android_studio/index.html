@@ -66,7 +66,7 @@
                 <p><b>5.</b> Copy android-core.jar to /app/libs, and add it as file dependency to the project:</p>
                 <p><img class="body-image" src="imgs/5_module_settings.png" alt="Module settings"></p>
 
-                <p><b>6.</b> Then, write your sketch code by extending PApplet:</p> 
+                <p><b>6.</b> Then, write your sketch code by extending PApplet, for example:</p> 
              
 <pre><code>
 // Sketch.java
@@ -136,7 +136,7 @@ public class MainActivity extends Activity {
 
              <h3>Differences with version 4 of the mode</h3>
             
-             <p>For version 4.0+, all the previous steps are still valid, the only difference is that we need to create a separate PFragment object in the main activity to hold the sketch:</p>
+             <p>For version 4.0+, all the previous steps are still valid, the only difference is that we need to create a separate PFragment object in the main activity to contain the sketch:</p>
 
 <pre>
 import processing.core.PApplet;
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
 }
 </pre>
 
-                <p>Complete Android Studio project for 4.0 is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/android_studio/ex2_fragmentsv4" target="_black">here</a>.</p>
+                <p>The complete Android Studio project for 4.0 is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/android_studio/ex2_fragmentsv4" target="_black">here</a>.</p>
 
                 <h3>Multiple Processing sketches in a single app</h3>
                 
