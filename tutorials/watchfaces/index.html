@@ -260,6 +260,11 @@ SensorListener&nbsp;listener;
 }
 </code></pre>    
 
+                <p>You might want to save the step count values in order to keep track of the activity profile of the user. You can use the different functions available in Processing to save and load data in your watch face, for example <a href="https://processing.org/reference/saveStrings_.html" target="_black">saveStrings()</a> and <a href="https://processing.org/reference/loadStrings_.html" target="_black">loadStrings()</a>. However, you need to make sure that the <code>WRITE_EXTERNAL_STORAGE</code> permission is enabled.</p>
+
+                <div class="butterbar">If the watch is running Android 6.0 or higher, it is not enough to enable the permissions considered <a href="https://developer.android.com/guide/topics/security/permissions.html#normal-dangerous" target="_black">dangerous</a>, such as <code>WRITE_EXTERNAL_STORAGE</code>, using the "Sketch Permissions" option as described earlier, you also need to manually turn the permission on in the device, inside the permission settings for the watch face, as explained <a href="https://support.google.com/androidwear/answer/6321353?hl=en" target="_black">here</a>.
+                </div>
+
             </section>
 
         </div>
