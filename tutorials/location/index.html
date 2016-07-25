@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="http://android.processing.org/test/favicon.png">
+        <link rel="stylesheet" href="../../css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Processing for Android</title>
+    </head>
+    
+    <body>
+
+        <nav class="topnav">        
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="http://p5js.org/">p5.js</a></li>
+                <li><a href="http://py.processing.org/">Processing.py</a></li>
+                <li><a href="http://android.processing.org/test/">Processing for Android</a></li>
+            </ul>
+            <ul class="right">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav>
+
+        <header>            
+            <h1 class="title">Processing for Android</h1>
+        </header>
+
+        <div class="group">
+
+            <nav class="site">
+                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
+                <ul class="leftnav">
+                   <li><a href="../../index.html">Home</a></li>
+                   <li><a href="../../install.html">Install</a></li>
+                   <li><a href="../../reference/index.html">Reference</a></li>
+                   <li><a id="selected" href="../../tutorials/index.html">Tutorials</a></li>
+                   <li><a href="https://forum.processing.org/two/categories/android" target="_black">Forum</a></li>
+                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a><br></li>
+                </ul>
+            </nav>
+      
+            <section class="container main-text">
+            	<h2>Location and permissions</h2>
+
+                <p>Learn to access location using GPS, and properly set the sketch permissions in Android 6+ devices.</p>
+
+                <h3>The Android location APIs</h3>
+                
+                <p>
+                An Android device can determine <a href=
+                "https://developer.android.com/guide/topics/location/strategies.html" target="_black">its location</a> with various degrees of accuracy by using information from the network is connected to (WiFi, cellular), or from the signals from the GPS (Global Positioning System) satellites. GPS-based location is more accurate, but requires to be outdoors and consumes more battery and updates less frequently than network-based location.
+                </p>
+
+                <h3>Creating a location manager</h3>
+                <p>
+                The basic structure of a sketch that access location information is very similar to what we saw for <a href="../sensors/index.html" target="_black">other sensors</a>. You get the location manager from the context of the app, wallpaper, or watch face using the <code>surface.getContext()</code> call in version 4.0+ of the mode (in 3 you can just get a reference to the activity with <code>getActivity()</code>), and then attach a listener to the manager:
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> android.content.Context;
+<span style="color: #33997E;">import</span> android.location.Location;
+<span style="color: #33997E;">import</span> android.location.LocationListener;
+<span style="color: #33997E;">import</span> android.location.LocationManager;
+<span style="color: #33997E;">import</span> android.os.Bundle;
+<span style="color: #33997E;">import</span> android.Manifest;
+
+LocationManager&nbsp;locationManager;
+MyLocationListener&nbsp;locationListener;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span> () {
+&nbsp;&nbsp;<span style="color: #006699;">size</span>(480, 640);
+&nbsp;&nbsp;orientation(PORTRAIT);
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+}
+
+<span style="color: #33997E;">void</span> onPermissionsGranted() {  
+&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;surface.getContext();
+&nbsp;&nbsp;locationListener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> MyLocationListener();
+&nbsp;&nbsp;locationManager&nbsp;=&nbsp;(LocationManager)&nbsp;context.getSystemService(Context.LOCATION_SERVICE);&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,&nbsp;0,&nbsp;0,&nbsp;locationListener);
+}
+
+<span style="color: #33997E;">class</span> MyLocationListener <span style="color: #33997E;">implements</span> LocationListener {
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onLocationChanged(Location location) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">println</span>(location.getLatitude(), location.getLongitude());
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onProviderDisabled (<span style="color: #E2661A;">String</span> provider) { }
+
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onProviderEnabled (<span style="color: #E2661A;">String</span> provider) { }
+
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onStatusChanged (<span style="color: #E2661A;">String</span> provider, <span style="color: #E2661A;">int</span> status, Bundle extras) { }
+}
+</code></pre>
+
+                <p>
+                However, here we are putting the manager and listener initialization code inside the </code>onPermissionsGranted()</code> function instead of <code>setup()</code> or the <code>onResume()</code> functions, as in previous examples. The reason is that in recent versions of Android (6.0 and newer), permissions are divided into two protection levels: <a href="https://developer.android.com/guide/topics/security/permissions.html#normal-dangerous" target="_black">normal and dangerous</a>. The permissions classified as <a href="https://developer.android.com/guide/topics/security/permissions.html#permission-groups" target="_black">dangerous</a> affect access to private data of the user, such as location or list of contacts, and require the user to grant them individually when he or she runs the app, not when it is installed. Because the app will show a dialog asking to allow or deny the permission, but wihtout pausing the app, you cannot rely on <code>setup()</code> or <code>onResume()</code> functions The </code>onPermissionsGranted()</code> will be called right after the user has granted all the dangerous permissions required by the app.
+                </p>
+
+                <p>You still need to check the permissions needed by the sketch, in this case ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION for network and GPS-based location, using the permissions selector in the PDE:</p>
+
+                <p><img class="body-image" src="imgs/permission_selector.png" alt="Permission selection"></p>
+
+                <h3>Checking if location is available</h3>
+
+                <p>
+                Even if we add the location permissions to the sketch through the selector, the user can still deny them when running the app on the device, so we need to handle the situation where the location is not available. We also have the <code>checkPermission()</code> to make sure that a given permission has been actually granted and we can access the associated functionality:
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (hasLocation) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Latitude: &quot;</span> + currentLatitude, 20, 40);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Longitude: &quot;</span> + currentLongitude, 20, 75);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Accuracy: &quot;</span> + currentAccuracy, 20, 110);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Provider: &quot;</span> + currentProvider, 20, 145);
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;No permissions to access location&quot;</span>, 20, 40);
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">void</span> onPermissionsGranted() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) ||
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION))&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;surface.getContext();&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;locationListener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> MyLocationListener();
+&nbsp;&nbsp;&nbsp;&nbsp;locationManager&nbsp;=&nbsp;(LocationManager)&nbsp;context.getSystemService(Context.LOCATION_SERVICE);&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,&nbsp;0,&nbsp;0,&nbsp;locationListener);
+&nbsp;&nbsp;&nbsp;&nbsp;hasLocation&nbsp;=&nbsp;<span style="color: #33997E;">true</span>;
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;hasLocation&nbsp;=&nbsp;<span style="color: #33997E;">false</span>;
+&nbsp;&nbsp;}&nbsp;&nbsp;
+}
+</code></pre>
+
+                <p>The complete code of this example is available <a href="https://github.com/codeanticode/processing-android-tutorials/blob/master/location_permissions/gps_example/gps_example.pde" target="_black">here</a>. Once you run it on a device with Android 6 or higher, you should see the following dialog requesting the location permissions:
+                </p>
+
+                <p><img class="body-image" src="imgs/permission_dialog.png" alt="Permission dialog"></p>
+
+                <p>After allowing your app to access the location of the device, you will get the latitude and languitude values through the location listener!
+                </p>
+
+            </section>
+
+        </div>
+
+        <footer class="footinfo">
+            <small>&copy; The Processing Foundation. Processing for Android is a <a href="../../team.html">collaborative project</a>.</small>
+        </footer>
+    </body>
+</html>
+
