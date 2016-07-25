@@ -155,7 +155,7 @@ nav.topnav ul li {
 }
 
 nav.topnav ul li a {
-  color: #D3D3D3;
+  color: #C1C1C1;
 }
 
 /* ================ SITE NAVIGATION ================== */
@@ -311,7 +311,7 @@ ol {
 }
 
 ul.leftnav {
-  margin-left: 10px;
+  margin-left: 20px;
   list-style: none;
 }
 
