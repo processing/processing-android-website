@@ -42,16 +42,29 @@
             </nav>
       
             <section class="container main-text">
-                <h2>wallpaperPreview()</h2>
-                <p>This function tells you if the wallpaper is being shown in the preview of the wallpaper selector. After the wallpaper is finally selected, it will be restarted in non-preview mode to run as the background.</p>
+                <h2>Getting state of application</h2>
+                <p>We can obtain a reference to the main activity or context containing the sketch using the getActivity() and getContext() functions:
+                </p>
 
-<pre><code>
-void draw() {
-  if (wallpaperPreview()) {
-    text("This is a preview", 20, 20);
-  }  
-}    
-</code></pre>
+                <pre><code>
+import android.app.Activity;
+import android.content.Context;
+
+void setup() {
+  Activity activity = getActivity();
+}
+                </code></pre>
+
+                <p>The activity will be available only for sketches run as regular or VR apps, since wallpapers and watch faces are services that are not associated to an activity. getContext() should return the context of the application or service in any situation.
+                </p>
+
+                <pre><code>
+import android.content.Context;
+
+void setup() {
+  Context context = getContext();
+}
+                </code></pre>
 
             </section>
 

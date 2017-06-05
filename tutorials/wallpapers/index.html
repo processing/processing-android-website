@@ -153,29 +153,31 @@ Sensor&nbsp;magnetometer;
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
 &nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P2D</span>);
 &nbsp;&nbsp;orientation(PORTRAIT);
+&nbsp;&nbsp;
+&nbsp;&nbsp;context&nbsp;=&nbsp;getContext();&nbsp;&nbsp;
+&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> SensorListener();
+&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+&nbsp;&nbsp;accelerometer&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+&nbsp;&nbsp;magnetometer&nbsp;&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+&nbsp;&nbsp;manager.registerListener(listener,&nbsp;accelerometer,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);
+&nbsp;&nbsp;manager.registerListener(listener,&nbsp;magnetometer,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);&nbsp;&nbsp;
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
 &nbsp;&nbsp;<span style="color: #006699;">background</span>(255);
 }
 
-<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onResume() {
-&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onResume();  
-
-&nbsp;&nbsp;context&nbsp;=&nbsp;(Context)&nbsp;surface.getComponent();
-&nbsp;&nbsp;
-&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> SensorListener();
-&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
-&nbsp;&nbsp;accelerometer&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-&nbsp;&nbsp;magnetometer&nbsp;&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-
-&nbsp;&nbsp;manager.registerListener(listener,&nbsp;accelerometer,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);
-&nbsp;&nbsp;manager.registerListener(listener,&nbsp;magnetometer,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);
+<span style="color: #33997E;">void</span> resume() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;manager.registerListener(listener,&nbsp;accelerometer,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);
+&nbsp;&nbsp;&nbsp;&nbsp;manager.registerListener(listener,&nbsp;magnetometer,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);&nbsp;&nbsp;
+&nbsp;&nbsp;}
 }
 
-<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onPause() {
-&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onPause();
-&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) manager.unregisterListener(listener);
+<span style="color: #33997E;">void</span> pause() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;manager.unregisterListener(listener);
+&nbsp;&nbsp;}
 }
 
 <span style="color: #33997E;">class</span> SensorListener <span style="color: #33997E;">implements</span> SensorEventListener {
@@ -202,7 +204,7 @@ Sensor&nbsp;magnetometer;
                 <p>A couple of important things to note here:</p> 
 
                 <ul> 
-                <li>First, we get the context using <code>context = (Context) surface.getComponent()</code> instead of <code>surface.getActivity()</code>, as it is the case with regular apps. This API might change in next 4.0 beta releases of the Android mode.</li>
+                <li>First, we get the context using <code>context = (Context) getComponent()</code> instead of <code>getActivity()</code>, as it is the case with regular apps, because there is no activity in the case of wallpapers.</li>
 
                 <li>The same event listener is used to get acceleration and the geomagnetic field, and we use the value returned by <code>event.sensor.getType()</code> to determine which sensor we are receiving values from in <code>onSensorChanged()</code>.</li>
 

@@ -42,17 +42,19 @@
             </nav>
       
             <section class="container main-text">
-                <h2>wallpaperPreview()</h2>
-                <p>This function tells you if the wallpaper is being shown in the preview of the wallpaper selector. After the wallpaper is finally selected, it will be restarted in non-preview mode to run as the background.</p>
+                <h2>displayDensity</h2>
+                <p>The logical density of the display from getDisplayMetrics().density. According to Android's documentation: This is a scaling factor for the Density Independent Pixel unit, where one DIP is one pixel on an approximately 160 dpi screen (for example a 240x320, 1.5"x2" screen), providing the baseline of the system's display. Thus on a 160dpi screen this density value will be 1; on a 120 dpi screen it would be .75; etc.
+                </p>
 
-<pre><code>
-void draw() {
-  if (wallpaperPreview()) {
-    text("This is a preview", 20, 20);
-  }  
-}    
-</code></pre>
+                <p>It can be used to scale the graphical element in a sketch, like text and shapes, to present approximately the same size independently of the screen's dpi:
+                </p>                
 
+                <pre><code>
+void setup() {
+  PFont font = createFont("SansSerif", 24 * displayDensity);
+  textFont(font);
+}                    
+                </code></pre>
             </section>
 
         </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8">      
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
         <link rel="icon" type="image/png" href="http://android.processing.org/favicon.png">
         <link rel="stylesheet" href="../../css/main.css">
@@ -42,29 +42,43 @@
             </nav>
       
             <section class="container main-text">
-                <h2>Home screens</h2>
-                <p>When your device have several home screens, two variables in Processing tell you how to adjust the 
-                    graphics in the sketch depending on which is the current screen: <code>homeScreenCount</code> and <code>homeScreenOffset</code>. <code>homeScreenCount</code> holds the number of home screens (it can change while the wallpaper is running as the users adds or removes home screens). <code>homeScreenOffset</code> is a float number between 0 and 1 that that measures the horizontal displacement along the screens: 0 at the leftmost location, and 1 when we are located at the rightmost homescreen. <a href="http://stackoverflow.com/a/9549997" target="_black">This post</a> on stackoverflow explains in more detail how the x offset works.</p>
+                <h2>Eye transformation</h2>
+                <p>The eye transformation allows to use the coordinates relative to the viewer:</p>
 
-                <pre><code>
-PImage img;
-float ratio;
+<pre><code>
+import processing.vr.*;
 
 void setup() {
-  fullScreen();
-  img = loadImage("landscape.jpg");
-  ratio = float(img.width)/float(img.height);
+  fullScreen(STEREO);
 }
 
 void draw() {
-  background(0);
-  float w = homeScreenCount * width;
-  float h = w/ratio;
-  float x = map(homeScreenOffset, 0, 1, 0, -(homeScreenCount-1) * width);
-  image(img, x, 0, w, h);
+   // draw scene...
+
+   pushMatrix();
+   eye();
+   translate(0, 0 100);
+   ellipse(0, 0, 50, 50);
+   popMatrix();
+}
+</code></pre>
+
+<p>One can retrieve the matrix holding this transformation:</p>
+
+<pre><code>
+import processing.vr.*;
+
+PMatrix3D eyeMat = new PMatrix3D();
+
+void setup() {
+  fullScreen(STEREO);
 }
 
-                <code><pre>                     
+void draw() {
+  getEyeMatrix(eyeMat);  
+}    
+</code></pre>
+
             </section>
 
         </div>

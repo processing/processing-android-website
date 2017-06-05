@@ -42,8 +42,19 @@
             </nav>
       
             <section class="container main-text">
-                <h2>ambientMode</h2>
-                <p>This variable is automatically set to true when the user is not looking at the watch, which then enters into ambient mode in order to save battery (the draw function is called only once every minute).</p>
+                <h2>hasPermission()</h2>
+                <p>Use this function to check if a permission is granted to perform a specific operation. The permissions are idenfified with the string constants declared in the Manifest.permission package:
+                </p>
+
+                <pre><code>
+void draw() {
+  if (hasPermission("android.permission.ACCESS_FINE_LOCATION")) {
+    printn("Location is available");
+  } else {
+    printn("No permission to read location");
+  }
+}     
+                </code></pre>                
             </section>
 
         </div>

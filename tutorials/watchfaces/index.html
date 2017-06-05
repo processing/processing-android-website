@@ -77,14 +77,14 @@
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
 &nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
 &nbsp;&nbsp;<span style="color: #006699;">frameRate</span>(1);
-&nbsp;&nbsp;<span style="color: #006699;">textFont</span>(<span style="color: #006699;">createFont</span>(<span style="color: #7D4793;">&quot;Roboto&quot;</span>, 48));
+&nbsp;&nbsp;<span style="color: #006699;">textFont</span>(<span style="color: #006699;">createFont</span>(<span style="color: #7D4793;">&quot;SansSerif&quot;</span>, 30 * displayDensity));
 &nbsp;&nbsp;<span style="color: #006699;">fill</span>(255);
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
 &nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
-&nbsp;&nbsp;<span style="color: #006699;">translate</span>(0, +insetBottom/2);
-&nbsp;&nbsp;<span style="color: #669900;">if</span> (!ambientMode) {
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(0, +wearInsets().bottom/2);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (!wearAmbient()) {
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">String</span> str = <span style="color: #006699;">hour</span>() + <span style="color: #7D4793;">&quot;:&quot;</span> + <span style="color: #006699;">minute</span>() + <span style="color: #7D4793;">&quot;:&quot;</span> + <span style="color: #006699;">second</span>();
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> w = <span style="color: #006699;">textWidth</span>(str);
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(str, (<span style="color: #D94A7A;">width</span> - w)/2, <span style="color: #D94A7A;">height</span>/2 + 24);     
@@ -93,9 +93,9 @@
 </code></pre>
 
                 <p>
-                A couple of things to observe in this code is the use of a frame rate of 1 because the text only changes once every second, so it there is no need to update the screen any faster (which consumes more battery). Also, the watch face is drawn only if the built-in variable <code>ambientMode</code> is false. When this variable is true, the person wearing the watch is not looking at it, so it switches to ambient mode in order to save battery. When the watch is in ambient mode, the display is updated only once every minute, and it is recommended to keep most of the screen black and render only a simplified version of the watch face.</p> 
+                A couple of things to observe in this code is the use of a frame rate of 1 because the text only changes once every second, so it there is no need to update the screen any faster (which consumes more battery). Also, the watch face is drawn only if the built-in function <code>wearAmbient()</code> returns false. The reason for this is that, in the contrary, it returns true, then it means that the person wearing the watch is not looking at it, so it switches to ambient (or always-on) mode in order to save battery. In ambient mode, the display is updated only once every minute, and <a href="https://www.google.com/design/spec-wear/patterns/interactive-watch-faces.html#interactive-watch-faces-square-round-devices">it is recommended</a> to keep most of the screen black and render only a simplified version of the watch face.</p> 
 
-                <p>Also, we use the <code>insetBottom</code> built-in variable to account for watches that have a "chin" in the bottom of the screen, like the Moto 360, so the entire frame is shifted downwards by half of that value in order to be properly centered. Another important built-in variable that we are not using in this case is <code>isRound</code>, which tells you whether the shape of the watch is round or square. For a complete list of all the built-in variables available for watch faces, please take a look at the <a href="../../reference/index.html" target="_black">reference page</a>.
+                <p>Also, we use the <code>wearInsets()</code> function to get the insets of the screen. In particular, the bottom inset helps to properly center the sketch's output in watches that have a "chin" in the bottom of the screen, like the Moto 360, so the entire frame is shifted downwards by half of that value in order to be properly centered. Another important built-in variable that we are not using in this case is <code>isRound</code>, which tells you whether the shape of the watch is round or square. For a complete list of all the built-in variables available for watch faces, please take a look at the <a href="../../reference/index.html" target="_black">reference page</a>.
                 </p>
 
 
@@ -118,7 +118,7 @@
 &nbsp;&nbsp;<span style="color: #E2661A;">int</span> time = <span style="color: #006699;">hour</span>() * 60 + <span style="color: #006699;">minute</span>();
 &nbsp;&nbsp;<span style="color: #669900;">if</span> (time == 0) dots.<span style="color: #006699;">clear</span>();
 &nbsp;&nbsp;<span style="color: #E2661A;">float</span> x = <span style="color: #006699;">map</span>(time, 0, totalMin, 0, <span style="color: #D94A7A;">width</span>);
-&nbsp;&nbsp;<span style="color: #669900;">if</span> (ambientMode) {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (wearAmbient()) {
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">noFill</span>();
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">stroke</span>(255);    
@@ -168,7 +168,7 @@ Vibrator&nbsp;vibrator;
 &nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
 &nbsp;&nbsp;<span style="color: #006699;">frameRate</span>(1);
 &nbsp;&nbsp;dots&nbsp;=&nbsp;<span style="color: #33997E;">new</span> <span style="color: #E2661A;">ArrayList</span>&lt;<span style="color: #E2661A;">PVector</span>&gt;();
-&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;(Context)&nbsp;surface.getComponent();
+&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;getContext();
 &nbsp;&nbsp;vibrator&nbsp;=&nbsp;(Vibrator)&nbsp;context.getSystemService(Context.VIBRATOR_SERVICE);
 }
 </code></pre>                
@@ -196,7 +196,6 @@ Vibrator&nbsp;vibrator;
 <span style="color: #33997E;">import</span> android.hardware.SensorEvent;
 <span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
 
-Context&nbsp;context;
 SensorManager&nbsp;manager;
 Sensor&nbsp;sensor;
 SensorListener&nbsp;listener;
@@ -204,26 +203,27 @@ SensorListener&nbsp;listener;
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
 &nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
 &nbsp;&nbsp;<span style="color: #006699;">frameRate</span>(1);
-&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;(Context)&nbsp;surface.getComponent();
+&nbsp;&nbsp;
+&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;getContext();
 &nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
 &nbsp;&nbsp;sensor&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);&nbsp;&nbsp;
+&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> SensorListener();  
+&nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);&nbsp;&nbsp;
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
 }
 
-<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onResume() {
-&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onResume();
-&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;(Context)&nbsp;surface.getComponent();
-&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
-&nbsp;&nbsp;sensor&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);&nbsp;&nbsp;
-&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> SensorListener();  
-&nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);
+<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> resume() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);
+&nbsp;&nbsp;}
 }
 
-<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onPause() {
-&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onPause();
-&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) manager.unregisterListener(listener);
+<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> pause() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;manager.unregisterListener(listener);
+&nbsp;&nbsp;}
 }
 
 <span style="color: #33997E;">class</span> SensorListener <span style="color: #33997E;">implements</span> SensorEventListener {
@@ -249,23 +249,38 @@ SensorListener&nbsp;listener;
 }
 </code></pre>    
 
-                <p>And finally we use the step count values in the draw function, for example here simply to print them as text:</p>
+                <p>And finally, we can add some font initialization in setup(), and use the step count values in the draw function, for example here simply to print them as text:</p>
   
 <pre><code>
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
+&nbsp;&nbsp;<span style="color: #006699;">frameRate</span>(1);
+
+&nbsp;&nbsp;<span style="color: #006699;">textFont</span>(<span style="color: #006699;">createFont</span>(<span style="color: #7D4793;">&quot;SansSerif&quot;</span>, 30 * displayDensity));
+&nbsp;&nbsp;<span style="color: #006699;">textAlign</span>(<span style="color: #718A62;">CENTER</span>, <span style="color: #718A62;">CENTER</span>);
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255);  
+&nbsp;&nbsp;
+&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;getContext();
+&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+&nbsp;&nbsp;sensor&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);&nbsp;&nbsp;
+&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> SensorListener();  
+&nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);&nbsp;&nbsp;
+}
+
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
 &nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
-&nbsp;&nbsp;<span style="color: #006699;">translate</span>(0, +insetBottom/2);
-&nbsp;&nbsp;<span style="color: #669900;">if</span> (!ambientMode) {
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(0, +wearInsets().bottom/2);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (!wearAmbient()) {
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">String</span> str = steps + <span style="color: #7D4793;">&quot; steps&quot;</span>;
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> w = <span style="color: #006699;">textWidth</span>(str);
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(str, (<span style="color: #D94A7A;">width</span> - w)/2, <span style="color: #D94A7A;">height</span>/2 + 24);     
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(str, 0, 0, <span style="color: #D94A7A;">width</span>, <span style="color: #D94A7A;">height</span>);     
 &nbsp;&nbsp;}
 }
 </code></pre>    
 
                 <p>You might want to save the step count values in order to keep track of the activity profile of the user. You can use the different functions available in Processing to save and load data in your watch face, for example <a href="https://processing.org/reference/saveStrings_.html" target="_black">saveStrings()</a> and <a href="https://processing.org/reference/loadStrings_.html" target="_black">loadStrings()</a>. However, you need to make sure that the <code>WRITE_EXTERNAL_STORAGE</code> permission is enabled.</p>
 
-                <div class="butterbar">If the watch is running Android 6.0 or higher, it is not enough to enable the permissions considered <a href="https://developer.android.com/guide/topics/security/permissions.html#normal-dangerous" target="_black">dangerous</a>, such as <code>WRITE_EXTERNAL_STORAGE</code>, using the "Sketch Permissions" option as described earlier, you also need to manually turn the permission on in the device, either by following the notification triggered by the watch face or going to the permission settings for the watch face, as explained <a href="https://support.google.com/androidwear/answer/6321353?hl=en" target="_black">here</a>.
+                <div class="butterbar">When using <a href="https://developer.android.com/guide/topics/security/permissions.html#normal-dangerous" target="_black">dangerous permissions</a>, such as <code>WRITE_EXTERNAL_STORAGE</code>, you also need to request the permission explicitly in the sketch's code as explained in this <a href="../location/index.html">other tutorial</a>, and then granting the permission in the device, either by following the notification triggered by the watch face or going to the permission settings for the watch face, as explained <a href="https://support.google.com/androidwear/answer/6321353?hl=en" target="_black">here</a>.
                 </div>
 
             </section>

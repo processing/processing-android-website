@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8">      
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
         <link rel="icon" type="image/png" href="http://android.processing.org/favicon.png">
         <link rel="stylesheet" href="../../css/main.css">
@@ -42,14 +42,15 @@
             </nav>
       
             <section class="container main-text">
-                <h2>wallpaperPreview()</h2>
-                <p>This function tells you if the wallpaper is being shown in the preview of the wallpaper selector. After the wallpaper is finally selected, it will be restarted in non-preview mode to run as the background.</p>
+               <h2>Camera orientation</h2>
+                <p>By default, Processing's 3-D coordinates have the origin placed are the top left corner of the screen, and the Y axis pointing down. Calling the cameraUp() function this setting is overriden by the more common in VR with the origin at the center of the screen, and the Y axis pointing up</p>
 
 <pre><code>
-void draw() {
-  if (wallpaperPreview()) {
-    text("This is a preview", 20, 20);
-  }  
+import processing.vr.*;
+
+void setup() {
+  fullScreen(STEREO);
+  cameraUp();
 }    
 </code></pre>
 

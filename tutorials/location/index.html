@@ -69,19 +69,29 @@
 LocationManager&nbsp;locationManager;
 MyLocationListener&nbsp;locationListener;
 
+<span style="color: #E2661A;">boolean</span> hasLocation = <span style="color: #33997E;">false</span>;
+
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span> () {
-&nbsp;&nbsp;<span style="color: #006699;">size</span>(480, 640);
-&nbsp;&nbsp;orientation(PORTRAIT);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
+&nbsp;&nbsp;orientation(PORTRAIT);&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">textFont</span>(<span style="color: #006699;">createFont</span>(<span style="color: #7D4793;">&quot;SansSerif&quot;</span>, 26 * displayDensity));
+&nbsp;&nbsp;<span style="color: #006699;">textAlign</span>(<span style="color: #718A62;">CENTER</span>, <span style="color: #718A62;">CENTER</span>);
+&nbsp;&nbsp;requestPermission(<span style="color: #7D4793;">&quot;android.permission.ACCESS_FINE_LOCATION&quot;</span>, <span style="color: #7D4793;">&quot;initLocation&quot;</span>);
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
 }
 
-<span style="color: #33997E;">void</span> onPermissionsGranted() {  
-&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;surface.getContext();
-&nbsp;&nbsp;locationListener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> MyLocationListener();
-&nbsp;&nbsp;locationManager&nbsp;=&nbsp;(LocationManager)&nbsp;context.getSystemService(Context.LOCATION_SERVICE);&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,&nbsp;0,&nbsp;0,&nbsp;locationListener);
+<span style="color: #33997E;">void</span> initLocation(<span style="color: #E2661A;">boolean</span> granted) {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (granted) {    
+&nbsp;&nbsp;&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;getContext();
+&nbsp;&nbsp;&nbsp;&nbsp;locationListener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> MyLocationListener();
+&nbsp;&nbsp;&nbsp;&nbsp;locationManager&nbsp;=&nbsp;(LocationManager)&nbsp;context.getSystemService(Context.LOCATION_SERVICE);&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,&nbsp;0,&nbsp;0,&nbsp;locationListener);
+&nbsp;&nbsp;&nbsp;&nbsp;hasLocation&nbsp;=&nbsp;<span style="color: #33997E;">true</span>;
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;hasLocation&nbsp;=&nbsp;<span style="color: #33997E;">false</span>;
+&nbsp;&nbsp;}
 }
 
 <span style="color: #33997E;">class</span> MyLocationListener <span style="color: #33997E;">implements</span> LocationListener {
@@ -93,17 +103,43 @@ MyLocationListener&nbsp;locationListener;
 
 &nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onProviderEnabled (<span style="color: #E2661A;">String</span> provider) { }
 
-&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onStatusChanged (<span style="color: #E2661A;">String</span> provider, <span style="color: #E2661A;">int</span> status, Bundle extras) { }
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onStatusChanged (<span style="color: #E2661A;">String</span> provider, <span style="color: #E2661A;">int</span> status, Bundle extras) {
+&nbsp;&nbsp;}
 }
 </code></pre>
 
                 <p>
-                However, here we are putting the manager and listener initialization code inside the </code>onPermissionsGranted()</code> function instead of <code>setup()</code> or the <code>onResume()</code> functions, as in previous examples. The reason is that in recent versions of Android (6.0 and newer), permissions are divided into two protection levels: <a href="https://developer.android.com/guide/topics/security/permissions.html#normal-dangerous" target="_black">normal and dangerous</a>. The permissions classified as <a href="https://developer.android.com/guide/topics/security/permissions.html#permission-groups" target="_black">dangerous</a> affect access to private data of the user, such as location or list of contacts, and require the user to grant them individually when he or she runs the app, not when it is installed. Because the app will show a dialog asking to allow or deny the permission, but wihtout pausing the app, you cannot rely on <code>setup()</code> or <code>onResume()</code> functions The </code>onPermissionsGranted()</code> will be called right after the user has granted all the dangerous permissions required by the app.
-                </p>
+                However, here we are explicitly requesting the permission with the <code>requestPermission()</code> function, and are putting the manager and listener initialization code inside the </code>initLocation()</code> function instead of the <code>setup()</code> function, as in previous examples. The reason is that in recent versions of Android (6.0 and newer), permissions are divided into two protection levels: <a href="https://developer.android.com/guide/topics/security/permissions.html#normal-dangerous" target="_black">normal and dangerous</a>. The permissions classified as <a href="https://developer.android.com/guide/topics/security/permissions.html#permission-groups" target="_black">dangerous</a> affect access to private data of the user, such as location or list of contacts, and require the user to grant them individually when he or she runs the app, not when it is installed.</p>
 
-                <p>You still need to check the permissions needed by the sketch, in this case ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION for network and GPS-based location, using the permissions selector in the PDE:</p>
+                <p>The app will show a dialog asking to allow or deny the permission, and only then the </code>initLocation()</code> function will be called with the result of the request in the boolean argument. This function, which should contain the initialization code corresponding to the permission being requested, does not need to be called initLocation, it can have a different name, but the two important rules that one needs to follow are that this function must receive a boolean argument, and that its name must be provided in <code>requestPermission()</code>.</p>
+
+                <p>However, you still need to check the permissions needed by the sketch, in this case ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION for network and GPS-based location, using the permissions selector in the PDE:</p>
 
                 <p><img class="body-image" src="imgs/permission_selector.png" alt="Permission selection"></p>
+
+                <p>The Location variable we receive in the location listener contains all the information needed to specify the location in latitude and longitude:</p>
+
+<pre><code>
+<span style="color: #33997E;">class</span> MyLocationListener <span style="color: #33997E;">implements</span> LocationListener {
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onLocationChanged(Location location) {
+&nbsp;&nbsp;&nbsp;&nbsp;currentLatitude&nbsp;&nbsp;=&nbsp;(<span style="color: #E2661A;">float</span>)location.getLatitude();
+&nbsp;&nbsp;&nbsp;&nbsp;currentLongitude&nbsp;=&nbsp;(<span style="color: #E2661A;">float</span>)location.getLongitude();
+&nbsp;&nbsp;&nbsp;&nbsp;currentAccuracy&nbsp;&nbsp;=&nbsp;(<span style="color: #E2661A;">float</span>)location.getAccuracy();
+&nbsp;&nbsp;&nbsp;&nbsp;currentProvider&nbsp;&nbsp;=&nbsp;location.getProvider();
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onProviderDisabled (<span style="color: #E2661A;">String</span> provider) { 
+&nbsp;&nbsp;&nbsp;&nbsp;currentProvider&nbsp;=&nbsp;<span style="color: #7D4793;">&quot;&quot;</span>;
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onProviderEnabled (<span style="color: #E2661A;">String</span> provider) { 
+&nbsp;&nbsp;&nbsp;&nbsp;currentProvider&nbsp;=&nbsp;provider;
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onStatusChanged (<span style="color: #E2661A;">String</span> provider, <span style="color: #E2661A;">int</span> status, Bundle extras) {
+&nbsp;&nbsp;}
+}
+</code></pre>
 
                 <h3>Checking if location is available</h3>
 
@@ -114,31 +150,18 @@ MyLocationListener&nbsp;locationListener;
 <pre><code>
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
 &nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
-&nbsp;&nbsp;<span style="color: #669900;">if</span> (hasLocation) {
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Latitude: &quot;</span> + currentLatitude, 20, 40);
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Longitude: &quot;</span> + currentLongitude, 20, 75);
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Accuracy: &quot;</span> + currentAccuracy, 20, 110);
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Provider: &quot;</span> + currentProvider, 20, 145);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (hasPermission(<span style="color: #7D4793;">&quot;android.permission.ACCESS_FINE_LOCATION&quot;</span>)) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Latitude: &quot;</span> + currentLatitude + <span style="color: #7D4793;">&quot;\n&quot;</span> +
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #7D4793;">&quot;Longitude: &quot;</span> + currentLongitude + <span style="color: #7D4793;">&quot;\n&quot;</span> +
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #7D4793;">&quot;Accuracy: &quot;</span> + currentAccuracy + <span style="color: #7D4793;">&quot;\n&quot;</span> +
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #7D4793;">&quot;Provider: &quot;</span> + currentProvider, 0, 0, <span style="color: #D94A7A;">width</span>, <span style="color: #D94A7A;">height</span>);
 &nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;No permissions to access location&quot;</span>, 20, 40);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;No permissions to access location&quot;</span>, 0, 0, <span style="color: #D94A7A;">width</span>, <span style="color: #D94A7A;">height</span>);
 &nbsp;&nbsp;}
-}
-
-<span style="color: #33997E;">void</span> onPermissionsGranted() {
-&nbsp;&nbsp;<span style="color: #669900;">if</span> (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) ||
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION))&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;surface.getContext();&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;locationListener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> MyLocationListener();
-&nbsp;&nbsp;&nbsp;&nbsp;locationManager&nbsp;=&nbsp;(LocationManager)&nbsp;context.getSystemService(Context.LOCATION_SERVICE);&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,&nbsp;0,&nbsp;0,&nbsp;locationListener);
-&nbsp;&nbsp;&nbsp;&nbsp;hasLocation&nbsp;=&nbsp;<span style="color: #33997E;">true</span>;
-&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
-&nbsp;&nbsp;&nbsp;&nbsp;hasLocation&nbsp;=&nbsp;<span style="color: #33997E;">false</span>;
-&nbsp;&nbsp;}&nbsp;&nbsp;
 }
 </code></pre>
 
-                <p>The complete code of this example is available <a href="https://github.com/codeanticode/processing-android-tutorials/blob/master/location_permissions/gps_example/gps_example.pde" target="_black">here</a>. Once you run it on a device with Android 6 or higher, you should see the following dialog requesting the location permissions:
+                <p>The complete code of this example is available <a href="https://github.com/codeanticode/processing-android-tutorials/blob/master/location_permissions/ex1_gps" target="_black">here</a>. Once you run it on a device with Android 6 or higher, you should see the following dialog requesting the location permissions:
                 </p>
 
                 <p><img class="body-image" src="imgs/permission_dialog.png" alt="Permission dialog"></p>

@@ -43,57 +43,67 @@
       
             <section class="container main-text">
                 <p>
-                Almost all of the <a href="https://processing.org/reference/">Processing API</a> can be used in the Android mode, with a <a href="gone.html">few exceptions</a>. There is a small number of new functions and constants that are unique to the Android mode, specially relevant to wallpapers, watch faces, and Cardboard apps. However, these will likely change in the next beta releases of the mode, as the API gets cleaned up and refined.
+                Almost all of the <a href="https://processing.org/reference/">Processing API</a> can be used in the Android mode. There is a number of new functions and constants that are unique to the Android mode in version 4.0+, specially relevant to wallpapers, watch faces, and VR apps.
                 </p>
 
                 <h3>Environment</h3>
                 <p>
+                <a href="environment/display.html">displayDensity</a><br>                    
                 <a href="environment/orientation.html">orientation()</a><br>
-                <a href="environment/checkPermission.html">checkPermission()</a><br>
-                <a href="environment/onPermissionsGranted.html">onPermissionsGranted()</a>
+                <a href="environment/activity.html">getActivity()</a><br>
+                <a href="environment/activity.html">getContext()</a><br>
+                <p>
+
+                <h3>Permissions</h3>
+                <p>
+                <a href="permissions/request.html">requestPermission()</a><br>
+                <a href="permissions/query.html">hasPermission()</a>
                 </p>
 
-                <h3>Multitouch (4.0+)</h3>
+                <h3>Multitouch</h3>
                 <p>
                 <a href="multitouch/touches.html">touches array</a><br>
                 <a href="multitouch/events.html">touch events</a><br>
                 </p>                
 
-                <h3>Wallpapers (4.0+)</h3>
+                <h3>Wallpapers</h3>
                 <p>
-                <a href="wallpapers/preview.html">preview</a><br>
-                <a href="wallpapers/homeScreens.html">homeScreenCount</a><br>
-                <a href="wallpapers/homeScreens.html">homeScreenOffset</a>
+                <a href="wallpapers/preview.html">wallpaperPreview()</a><br>
+                <a href="wallpapers/offset.html">wallpaperHomeCount()</a><br>
+                <a href="wallpapers/offset.html">wallpaperOffset()</a>
                 </p>
 
-                <h3>Watch faces (4.0+)</h3>
+                <h3>Watch faces</h3>
                 <p>
-                <a href="watchfaces/ambientMode.html">ambientMode</a><br>
-<!--                 lowBitAmbient<br>
-                burnInProtection<br> -->
-                </p>
-
-                <p>
-                <a href="watchfaces/isRound.html">isRound</a>
+                <a href="wear/mode.html">wearAmbient()</a><br>
+                <a href="wear/mode.html">wearInteractive()</a><br>
                 </p>
 
                 <p>
-                <a href="watchfaces/insets.html">insetLeft</a><br>
-                <a href="watchfaces/insets.html">insetRight</a><br>
-                <a href="watchfaces/insets.html">insetTop</a><br>
-                <a href="watchfaces/insets.html">insetBottom</a><br>
+                <a href="wear/shape.html">wearRound()</a><br>
+                <a href="wear/shape.html">wearSquare()</a><br>
                 </p>
 
-                <h3>Cardboard (4.0+)</h3>
                 <p>
-                <a href="cardboard/renderers.html">STEREO</a><br>
-                <a href="cardboard/renderers.html">MONO</a><br>
+                <a href="wear/insets.html">wearInsets()</a><br>
                 </p>
+
                 <p>
-                <a href="cardboard/eyeType.html">eyeType</a><br>
-                <a href="cardboard/eyeType.html">LEFT</a><br>
-                <a href="cardboard/eyeType.html">RIGHT</a><br>
-                <a href="cardboard/eyeType.html">MONOCULAR</a><br>
+                <a href="wear/special.html">wearLowBit()</a><br>
+                <a href="wear/special.html">wearBurnProtection()</a><br>
+                </p>
+
+                <h3>VR</h3>
+                <p>
+                <a href="vr/renderers.html">STEREO</a><br>
+                <a href="vr/renderers.html">MONO</a><br>
+                </p>
+
+                <p>
+                <a href="vr/camera.html">cameraUp()</a><br>
+                <a href="vr/eye.html">eye()</a><br>
+                <a href="vr/eye.html">getEyeMatrix()</a><br>
+                <a href="vr/object.html">getObjectMatrix()</a><br>
                 </p>
             </section>
 

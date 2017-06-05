@@ -42,8 +42,23 @@
             </nav>
       
             <section class="container main-text">
-                <h2>isRound</h2>
-                <p>True or false depending on whether the watch shape is round or square.</p>
+                <h2>requestPermission()</h2>
+                <p>Use this function to request "dangerous" permissions on runtime (this happens only when running the app on devices with Android 6 or newer), and set the function in the sketch that should handle the result:
+                </p>
+
+                <pre><code>
+void setup() {
+  requestPermission("android.permission.ACCESS_FINE_LOCATION", "initLocation");
+}
+
+void initLocation(boolean granted) {
+  if (granted) {   
+    println("init location manager");
+  } else {
+    println("no locations");
+  }
+}
+                </code></pre>                
             </section>
 
         </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8">      
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
         <link rel="icon" type="image/png" href="http://android.processing.org/favicon.png">
         <link rel="stylesheet" href="../../css/main.css">
@@ -42,14 +42,22 @@
             </nav>
       
             <section class="container main-text">
-                <h2>wallpaperPreview()</h2>
-                <p>This function tells you if the wallpaper is being shown in the preview of the wallpaper selector. After the wallpaper is finally selected, it will be restarted in non-preview mode to run as the background.</p>
+                <h2>VR renderers</h2>
+                <p>The built-in VR library includes two renderers: STEREO and MONO. STEREO will generate a stereo view of the sketch, rendering each frame twice (once for each eye) and applying the approriate eye transformations, while MONO will generate a monoscopic view, still reflecting the movement of the phone.</p>
 
 <pre><code>
-void draw() {
-  if (wallpaperPreview()) {
-    text("This is a preview", 20, 20);
-  }  
+import processing.vr.*;
+
+void setup() {
+  fullScreen(STEREO);
+}    
+</code></pre>
+
+<pre><code>
+import processing.vr.*;
+
+void setup() {
+  fullScreen(MONO);
 }    
 </code></pre>
 

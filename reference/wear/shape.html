@@ -42,13 +42,25 @@
             </nav>
       
             <section class="container main-text">
-                <h2>checkPermission()</h2>
-                <p>Use this function to check if a permission is granted to perform a specific operation. The permissions are idenfified with the string constants declared in the Manifest.permission package:
-                </p>
+                <h2>Watch face shape</h2>
+                <p>Watch frames can be round or square, these functions allow to query which one is the case.</p>
 
-                <pre><code>
-checkPermission(Manifest.permission.ACCESS_FINE_LOCATION);      
-                </code></pre>                
+<pre><code>
+void draw() {
+  if (wearRound()) {
+    ellipse(0, 0, width, height);
+  }  
+}
+</code></pre>
+
+
+<pre><code>
+void draw() {
+  if (wearSquare()) {
+    rect(0, 0, width, height);
+  }  
+}
+</code></pre>                
             </section>
 
         </div>

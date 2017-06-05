@@ -42,18 +42,26 @@
             </nav>
       
             <section class="container main-text">
-                <h2>onPermissionsGranted()</h2>
-                <p>This function is called by Processing when all the so-called "dangerous" permissions have been granted by the user on runtime (this happens only when running the app on devices with Android 6 or newer):
-                </p>
+                <h2>Watch face mode</h2>
+                <p>A watch face can be either in ambient, always-on mode, or in interactive mode. Use these functions to determine the current mode:</p>
 
-                <pre><code>
-void onPermissionsGranted() {
-  context = surface.getContext();
-    
-  locationListener = new MyLocationListener();
-  locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);    
-}
-                </code></pre>                
+<pre><code>
+void draw() {
+  if (wearInteractive()) {
+    // draw full watch face
+  }  
+}    
+</code></pre>
+
+
+<pre><code>
+void draw() {
+  if (wearAmbient()) {
+    // draw ambient mode watch face
+  }  
+}    
+</code></pre>
+
             </section>
 
         </div>

@@ -42,17 +42,28 @@
             </nav>
       
             <section class="container main-text">
-                <h2>wallpaperPreview()</h2>
-                <p>This function tells you if the wallpaper is being shown in the preview of the wallpaper selector. After the wallpaper is finally selected, it will be restarted in non-preview mode to run as the background.</p>
+                <h2>Home screens</h2>
+                <p>When your device have several home screens, two functions in Processing tell you how to adjust the graphics in the sketch depending on which is the current screen: <code>wallpaperHomeCount()</code> and <code>wallpaperOffset()</code>. <code>wallpaperHomeCount()</code> holds the number of home screens (it can change while the wallpaper is running as the users adds or removes home screens). <code>wallpaperOffset()</code> is a float number between 0 and 1 that that measures the horizontal displacement along the screens: 0 at the leftmost location, and 1 when we are located at the rightmost homescreen. <a href="http://stackoverflow.com/a/9549997" target="_black">This post</a> on stackoverflow explains in more detail how the x offset works.</p>
 
-<pre><code>
+                <pre><code>
+PImage img;
+float ratio;
+
+void setup() {
+  fullScreen();
+  img = loadImage("landscape.jpg");
+  ratio = float(img.width)/float(img.height);
+}
+
 void draw() {
-  if (wallpaperPreview()) {
-    text("This is a preview", 20, 20);
-  }  
-}    
-</code></pre>
+  background(0);
+  float w = wallpaperHomeCount() * width;
+  float h = w/ratio;
+  float x = map(wallpaperOffset(), 0, 1, 0, -(wallpaperHomeCount()-1) * width);
+  image(img, x, 0, w, h);
+}
 
+                <code><pre>                     
             </section>
 
         </div>

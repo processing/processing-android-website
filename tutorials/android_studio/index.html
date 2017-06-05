@@ -52,7 +52,7 @@
                 </p>
 
                 <p>
-                In case you already know how to develop Android apps using this advanced IDE, it is not that difficult either. All our core code is bundled inside the android-core.zip file, which is placed inside the AndroidMode folder. You just need to rename this file to android-core.jar and add it as a dependency to your project. Step by step procedure for Android Studio is as follows:</p>
+                In case you already know how to develop Android apps using this advanced IDE, it is not that difficult either. All our core code is bundled inside the android-core.zip file (processing-core.zip in version 4+ of the mode), which is placed inside the AndroidMode folder. You just need to rename this file to android-core.jar (processing-core.zip) and add it as a dependency to your project. Step by step procedure for Android Studio is as follows:</p>
 
                 <p><b>1.</b> Create an Android project if you haven't already created one:</p>
                 <p><img class="body-image" src="imgs/1_new_project.png" alt="New project"></p>
@@ -139,30 +139,53 @@ public class MainActivity extends Activity {
 
              <h3>Differences with version 4 of the mode</h3>
             
-             <p>For version 4.0+, all the previous steps are still valid, the only difference is that we need to create a separate PFragment object in the main activity to contain the sketch:</p>
+             <p>For version 4.0+, all the previous steps are still valid, the only difference is that we need to create a separate PFragment object in the main activity to contain the sketch, and set the view of the fragment using the frame and activity as arguments for setView()</p>
 
 <pre><code>
-import processing.core.PApplet;
-import processing.android.PFragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+package tutorials.androidstudio.fragmentsv4;
+
 import android.os.Bundle;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.support.v7.app.AppCompatActivity;
+
+import processing.android.PFragment;
+import processing.android.ViewIdGenerator;
+import processing.core.PApplet;
 
 public class MainActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        PApplet sketch = new Sketch();
-        PFragment fragment = new PFragment();
-        fragment.setSketch(sketch);
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit();
+  private PApplet sketch;
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    FrameLayout frame = new FrameLayout(this);
+    frame.setId(ViewIdGenerator.getUniqueId());
+    setContentView(frame, 
+      new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                 ViewGroup.LayoutParams.MATCH_PARENT));
+
+    sketch = new Sketch();
+    PFragment fragment = new PFragment(sketch);
+    fragment.setView(frame, this);
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, 
+    String permissions[], int[] grantResults) {
+    if (sketch != null) {
+      sketch.onRequestPermissionsResult(
+      requestCode, permissions, grantResults);
     }
+  }
 }
+
 </code></pre>
+
+
+                <div class="butterbar">
+                The onRequestPermissionsResult() method in the main activity is needed in the case the app uses any <a href="https://developer.android.com/guide/topics/permissions/requesting.html#normal-dangerous">dangerous permissions</a>. If missing, the results of requesting the permission to the user will not reach the sketch, and it may fail to work properly.</div>
+
 
                 <p>The complete Android Studio project for 4.0 is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/android_studio/ex2_fragmentsv4" target="_black">here</a>.</p>
 

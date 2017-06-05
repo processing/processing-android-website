@@ -79,12 +79,6 @@ Sensor&nbsp;sensor;
 }
 </code></pre>
 
-                <div class="butterbar">
-                In Android Mode 4.0 and higher, <code>getActivity()</code> needs to be called from the surface object that exists in PApplet and holds all the information relevant to the drawing surface of the sketch:<br><br>
-                <code>context = surface.getActivity();</code>
-                </div>
-
-
                 <h3>Adding a sensor listener</h3>
                 <p>
                 Now we need to add a "listener" class that will notify the sketch that new data is available from the sensor. A listener for each sensor is derived from the base <a href="https://developer.android.com/reference/android/hardware/SensorEventListener.html" target="_black">SensorEventListener class</a> in the Android SDK. Once we have a listener instance in the sketch, we can register the listener with the manager:
@@ -156,14 +150,12 @@ AccelerometerListener&nbsp;listener;
 &nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> AccelerometerListener();
 &nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_GAME);
 &nbsp;&nbsp;
-&nbsp;&nbsp;<span style="color: #006699;">textFont</span>(<span style="color: #006699;">createFont</span>(<span style="color: #7D4793;">&quot;Arial&quot;</span>, 60));
+&nbsp;&nbsp;<span style="color: #006699;">textFont</span>(<span style="color: #006699;">createFont</span>(<span style="color: #7D4793;">&quot;SansSerif&quot;</span>, 30 * displayDensity));
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
 &nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
-&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;X: &quot;</span> + ax, 10, 60);
-&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Y: &quot;</span> + ay, 10, 120);
-&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Z: &quot;</span> + az, 10, 180);
+&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;X: &quot;</span> + ax + <span style="color: #7D4793;">&quot;\nY: &quot;</span> + ay + <span style="color: #7D4793;">&quot;\nZ: &quot;</span> + az, 0, 0, <span style="color: #D94A7A;">width</span>, <span style="color: #D94A7A;">height</span>);
 }
 
 <span style="color: #33997E;">class</span> AccelerometerListener <span style="color: #33997E;">implements</span> SensorEventListener {
@@ -176,6 +168,9 @@ AccelerometerListener&nbsp;listener;
 &nbsp;&nbsp;}
 }
 </code></pre>
+
+                <div class="butterbar">
+                Note the use of the displayDensity factor used to scale the font size, which the mode obtains from <a href="https://developer.android.com/reference/android/util/DisplayMetrics.html#density">DisplayMetrics.density</a> in the Android SDK. This factor is 1 in a 160dpi screen (for example a 240x320, 1.5"x2" screen), and allows us to adjust the size of the graphical elements in our sketch, like text, proportionally to the dpi.</div>
 
                 <p>
                 As a <a href="https://developer.android.com/guide/topics/sensors/sensors_overview.html#sensors-practices" target="_black">best practice</a> for using sensors, it is recommended to unregister the listener when the sketch's activity is paused to reduce battery usage, and then registering it again when the activity resumes. We can achieve this adding the following code to our sketch:
