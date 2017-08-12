@@ -43,21 +43,33 @@
       
             <section class="container main-text">
                 <h2>VR renderers</h2>
-                <p>The built-in VR library includes two renderers: STEREO and MONO. STEREO will generate a stereo view of the sketch, rendering each frame twice (once for each eye) and applying the approriate eye transformations, while MONO will generate a monoscopic view, still reflecting the movement of the phone.</p>
+                <p>The built-in VR library includes two renderers: STEREO and MONO. The STEREO renderer will generate a stereo view of the sketch, rendering each frame twice (once for each eye) and applying the approriate eye transformations.</p>
 
 <pre><code>
 import processing.vr.*;
 
 void setup() {
   fullScreen(STEREO);
-}    
+}
+
+void draw() {
+  translate(width/2, height/2);
+  box(300);
+}
 </code></pre>
+
+                <p>Meanwhile, the MONO renderer will generate a monoscopic view, still reflecting the movement of the phone.</p>
 
 <pre><code>
 import processing.vr.*;
 
 void setup() {
   fullScreen(MONO);
+}
+
+void draw() {
+  translate(width/2, height/2);
+  box(300);
 }    
 </code></pre>
 
