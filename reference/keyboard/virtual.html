@@ -47,31 +47,31 @@
                 <p>The virtual or soft keyboard on an Android device needs to be opened and closed with the openKeyboard() and closed() keyboard functions. Once the keyboard is open, all the keyboard functions and variables from Processing can be used.</p>
 
 <pre><code>
-boolean keyboard = false;
+<span style="color: #E2661A;">boolean</span> keyboard = <span style="color: #33997E;">false</span>;
 
-void setup() {
-  fullScreen();
-  textFont(createFont("SansSerif", 40 * displayDensity));
-  fill(0);
-}    
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
+&nbsp;&nbsp;<span style="color: #006699;">textFont</span>(<span style="color: #006699;">createFont</span>(<span style="color: #7D4793;">&quot;SansSerif&quot;</span>, 40 * displayDensity));
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0);
+}&nbsp;&nbsp;&nbsp;&nbsp;
 
-void draw() {
-  background(255);
-  text(key, width/2, height/2);
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(255);
+&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #D94A7A;">key</span>, <span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
 }
 
-void keyPressed() {
-  background(200, 50, 30);  
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>keyPressed</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(200, 50, 30);  
 }
 
-void mousePressed() {
-  if (!keyboard) {
-    openKeyboard();
-    keyboard = true;
-  } else {
-    closeKeyboard();
-    keyboard = false;
-  }
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>mousePressed</b></span>() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (!keyboard) {
+&nbsp;&nbsp;&nbsp;&nbsp;openKeyboard();
+&nbsp;&nbsp;&nbsp;&nbsp;keyboard&nbsp;=&nbsp;<span style="color: #33997E;">true</span>;
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;closeKeyboard();
+&nbsp;&nbsp;&nbsp;&nbsp;keyboard&nbsp;=&nbsp;<span style="color: #33997E;">false</span>;
+&nbsp;&nbsp;}
 }
 </code></pre>
 

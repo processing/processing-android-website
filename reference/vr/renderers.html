@@ -48,31 +48,31 @@
                 <p>The built-in VR library includes two renderers: STEREO and MONO. The STEREO renderer will generate a stereo view of the sketch, rendering each frame twice (once for each eye) and applying the approriate eye transformations.</p>
 
 <pre><code>
-import processing.vr.*;
+<span style="color: #33997E;">import</span> processing.vr.*;
 
-void setup() {
-  fullScreen(STEREO);
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
 }
 
-void draw() {
-  translate(width/2, height/2);
-  box(300);
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
+&nbsp;&nbsp;<span style="color: #006699;">box</span>(300);
 }
 </code></pre>
 
                 <p>Meanwhile, the MONO renderer will generate a monoscopic view, still reflecting the movement of the phone.</p>
 
 <pre><code>
-import processing.vr.*;
+<span style="color: #33997E;">import</span> processing.vr.*;
 
-void setup() {
-  fullScreen(MONO);
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(MONO);
 }
 
-void draw() {
-  translate(width/2, height/2);
-  box(300);
-}    
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
+&nbsp;&nbsp;<span style="color: #006699;">box</span>(300);
+}&nbsp;&nbsp;  
 </code></pre>
 
             </section>

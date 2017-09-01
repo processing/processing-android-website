@@ -43,26 +43,26 @@
       
             <section class="container main-text">
                <h2>calculate()</h2>
-                <p>The draw() function in a VR app is called twice per frame, one for each eye. This means that code in draw() that only needs to be run once, will be run two times instead. We can put this code inside the calculate() function, which is called once per frame, right before draw()</p>
+                <p>The draw() function in a VR app is called twice per frame, one for each eye. This means that code in draw() that only needs to be run once, will be run two times instead. We can put this code inside the calculate() function, which is called once per frame, right before draw().</p>
 
 <pre><code>
-import processing.vr.*;
+<span style="color: #33997E;">import</span> processing.vr.*;
 
-float x, y, z;
-void setup() {
-  fullScreen(STEREO);
-}    
+<span style="color: #E2661A;">float</span> x, y, z;
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+}&nbsp;&nbsp;&nbsp;&nbsp;
 
-void calculate() {
-  // update position variables, e.g.:
-  x += 0.1; 
-  y += 0.1;   
-  z += 0.1;     
+<span style="color: #33997E;">void</span> calculate() {
+&nbsp;&nbsp;<span style="color: #666666;">// update position variables, e.g.:</span>
+&nbsp;&nbsp;x&nbsp;+=&nbsp;0.1;&nbsp;
+&nbsp;&nbsp;y&nbsp;+=&nbsp;0.1;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;z&nbsp;+=&nbsp;0.1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 }
 
-void draw() {
-  translate(x, y, z);
-  ...
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(x, y, z);
+&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
 }
 </code></pre>
 

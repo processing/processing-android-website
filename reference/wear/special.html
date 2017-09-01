@@ -46,11 +46,18 @@
                 <h2>Special screens</h2>
                 <p>One can check if the screen uses low-bit ambient mode or burn-in protection:</p>
 
-                <pre><code>
-void setup() {
-  lowBit = wearLowBit();
-  burnIn = wearBurnIn();  
-}                    
+<pre><code>
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (wearLowBit()) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
+&nbsp;&nbsp;}&nbsp;
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (wearLowBit()) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
+&nbsp;&nbsp;}&nbsp;&nbsp;
+}
 <code><pre>
 
                 <p>According to Google's documentation:

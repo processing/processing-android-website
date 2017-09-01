@@ -47,37 +47,39 @@
                 <p>The eye transformation allows to use the coordinates relative to the viewer:</p>
 
 <pre><code>
-import processing.vr.*;
+<span style="color: #33997E;">import</span> processing.vr.*;
 
-void setup() {
-  fullScreen(STEREO);
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
 }
 
-void draw() {
-   // draw scene...
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// draw scene...</span>
 
-   pushMatrix();
-   eye();
-   translate(0, 0 100);
-   ellipse(0, 0, 50, 50);
-   popMatrix();
+&nbsp;&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
+&nbsp;&nbsp;&nbsp;eye();
+&nbsp;&nbsp;&nbsp;<span style="color: #006699;">translate</span>(0, 0, 100);
+&nbsp;&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(0, 0, 50, 50);
+&nbsp;&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();
 }
 </code></pre>
 
 <p>One can retrieve the matrix holding this transformation:</p>
 
 <pre><code>
-import processing.vr.*;
+<span style="color: #33997E;">import</span> processing.vr.*;
 
-PMatrix3D eyeMat = new PMatrix3D();
+PMatrix3D&nbsp;eyeMat&nbsp;=&nbsp;<span style="color: #33997E;">new</span> PMatrix3D();
 
-void setup() {
-  fullScreen(STEREO);
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
 }
 
-void draw() {
-  getEyeMatrix(eyeMat);  
-}    
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
+&nbsp;&nbsp;getEyeMatrix(eyeMat);
+&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
+}&nbsp;
 </code></pre>
 
             </section>

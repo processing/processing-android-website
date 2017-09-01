@@ -47,21 +47,21 @@
                 <p>This array contains the list of current touch pointers. Each pointer is characterized by its x,y coordinate, area, pressure, and a unique ID.</p>
 
 <pre><code>
-void setup() {
-  fullScreen();
-  textFont(createFont("SansSerif", 24));
-  textAlign(CENTER, CENTER);
-}    
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
+&nbsp;&nbsp;<span style="color: #006699;">textFont</span>(<span style="color: #006699;">createFont</span>(<span style="color: #7D4793;">&quot;SansSerif&quot;</span>, 24));
+&nbsp;&nbsp;<span style="color: #006699;">textAlign</span>(<span style="color: #718A62;">CENTER</span>, <span style="color: #718A62;">CENTER</span>);
+}&nbsp;&nbsp;&nbsp;&nbsp;
 
-void draw() {
-  background(255);
-  for (int i = 0; i < touches.length; i++) {
-    float d = 50 * touches[i].area;
-    fill(0, 255 * touches[i].pressure);
-    ellipse(touches[i].x, touches[i].y, d, d);
-    fill(255, 0, 0);
-    text(touches[i].id, touches[i].x, touches[i].y);
-  }  
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(255);
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i &lt; touches.<span style="color: #33997E;">length</span>; i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> d = 50 * touches[i].area;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0, 255 * touches[i].pressure);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(touches[i].x, touches[i].y, d, d);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255, 0, 0);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(touches[i].id, touches[i].x, touches[i].y);
+&nbsp;&nbsp;}&nbsp;&nbsp;
 }
 </code></pre>
 
