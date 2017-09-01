@@ -315,6 +315,10 @@ ul.leftnav {
   list-style: none;
 }
 
+/* ================ REFERENCE ================== */
+
+#Reference .curated-item p { padding-right: 14px; }
+
 /* ================ TUTORIALS ================== */
 
 #Tutorials .curated-item p { padding-right: 14px; }
