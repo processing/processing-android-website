@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8">      
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
         <link rel="icon" type="image/png" href="http://android.processing.org/favicon.png">
         <link rel="stylesheet" href="../../css/main.css">
@@ -36,30 +36,36 @@
                    <li><a href="../../install.html">Install</a></li>
                    <li><a id="selected" href="../../reference/index.html">Reference</a></li>
                    <li><a href="../../tutorials/index.html">Tutorials</a></li>
-                   <li><a href="../../gallery/index.html">Gallery</a></li>
                    <li><a href="https://forum.processing.org/two/categories/android" target="_black">Forum</a></li>
                    <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a><br></li>
                 </ul>
             </nav>
       
             <section class="container main-text">
-                <h2>hasPermission()</h2>
-                <p>Use this function to check if a permission is granted to perform a specific operation. The permissions are idenfified with the string constants declared in the Manifest.permission package:
-                </p>
+               <h2>calculate()</h2>
+                <p>The draw() function in a VR app is called twice per frame, one for each eye. This means that code in draw() that only needs to be run once, will be run two times instead. We can put this code inside the calculate() function, which is called once per frame, right before draw().</p>
 
-                <pre><code>
+<pre><code>
+<span style="color: #33997E;">import</span> processing.vr.*;
+
+<span style="color: #E2661A;">float</span> x, y, z;
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;requestPermission(<span style="color: #7D4793;">&quot;android.permission.ACCESS_FINE_LOCATION&quot;</span>);  
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+}&nbsp;&nbsp;&nbsp;&nbsp;
+
+<span style="color: #33997E;">void</span> calculate() {
+&nbsp;&nbsp;<span style="color: #666666;">// update position variables, e.g.:</span>
+&nbsp;&nbsp;x&nbsp;+=&nbsp;0.1;&nbsp;
+&nbsp;&nbsp;y&nbsp;+=&nbsp;0.1;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;z&nbsp;+=&nbsp;0.1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #669900;">if</span> (hasPermission(<span style="color: #7D4793;">&quot;android.permission.ACCESS_FINE_LOCATION&quot;</span>)) {
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Location is available&quot;</span>, <span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
-&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">println</span>(<span style="color: #7D4793;">&quot;No permission to read location&quot;</span>, <span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
-&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(x, y, z);
+&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
 }
-                </code></pre>                
+</code></pre>
+
             </section>
 
         </div>

@@ -36,6 +36,7 @@
                    <li><a href="../../install.html">Install</a></li>
                    <li><a id="selected" href="../../reference/index.html">Reference</a></li>
                    <li><a href="../../tutorials/index.html">Tutorials</a></li>
+                   <li><a href="../../gallery/index.html">Gallery</a></li>
                    <li><a href="https://forum.processing.org/two/categories/android" target="_black">Forum</a></li>
                    <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a><br></li>
                 </ul>
@@ -46,21 +47,20 @@
                 <p>Watch frames can be round or square, these functions allow to query which one is the case.</p>
 
 <pre><code>
-void draw() {
-  if (wearRound()) {
-    ellipse(0, 0, width, height);
-  }  
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (wearSquare()) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">rect</span>(0, 0, <span style="color: #D94A7A;">width</span>, <span style="color: #D94A7A;">height</span>);
+&nbsp;&nbsp;}&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (wearRound()) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(0, 0, <span style="color: #D94A7A;">width</span>, <span style="color: #D94A7A;">height</span>);
+&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;
 }
 </code></pre>
 
-
-<pre><code>
-void draw() {
-  if (wearSquare()) {
-    rect(0, 0, width, height);
-  }  
-}
-</code></pre>                
             </section>
 
         </div>

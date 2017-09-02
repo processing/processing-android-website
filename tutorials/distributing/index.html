@@ -36,6 +36,7 @@
                    <li><a href="../../install.html">Install</a></li>
                    <li><a href="../../reference/index.html">Reference</a></li>
                    <li><a id="selected" href="../../tutorials/index.html">Tutorials</a></li>
+                   <li><a href="../../gallery/index.html">Gallery</a></li>
                    <li><a href="https://forum.processing.org/two/categories/android" target="_black">Forum</a></li>
                    <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a><br></li>
                 </ul>
@@ -52,7 +53,7 @@
                 Android mode uses a set of default launcher icons for the app. You should use your own icons for release by creating the files icon-36, 48, 72, 96, 144, and 192 in .PNG format, and placing them in the sketch's folder before exporting the signed package. Follow the <a href="https://www.google.com/design/spec/style/icons.html" target="_black">icon design guidelines from Google</a> in order to create your icons.
                 </p>
 
-                <p>If you are creating a watch face using version 4 of the mode, you need to provide the files preview_circular.png and preview_rectangular.png, which will be used to show a preview of the watch face in the Android Wear companion app that runs on the phone, or in the watch face selector on the watch. The resolutions of these icons are 320x320 for the circular preview, and 280x280 for the rectangular preview.
+                <p>If you are creating a watch face, you also need to provide the files preview_circular.png and preview_rectangular.png, which will be used to show a preview of the watch face in the Android Wear companion app that runs on the phone, or in the watch face selector on the watch. The resolutions of these icons are 320x320 for the circular preview, and 280x280 for the rectangular preview.
                 </p>
 
                 <h3>Setting version and package name</h3>
@@ -60,29 +61,20 @@
                 <p> 
 
 <pre>
-&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android" 
           android:versionCode="10" 
-          android:versionName="0.5.4" 
-          package="com.example.sketch"&gt;
-
-    &lt;uses-sdk android:minSdkVersion="16" 
-              android:targetSdkVersion="23"/&gt;
-
-    &lt;application android:debuggable="true" 
-                 android:icon="@drawable/icon" 
-                 android:label=""&gt;
-        &lt;activity android:name=".MainActivity"
-                  android:theme="@android:style/Theme.NoTitleBar"&gt;
+          android:versionName="0.5.4" package="com.example.sketch"&gt;
+    &lt;uses-sdk android:minSdkVersion="16" android:targetSdkVersion="26"/&gt;
+    &lt;application android:icon="@drawable/icon" android:label=""&gt;
+        &lt;activity android:name=".MainActivity" 
+                  android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"&gt;
             &lt;intent-filter&gt;
                 &lt;action android:name="android.intent.action.MAIN"/&gt;
                 &lt;category android:name="android.intent.category.LAUNCHER"/&gt;
             &lt;/intent-filter&gt;
         &lt;/activity&gt;
     &lt;/application&gt;
-    
-    &lt;uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/&gt;
-    &lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/&gt;
-    
 &lt;/manifest&gt;
 </pre>
 
@@ -107,7 +99,7 @@
                 </p>
 
                 <p>
-                The signed (and aligned) package will be saved in the bin subfolder inside the sketch's folder, under the name [Sketch name in lowercase]_release_signed_aligned.apk. Once you have generated this file, you can follow the <a href="https://developer.android.com/distribute/googleplay/start.html">instructions from Google</a> to complete the publishing process.
+                The signed (and aligned) package will be saved in the build subfolder inside the sketch's folder, under the name [Sketch name in lowercase]_release_signed_aligned.apk. Once you have generated this file, you can follow the <a href="https://developer.android.com/distribute/googleplay/start.html">instructions from Google</a> to complete the publishing process.
                 </p>
 
             </section>

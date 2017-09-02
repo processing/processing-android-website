@@ -36,6 +36,7 @@
                    <li><a href="../../install.html">Install</a></li>
                    <li><a id="selected" href="../../reference/index.html">Reference</a></li>
                    <li><a href="../../tutorials/index.html">Tutorials</a></li>
+                   <li><a href="../../gallery/index.html">Gallery</a></li>
                    <li><a href="https://forum.processing.org/two/categories/android" target="_black">Forum</a></li>
                    <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a><br></li>
                 </ul>
@@ -46,28 +47,28 @@
                 <p>Every time a new touch pointer is detected a series of events are triggered that allow to track the begin, change of position, and and of a touch.</p>
 
 <pre><code>
-void setup() {
-  fullScreen();
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
 }
 
-void draw() {
-  if (touchIsStarted) {
-    background(150);
-  } else {
-    background(255);
-  }
-}    
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (touchIsStarted) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(150);
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(255);
+&nbsp;&nbsp;}
+}&nbsp;&nbsp;&nbsp;&nbsp;
 
-void touchStarted() {
-  println("touch started");
+<span style="color: #33997E;">void</span> touchStarted() {
+&nbsp;&nbsp;<span style="color: #006699;">println</span>(<span style="color: #7D4793;">&quot;touch started&quot;</span>);
 }
 
-void touchMoved() {
-  println("touch moved"); 
+<span style="color: #33997E;">void</span> touchMoved() {
+&nbsp;&nbsp;<span style="color: #006699;">println</span>(<span style="color: #7D4793;">&quot;touch moved&quot;</span>); 
 }
 
-void touchEnded() {
-  println("touch ended");  
+<span style="color: #33997E;">void</span> touchEnded() {
+&nbsp;&nbsp;<span style="color: #006699;">println</span>(<span style="color: #7D4793;">&quot;touch ended&quot;</span>);  
 }
 </code></pre>    
 

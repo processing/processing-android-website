@@ -36,6 +36,7 @@
                    <li><a href="../../install.html">Install</a></li>
                    <li><a id="selected" href="../../reference/index.html">Reference</a></li>
                    <li><a href="../../tutorials/index.html">Tutorials</a></li>
+                   <li><a href="../../gallery/index.html">Gallery</a></li>
                    <li><a href="https://forum.processing.org/two/categories/android" target="_black">Forum</a></li>
                    <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a><br></li>
                 </ul>
@@ -50,10 +51,15 @@
                 </p>                
 
                 <pre><code>
-void setup() {
-  PFont font = createFont("SansSerif", 24 * displayDensity);
-  textFont(font);
-}                    
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #E2661A;">PFont</span> font = <span style="color: #006699;">createFont</span>(<span style="color: #7D4793;">&quot;SansSerif&quot;</span>, 24 * displayDensity);
+&nbsp;&nbsp;<span style="color: #006699;">textFont</span>(font);
+&nbsp;&nbsp;<span style="color: #006699;">textAlign</span>(<span style="color: #718A62;">CENTER</span>, <span style="color: #718A62;">CENTER</span>);
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;hello&quot;</span>, <span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
+}
                 </code></pre>
             </section>
 

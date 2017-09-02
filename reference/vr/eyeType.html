@@ -36,6 +36,7 @@
                    <li><a href="../../install.html">Install</a></li>
                    <li><a id="selected" href="../../reference/index.html">Reference</a></li>
                    <li><a href="../../tutorials/index.html">Tutorials</a></li>
+                   <li><a href="../../gallery/index.html">Gallery</a></li>
                    <li><a href="https://forum.processing.org/two/categories/android" target="_black">Forum</a></li>
                    <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a><br></li>
                 </ul>
@@ -46,16 +47,22 @@
                 <p>This variable tells you which is being drawn by the Cardboard renderer. It will be either LEFT or RIGHT when using the STEREO renderer, or MONOSCOPIC when using the MONO renderer.</p>
 
 <pre><code>
-void draw() {
-  PGraphicsCardboard pgc = (PGraphicsCardboard)g;
-  if (pgc.eyeType == PCardboard.LEFT) {
-    background(200, 50, 50);
-  } else if (pgc.eyeType == PCardboard.RIGHT) {
-    background(50, 50, 200);
-  } else if (pgc.eyeType == PCardboard.MONOCULAR) {
-    background(50, 200, 50);
-  }
-}    
+<span style="color: #33997E;">import</span> processing.vr.*;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);  
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;PGraphicsVR&nbsp;pvr&nbsp;=&nbsp;(PGraphicsVR)g;
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (pvr.eyeType == PVR.<span style="color: #718A62;">LEFT</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(200, 50, 50);
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> <span style="color: #669900;">if</span> (pvr.eyeType == PVR.<span style="color: #718A62;">RIGHT</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(50, 50, 200);
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> <span style="color: #669900;">if</span> (pvr.eyeType == PVR.MONOCULAR) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(50, 200, 50);
+&nbsp;&nbsp;}
+}&nbsp;&nbsp;&nbsp;
 </code></pre>    
 
             </section>

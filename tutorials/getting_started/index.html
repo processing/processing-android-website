@@ -36,6 +36,7 @@
                    <li><a href="../../install.html">Install</a></li>
                    <li><a href="../../reference/index.html">Reference</a></li>
                    <li><a id="selected" href="../../tutorials/index.html">Tutorials</a></li>
+                   <li><a href="../../gallery/index.html">Gallery</a></li>
                    <li><a href="https://forum.processing.org/two/categories/android" target="_black">Forum</a></li>
                    <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a><br></li>
                 </ul>
@@ -54,11 +55,7 @@
 
                 <p><img class="body-image" src="imgs/sdk_install.png" alt="SDK install"></p>
 
-                <p>
-                Automatic installation of the Android SDK through the mode is recommended, as certain components of recent versions of the SDK <a href="https://github.com/processing/processing-android/issues/307">are incompatible with the mode</a>. The automatic download will pick the latest version that is still works with the mode. We are currently working to fix this issue, so future versions of the mode will not have this restriction.
-                </p>
-
-                <p>If you still want to use an SDK already downloaded to your computer, choose the "Locate SDK path manually" option and select the folder containing the SDK. However, this SDK should include Android 4.0.3 (API level 15) or higher if you are using version 3.0.x of the mode, or Android 5.0 (API level 21) if you are using 4.0+. Also, due to the incompatibility mentioned above, you need to make sure that the SDK Tools, SDK Platform-tools, and the SDK Build-tools, are not higher than <a href="https://github.com/processing/processing-android/issues/321#issuecomment-293983836">25.2, 24.0, and 25.0</a>, respectively. In order to manually download and install the SDK, go to <a href="https://developer.android.com/studio/index.html#downloads" target="_black">this page</a>, scroll down to the command line tools section and select the one for your Operating System. Doing this could be convenient if you plan to use the same SDK from different development tools (command line, Android Studio, etc.) in addition to Processing. However, keep in mind that the SDK that Processing downloads and installs automatically gets stored inside the mode folder, and does not interfere with any other SDK installed in your computer.
+                <p>If you still want to use an SDK already downloaded to your computer, choose the "Locate SDK path manually" option and select the folder containing the SDK. However, this SDK should include Android 8.0 (API level 26) or higher. In order to manually download and install the SDK, go to <a href="https://developer.android.com/studio/index.html#downloads" target="_black">this page</a>, scroll down to the command line tools section and select the one for your Operating System. Doing this could be convenient if you plan to use the same SDK from different development tools (command line, Android Studio, etc.) in addition to Processing. However, keep in mind that the SDK that Processing downloads and installs automatically gets stored inside the mode folder, and does not interfere with any other SDK installed in your computer.
                 </p>
 
                 <p>
@@ -112,11 +109,7 @@
 
                 <p><img class="body-image" src="imgs/download_emulator.png" alt="Emulator download"></p>
 
-                <p>After finishing the download, which can take several minutes depending on your internet connection (the system images are around 300MB in size), Processing will boot up the emulator, and then will launch the sketch in it.</p>
-
-                <div class="butterbar">
-                Since the emulator typically takes a long time to start up, the sketch might fail to run in the first attempt if the emulator is not yet ready. If this happens, just try running the sketch in the emulator again. Don't close the emulator!
-                </div>
+                <p>After finishing the download, which can take several minutes depending on your internet connection (the system images are around 1GB in size), Processing will boot up the emulator, and then will launch the sketch in it.</p>
 
                 <p>Another important tip is not to close the emulator after testing one sketch, just leave it open so you don't need to wait for the emulator to boot up again the next time!</p>
 
