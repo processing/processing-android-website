@@ -53,7 +53,7 @@
                 </p>
 
                 <p>
-                In case you already know how to develop Android apps using this advanced IDE, it is not that difficult either. All our core code is bundled inside the android-core.zip file (processing-core.zip in version 4+ of the mode), which is placed inside the AndroidMode folder. You just need to rename this file to android-core.jar (processing-core.zip) and add it as a dependency to your project. Step by step procedure for Android Studio is as follows:</p>
+                In case you already know how to develop Android apps using this advanced IDE, it is not that difficult either. All our core code is bundled inside the processing-core.zip, which is inside the AndroidMode folder. You just need to copy this file as processing-core.jar and add it as a dependency to your project. Step by step procedure for Android Studio is as follows:</p>
 
                 <p><b>1.</b> Create an Android project if you haven't already created one:</p>
                 <p><img class="body-image" src="imgs/1_new_project.png" alt="New project"></p>
@@ -74,7 +74,7 @@
              
 <pre><code>
 // Sketch.java
-package tutorials.androidstudio.fragmentsv3;
+package tutorials.androidstudio.fragmentsv4;
 
 import processing.core.PApplet;
 
@@ -96,62 +96,16 @@ public class Sketch extends PApplet {
                 <p><b>7.</b> Initialize the sketch in the main activity:</p> 
 
 <pre><code>
-// MainActivity.java    
-package tutorials.androidstudio.fragmentsv3;
-
-import android.os.Bundle;
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-
-public class MainActivity extends Activity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        FragmentManager fragmentManager = getFragmentManager();
-        Fragment fragment = new Sketch();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit();
-    }
-}    
-</code></pre>
-
-                <p><b>8.</b> Finally, create a simple layout for the main activity:</p> 
-
-<pre><code>
-&lt;!-- activity_main.xml -->
-&lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="tutorials.androidstudio.fragmentsv3.MainActivity" >
-
-    &lt;FrameLayout android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-&lt;/RelativeLayout>    
-</code></pre>
-
-             <p>The complete Android Studio project resulting from these steps is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/android_studio/ex1_fragmentsv3" target="_black">here</a>.</p>
-
-             <h3>Differences with version 4 of the mode</h3>
-            
-             <p>For version 4.0+, all the previous steps are still valid, the only difference is that we need to create a separate PFragment object in the main activity to contain the sketch, and set the view of the fragment using the frame and activity as arguments for setView()</p>
-
-<pre><code>
 package tutorials.androidstudio.fragmentsv4;
 
 import android.os.Bundle;
+import android.content.Intent;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import processing.android.PFragment;
-import processing.android.ViewIdGenerator;
+import processing.android.CompatUtils;
 import processing.core.PApplet;
 
 public class MainActivity extends AppCompatActivity {
@@ -161,10 +115,9 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     FrameLayout frame = new FrameLayout(this);
-    frame.setId(ViewIdGenerator.getUniqueId());
-    setContentView(frame, 
-      new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                                 ViewGroup.LayoutParams.MATCH_PARENT));
+    frame.setId(CompatUtils.getUniqueViewId());
+    setContentView(frame, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                                     ViewGroup.LayoutParams.MATCH_PARENT));
 
     sketch = new Sketch();
     PFragment fragment = new PFragment(sketch);
@@ -172,27 +125,45 @@ public class MainActivity extends AppCompatActivity {
   }
 
   @Override
-  public void onRequestPermissionsResult(int requestCode, 
-    String permissions[], int[] grantResults) {
+  public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
     if (sketch != null) {
       sketch.onRequestPermissionsResult(
       requestCode, permissions, grantResults);
     }
   }
-}
 
+  @Override
+  public void onNewIntent(Intent intent) {
+    if (sketch != null) {
+      sketch.onNewIntent(intent);
+    }
+  }
+}
 </code></pre>
 
 
                 <div class="butterbar">
-                The onRequestPermissionsResult() method in the main activity is needed in the case the app uses any <a href="https://developer.android.com/guide/topics/permissions/requesting.html#normal-dangerous">dangerous permissions</a>. If missing, the results of requesting the permission to the user will not reach the sketch, and it may fail to work properly.</div>
+                The onRequestPermissionsResult() method in the main activity is needed in the case the app uses any <a href="https://developer.android.com/guide/topics/permissions/requesting.html#normal-dangerous">dangerous permissions</a>. If missing, the results of requesting the permission to the user will not reach the sketch, and it may fail to work properly. onNewIntent() is also needed so the sketch can handle intents sent to the main activity.</div>
 
 
-                <p>The complete Android Studio project for 4.0 is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/android_studio/ex2_fragmentsv4" target="_black">here</a>.</p>
+                <p><b>8.</b> Finally, create a simple layout for the main activity:</p> 
 
-                <h3>Multiple Processing sketches in a single app</h3>
-                
-                <p><a href="http://developer.android.com/reference/android/app/Fragment.html" target="_black">Fragments</a> give you the possibility of embedding several Processing sketches in a single Android app, check out this <a href="https://github.com/omerjerk/ProcessingAndroidDemo" target="_black">sample Android Studio project</a> from <a href="https://github.com/omerjerk" target="_black">Umair Khan</a> to learn how (v3 only).</p>
+<pre><code>
+&lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="tutorials.androidstudio.fragmentsv4.MainActivity" >
+
+    &lt;FrameLayout android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+&lt;/RelativeLayout>   
+</code></pre>
+
+                <p>The complete Android Studio project is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/android_studio/ex2_fragmentsv4" target="_black">here</a>.</p>
 
             </section>
 
