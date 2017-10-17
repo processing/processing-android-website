@@ -64,6 +64,12 @@ pre {
   margin-bottom: 20px; 
 }
 
+strong {
+  font-family: 'Merriweather', serif;
+  font-size: 17px;
+  font-style: bold;
+}
+
 /*
   ========================================
   Layout
@@ -282,8 +288,8 @@ b {
   font-size: 120%;
   line-height: 135%;
   padding: 1em;
-  background: #FFFFB7;
-  border: 1px solid #BFBA26;
+  background: #DEFFBC;
+  border: 1px solid #94C125;
 
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
