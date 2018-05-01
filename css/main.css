@@ -164,6 +164,10 @@ nav.topnav ul li a {
   color: #C1C1C1;
 }
 
+span.navsep {
+  visibility: hidden;
+}
+
 /* ================ SITE NAVIGATION ================== */
 
 img.logo {
@@ -192,20 +196,24 @@ nav.site {
     margin-bottom: 0px;
   }
 
-  nav.site {    
-    width: 100%;
+  nav.site {
+    width: 90%;
+    padding-left: 5%;
+    padding-right: 5%;
   }
 
   nav.site ul {
     margin-top: 30px;
   }
 
-  nav.site ul li {
+ nav.site ul li {
     display: inline-block;
-    padding-left: 5px; 
-    padding-right: 5px; 
-    list-style: none;
+    display: inline;
   } 
+
+  span.navsep {
+    visibility: visible;
+  }  
 
   .container {
     padding-left: 80px;
