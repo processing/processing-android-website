@@ -348,31 +348,15 @@ ol {
   }  
 }
 
-
-@media screen and (max-width: 638px) {
-  nav.topnav ul.foundation {
-    float: left;
-  }  
-  nav.topnav {
-    height: 92px;
-  }  
-}
-
-@media screen and (max-width: 461px) {
+@media screen and (max-width: 459px) {
   nav.site ul.leftnav {
     margin-top: 4px;
   }
+  nav.topnav ul.foundation {
+    float: left;
+  }
   nav.topnav {
-    height: 76px;
-  }    
-  nav.topnav ul li {
-    padding: 8px 5px 8px 5px;
-  }  
-}
-
-@media screen and (max-width: 407px) {
-  nav.topnav {
-    height: 114px;
+    height: 92px;
   }    
 }
 
@@ -380,6 +364,12 @@ ol {
   nav.site ul.leftnav {
     margin-top: -12px;
   }  
+  nav.topnav {
+    height: 76px;
+  }    
+  nav.topnav ul li {
+    padding: 8px 5px 8px 5px;
+  }
 }
 
 @media screen and (max-width: 350px) {
