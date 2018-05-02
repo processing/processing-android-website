@@ -13,19 +13,6 @@
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
-.container {
-  margin: 0 auto;
-  padding-left: 40px;
-  padding-right: 20px;
-
-  max-width:600px;
-  width: 100%;
-
-  background-color: #ffffff;
-  font-family: 'Merriweather', serif;
-  font-size: 14px;
-  font-weight: 300;
-}
 
 /*
   ========================================
@@ -96,39 +83,55 @@ a {
 }
 
 header {
-  background-color: #7cab47;
+  background-color: #86A346;
   width: 100%;
   height: 140px;
   float: left;  
 }
 
 h1.title {
+  max-width: 720px;
+  width: 100%; 
   margin-top: 60px;
-  margin-left: 40px;
+  margin-left: 150px;
+  text-align: center;
   color: #ffffff;
   font-family: 'Merriweather', serif;
   font-size: 50px;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 720px;
+  width: 100%;
+  padding: 80px 20px 20px 60px;
+  background-color: #ffffff;
+  font-family: 'Merriweather', serif;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.footinfo {
+  margin-left: 150px;
+  max-width: 720px;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  background-color: #ffffff;
+  font-family: 'Merriweather', serif;
+  font-size: 14px;
+  font-weight: 300;
 }
 
 #selected {
   color: black;
 }
 
-.main-text {
-  margin-top: 90px;
-}
-
-.footinfo {
-  background-color: #ffffff;
-  font-family: 'Merriweather', serif;
-  font-size: 14px;
-  font-weight: 300;
-
-  padding-left: 230px;
-  padding-top: 30px;    
-}
-
-/* ================ TOP PROCESSING MENU ================== */
+/*
+  ========================================
+  Top menu
+  ========================================
+*/
 
 nav.topnav {
   width: 100%;
@@ -149,7 +152,7 @@ nav.topnav ul.left {
   float: left;
 }
 
-nav.topnav ul.right {
+nav.topnav ul.foundation {
   float: right;
 }
 
@@ -164,98 +167,36 @@ nav.topnav ul li a {
   color: #C1C1C1;
 }
 
-span.navsep {
-  visibility: hidden;
-}
-
-/* ================ SITE NAVIGATION ================== */
+/*
+  ========================================
+  Navigation menu
+  ========================================
+*/
 
 img.logo {
   display: block;
   width: 92px;
-  padding: 0px;
-  margin-left: -15px;
-  margin-bottom: 20px
+  padding: 0px 0px 20px 0px;
 }
 
 nav.site {
-  float: left;
-  margin-top: 45px;
-  margin-left: 40px;
+  float: left;  
   width: 150px;
+  padding: 40px 20px 20px 30px;
   line-height: 30px;
   font-family: 'Merriweather', serif;
 }
 
-
-@media screen and (max-width: 860px) {
-  /* Config when the width of the screen is less than 860 */
-  .logo {
-    float: left; 
-    margin-right: 15px;
-    margin-bottom: 0px;
-  }
-
-  nav.site {
-    width: 90%;
-    padding-left: 5%;
-    padding-right: 5%;
-  }
-
-  nav.site ul {
-    margin-top: 30px;
-  }
-
- nav.site ul li {
-    display: inline-block;
-    display: inline;
-  } 
-
-  span.navsep {
-    visibility: visible;
-  }  
-
-  .container {
-    padding-left: 80px;
-    padding-right: 20px;
-  }
-
-  .main-text {
-    margin-top: 30px;
-  }
-
-  .footinfo {
-    padding-left: 80px;
-  }
+ul.leftnav {
+  margin-left: 10px;
+  list-style: none;
 }
 
-@media screen and (max-width: 650px) {
-  nav.topnav {
-    font-size: 8px;
-    height: 34px;
-  }
-  nav.topnav ul li {
-    padding: 6px 5px 6px 5px;
-
-  }
-}
-
-@media screen and (max-width: 630px) {
-   h1.title {
-    margin-top: 60px;
-    font-size: 40px;
-  }   
-}
-
-@media screen and (max-width: 500px) {
-   h1.title {
-    margin-top: 10px;
-    font-size: 40px;
-    line-height: 1.5;
-  } 
-}
-
-/* ================ SITE STYLE ================== */
+/*
+  ========================================
+  Site Style
+  ========================================
+*/
 
 small {
   font-size: 85%;
@@ -286,10 +227,10 @@ b {
 
 .body-image {
   max-width: 480px;  
+  width: 100%;  
   display: block;
   margin-left: auto;
   margin-right: auto;  
-  /*margin: 0 auto*/
 }
 
 .body-image-portrait {
@@ -297,7 +238,6 @@ b {
   display: block;
   margin-left: auto;
   margin-right: auto;  
-  /*margin: 0 auto*/
 }
 
 .butterbar {
@@ -312,7 +252,6 @@ b {
   border-radius: 4px;
   margin-bottom: 20px;
 }
-
 
 /*
   ========================================
@@ -332,15 +271,142 @@ ol {
   padding-left: 12px;  
 }
 
-ul.leftnav {
-  margin-left: -5px;
-  list-style: none;
-}
-
-/* ================ REFERENCE ================== */
+/*
+  ========================================
+  Reference
+  ========================================
+*/
 
 #Reference .curated-item p { padding-right: 14px; }
 
-/* ================ TUTORIALS ================== */
+/*
+  ========================================
+  Tutorials
+  ========================================
+*/
 
 #Tutorials .curated-item p { padding-right: 14px; }
+
+/*
+  ========================================
+  Media queries
+  ========================================
+*/
+
+@media screen and (max-width: 870px) {
+  /* Config when the width of the screen is less than 860 */
+  
+  img.logo {
+    float: left; 
+    margin-right: 15px;
+    margin-bottom: 0px;
+    padding: 0px 0px 0px 0px;
+  }
+
+  nav.site {
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+  }  
+
+  nav.site ul.leftnav {
+    margin-top: 30px;
+  }
+  
+  nav.site ul li {
+    display: inline-block;
+    padding-left: 5px; 
+    padding-right: 5px; 
+    list-style: none;
+  }
+
+  .container {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 5%;
+    padding-top: 20px;
+  }
+  
+  h1.title {
+    width: 100%;
+    margin-left: 0px;
+    padding-left: 10%;
+    padding-right: 5%;
+  }  
+  
+  .footinfo {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 5%;
+    margin-left: 0px;
+  }     
+}
+
+@media screen and (max-width: 747px) {
+  nav.site ul.leftnav {
+    margin-top: 18px;
+  }  
+}
+
+@media screen and (max-width: 672px) {
+  h1.title {
+    margin-top: 13px;
+    line-height: 1.2;
+  }  
+}
+
+
+@media screen and (max-width: 638px) {
+  nav.topnav ul.foundation {
+    float: left;
+  }  
+  nav.topnav {
+    height: 92px;
+  }  
+}
+
+@media screen and (max-width: 461px) {
+  nav.site ul.leftnav {
+    margin-top: 4px;
+  }
+  nav.topnav {
+    height: 76px;
+  }    
+  nav.topnav ul li {
+    padding: 8px 5px 8px 5px;
+  }  
+}
+
+@media screen and (max-width: 421px) {
+  nav.topnav {
+    height: 114px;
+  }    
+}
+
+@media screen and (max-width: 355px) {
+  nav.site ul.leftnav {
+    margin-top: -12px;
+  }  
+}
+
+@media screen and (max-width: 350px) {
+  h1.title {
+    margin-top: 25px;
+    font-size: 40px;
+    line-height: 1.2;
+  }  
+}
+
+@media screen and (max-width: 281px) {
+  h1.title {
+    margin-top: 18px;
+    font-size: 30px;
+    line-height: 1.2;
+  }
+}
+
+@media screen and (max-width: 251px) {
+  nav.topnav {
+    display: none;
+  }  
+}
