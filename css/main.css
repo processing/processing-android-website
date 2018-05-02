@@ -253,6 +253,15 @@ b {
   margin-bottom: 20px;
 }
 
+/*https://longren.io/wrapping-text-inside-pre-tags/*/
+pre {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
 /*
   ========================================
   Lists
@@ -270,22 +279,6 @@ ol {
   list-style: decimal;
   padding-left: 12px;  
 }
-
-/*
-  ========================================
-  Reference
-  ========================================
-*/
-
-#Reference .curated-item p { padding-right: 14px; }
-
-/*
-  ========================================
-  Tutorials
-  ========================================
-*/
-
-#Tutorials .curated-item p { padding-right: 14px; }
 
 /*
   ========================================
