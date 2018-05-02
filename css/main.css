@@ -370,7 +370,7 @@ ol {
   }  
 }
 
-@media screen and (max-width: 421px) {
+@media screen and (max-width: 407px) {
   nav.topnav {
     height: 114px;
   }    
