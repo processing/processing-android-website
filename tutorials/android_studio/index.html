@@ -68,7 +68,7 @@
                 <p><b>4.</b> Set the name for the main activity class and the layout file:</p>
                 <p><img class="body-image" src="imgs/4_customize_activity.png" alt="Customize activity"></p>
 
-                <p><b>5.</b> Copy android-core.jar to /app/libs, and add it as file dependency to the project:</p>
+                <p><b>5.</b> Copy processing-core.zip (located in the AndroidMode folder in Processing) to /app/libs, rename it to processing-core.jar, and add it as a jar dependency to the project:</p>
                 <p><img class="body-image" src="imgs/5_module_settings.png" alt="Module settings"></p>
 
                 <p><b>6.</b> Then, write your sketch code by extending PApplet, for example:</p> 
@@ -165,6 +165,18 @@ public class MainActivity extends AppCompatActivity {
 </code></pre>
 
                 <p>The complete Android Studio project is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/android_studio/ex2_fragmentsv4" target="_black">here</a>.</p>
+
+                <h3>Using Bintray packages</h3>
+
+                <p>
+                The processing-core library is also available as a package on <a href="https://bintray.com/p5android/processing-android/processing-core" target="_black">Bintray</a>. This package can be easily imported into a Gradle project using the following dependency snippet:</p> 
+
+<pre><code>
+compile 'org.p5android:processing-core:x.y.z'
+</code></pre>
+
+                <p>where x.y.z is the desired version to use. In Android Studio, the processing-core package will appear as a module dependency as follows:</p>
+                <p><img class="body-image" src="imgs/bintray_package.png" alt="Bintray package"></p>
 
             </section>
 
