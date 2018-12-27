@@ -52,10 +52,18 @@
                 <h3>Environment</h3>
                 <p>
                   <a href="environment/display.html">displayDensity</a><br>
+                  <a href="environment/orientation.html">orientation()</a><br>
                   <a href="environment/activity.html">getActivity()</a><br>
                   <a href="environment/activity.html">getContext()</a><br>
-                  <a href="environment/orientation.html">orientation()</a>
-                </p> 
+                  <a href="environment/activity.html">getFragmentManager()</a><br>
+                  <a href="environment/activity.html">getWindow()</a>
+                </p>
+                <br>
+
+                <h3>System events</h3>
+                <p>
+                  <a href="events/backpress.html">backPressed()</a><br>
+                </p>
                 <br>
 
                 <h3>Permissions</h3>
@@ -111,7 +119,22 @@
                   <a href="vr/eye.html">getEyeMatrix()</a><br>
                   <a href="vr/object.html">getObjectMatrix()</a>
                 </p>
-                <br> 
+                <br>
+
+                <h3>Android API</h3>
+                <p>
+                  The PApplet class in the Android mode also exposes some functions from the underlying Android API to make easier to receive updates from the system:<br><br>
+                  <a href="https://developer.android.com/reference/android/app/Activity.html#onActivityResult(int,%20int,%20android.content.Intent)" target="_black">onActivityResult()</a><br>
+                  <a href="https://developer.android.com/reference/android/app/Activity.html#onNewIntent(android.content.Intent)" target="_black">onNewIntent()</a>
+                </p>
+                <p>The Fragment API that allows adding menu items to the App Bar is also available through PApplet:<br><br>
+                  <a href="https://developer.android.com/reference/android/support/v4/app/Fragment.html#onCreateOptionsMenu(android.view.Menu,%20android.view.MenuInflater)" target="_black">onCreateOptionsMenu()</a><br>
+                  <a href="https://developer.android.com/reference/android/support/v4/app/Fragment.html#onOptionsItemSelected(android.view.MenuItem)" target="_black">onOptionsItemSelected()</a><br>
+                  <a href="https://developer.android.com/reference/android/support/v4/app/Fragment.html#onCreateContextMenu(android.view.ContextMenu,%20android.view.View,%20android.view.ContextMenu.ContextMenuInfo)" target="_black">onCreateContextMenu()</a><br>
+                  <a href="https://developer.android.com/reference/android/support/v4/app/Fragment.html#onContextItemSelected(android.view.MenuItem)" target="_black">onContextItemSelected()</a><br>
+                  <a href="https://developer.android.com/reference/android/support/v4/app/Fragment.html#setHasOptionsMenu(boolean)" target="_black">setHasOptionsMenu()</a>
+                </p>
+                <br>                
 
             </section>
 

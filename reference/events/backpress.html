@@ -44,43 +44,28 @@
             </nav>
       
             <section class="container main-text">
-                <h2>Getting state of application</h2>
-                <p>We can obtain a reference to the main <a href="https://developer.android.com/reference/android/app/Activity" target="_black">activity</a> or <a href="https://developer.android.com/reference/android/content/Context" target="_black">context</a> containing the sketch using the getActivity() and getContext() functions:
-                </p>
-                
-                <pre><code>
-<span style="color: #33997E;">import</span> android.app.Activity;
-<span style="color: #33997E;">import</span> android.content.Context;
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;Activity&nbsp;activity&nbsp;=&nbsp;getActivity();
-}
-                </code></pre>
-
-                <p>The activity will be available only for sketches run as regular or VR apps, since wallpapers and watch faces are services that are not associated to an activity. getContext() should return the context of the application or service in any situation.
+                <h2>backPressed</h2>
+                <p>Use this function to handle the back press event. If it is not implemented, the sketch will quit when a back press is detected.
                 </p>
 
                 <pre><code>
-<span style="color: #33997E;">import</span> android.content.Context;
-
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;getContext();
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();  
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(#00FF70);
+}
+
+<span style="color: #33997E;">void</span> backPressed() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #006699;">millis</span>() &lt; 5000) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">println</span>(<span style="color: #7D4793;">&quot;Don&apos;t leave so soon!&quot;</span>);
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">println</span>(<span style="color: #7D4793;">&quot;Bye&quot;</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">exit</span>();
+&nbsp;&nbsp;}
 }
                 </code></pre>
-
-                <p>When an activity is associated to our sketch, we can also retrive its <a href="https://developer.android.com/reference/android/app/FragmentManager" target="_black">fragment manager</a> and <a href="https://developer.android.com/reference/android/view/Window" target="_black">window</a>:
-                </p>
-
-                <pre><code>
-<span style="color: #33997E;">import</span> android.app.FragmentManager;
-<span style="color: #33997E;">import</span> android.view.Window;
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;FragmentManager&nbsp;manager&nbsp;=&nbsp;getFragmentManager();
-&nbsp;&nbsp;Window&nbsp;window&nbsp;=&nbsp;getWindow();
-}
-                </code></pre>
-
             </section>
 
         </div>
