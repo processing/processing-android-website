@@ -219,7 +219,7 @@ ul.leftnav {
   ========================================
 */
 
-.lang {
+div.lang {
   float: right;
 
   line-height: 30px;
