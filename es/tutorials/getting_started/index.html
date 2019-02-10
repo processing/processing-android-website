@@ -23,14 +23,14 @@
             </ul>
         </nav>
 
-        <header>            
+        <header>
             <h1 class="title">Processing para Android</h1>
         </header>
 
         <div class="group">
 
             <nav class="site">
-                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
+                <img class="logo" src="../../imgs/logo.png" alt="Logo de Processing para Android">
                 <ul class="leftnav">
                    <li><a href="../../index.html">Principal</a></li>
                    <li><a href="../../install.html">Instalar</a></li>
@@ -51,30 +51,30 @@
                 </div>
                 <hr style="clear:both;">
 
-                <h2>Comenzando</h2>
+                <h2>Primeros Pasos</h2>
                 <p>
                 ¡Bienvenido a Processing para Android! En este tutorial, aprenderás cómo usar el modo Android en Processing para ejecutar sus bosquejos en un dispositivo Android o en el emulador.
                 </p>
 
                 <h3>Instalando el SDK</h3>
                 <p>
-                La primera vez que abra el modo Android después de <a href="../../install.html" target="_black"> instalarlo </a> a través del CM o manualmente, verá esta ventana, que le pedirá que busque un SDK de Android preinstalado o descargue el SDK de Android automáticamente:
+                La primera vez que abras el modo Android después de <a href="../../install.html" target="_black">instalarlo</a> manualmente o a través del CM, verás esta ventana, que te pedirá que selecciones un SDK de Android previamente instalado en la computadora, o descargar e instalar el SDK automáticamente:
                 </p>
 
-                <p><img class="body-image" src="imgs/sdk_install.png" alt="SDK install"></p>
+                <p><img class="body-image" src="imgs/sdk_install.png" alt="Instalación del SDK"></p>
 
-                <p>Si aún desea utilizar un SDK ya descargado en su computadora, elija la opción "Localizar la ruta del SDK manualmente" y seleccione la carpeta que contiene el SDK. Sin embargo, este SDK debe incluir Android 8.0 (nivel de API 26) o superior. Para descargar e instalar manualmente el SDK, vaya a <a href="https://developer.android.com/studio/index.html#downloads" target="_black">esta página</a>, desplácese hacia abajo a la sección de herramientas de la línea de comandos y seleccione la que corresponde a su sistema operativo. Hacer esto podría ser conveniente si planea usar el mismo SDK de diferentes herramientas de desarrollo (línea de comandos, Android Studio, etc.) además de Procesamiento. Sin embargo, tenga en cuenta que el SDK que se descarga e instala el Procesamiento se almacena automáticamente en la carpeta del modo y no interfiere con ningún otro SDK instalado en su computadora.
+                <p>Si ya tienes un SDK ya instalado en tu computadora y quieres usarlo en Processing, elije la opción "Locate SDK path manually" y selecciona la carpeta que contiene el SDK. Sin embargo, este SDK debe incluir Android 8.0 (nivel de API 26) o superior. Para descargar e instalar manualmente el SDK, abre <a href="https://developer.android.com/studio/index.html#downloads" target="_black">esta página</a>, navega hacia el final de la sección de herramientas de la línea de comandos y seleccione la que corresponde a tu sistema operativo. Esto puede ser conveniente si planeas usar el mismo SDK con diferentes herramientas de desarrollo (por ejemplo, línea de comandos, Android Studio, etc.) además de Processing. Sin embargo, en cuenta que el SDK que Processing descarga e instala automáticamente es guardado en la carpeta del modo y no interfiere para nada con ningún otro SDK instalado en tu computadora.
                 </p>
 
                 <p>
-                Si el SDK se localizó o instaló correctamente, debería ver su dispositivo Android en la lista "Seleccionar dispositivo" después de conectarlo a la computadora:
+                Si el SDK se descargó e instaló correctamente, deberías de poder ver tu dispositivo Android en la lista "Select device" luego de conectarlo a la computadora:
                 </p>
 
-                <p><img class="body-image" src="imgs/select_device.png" alt="Device selection"></p>
+                <p><img class="body-image" src="imgs/select_device.png" alt="Selección de dispositivo"></p>
 
-                <h3>Escribiendo un simple bosquejo</h3>
+                <h3>Creando nuestro primer bosquejo</h3>
                 <p>
-                Escribamos un breve bosquejo de procesamiento para que se ejecute en su teléfono o tableta Android y nos aseguremos de que todo funcione como se espera. En el siguiente código, pintamos la mitad de la pantalla que recibe una pulsación con el color negro. Tenga en cuenta que nada en este bosquejo es realmente específico de Android, por lo que también podría ejecutarlo en el modo Java. Esta portabilidad de los bosquejos de procesamiento (siempre que no dependan de ninguna característica específica de la plataforma) es útil para las pruebas, ya que el modo Java incluye un depurador integrado que puede ayudar a detectar errores en el código con mayor facilidad.
+                Escribamos un breve bosquejo de Processing para que se ejecute en tu teléfono o tableta Android y así asegurarnos de que todo funcione como se espera. En el siguiente código, pintamos con el color negro la mitad de la pantalla que recibe un toque. Ten en cuenta que nada en este bosquejo es realmente específico de Android, por lo que también podrías ejecutarlo en el modo Java. Esta portabilidad de los bosquejos de Processing (siempre y cuando que no dependan de ninguna característica específica de la plataforma) es útil para realizar pruebas, ya que el modo Java incluye un depurador integrado que puede ayudar a detectar errores en el código con mayor facilidad.
                 </p>
 
 <pre><code>
@@ -98,33 +98,32 @@
 
                 <h3>Ejecutando el bosquejo en tu dispositivo</h3>
                 <p>
-                Antes de presionar el botón Ejecutar o seleccionar "Ejecutar en dispositivo" en el menú bosquejo, asegúrese de:
+                Antes de presionar el botón Ejecutar o seleccionar "Run on Device" en el menú bosquejo, asegúrate de lo siguiente:
                 <ul>
-                    <li>Active "Depuración de USB" en el dispositivo: este proceso varía según el dispositivo y la versión del sistema operativo que haya instalado. En la mayoría de los casos, esta configuración se encuentra en <em>Opciones de desarrollador</em>, en Configuración del sistema. En Android 4.2 y versiones posteriores, las Opciones del desarrollador están ocultas de manera predeterminada, pero puede habilitarlas siguiendo <a href="https://developer.android.com/studio/run/device.html#developer-device-options" target="_black"> estas instrucciones</a>.</li>
+                    <li>Que la opción de "Depuración de USB" ("USB Debugging") esté habilitada en el dispositivo: este proceso varía según el dispositivo y la versión de Android que tenga instalado. En la mayoría de los casos, esta configuración se encuentra en <em>Opciones de desarrollador</em> (Developer Options), en la configuración (settings) del sistema Android. En Android 4.2 y versiones posteriores, las opciones del desarrollador están inicialmente ocultas, pero puedes habilitarlas siguiendo <a href="https://developer.android.com/studio/run/device.html#developer-device-options" target="_black">éstas instrucciones</a>.</li>
                     
-                    <li>Si está ejecutando Windows, debe seguir <a href="https://developer.android.com/studio/run/oem-usb.html" target="_black">documentación de Google</a> para instalar un controlador USB especial y cuidar configuraciones adicionales. Si descargó el SDK de Android automáticamente en Procesamiento, los últimos controladores USB estarán dentro de la carpeta de modo, debajo de la subcarpeta temporal.</li>
+                    <li>Si estás usando una computadora con Windows, tal vez tengas que seguir la <a href="https://developer.android.com/studio/run/oem-usb.html" target="_black">documentación de Google</a> para instalar un controlador USB especial y ajustar configuraciones adicionales. Si descargaste el SDK de Android automáticamente desde Processing, la versión más reciente de estos controladores USB estarán dentro de la carpeta del modo, dentro de la subcarpeta temp.</li>
 
                 </ul>
                 </p>
                 
-                <p>Si todo va bien, entonces tu bosquejo debería hacer algo como esto en tu teléfono:</p>
+                <p>Si no surge ningún problema, entonces tu bosquejo debería generar el siguente resultado en tu teléfono:</p>
 
-                <p><img class="body-image" src="imgs/getting_started.gif" alt="Getting Started Sketch"></p>
+                <p><img class="body-image" src="imgs/getting_started.gif" alt="Nuestro bosquejo inicial"></p>
 
-
-                <h3> Ejecutando el croquis en el emulador </h3>
+                <h3>Ejecutando el bosquejo en el emulador</h3>
                 <p>
-                Si no tiene un dispositivo para ejecutar su bosquejo, aún puede usar el emulador de software. La primera vez que ejecute un croquis en el emulador, Processing le solicitará que descargue la imagen del sistema que necesita el emulador para funcionar:
+                Si no tienes un dispositivo Android para ejecutar tu bosquejo, aún puedes usar el emulador de Android por software. La primera vez que ejecutes un bosquejo en el emulador, Processing te solicitará que descargues la imágen del sistema que el emulador necesita para funcionar:
 
                 <p><img class="body-image" src="imgs/download_emulator.png" alt="Emulator download"></p>
 
-                <p>Después de finalizar la descarga, que puede demorar varios minutos dependiendo de su conexión a Internet (las imágenes del sistema tienen un tamaño de aproximadamente 1 GB), el procesamiento iniciará el emulador y luego iniciará el bosquejo.</p>
+                <p>Una vez finalizada la descarga, que puede demorar varios minutos dependiendo de tu conexión a internet (las imágenes del sistema de Android tienen un tamaño de aproximadamente 1 GB), Processing lanzará el emulador y luego ejecutará el bosquejo en el mismo.</p>
 
-                <p>¡Otro consejo importante es no cerrar el emulador después de probar un bosquejo, simplemente déjalo abierto para que no tengas que esperar a que el emulador se reinicie la próxima vez!</p>
+                <p>¡Un consejo importante es que cierres el emulador después de ejecutar tu bosquejo por primera vez, simplemente déjalo abierto para que no tengas que esperar a que el emulador se reinicie la próxima vez!</p>
 
-                <p>Dependiendo del bosquejo que estés probando, el emulador aparecerá en una ventana separada, más o menos así:</p>
+                <p>Dependiendo del bosquejo que estés ejecutando, el emulador aparecerá en una ventana separada, similar a la siguiente:</p>
 
-                <p><img class="body-image" src="imgs/emulator.png" alt="Emulator running"></p>
+                <p><img class="body-image" src="imgs/emulator.png" alt="Ejecutando un bosquejo en el emulador"></p>
             </section>
 
         </div>
