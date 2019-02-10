@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+        <link rel="stylesheet" href="../../../css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Processing para Android</title>
+    </head>
+    
+    <body>
+
+        <nav class="topnav">        
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="https://p5js.org/">p5.js</a></li>
+                <li><a href="https://py.processing.org/">Processing.py</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+            </ul>
+            <ul class="foundation">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav>
+
+        <header>            
+            <h1 class="title">Processing para Android</h1>
+        </header>
+
+        <div class="group">
+
+            <nav class="site">
+                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
+                <ul class="leftnav">
+                   <li><a href="../../index.html">Principal</a></li>
+                   <li><a href="../../install.html">Instalar</a></li>
+                   <li><a href="../../reference/index.html">Referencia</a></li>
+                   <li><a id="selected" href="../../tutorials/index.html">Tutoriales</a></li>
+                   <li><a href="../../books/index.html">Libros</a></li>
+                   <li><a href="../../gallery/index.html">Galería</a></li>
+                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
+                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
+                </ul>
+            </nav>
+      
+            <section class="container main-text">
+
+                <div class="lang">
+                  <a href="../../../tutorials/getting_started/index.html">EN</a>
+                  <a id="selected" href="index.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
+                <h2>Comenzando</h2>
+                <p>
+                ¡Bienvenido a Processing para Android! En este tutorial, aprenderás cómo usar el modo Android en Processing para ejecutar sus bosquejos en un dispositivo Android o en el emulador.
+                </p>
+
+                <h3>Instalando el SDK</h3>
+                <p>
+                La primera vez que abra el modo Android después de <a href="../../install.html" target="_black"> instalarlo </a> a través del CM o manualmente, verá esta ventana, que le pedirá que busque un SDK de Android preinstalado o descargue el SDK de Android automáticamente:
+                </p>
+
+                <p><img class="body-image" src="imgs/sdk_install.png" alt="SDK install"></p>
+
+                <p>Si aún desea utilizar un SDK ya descargado en su computadora, elija la opción "Localizar la ruta del SDK manualmente" y seleccione la carpeta que contiene el SDK. Sin embargo, este SDK debe incluir Android 8.0 (nivel de API 26) o superior. Para descargar e instalar manualmente el SDK, vaya a <a href="https://developer.android.com/studio/index.html#downloads" target="_black">esta página</a>, desplácese hacia abajo a la sección de herramientas de la línea de comandos y seleccione la que corresponde a su sistema operativo. Hacer esto podría ser conveniente si planea usar el mismo SDK de diferentes herramientas de desarrollo (línea de comandos, Android Studio, etc.) además de Procesamiento. Sin embargo, tenga en cuenta que el SDK que se descarga e instala el Procesamiento se almacena automáticamente en la carpeta del modo y no interfiere con ningún otro SDK instalado en su computadora.
+                </p>
+
+                <p>
+                Si el SDK se localizó o instaló correctamente, debería ver su dispositivo Android en la lista "Seleccionar dispositivo" después de conectarlo a la computadora:
+                </p>
+
+                <p><img class="body-image" src="imgs/select_device.png" alt="Device selection"></p>
+
+                <h3>Escribiendo un simple bosquejo</h3>
+                <p>
+                Escribamos un breve bosquejo de procesamiento para que se ejecute en su teléfono o tableta Android y nos aseguremos de que todo funcione como se espera. En el siguiente código, pintamos la mitad de la pantalla que recibe una pulsación con el color negro. Tenga en cuenta que nada en este bosquejo es realmente específico de Android, por lo que también podría ejecutarlo en el modo Java. Esta portabilidad de los bosquejos de procesamiento (siempre que no dependan de ninguna característica específica de la plataforma) es útil para las pruebas, ya que el modo Java incluye un depurador integrado que puede ayudar a detectar errores en el código con mayor facilidad.
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0);
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(204);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mousePressed</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mouseX</span> &lt; <span style="color: #D94A7A;">width</span>/2) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">rect</span>(0, 0, <span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>); <span style="color: #666666;">// Left</span>
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">rect</span>(<span style="color: #D94A7A;">width</span>/2, 0, <span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>); <span style="color: #666666;">// Right</span>
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;}
+}
+</code></pre>
+
+                <h3>Ejecutando el bosquejo en tu dispositivo</h3>
+                <p>
+                Antes de presionar el botón Ejecutar o seleccionar "Ejecutar en dispositivo" en el menú bosquejo, asegúrese de:
+                <ul>
+                    <li>Active "Depuración de USB" en el dispositivo: este proceso varía según el dispositivo y la versión del sistema operativo que haya instalado. En la mayoría de los casos, esta configuración se encuentra en <em>Opciones de desarrollador</em>, en Configuración del sistema. En Android 4.2 y versiones posteriores, las Opciones del desarrollador están ocultas de manera predeterminada, pero puede habilitarlas siguiendo <a href="https://developer.android.com/studio/run/device.html#developer-device-options" target="_black"> estas instrucciones</a>.</li>
+                    
+                    <li>Si está ejecutando Windows, debe seguir <a href="https://developer.android.com/studio/run/oem-usb.html" target="_black">documentación de Google</a> para instalar un controlador USB especial y cuidar configuraciones adicionales. Si descargó el SDK de Android automáticamente en Procesamiento, los últimos controladores USB estarán dentro de la carpeta de modo, debajo de la subcarpeta temporal.</li>
+
+                </ul>
+                </p>
+                
+                <p>Si todo va bien, entonces tu bosquejo debería hacer algo como esto en tu teléfono:</p>
+
+                <p><img class="body-image" src="imgs/getting_started.gif" alt="Getting Started Sketch"></p>
+
+
+                <h3> Ejecutando el croquis en el emulador </h3>
+                <p>
+                Si no tiene un dispositivo para ejecutar su bosquejo, aún puede usar el emulador de software. La primera vez que ejecute un croquis en el emulador, Processing le solicitará que descargue la imagen del sistema que necesita el emulador para funcionar:
+
+                <p><img class="body-image" src="imgs/download_emulator.png" alt="Emulator download"></p>
+
+                <p>Después de finalizar la descarga, que puede demorar varios minutos dependiendo de su conexión a Internet (las imágenes del sistema tienen un tamaño de aproximadamente 1 GB), el procesamiento iniciará el emulador y luego iniciará el bosquejo.</p>
+
+                <p>¡Otro consejo importante es no cerrar el emulador después de probar un bosquejo, simplemente déjalo abierto para que no tengas que esperar a que el emulador se reinicie la próxima vez!</p>
+
+                <p>Dependiendo del bosquejo que estés probando, el emulador aparecerá en una ventana separada, más o menos así:</p>
+
+                <p><img class="body-image" src="imgs/emulator.png" alt="Emulator running"></p>
+            </section>
+
+        </div>
+
+        <footer class="footinfo">
+            <small>&copy; The Processing Foundation. Processing para Android es un <a href="../../team.html">proyecto colaborativo</a>.</small>
+        </footer>
+    </body>
+</html>
+
