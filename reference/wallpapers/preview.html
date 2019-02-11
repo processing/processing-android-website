@@ -44,8 +44,15 @@
             </nav>
       
             <section class="container main-text">
+
+                <div class="lang">
+                  <a id="selected" href="offset.html">EN</a>
+                  <a href="../../es/reference/wallpapers/preview.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
                 <h2>wallpaperPreview()</h2>
-                <p>This function tells you if the wallpaper is being shown in the preview of the wallpaper selector. After the wallpaper is finally selected, it will be restarted in non-preview mode to run as the background.</p>
+                <p>This function tells you if the wallpaper is being shown in the preview of the wallpaper selector. After the wallpaper is finally selected, it will be restarted in non-preview mode to run as the background until a new wallpaper is selected.</p>
 
 <pre><code>
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
