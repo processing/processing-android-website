@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
         <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
-        <link rel="stylesheet" href="../../css/main.css">
+        <link rel="stylesheet" href="../../../css/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <title>Processing for Android</title>
+        <title>Processing para Android</title>
     </head>
     
     <body>
@@ -23,54 +23,54 @@
             </ul>
         </nav>
 
-        <header>            
-            <h1 class="title">Processing for Android</h1>
+        <header>
+            <h1 class="title">Processing para Android</h1>
         </header>
 
         <div class="group">
 
             <nav class="site">
-                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
+                <img class="logo" src="../../imgs/logo.png" alt="Logo de Processing para Android">
                 <ul class="leftnav">
-                   <li><a href="../../index.html">Home</a></li>
-                   <li><a href="../../install.html">Install</a></li>
-                   <li><a href="../../reference/index.html">Reference</a></li>
-                   <li><a id="selected" href="../../tutorials/index.html">Tutorials</a></li>
-                   <li><a href="../../books/index.html">Books</a></li>
-                   <li><a href="../../gallery/index.html">Gallery</a></li>
+                   <li><a href="../../index.html">Principal</a></li>
+                   <li><a href="../../install.html">Instalar</a></li>
+                   <li><a href="../../reference/index.html">Referencia</a></li>
+                   <li><a id="selected" href="../../tutorials/index.html">Tutoriales</a></li>
+                   <li><a href="../../books/index.html">Libros</a></li>
+                   <li><a href="../../gallery/index.html">Galería</a></li>
                    <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
                    <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
                 </ul>
             </nav>
       
             <section class="container main-text">
-                
+
                 <div class="lang">
-                  <a id="selected" href="index.html">EN</a>
-                  <a href="../../es/tutorials/watchfaces/index.html">ES</a>
+                  <a href="../../../tutorials/watchfaces/index.html">EN</a>
+                  <a id="selected" href="index.html">ES</a>
                 </div>
                 <hr style="clear:both;">
 
-            	<h2>Watch Faces</h2>
+                <h2>Caras de Reloj</h2>
                 <p>
-                Use the Android Mode to develop interactive watch faces.
+                En este tutorial veremos como usar el modo Android para desarrollar caras de reloj interactivas.
                 </p>
        
-                <h3>Smartwatches</h3>
+                <h3>Relojes inteligentes</h3>
                 <p>
-                <a href="https://www.android.com/wear/" target="_black">Android Wear</a> allows you to create custom smartwatch faces that can represent time in original ways by taking advantage of the display and interaction capabilities of these devices. You can also obtain body sensors data (steps, hearth rate) to visualize the physical activity of the user. Developing watch faces require some special consideration though, due to the limitations of these devices in terms of screen size and battery life. Google has published some guidelines for <a href="https://developer.android.com/training/wearables/watch-faces/index.html" target="_black">watch face design</a>.
+                <a href="https://www.android.com/wear/" target="_black">Android Wear</a> nos permite crear caras personalizadas para relojes inteligentes, con las cuales podemos representar el tiempo de manera original al aprovechar las capacidades de visualización e interacción de estos dispositivos También es posible obtener datos de sensores corporales (número de pasos, frecuencia cardíaca) a efectos de visualizar la actividad física del usuario. Sin embargo, el desarrollo de las caras de relojes demanda algunas consideraciones especiales, a raíz de las limitaciones de estos dispositivos presentan en relación al tamaño de la pantalla y la duración de la batería. Google ha publicado algunas pautas para <a href="https://developer.android.com/training/wearables/watch-faces/index.html" target="_black">el diseño de caras de reloj</a>.
                 </p>
 
-                <h3>Getting ready</h3>
+                <h3>Preparativos</h3>
                 <p>
-                First of all, developing for a smartwatch requires to pair the watch with a phone that will function as a bridge between the computer you are runnig Processing on, and the watch itself. To do so, you have to setup the devices for debugging over Bluetooth, which is explained <a href="https://developer.android.com/training/wearables/apps/bt-debugging.html" target="_black">here</a>. Once you have done it, you can select the Watch Face option in the Android menu:
+                Antes que nada, programar un reloj inteligente requiere emparejar el reloj con un teléfono que funcionará como un puente entre la computadora en la que está ejecutando Processing y el reloj. Para hacerlo, debes configurar los dispositivos para la depuración a través de Bluetooth, como está explicado <a href="https://developer.android.com/training/wearables/apps/bt-debugging.html" target="_black"> aquí</a>. Una vez hecho esto, podrás seleccionar la opción "Watch Face" en el menú de Android:
                 </p>
 
-                <p><img class="body-image" src="imgs/watchface_selection.png" alt="Watch face selection"></p>
+                <p><img class="body-image" src="imgs/watchface_selection.png" alt="Selección de la opción de caras de reloj"></p>
 
-                <h3>A very simple watch face</h3>
+                <h3>Una cara de reloj simple</h3>
                 <p>
-                As a very simple first attempt at creating a watch face, let's just display the time using text. The structure of the sketch is very straightfoward: 
+                En nuestro primer intento de crear una cara de reloj con Processing, solamente mostremos la hora usando texto. La estructura del bosquejo es muy sencilla:
                 </p>
 
 <pre><code>
@@ -93,15 +93,15 @@
 </code></pre>
 
                 <p>
-                A couple of things to observe in this code is the use of a frame rate of 1 because the text only changes once every second, so it there is no need to update the screen any faster (which consumes more battery). Also, the watch face is drawn only if the built-in function <code>wearAmbient()</code> returns false. The reason for this is that, in the contrary, it returns true, then it means that the person wearing the watch is not looking at it, so it switches to ambient (or always-on) mode in order to save battery. In ambient mode, the display is updated only once every minute, and <a href="https://www.google.com/design/spec-wear/patterns/interactive-watch-faces.html#interactive-watch-faces-square-round-devices" target="_black">it is recommended</a> to keep most of the screen black and render only a simplified version of the watch face.</p> 
+                Detengámonos a a observar un par de detalles en este código. Primero, el número de cuadros mostrados por segundo es establecido en 1 porque el texto solo cambia una vez por segundo, con lo cual no hace falta actualizar la pantalla más rápido (lo cual consumiría más batería). En segundo lugar, la cara solo se dibuja si la función <code>wearAmbient()</code> retorna falso. La razón de esto es que, por el contrario, si retornara verdadero, nos estaría indicando que el usuario del reloj no lo está mirando. En esta situación, el reloj entra en el llamado "modo ambiente" para ahorrar batería. En el modo ambiente, la pantalla se actualiza solo una vez por minuto, y <a href ="https://www.google.com/design/spec-wear/patterns/interactive-watch-faces.html#interactive-watch-faces -square-round-devices" target="_black">se recomienda</a> mantener la mayor parte de la pantalla en negro y mostrar solo una versión simplificada de la cara.</p>
 
-                <p>Also, we use the <code>wearInsets()</code> function to get the insets of the screen. In particular, the bottom inset helps to properly center the sketch's output in watches that have a "chin" in the bottom of the screen, like the Moto 360, so the entire frame is shifted downwards by half of that value in order to be properly centered. Another important built-in variable that we are not using in this case is <code>isRound</code>, which tells you whether the shape of the watch is round or square. For a complete list of all the built-in variables available for watch faces, please take a look at the <a href="../../reference/index.html" target="_black">reference page</a>.
+                <p>Asimismo, usamos la función <code>wearInsets()</code> para obtener las dimensiones de los bordes de la pantalla. En particular, el recuadro inferior ayuda a centrar correctamente la imágen en la pantalla en los relojes que tienen una "barbilla" en la parte inferior de la pantalla, como el Moto 360. De esta manera, todo lo que es dibujado en nuestro bosquejo se desplaza hacia abajo en la mitad de ese valor para que esté correctamente centrado. Otra nueva variable en Processing para Android y que es específica para caras de reloj es <code>isRound</code>, que nos permite saber desde el bosquejo si la forma del reloj es redonda o cuadrada. Para obtener una lista completa de todas las variables que son específicas para programar caras del reloj, consulta la <a href="../../reference/index.html" target="_black">página de referencia</a>.
                 </p>
 
 
-                <h3>Representing time</h3>
+                <h3>Representando el tiempo</h3>
 
-                <p>You can use the time values to generate patterns and shapes that change as hours, minutes, and seconds go by. In the following code, we paint the screen black from left to right as time progresses from midnight to midnight. We can also tap the screen to add dots to the uncovered area, and making them dissapear once they are reached at a specific time during the day:
+                <p>Puedes usar los valores de tiempo para generar patrones y formas que cambian a medida que pasan las horas, los minutos y los segundos. En el siguiente código, pintamos la pantalla en negro de izquierda a derecha a medida que el tiempo avanza desde el comienzo hasta el final del día. También podemos tocar la pantalla para agregar puntos en el área que todavía no ha sido pintada y hacer que desaparezcan una vez que son alcanzados por el borde negro:
                 </p>
 
 <pre><code>
@@ -149,12 +149,12 @@
 }
 </code></pre>
 
-                <p>Let's make the watch vibrate when a dot is reached by the black color. In order to access the <a href="https://developer.android.com/reference/android/os/Vibrator.html" target="_black">vibrator</a> in the watch, we need to enable the appropriate permission. We do this by opening the "Sketch Permissions" option under the Android menu and selecting the appropriate permission:
+                <p>Ahora hagamos vibrar el reloj cuando un punto es alcanzado. Para acceder al <a href="https://developer.android.com/reference/android/os/Vibrator.html" target="_black">vibrador</a> en el reloj, primero debemos habilitar el permiso apropiado. Esto lo hacemos esto abriendo la opción "Sketch Permissions" en el menú de Android y seleccionando el permiso apropiado:
                 </p>
 
                 <p><img class="body-image" src="imgs/vibrate_permissions.png" alt="Watch face selection"></p>
 
-                <p>After importing the Vibrator and Context classes, we initialize the vibrator instance in <code>setup()</code>:</p>
+                <p>Después de importar las clases de Vibrador y Contexto, inicializamos la instancia del vibrador en <code>setup()</code> como se demuestra continuación:</p>
 
 <pre><code>
 <span style="color: #33997E;">import</span> android.os.Vibrator;
@@ -171,9 +171,9 @@ Vibrator&nbsp;vibrator;
 &nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;getContext();
 &nbsp;&nbsp;vibrator&nbsp;=&nbsp;(Vibrator)&nbsp;context.getSystemService(Context.VIBRATOR_SERVICE);
 }
-</code></pre>       
+</code></pre>
 
-                <p>The <code>vibrador()</code> method allows us to set a vibration for a period of time expressed in milliseconds, so for half second vibration:</p>
+                <p>El método <code>vibrador()</code> nos permite generar vibración por un período de tiempo expresado en milisegundos. Es decir que para hacer vibrar al reloj por medio segundo:</p>
 
 <pre><code>                
 &nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = dots.<span style="color: #006699;">size</span>()-1; i &gt;= 0; i--) {
@@ -183,11 +183,11 @@ Vibrator&nbsp;vibrator;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vibrator.vibrate(500);
 &nbsp;&nbsp;&nbsp;&nbsp;}
 &nbsp;&nbsp;}&nbsp;&nbsp;
-</code></pre>    
+</code></pre>
 
-                <h3>Counting steps</h3>
+                <h3>Contador de pasos</h3>
 
-                <p>Most Android devices, including smartwatches, feature a <a href="https://developer.android.com/guide/topics/sensors/sensors_motion.html#sensors-motion-stepcounter" target="_black">step counter sensor</a> that we access in the same way as other sensors we used earlier. The skeleton for the sketch would be:</p>
+                <p>La mayoría de los dispositivos Android, incluidos los relojes inteligentes, incluyen un <a href="https://developer.android.com/guide/topics/sensors/sensors_motion.html#sensors-motion-stepcounter" target="_black">sensor para contar pasos</a>, también llamado podómetro, al que accedemos de la misma manera que otros sensores que usamos anteriormente. La estructura del bosquejo sería como sigue:</p>
 
 <pre><code>
 <span style="color: #33997E;">import</span> android.content.Context;
@@ -232,7 +232,7 @@ SensorListener&nbsp;listener;
 }
 </code></pre> 
 
-                <p>In this code we define the manager, sensor, and listener in the same way as in previous examples. The sensor value holding the step count is <code>event.values[0]</code>, which we can store in our own variable:</p>
+                <p>En este código definimos el administrador, el sensor y el oyente de la misma manera que en los ejemplos de sensores anteriores. El valor del sensor que contiene el número de pasos es <code>event.values​[0]</code>, que podemos almacenar en una variable definida en el bosquejo:</p>
 
 <pre><code>
 <span style="color: #E2661A;">int</span> offset = -1;
@@ -247,9 +247,9 @@ SensorListener&nbsp;listener;
 &nbsp;&nbsp;}
 &nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onAccuracyChanged(Sensor sensor, <span style="color: #E2661A;">int</span> accuracy) { }
 }
-</code></pre>    
+</code></pre> 
 
-                <p>And finally, we can add some font initialization in <code>setup()</code>, and use the step count values in the draw function, for example here simply to print them as text:</p>
+                <p>Finalmente, podemos inicialización la fuente de texto en <code>setup()</code>, y usar el número de pasos en la función de dibujo, por ejemplo aquí simplemente lo imprimimos como mensaje de texto:</p>
   
 <pre><code>
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
@@ -276,11 +276,11 @@ SensorListener&nbsp;listener;
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(str, 0, 0, <span style="color: #D94A7A;">width</span>, <span style="color: #D94A7A;">height</span>);     
 &nbsp;&nbsp;}
 }
-</code></pre>    
+</code></pre>
 
-                <p>You might want to save the step count values in order to keep track of the activity profile of the user. You can use the different functions available in Processing to save and load data in your watch face, for example <a href="https://processing.org/reference/saveStrings_.html" target="_black">saveStrings()</a> and <a href="https://processing.org/reference/loadStrings_.html" target="_black">loadStrings()</a>. However, you need to make sure that the <code>WRITE_EXTERNAL_STORAGE</code> permission is enabled.</p>
+                <p>Es posible guardar el número de pasos para realizar un seguimiento del perfil de actividad del usuario. Podemos usar las diferentes funciones disponibles en Processing para guardar y cargar datos en nuestro bosquejo de cara de reloj, por ejemplo, <a href="https://processing.org/reference/saveStrings_.html" target="_black">saveStrings()</a> y <a href="https://processing.org/reference/loadStrings_.html" target="_black">loadStrings()</a>. Sin embargo, debemos asegurarnos de que el permiso <code>WRITE_EXTERNAL_STORAGE</code> esté habilitado.</p>
 
-                <div class="butterbar">When using <a href="https://developer.android.com/guide/topics/security/permissions.html#normal-dangerous" target="_black">dangerous permissions</a>, such as <code>WRITE_EXTERNAL_STORAGE</code>, you also need to request the permission explicitly in the sketch's code as explained in this <a href="../location/index.html">other tutorial</a>, and then granting the permission in the device, either by following the notification triggered by the watch face or going to the permission settings for the watch face, as explained <a href="https://support.google.com/androidwear/answer/6321353?hl=en" target="_black">here</a>.
+                <div class = "butterbar">Al usar <a href="https://developer.android.com/guide/topics/security/permissions.html#normal-dangerous" target="_black">permisos peligrosos</a>, como <code>WRITE_EXTERNAL_STORAGE</code>, también se debe solicitar el permiso explícitamente en el código del bosquejo como se explica en este <a href="../location/index.html">otro tutorial</a>. Cuando corremos el bosquejo por primera vez, el usuario deberá otorgar el permiso en el reloj, ya sea siguiendo la notificación presentada por la cara misma o accediendo a la configuración de permisos para la cara, como se explica <a href="https://support.google.com/androidwear/answer/6321353?hl=en" target="_black">aquí</a>.
                 </div>
 
             </section>
@@ -288,7 +288,7 @@ SensorListener&nbsp;listener;
         </div>
 
         <footer class="footinfo">
-            <small>&copy; The Processing Foundation. Processing for Android is a <a href="../../team.html">collaborative project</a>.</small>
+            <small>&copy; The Processing Foundation. Processing para Android es un <a href="../../team.html">proyecto colaborativo</a>.</small>
         </footer>
     </body>
 </html>

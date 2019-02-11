@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
         <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
-        <link rel="stylesheet" href="../../css/main.css">
+        <link rel="stylesheet" href="../../../css/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <title>Processing for Android</title>
+        <title>Processing para Android</title>
     </head>
     
     <body>
@@ -24,7 +24,7 @@
         </nav>
 
         <header>
-            <h1 class="title">Processing for Android</h1>
+            <h1 class="title">Processing para Android</h1>
         </header>
 
         <div class="group">
@@ -46,35 +46,35 @@
             <section class="container main-text">
 
                 <div class="lang">
-                  <a id="selected" href="index.html">EN</a>
-                  <a href="../../es/tutorials/vr_intro/index.html">ES</a>
+                  <a href="../../../tutorials/vr_intro/index.html">EN</a>
+                  <a id="selected" href="index.html">ES</a>
                 </div>
                 <hr style="clear:both;">
 
-            	<h2>Introduction to VR</h2>
+                <h2>Introducción a VR</h2>
                 <p>
-                Get started with Google VR to write immersive apps using Processing.
-                </p>        
+                Demos los primeros pasos con Google VR para escribir aplicaciones inmersivas utilizando Processing.
+                </p>
 
                 <h3>Google VR</h3>
                 <p>
-                <a href="https://vr.google.com/" target="_black">The Google VR platform</a> lets you use your smartphone as a quick entry point to Virtual Reality. The Android mode supports Google <a href="https://vr.google.com/cardboard/" target="_black">Cardboard</a> and <a href="https://vr.google.com/daydream/" target="_black">Daydream</a>, and you should be able to write 3D sketches that run on the phone as Cardboard apps in stereo mode and respond to the head movement. If you first need to get started with 3D in Processing, check <a href="https://processing.org/tutorials/p3d/" target="_black">this tutorial</a> out.
+                <a href="https://vr.google.com/" target="_black">La plataforma Google VR</a> nos permite usar nuestro teléfono inteligente como un portal a la realidad virtual. El modo Android es compatible con Google <a href="https://vr.google.com/cardboard/" target="_black">Cardboard</a> y <a href="https://vr.google.com/ daydream/" target="_ black">Daydream</a>, y nuestos bosquejos en 3D se pueden ejecutar en el teléfono como aplicaciones Cardboard en modo de vista estéreo y que responden al movimiento de la cabeza. Un requisito para programar apps de VR es tener una base de gráficos 3D en Processing, y <a href="https://processing.org/tutorials/p3d/" target="_black">este tutorial</a> puede resultar útil como una introducción a 3D en Processing.
                 </p>
 
-                <h3>Requirements</h3>
+                <h3>Requerimientos</h3>
                 <p>
-                To use VR with Cardboard, you need an <a href="https://support.google.com/cardboard/answer/6295091?hl=en" target="_black">compatible phone</a> with Android 4.1 or higher and a gyroscope sensor for head tracking, and a <a href="https://vr.google.com/cardboard/get-cardboard/" target="_black">Cardboard viewer</a>. If you don't have a viewer, you can still run the sketch in monoscopic mode, which will be explained below. For Daydream, you need the <a href="https://vr.google.com/daydream/smartphonevr/" target="_black">View headset</a>, and a <a href="https://vr.google.com/daydream/smartphonevr/phones/" target="_black">Daydream-compatible phone</a>.</p>
+                Para usar VR con Cardboard, se necesita un <a href="https://support.google.com/cardboard/answer/6295091?hl=en" target="_black">teléfono compatible</a> con Android 4.1 o superior y un sensor de giroscopio para el seguimiento de los movimientos de la cabeza, y un <a href="https://vr.google.com/cardboard/get-cardboard/" target="_black">visor Cardboard</a>. Si no tienes un visor, puede ejecutar tu bosquejo en modo monoscópico, que se explicará a continuación. Para Daydream, necesitarás el visor <a href="https://vr.google.com/daydream/smartphonevr/" target="_black">Daydream View</a> y un <a href = "https://vr.google.com/daydream/smartphonevr/phones/ "target ="_black">teléfono compatible con Daydream </a>.</p>
 
-                <h3>Getting started</h3>
+                <h3>Primeros pasos</h3>
                 <p>
-                You need to select the VR option in the Android menu to make sure that your sketch is built as a VR app:
-                </p>    
+                Antes que nada, tienes que seleccionar la opción VR en el menú de Android para asegurarse de que tu bosquejo se compilado como una app VR:
+                </p>
 
-                <p><img class="body-image" src="imgs/vr_selection.png" alt="VR selection"></p>
+                <p><img class="body-image" src="imgs/vr_selection.png" alt="Selección de app VR"></p>
 
                 <p>
-                A basic sketch for VR needs to include the library import, and the STEREO renderer:
-                </p> 
+                Un bosquejo para VR debe incluir como mínimo la importación de la biblioteca VR y el motor de renderizado STEREO:
+                </p>
 
 <pre><code>
 <span style="color: #33997E;">import</span> processing.vr.*;
@@ -88,14 +88,14 @@
 </code></pre>
 
                 <p>
-                With this code, you should get an empty stereo view on your phone:
-                </p> 
+                Si corremos el código de arriba, deberíamos obtener una vista estéreo vacía en nuestro teléfono:
+                </p>
 
-                <p><img class="body-image" src="imgs/stereo_view.png" alt="Stereo view"></p>
+                <p><img class="body-image" src="imgs/stereo_view.png" alt="Vista estéro"></p>
 
                 <p>
-                The stereo renderer works by drawing each frame twice, once for each eye. You can know what eye is being drawn in each call of the <code>draw()</code> function using the <code>eyeType</code> variable in the VR renderer:
-                </p> 
+                El motor de renderizado estéreo funciona dibujando cada cuadro dos veces, una para cada ojo. Puede saber qué ojo se está dibujando en cada llamada de la función <code>draw()</code> podemos usar la variable <code> eyeType </code> que es provista por la biblioteca VR:
+                </p>
 
 <pre><code>
 <span style="color: #33997E;">import</span> processing.vr.*;
@@ -119,10 +119,10 @@
                 <p><img class="body-image" src="imgs/eyes.png" alt="Left and right eyes"></p>
 
                 <p>
-                You can notice that <code>eyeType</code> could also be <code>MONOSCOPIC</code>, which happens if you use the <code>MONO</code> renderer instead of <code>STEREO</code>. With the monoscopic renderer, the frame is drawn just once but the camera still responds to the movements of the phone.
-                </p> 
+                Podemos observar que <code> eyeType </code> también podría ser <code>MONOSCOPIC</code>, lo cual sucede si estamos usando el motor de renderizado <code>MONO</code> en lugar de <code>STEREO</code>. Con el motor de renderizado monoscópico, cada cuadro se dibuja solo una vez, pero la cámara la escena aún responde a los movimientos del teléfono en el espacio físico.
+                </p>
 
-                <p>There is nothing special to add 3D objects to the scene, you simply use the same functions for drawing 3D primitives and shapes with the P3D renderer. You can also add textures, lights, and shader-based effects, like in the following sketch (full code available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/vr/ex1_toon_stereo" target="_black">here</a>):
+                <p>Una vez configurado el motor de renderizado VR, no que hacer nada especial para agregar objetos 3D a la escena virtual. Todas las funciones de dibujado de primitivas y formas 3D del motor de renderizado P3D están disponibles en VR. Podemos agregar texturas, luces y efectos basados ​​en sombreadores (shaders), como se demuestra en el siguiente bosquejo (código completo disponible <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/vr/ ex1_toon_stereo "target ="_black">aquí</a>):
                 </p>
 
 <pre><code>
@@ -156,16 +156,15 @@
 }
 </code></pre>
 
+                <p>Es importante notar el uso de la llamada <code>translate(width/2, height/2) </code> que asegura de que la escena esté correctamente centrada delante de nuestros ojos. Esto es necesario porque, de manera predeterminada, Processing elige como orígen la esquina superior izquierda de la pantalla, lo cual es conveniente para dibujo en 2D, pero no tanto en realidad virtual. La resultado del este bosquejo debería verse así: </p>
 
-                <p>Notice the use of <code>translate(width/2, height/2)</code> to make sure that the scene is properly centered in front of of our eyes. This is needed because by default Processing sets the origin to be the upper left corner of the screen, which is convenient for 2D drawing, but not so much in VR. The output should look like this:</p>
+                <p><img class="body-image" src="imgs/toon_stereo.png" alt="Example de sombreado de caricatura"></p>
 
-                <p><img class="body-image" src="imgs/toon_stereo.png" alt="Toon shading example"></p>
+                <h3>Creando una escena 3D más compleja</h3>
 
-                <h3>Creating a more complex 3D scene</h3>
+                <p>En este nuevo ejemplo, crearemos una escena 3D con algunos objetos más. Empecemos definiendo una cuadrícula 2D como referencia.</p>
 
-                <p>In this example, we will create a 3D scene with a few more objects. Let's start by defining a 2D grid as a reference.</p>
-
-                <p>Because performance is very important in VR to keep the framerate as high as possible and avoid <a href="Avoiding simulator sickness" target="_black">motion sickness</a> in the user, we could rely on PShape objects to store static geometry and so avoid re-generating it in every frame:
+                <p>Debido a que el rendimiento es muy importante en VR a efecto mantener la velocidad de dibujado de cuadros lo más alta posible y así evitar <a href="Evitar simulación de enfermedad en el usuario target="_black"> mareo</a> en el usuario, podemos hacer uso de objetos PShape para guardar geometría estática en memoria y así evitar tener que volver a generarla en cada cuadro:
                 <p>
 
 <pre><code>
@@ -197,8 +196,9 @@
 }
 </code></pre>
 
-                <p> Note how the y coordinate of the grid vertices is +1000, since the Y axis in Processing points down, so objects under our line of vision in VR should have positive coordinates.</p> 
-                <p>Now we can add some objects! In order to optimize performance, we can group several 3D shapes inside a single PShape group, which is faster than handling each object separately, like so:
+                <p>Observa cómo la coordenadas Y de los vértices de la cuadrícula es +1000, ya que el eje Y en Processing apunta hacia abajo, por lo que los objetos debajo de nuestra línea de visión en VR deben tener coordenadas positivas.</p>
+
+                <p>¡Ahora podemos añadir algunos objetos! Para optimizar el rendimiento, podemos agrupar varias formas 3D dentro de un solo grupo PShape, que es más rápido que manejar cada objeto por separado, de la siguiente manera:
                 </p>
 
 <pre><code>
@@ -246,7 +246,7 @@
 }
 </code></pre>
 
-                <p>The final result should look like this, depending on your viewpoint:</p>
+                <p>El resultado final de este bosquejo debería verse como sigue, claro que variando de acuerdo al punto de vista de la cámara en VR:</p>
 
                 <p><img class="body-image" src="imgs/grid_and_boxes.png" alt="Grid and boxes"></p>
 
@@ -257,7 +257,7 @@
         </div>
 
         <footer class="footinfo">
-            <small>&copy; The Processing Foundation. Processing for Android is a <a href="../../team.html">collaborative project</a>.</small>
+            <small>&copy; The Processing Foundation. Processing para Android es un <a href="../../team.html">proyecto colaborativo</a>.</small>
         </footer>
     </body>
 </html>

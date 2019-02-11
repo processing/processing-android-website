@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
         <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
-        <link rel="stylesheet" href="../../css/main.css">
+        <link rel="stylesheet" href="../../../css/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <title>Processing for Android</title>
+        <title>Processing para Android</title>
     </head>
     
     <body>
@@ -23,21 +23,21 @@
             </ul>
         </nav>
 
-        <header>            
-            <h1 class="title">Processing for Android</h1>
+        <header>
+            <h1 class="title">Processing para Android</h1>
         </header>
 
         <div class="group">
 
             <nav class="site">
-                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
+                <img class="logo" src="../../imgs/logo.png" alt="Logo de Processing para Android">
                 <ul class="leftnav">
-                   <li><a href="../../index.html">Home</a></li>
-                   <li><a href="../../install.html">Install</a></li>
-                   <li><a href="../../reference/index.html">Reference</a></li>
-                   <li><a id="selected" href="../../tutorials/index.html">Tutorials</a></li>
-                   <li><a href="../../books/index.html">Books</a></li>
-                   <li><a href="../../gallery/index.html">Gallery</a></li>
+                   <li><a href="../../index.html">Principal</a></li>
+                   <li><a href="../../install.html">Instalar</a></li>
+                   <li><a href="../../reference/index.html">Referencia</a></li>
+                   <li><a id="selected" href="../../tutorials/index.html">Tutoriales</a></li>
+                   <li><a href="../../books/index.html">Libros</a></li>
+                   <li><a href="../../gallery/index.html">Galería</a></li>
                    <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
                    <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
                 </ul>
@@ -46,25 +46,25 @@
             <section class="container main-text">
 
                 <div class="lang">
-                  <a id="selected" href="index.html">EN</a>
-                  <a href="../../es/tutorials/location/index.html">ES</a>
+                  <a href="../../../tutorials/location/index.html">EN</a>
+                  <a id="selected" href="index.html">ES</a>
                 </div>
                 <hr style="clear:both;">
 
-            	<h2>Location and permissions</h2>
+                <h2>Geolocalización y permisos</h2>
 
-                <p>Learn to access location using GPS, and properly set the sketch permissions in Android 6+ devices.</p>
+                <p>Aprende a cómo acceder la ubicación usando GPS, y configurar correctamente los permisos de tu bosquejo en dipositivos con Android 6+.</p>
 
-                <h3>The Android location APIs</h3>
+                <h3>Las API de geolocalización de Android</h3>
                 
                 <p>
-                An Android device can determine <a href=
-                "https://developer.android.com/guide/topics/location/strategies.html" target="_black">its location</a> with various degrees of accuracy by using information from the network is connected to (WiFi, cellular), or from the signals from the GPS (Global Positioning System) satellites. GPS-based location is more accurate, but requires to be outdoors and consumes more battery and updates less frequently than network-based location.
+                Un dispositivo Android puede determinar <a href =
+                "https://developer.android.com/guide/topics/location/strategies.html" target = "_ black"> su ubicación </a> con varios grados de precisión mediante el uso de la información de la red a la que está conectado (WiFi, celular), o de las señales de los satélites GPS (Sistema de posicionamiento global). La ubicación basada en GPS es más precisa, pero requiere estar al aire libre, además de consumir más batería y actualizarse con menos frecuencia que la ubicación basada en la red.
                 </p>
 
-                <h3>Creating a location manager</h3>
+                <h3>Creando un administrador de geolocalización</h3>
                 <p>
-                The basic structure of a sketch that access location information is very similar to what we saw for <a href="../sensors/index.html" target="_black">other sensors</a>. You get the location manager from the context of the app, wallpaper, or watch face using the <code>surface.getContext()</code> call in version 4.0+ of the mode (in 3 you can just get a reference to the activity with <code>getActivity()</code>), and then attach a listener to the manager:
+                La estructura básica de un bosquejo que permite acceder a la información de ubicación es muy similar a la que vimos para <a href="../sensors/index.html" target="_black">otros sensores</a>. Podemos obtener el administrador de geolocalización desde el contexto del app, fondo de pantalla o cara de reloj usando la función <code>getContext()</code> en la versión 4.0+ del modo (en 3 puede obtener una referencia a la actividad con <code>getActivity()</code>), y luego agregar un oyente de eventos al administrador:
                 </p>
 
 <pre><code>
@@ -118,15 +118,15 @@ MyLocationListener&nbsp;locationListener;
 </code></pre>
 
                 <p>
-                However, here we are explicitly requesting the permission with the <code>requestPermission()</code> function, and are putting the manager and listener initialization code inside the </code>initLocation()</code> function instead of the <code>setup()</code> function, as in previous examples. The reason is that in recent versions of Android (6.0 and newer), permissions are divided into two protection levels: <a href="https://developer.android.com/guide/topics/security/permissions.html#normal-dangerous" target="_black">normal and dangerous</a>. The permissions classified as <a href="https://developer.android.com/guide/topics/security/permissions.html#permission-groups" target="_black">dangerous</a> affect access to private data of the user, such as location or list of contacts, and require the user to grant them individually when he or she runs the app, not when it is installed.</p>
+                Sin embargo, aquí estamos solicitando explícitamente el permiso para acceder la información de geolocalización con la función <code>requestPermission()</code>, y colocando el código de inicialización del administrador y el oyente dentro de la función </code>initLocation()</code> en lugar de hacerlo dentro de la función <code> setup()</code>, como en los ejemplos anteriores. La razón es que en las versiones de Android 6.0 y más nuevas, los permisos se dividen en dos niveles de protección: <a href="https://developer.android.com/guide/topics/security/permissions.html#normal-dangerous"target="_ black">normal y peligroso</a>. Los permisos clasificados como <a href="https://developer.android.com/guide/topics/security/permissions.html#permission-groups" target="_black"> peligrosos</a> determinan el acceso a datos privados del usuario, tales como la ubicación o la lista de contactos, y requiere que el usuario los otorgue de forma individual cuando ejecuta el app, y no cuando la misma es instalada.</p>
 
-                <p>The app will show a dialog asking to allow or deny the permission, and only then the </code>initLocation()</code> function will be called with the result of the request in the boolean argument. This function, which should contain the initialization code corresponding to the permission being requested, does not need to be called initLocation, it can have a different name, but the two important rules that one needs to follow are that this function must receive a boolean argument, and that its name must be provided in <code>requestPermission()</code>.</p>
+                <p>El app mostrará un cuadro de diálogo solicitando permitir o denegar el permiso, y solo entonces se llamará a la función </code>initLocation()</code> con el resultado de la solicitud en el argumento booleano. Esta función, que debe contener el código de inicialización correspondiente al permiso que se solicita, no necesita llamarse initLocation, puede tener un nombre diferente, pero las dos reglas importantes que se deben seguir es que esta función reciba un argumento booleano, y que su nombre sea proporcionado como argumento a la función <code> requestPermission()</code>.</p>
 
-                <p>However, you still need to check the permissions needed by the sketch, in this case ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION for network and GPS-based location, using the permissions selector in the PDE:</p>
+                <p> Sin embargo, aún debemos seleccionar los permisos que necesita el bosquejo, en este caso ACCESS_COARSE_LOCATION y ACCESS_FINE_LOCATION para la ubicación de red y GPS, utilizando el selector de permisos en el PDE:</p>
 
-                <p><img class="body-image" src="imgs/permission_selector.png" alt="Permission selection"></p>
+                <p><img class="body-image" src="imgs/permission_selector.png" alt="Selección de permiso"></p>
 
-                <p>The Location variable we receive in the location listener contains all the information needed to specify the location in latitude and longitude:</p>
+                <p>La variable de ubicación que recibimos en el oyente de eventos del sensor contiene toda la información necesaria para especificar la ubicación en latitud y longitud:</p>
 
 <pre><code>
 <span style="color: #33997E;">class</span> MyLocationListener <span style="color: #33997E;">implements</span> LocationListener {
@@ -150,10 +150,10 @@ MyLocationListener&nbsp;locationListener;
 }
 </code></pre>
 
-                <h3>Checking if location is available</h3>
+                <h3>Comprobando si la geolocalización está disponible</h3>
 
                 <p>
-                Even if we add the location permissions to the sketch through the selector, the user can still deny them when running the app on the device, so we need to handle the situation where the location is not available. We also have the <code>checkPermission()</code> to make sure that a given permission has been actually granted and we can access the associated functionality:
+                Incluso si agregamos los permisos de geolocalización al bosquejo a través del selector, todavía puede ocurrir que el usuario no los otorge cuando ejecuta al app en su dispositivo. Por esta razón, tenemos que manejar la situación en la que la ubicación no está disponible. Para este fin disponemos de la función <code>checkPermission()</code>, que nos permite asegurarnos de que se haya otorgado un permiso dado y podamos acceder a la funcionalidad asociada:
                 </p>
 
 <pre><code>
@@ -170,20 +170,20 @@ MyLocationListener&nbsp;locationListener;
 }
 </code></pre>
 
-                <p>The complete code of this example is available <a href="https://github.com/codeanticode/processing-android-tutorials/blob/master/location_permissions/ex1_gps" target="_black">here</a>. Once you run it on a device with Android 6 or higher, you should see the following dialog requesting the location permissions:
-                </p>
+                 <p> El código completo de este ejemplo está disponible <a href="https://github.com/codeanticode/processing-android-tutorials/blob/master/location_permissions/ex1_gps" target="_black">aquí</ a >. Una vez que lo ejecute en un dispositivo con Android 6 o superior, el siguiente cuadro de diálogo que solicita los permisos de ubicación debería aparecer antes de mostrar cualquier otra cosa:
+                 </p>
 
-                <p><img class="body-image-portrait" src="imgs/permission_dialog.png" alt="Permission dialog"></p>
+                 <p><img class="body-image-portrait" src="imgs/permission_dialog.png" alt="Diálogo de permiso"></p>
 
-                <p>After allowing your app to access the location of the device, you will get the latitude and languitude values through the location listener!
-                </p>
+                 <p>Después de permitir que tu aplicación acceda a la ubicación del dispositivo, obtendrás los valores de latitud y lenguaje a través del oyente de ubicación.
+                 </p>
 
             </section>
 
         </div>
 
         <footer class="footinfo">
-            <small>&copy; The Processing Foundation. Processing for Android is a <a href="../../team.html">collaborative project</a>.</small>
+            <small>&copy; The Processing Foundation. Processing para Android es un <a href="../../team.html">proyecto colaborativo</a>.</small>
         </footer>
     </body>
 </html>
