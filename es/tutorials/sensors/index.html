@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+        <link rel="stylesheet" href="../../../css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Processing para Android</title>
+    </head>
+    
+    <body>
+
+        <nav class="topnav">        
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="https://p5js.org/">p5.js</a></li>
+                <li><a href="https://py.processing.org/">Processing.py</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+            </ul>
+            <ul class="foundation">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav>
+
+        <header>
+            <h1 class="title">Processing para Android</h1>
+        </header>
+
+        <div class="group">
+
+            <nav class="site">
+                <img class="logo" src="../../imgs/logo.png" alt="Logo de Processing para Android">
+                <ul class="leftnav">
+                   <li><a href="../../index.html">Principal</a></li>
+                   <li><a href="../../install.html">Instalar</a></li>
+                   <li><a href="../../reference/index.html">Referencia</a></li>
+                   <li><a id="selected" href="../../tutorials/index.html">Tutoriales</a></li>
+                   <li><a href="../../books/index.html">Libros</a></li>
+                   <li><a href="../../gallery/index.html">Galería</a></li>
+                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
+                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
+                </ul>
+            </nav>
+      
+            <section class="container main-text">
+
+                <div class="lang">
+                  <a href="../../../tutorials/sensors/index.html">EN</a>
+                  <a id="selected" href="index.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
+                <h2>Utilizando los Sensores</h2>
+
+                <p>Este tutorial te ofrece los conceptos básicos para leer datos de los sensores desde Processing.</p>
+
+                <h3>API de sensores en el SDK de Android</h3>
+                
+                <p>
+                Los teléfonos inteligentes y las tabletas incluyen una gran variedad de <a href="https://developer.android.com/guide/topics/sensors/sensors_overview.html" target="_black">sensores</a>, como por ejemplo acelerómetros, giroscopios, magnetómetros, y termómetros. Estos sensores nos permiten obtener información sobre el movimiento, el entorno, y la posición de nuestro dispositivo.</p>
+
+                <p>Si bien Processing para Android no tiene funciones especializadas para leer datos de estos sensores, nosotros podemos importar los paquetes del <a href="https://developer.android.com/reference/android/hardware/Sensor.html" target="_black ">Android SDK</a> en nuestro bosquejo y así hacer uso de las funciones del SDK que permiten obtener los valores siendo medidos por los sensores.
+                </p>
+
+                <h3>Obteniendo un administrador de sensores</h3>
+                <p>
+                Como primer ejemplo, crearemos un bosquejo que responda a los cambios en la velocidad del movimiento del dispositivo, por lo que utilizaremos los datos del acelerómetro. El primer paso para usar la API del sensor es obtener el contexto de la actividad que contiene el bosquejo, y una vez hecho eso, obtener un administrador de sensores de este contexto. Con el administrado de sensores podemos inicializar el sensor particular que necesitamos en nuestro bosquejo, en este caso un acelerómetro. Todo esto lo hacemos en la función <code>setup()</code>:
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> android.content.Context;
+<span style="color: #33997E;">import</span> android.hardware.Sensor;
+<span style="color: #33997E;">import</span> android.hardware.SensorManager;
+
+Context&nbsp;context;
+SensorManager&nbsp;manager;
+Sensor&nbsp;sensor;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
+&nbsp;&nbsp;
+&nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
+&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+&nbsp;&nbsp;sensor&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+}
+</code></pre>
+
+                <h3>Agregando el oyente del sensor</h3>
+                <p>
+                Ahora debemos agregar una clase de "oyente" que notificará al bosquejo que los nuevos datos están disponibles desde el sensor. Un oyente para cada sensor se deriva de la base <a href="https://developer.android.com/reference/android/hardware/SensorEventListener.html" target="_black">clase SensorEventListener</a> en el Android SDK. Una vez que tengamos una instancia de oyente en el bosquejo, podemos registrar la escucha con el administrador:
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> android.content.Context;
+<span style="color: #33997E;">import</span> android.hardware.Sensor;
+<span style="color: #33997E;">import</span> android.hardware.SensorManager;
+<span style="color: #33997E;">import</span> android.hardware.SensorEvent;
+<span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
+
+Context&nbsp;context;
+SensorManager&nbsp;manager;
+Sensor&nbsp;sensor;
+AccelerometerListener&nbsp;listener;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
+&nbsp;&nbsp;
+&nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
+&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+&nbsp;&nbsp;sensor&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> AccelerometerListener();
+&nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_GAME);
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+}
+
+<span style="color: #33997E;">class</span> AccelerometerListener <span style="color: #33997E;">implements</span> SensorEventListener {
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onAccuracyChanged(Sensor sensor, <span style="color: #E2661A;">int</span> accuracy) {
+&nbsp;&nbsp;}
+}
+</code></pre>
+
+                <p>Probablemente hayas notado el argumento <code>SensorManager.SENSOR_DELAY_GAME</code> en el registro del oyente. Este argumento establece la velocidad a la que see leen nuevos datos del sensor. Las velocidades más rápidas significan una mayor capacidad de respuesta, pero también un mayor consumo de batería. Hay varias constantes de velocidad predefinidas además de <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_GAME" target="_black"><code>SENSOR_DELAY_GAME</code></a>, también podemos usar <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_FASTEST" target="_black"><code>SENSOR_DELAY_FASTEST</code></a>, <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_NORMAL" target="_black"><code>SENSOR_DELAY_NORMAL</code></a>, y <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_GAME" target="_black"><code>SENSOR_DELAY_UI</code></a>.</p>
+
+                <h3>Leyendo los datos del sensor</h3>
+                <p>
+                El detector de eventos tiene dos métodos, <code>onSensorChanged()</code> y <code>onAccuracyChanged()</code>. Solo necesitamos usar <code>onSensorChanged()</code> para obtener los datos del sensor. En el caso del acelerómetro, los datos consisten en tres números decimales, que representan la aceleración a lo largo de los ejes X, Y y Z del dispositivo, que están definidos de la siguiente manera:
+                </p>
+
+                <p> <img class="body-image-portrait" src="imgs/axis_device.png" alt="Device axis"></p>
+
+                <p>Como primera prueba de nuestro bosquejo, podemos simplemente imprimir estos valores en la pantalla y verificar que si colocamos el teléfono plano sobre la mesa con la pantalla hacia arriba, vemos una aceleración Z de 9.81 m/s<sup>2</sup>, correspondiente al <a href="https://developer.android.com/guide/topics/sensors/sensors_motion.html#sensors-motion-accel" target="_black">fuerza de gravedad </a>.</p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> android.content.Context;
+<span style="color: #33997E;">import</span> android.hardware.Sensor;
+<span style="color: #33997E;">import</span> android.hardware.SensorManager;
+<span style="color: #33997E;">import</span> android.hardware.SensorEvent;
+<span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
+
+Context&nbsp;context;
+SensorManager&nbsp;manager;
+Sensor&nbsp;sensor;
+AccelerometerListener&nbsp;listener;
+<span style="color: #E2661A;">float</span> ax, ay, az;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
+&nbsp;&nbsp;
+&nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
+&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+&nbsp;&nbsp;sensor&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> AccelerometerListener();
+&nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_GAME);
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">textFont</span>(<span style="color: #006699;">createFont</span>(<span style="color: #7D4793;">&quot;SansSerif&quot;</span>, 30 * displayDensity));
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;X: &quot;</span> + ax + <span style="color: #7D4793;">&quot;\nY: &quot;</span> + ay + <span style="color: #7D4793;">&quot;\nZ: &quot;</span> + az, 0, 0, <span style="color: #D94A7A;">width</span>, <span style="color: #D94A7A;">height</span>);
+}
+
+<span style="color: #33997E;">class</span> AccelerometerListener <span style="color: #33997E;">implements</span> SensorEventListener {
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {
+&nbsp;&nbsp;&nbsp;&nbsp;ax&nbsp;=&nbsp;event.values[0];
+&nbsp;&nbsp;&nbsp;&nbsp;ay&nbsp;=&nbsp;event.values[1];
+&nbsp;&nbsp;&nbsp;&nbsp;az&nbsp;=&nbsp;event.values[2];&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onAccuracyChanged(Sensor sensor, <span style="color: #E2661A;">int</span> accuracy) {
+&nbsp;&nbsp;}
+}
+</code></pre>
+
+                <div class="butterbar">
+                Aquí hacemos uso del factor DisplayDensity utilizado para escalar el tamaño de fuente, que el modo Android obtiene de <a href="https://developer.android.com/reference/android/util/DisplayMetrics.html#density">DisplayMetrics.density</a> en el SDK de Android. Este factor es 1 en una pantalla de 160ppp (por ejemplo, una pantalla de 240x320, 1.5" screen) y nos permite ajustar el tamaño de los elementos gráficos en nuestro bosquejo, como el texto, proporcionalmente al ppp.</div>
+
+                <p>
+                Google lista un número de <a href="https://developer.android.com/guide/topics/sensors/sensors_overview.html#sensors-practices" target="_black">prácticas recomendadas</a> para usar sensores, entre ellas el de-registrar el oyente cuando la actividad del bosquejo está en pausa para reducir el uso de la batería, y luego volver a registrarlo cuando se reanude la actividad. Podemos hacer esto en Processing agregando el siguiente código a nuestro bosquejo:
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onResume() {
+&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onResume();
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_GAME);
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onPause() {
+&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onPause();
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;manager.unregisterListener(listener);
+&nbsp;&nbsp;}
+}
+</code></pre>
+
+                <p>
+                Necesitamos verificar que la instancia de administrador no sea nula porque las funciones <code>onPause()</code> o <code>onResume()</code> pueden se llamadas antes de la función <code>setup()</code> en nuestro bosquejo.
+                </p>
+
+
+                <h3>Un ejemplo más complejo usando Box2D</h3>
+
+                <p>Un uso posible de los datos de los sensores es controlar el movimiento de los elementos gráficos en nuestro bosquejo. Los valores del acelerómetro representan directamente la fuerza a la que está sujeto el dispositivo, por lo que si los usamos para controlar el comportamiento de, digamos, un sistema de cuerpo rígido, podríamos coordinar los comportamientos generados con el código con movimientos en el espacio real.</p>
+
+                <p>Para lograr este objetivo, utilizaremos la biblioteca <a href="https://github.com/shiffman/Box2D-for-Processing" target="_black">Box2D para Processingo</a> de Daniel Shiffman. Aunque esta biblioteca no fue creada específicamente para Android, se puede usar desde bosquejos en el modo Android ya que está escrita en Java y no hace uso de ninguna funcionalidad específica de computadoras Mac o PC.</p>
+
+                <p>Lo que haremos a continuación es combinar el código básico de lectura de los valores del acelerómetro del ejemplo anterior con una simulación simple de cuerpos rígidos hecha Box2D donde los bordes de la pantalla definen los límites de la simulación, y una número de rectángulos rebotan entre ellos bajo la aceleración medida por el dispositivo. El código completo del ejemplo está disponible <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/sensors/ex2_boxes" target="_black">aquí</a>.</p>
+
+                <p>Sin considerar los datos del acelerómetro, podemos escribir el código de Box2D de la siguiente manera (la implementación de las clases de Box y Wall no está incluida en el listado que sigue, pero el código completo del ejemplo está en GitHub):</p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> shiffman.box2d.*;
+<span style="color: #33997E;">import</span> org.jbox2d.collision.shapes.*;
+<span style="color: #33997E;">import</span> org.jbox2d.common.*;
+<span style="color: #33997E;">import</span> org.jbox2d.dynamics.*;
+
+Box2DProcessing&nbsp;box2d;
+<span style="color: #E2661A;">ArrayList</span>&lt;Box&gt; boxes;
+<span style="color: #E2661A;">ArrayList</span>&lt;Wall&gt; walls;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P2D</span>);
+&nbsp;&nbsp;orientation(PORTRAIT);
+&nbsp;&nbsp;
+&nbsp;&nbsp;box2d&nbsp;=&nbsp;<span style="color: #33997E;">new</span> Box2DProcessing(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;box2d.createWorld();
+&nbsp;&nbsp;box2d.setGravity(0,&nbsp;-10);
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #666666;">// A group of boxes</span>
+&nbsp;&nbsp;boxes&nbsp;=&nbsp;<span style="color: #33997E;">new</span> <span style="color: #E2661A;">ArrayList</span>&lt;Box&gt;();
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i &lt; 20; i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;Box&nbsp;p&nbsp;=&nbsp;<span style="color: #33997E;">new</span> Box(<span style="color: #006699;">random</span>(200, <span style="color: #D94A7A;">width</span>-200), <span style="color: #006699;">random</span>(200, <span style="color: #D94A7A;">height</span>-200));
+&nbsp;&nbsp;&nbsp;&nbsp;boxes.<span style="color: #006699;">add</span>(p);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #666666;">// Invisible walls</span>
+&nbsp;&nbsp;walls&nbsp;=&nbsp;<span style="color: #33997E;">new</span> <span style="color: #E2661A;">ArrayList</span>&lt;Wall&gt;();
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(<span style="color: #D94A7A;">width</span>/2, -25, <span style="color: #D94A7A;">width</span>, 50));
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>+25, <span style="color: #D94A7A;">width</span>, 50));
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(-25, <span style="color: #D94A7A;">height</span>/2, 50, <span style="color: #D94A7A;">height</span>));
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(<span style="color: #D94A7A;">width</span>+25, <span style="color: #D94A7A;">height</span>/2, 50, <span style="color: #D94A7A;">height</span>));
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(255);  
+&nbsp;&nbsp;
+&nbsp;&nbsp;box2d.step();
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (Box b: boxes) {
+&nbsp;&nbsp;&nbsp;&nbsp;b.display();
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>mousePressed</b></span>() {
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (Box b: boxes) {
+&nbsp;&nbsp;&nbsp;&nbsp;b.shake();
+&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;
+}
+</code></pre> 
+
+                <p>En este código usamos la aceleración constante a lo largo de Y de (0, -10), pero ahora podemos vincular la fuerza gravitacional en Box2D a los valores de aceleración del sensor haciendo:</p>
+
+<pre><code>
+&nbsp;&nbsp;box2d.setGravity(-ax,&nbsp;-ay);
+</code></pre>    
+
+                <p>Por lo tanto, el código final para el bosquejo que combina Box2D con los datos del acelerómetro sería algo así:</p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> android.content.Context;
+<span style="color: #33997E;">import</span> android.hardware.Sensor;
+<span style="color: #33997E;">import</span> android.hardware.SensorManager;
+<span style="color: #33997E;">import</span> android.hardware.SensorEvent;
+<span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
+
+<span style="color: #33997E;">import</span> shiffman.box2d.*;
+<span style="color: #33997E;">import</span> org.jbox2d.collision.shapes.*;
+<span style="color: #33997E;">import</span> org.jbox2d.common.*;
+<span style="color: #33997E;">import</span> org.jbox2d.dynamics.*;
+
+Context&nbsp;context;
+SensorManager&nbsp;manager;
+Sensor&nbsp;sensor;
+AccelerometerListener&nbsp;listener;
+<span style="color: #E2661A;">float</span> ax, ay, az;
+
+Box2DProcessing&nbsp;box2d;
+<span style="color: #E2661A;">ArrayList</span>&lt;Box&gt; boxes;
+<span style="color: #E2661A;">ArrayList</span>&lt;Wall&gt; walls;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P2D</span>);
+&nbsp;&nbsp;orientation(PORTRAIT);
+&nbsp;&nbsp;
+&nbsp;&nbsp;context&nbsp;=&nbsp;getActivity();
+&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+&nbsp;&nbsp;sensor&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> AccelerometerListener();
+&nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);
+&nbsp;&nbsp;
+&nbsp;&nbsp;box2d&nbsp;=&nbsp;<span style="color: #33997E;">new</span> Box2DProcessing(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;box2d.createWorld();
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #666666;">// A group of boxes</span>
+&nbsp;&nbsp;boxes&nbsp;=&nbsp;<span style="color: #33997E;">new</span> <span style="color: #E2661A;">ArrayList</span>&lt;Box&gt;();
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i &lt; 20; i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;Box&nbsp;p&nbsp;=&nbsp;<span style="color: #33997E;">new</span> Box(<span style="color: #006699;">random</span>(200, <span style="color: #D94A7A;">width</span>-200), <span style="color: #006699;">random</span>(200, <span style="color: #D94A7A;">height</span>-200));
+&nbsp;&nbsp;&nbsp;&nbsp;boxes.<span style="color: #006699;">add</span>(p);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #666666;">// Invisible walls</span>
+&nbsp;&nbsp;walls&nbsp;=&nbsp;<span style="color: #33997E;">new</span> <span style="color: #E2661A;">ArrayList</span>&lt;Wall&gt;();
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(<span style="color: #D94A7A;">width</span>/2, -25, <span style="color: #D94A7A;">width</span>, 50));
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>+25, <span style="color: #D94A7A;">width</span>, 50));
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(-25, <span style="color: #D94A7A;">height</span>/2, 50, <span style="color: #D94A7A;">height</span>));
+&nbsp;&nbsp;walls.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> Wall(<span style="color: #D94A7A;">width</span>+25, <span style="color: #D94A7A;">height</span>/2, 50, <span style="color: #D94A7A;">height</span>));
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(255);  
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #666666;">// update gravity from accelerometer data.</span>
+&nbsp;&nbsp;box2d.setGravity(-ax,&nbsp;-ay);
+&nbsp;&nbsp;
+&nbsp;&nbsp;box2d.step();
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (Box b: boxes) {
+&nbsp;&nbsp;&nbsp;&nbsp;b.display();
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>mousePressed</b></span>() {
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (Box b: boxes) {
+&nbsp;&nbsp;&nbsp;&nbsp;b.shake();
+&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;
+}
+
+<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onResume() {
+&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onResume();
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;manager.registerListener(listener,&nbsp;sensor,&nbsp;SensorManager.SENSOR_DELAY_GAME);
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onPause() {
+&nbsp;&nbsp;<span style="color: #33997E;">super</span>.onPause();
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;manager.unregisterListener(listener);
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">class</span> AccelerometerListener <span style="color: #33997E;">implements</span> SensorEventListener {
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {
+&nbsp;&nbsp;&nbsp;&nbsp;ax&nbsp;=&nbsp;event.values[0];
+&nbsp;&nbsp;&nbsp;&nbsp;ay&nbsp;=&nbsp;event.values[1];
+&nbsp;&nbsp;&nbsp;&nbsp;az&nbsp;=&nbsp;event.values[2];&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onAccuracyChanged(Sensor sensor, <span style="color: #E2661A;">int</span> accuracy) {
+&nbsp;&nbsp;}
+}
+</code></pre>
+
+                <h3>Usando otros sensores</h3>
+
+                <p><a href="https://developer.android.com/guide/topics/sensors/sensors_motion.html" target="_black">La documentación para desarrolladores</a> de Google proporciona información detallada sobre cómo obtener datos de otros sensores de movimiento.</p>
+                <p>Como alternativa, también sep uede usar la <a href="http://ketai.org/" target="_black">biblioteca Ketai</a> de Daniel Sauter y Jesus Duran, que ofrece una interfaze más simple a la API de sensores Android y nos permite obtener valores de diferentes sensores con mucha facilidad. Ketai se puede instalar a través del administrador de contribuciones (CM) en el PDE.</p>
+
+            </section>
+
+        </div>
+
+        <footer class="footinfo">
+            <small>&copy; The Processing Foundation. Processing para Android es un <a href="../../team.html">proyecto colaborativo</a>.</small>
+        </footer>
+    </body>
+</html>
+

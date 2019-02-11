@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
         <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
-        <link rel="stylesheet" href="../../css/main.css">
+        <link rel="stylesheet" href="../../../css/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <title>Processing for Android</title>
+        <title>Processing para Android</title>
     </head>
     
     <body>
@@ -23,21 +23,21 @@
             </ul>
         </nav>
 
-        <header>            
-            <h1 class="title">Processing for Android</h1>
+        <header>
+            <h1 class="title">Processing para Android</h1>
         </header>
 
         <div class="group">
 
             <nav class="site">
-                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
+                <img class="logo" src="../../imgs/logo.png" alt="Logo de Processing para Android">
                 <ul class="leftnav">
-                   <li><a href="../../index.html">Home</a></li>
-                   <li><a href="../../install.html">Install</a></li>
-                   <li><a href="../../reference/index.html">Reference</a></li>
-                   <li><a id="selected" href="../../tutorials/index.html">Tutorials</a></li>
-                   <li><a href="../../books/index.html">Books</a></li>
-                   <li><a href="../../gallery/index.html">Gallery</a></li>
+                   <li><a href="../../index.html">Principal</a></li>
+                   <li><a href="../../install.html">Instalar</a></li>
+                   <li><a href="../../reference/index.html">Referencia</a></li>
+                   <li><a id="selected" href="../../tutorials/index.html">Tutoriales</a></li>
+                   <li><a href="../../books/index.html">Libros</a></li>
+                   <li><a href="../../gallery/index.html">Galería</a></li>
                    <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
                    <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
                 </ul>
@@ -46,27 +46,27 @@
             <section class="container main-text">
 
                 <div class="lang">
-                  <a id="selected" href="index.html">EN</a>
-                  <a href="../../es/tutorials/wallpapers/index.html">ES</a>
+                  <a href="../../../tutorials/wallpapers/index.html">EN</a>
+                  <a id="selected" href="index.html">ES</a>
                 </div>
                 <hr style="clear:both;">
 
-            	<h2>Wallpapers</h2>
+                <h2>Fondos de Pantalla</h2>
                 <p>
-                Use the Android Mode to develop interactive live wallpapers.
+                El modo Android nos ofrece la posibilidad de desarrollar fondos de pantalla interactivos animados.
                 </p>
 
-                <h3>What is a live wallpaper?</h3>
+                <h3>¿Qué es un fondo de pantalla animado?</h3>
                 <p>
-                Live wallpapers are a special type of applications that generate animated and interactive backgrounds in the home screen of the device. Technically, they are an <a href="https://developer.android.com/reference/android/service/wallpaper/WallpaperService.html">Android Service</a>, designed to run for a long time in the background. With the Android mode in Processing, you don't need to worry about these low-level details, and instead focus on the drawing code. Virtually any 2D or 3D sketch can be built as a live wallpaper. All you need to do is to select the Wallpaper option under the Android menu:
+                Los fondos de pantalla animado son un tipo especial de apps de Android que generan fondos animados e interactivos en la pantallas de inicio y bloqueo del dispositivo. Técnicamente, son un <a href="https://developer.android.com/reference/android/service/wallpaper/WallpaperService.html">Servicio de Android</a>, diseñado para ejecutarse sin interrupción en segundo plano. Gracias al modo Android en Processing, no ncesitamos preocuparnos por los detalles técnicos de como se crean y configuran estos servicios y, en cambio, podmeos concentrarnos en el código de dibujo. Virtualmente cualquier bosquejo 2D o 3D se puede ejecutar como un fondo de pantalla animado. Todo lo que necesitas hacer es seleccionar la opción de "wallscreen" en el menú de Android:
                 </p>
 
-                <p><img class="body-image" src="imgs/wallpaper_selection.png" alt="Wallpaper selection"></p>
+                <p><img class="body-image" src="imgs/wallpaper_selection.png" alt="Seleccionando wallpapers"></p>
 
-                <h3>Creating a wallpaper</h3>
+                <h3>Creando un fondo de pantalla</h3>
 
                 <p>
-                Let's start by writing a simple wallpaper that just transitions the background between randomly selected colors. We will use the <a href="https://processing.org/reference/colorMode_.html" target="_black">HSB color mode</a> to create smooth transitions across the hue and the saturation of consecutive colors. We can test this sketch using Java mode first, to figure out the correct timing of the transitions. In our first version, we simply change the hue and saturation every 5 seconds without any transition:
+                Comencemos escribiendo un fondo de pantalla muy sencillo que sólamente genere una transición contínua entre colores de fomdp seleccionados al azar. Usaremos el <a href="https://processing.org/reference/colorMode_.html" target="_black"> modo de color HSB </a> para crear transiciones suaves en el tono y la saturación de colores consecutivos. Podemos probar este bosquejo usando el modo Java primero, para averiguar la sincronización correcta de las transiciones. En nuestra primera versión, simplemente cambiamos el tono y la saturación cada 5 segundos sin ninguna transición:
                 </p>
 
 <pre><code>
@@ -94,7 +94,7 @@
 }
 </code></pre>
 
-                <p>We can now add <a href="https://processing.org/examples/easing.html" target="_black">easing</a> to smoothly transition between the colors:</p>
+                <p>Tambiém podemos agregar <a href="https://processing.org/examples/easing.html" target="_black">suavizado</a> para obtener una transición contínua entre los colores:</p>
 
 <pre><code>
 <span style="color: #E2661A;">float</span> currH, currB;
@@ -130,16 +130,16 @@
 }
 </code></pre>
 
-                <p>Once you are satisfied with the transition and easing times, you need to replace <code>size(400, 400)</code> with <code>fullScreen()</code> before running the sketch on the device to make sure that the wallpaper uses the entire screen of the device.</p>
+                <p>Una vez que estemos conformes con la transición y los tiempos de suavizado, debemos reemplazar <code>size(400, 400)</code> con <code>fullScreen()</code> antes de ejecutar el bosquejo en el dispositivo para asegurarnos de que el fondo de pantalla utilice todo el área de la pantalla del dispositivo.</p>
 
-                <p>After the wallpaper sketch has been installed on the device, it won't show up right away. You need to open the wallpaper selector, and scroll through the availalable wallpapers until you find yours. The wallpaper selector will look different depending on the Android version in your deveice and what other wallpapers are installed, on Android 5.0 and newer it should look something like this:</p>
+                <p>Una vez que se haya instalado el bosquejo del fondo de pantalla en el dispositivo, no se mostrará de inmediato. Necesitamos abrir el selector de fondo de pantalla y buscar nuestro bosquejo entre los demás fondos de pantalla disponibles. El selector de fondo de pantalla se verá diferente según la versión de Android en su dispositivo y qué otros fondos de pantalla están instalados, en Android 5.0 y más recientes debería aparecer como sigue:</p>
 
                 <p><img class="body-image-portrait" src="imgs/wallpaper_selector.png" alt="Wallpaper selector"></p>
 
-                <h3>Using sensor data in the wallpaper</h3>
+                <h3>Uso de los datos de los sensores en el fondo de pantalla</h3>
 
                 <p>
-                In the <a href="../sensors/index.html" target="_black">sensors tutorial</a> we saw how to use the sensor API in Android to read acceleration values. We can use the same technique to obtain sensor information needed to construct a compass. In this case, we need both accelerometer and geomagnetic sensor data, in order to determine the device's orientation with respect to the Earth's magnetic axis. We start with the following template:
+                En el <a href="../sensors/index.html" target="_black"> tutorial de sensores </a> vimos cómo utilizar la API del sensores en Android para leer los valores de aceleración. Podemos usar la misma técnica para obtener la información necesaria para implementar una brújula. En este caso, necesitamos datos del sensor geomagnético así como también del acelerómetro para determinar la orientación del dispositivo con respecto al eje magnético de la Tierra. Podemos comenzamos con el siguiente código de base:
                 </p>
 
 <pre><code>
@@ -206,21 +206,21 @@ Sensor&nbsp;magnetometer;
 }              
 </code></pre>
 
-                <p>A couple of important things to note here:</p> 
+                <p>Un par de cosas importantes a tener en cuenta:</p>
 
-                <ul> 
-                <li>First, we get the context using <code>context = getContext()</code> instead of <code>getActivity()</code>, as it is the case with regular apps, because there is no activity in the case of wallpapers.</li>
+                <ul>
+                <li>Primero, obtenemos el contexto usando <code>context = getContext()</code> en lugar de <code>getActivity()</code>, como es el caso de las apps normales, porque hay una actividad principal en el caso de fondos de pantalla, es solo un servicio que sí tiene un contexto.</li>
 
-                <li>The same event listener is used to get acceleration and the geomagnetic field, and we use the value returned by <code>event.sensor.getType()</code> to determine which sensor we are receiving values from in <code>onSensorChanged()</code>.</li>
+                <li>El mismo detector de eventos se usa para obtener la aceleración y el campo geomagnético, y usamos el valor devuelto por <code>event.sensor.getType()</code> para determinar de qué sensor estamos recibiendo los valores en <code >onSensorChanged()</code>. </li>
 
-                <li>The rate to read the sensor data is set to <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_NORMAL">SENSOR_DELAY_NORMAL</a>, which is the slowest from all the default rates. It is important to keep battery use in wallpapers at a minimum, as they run in the background constantly. So, when using sensors is a good idea to keep a low update rate that it is still ok for the purpose of generating the background. In fact, you can set a custom rate by doing:
+                <li> La velocidad para leer los datos del sensor se establece en <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_NORMAL"> SENSOR_DELAY_NORMAL </a>, que es la más lenta de todas las velocidades pre-definidas. Es muy importante mantener al mínimo el uso de la batería en fondos de pantalla, ya que se ejecutan en segundo plano constantemente. Por lo tanto, cuando se utilizan sensores en un fondo de pantalla es una buena idea mantener una tasa de actualización lo más baja posible para el propósito de generar el fondo. De hecho, podemos establecer una velocidad específica haciendo:
 <pre><code>
 int READING_RATE = 100000; // time in us
 sensorManager.registerListener(listener, compass, READING_RATE);
 </code></pre>
                 </li>
 
-                <p>The gravity and geomagnetic vectors encode all the information required to determine the orientation of the device in relation to the Earth's surface. The <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#getRotationMatrix(float[], float[], float[], float[])" target="_black"><code>getRotationMatrix()</code></a> computes the inclination and rotation matrices, from which we can obtain the orientation of the device in relation to the direction of the geomagnetic field with the <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#getOrientation(float[], float[])" target="_black">getOrientation()</a> function. The complete implementation of <code>onSensorChanged()</code> would read:</p>
+                <p> Los vectores de gravedad y geomagnéticos codifican toda la información requerida para determinar la orientación del dispositivo en relación con la superficie de la Tierra. El <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#getRotationMatrix (float [], float [], float [], float [])" target="_ black"> <code>getRotationMatrix()</code> </a> calcula las matrices de inclinación y rotación, a partir de las cuales podemos obtener la orientación del dispositivo en relación con la dirección del campo geomagnético con <a href = "https://developer.android.com/reference/android/hardware/SensorManager.html#getOrientation(float[], float[])" target ="_black ">getOrientation()</a>. La implementación completa de <code>onSensorChanged()</code> diría:</p>
 
 <pre><code>
 &nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {
@@ -241,7 +241,7 @@ sensorManager.registerListener(listener, compass, READING_RATE);
 &nbsp;&nbsp;}
 </code></pre>
 
-            <p>The last step is to implement the drawing code for the compass. A simple one could be:</p>
+            <p>El último paso es implementar el código de dibujo para la brújula. Una opción sencilla podría ser la siguiente:</p>
 
 <pre><code>
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
@@ -271,11 +271,11 @@ sensorManager.registerListener(listener, compass, READING_RATE);
 }
 </code></pre>
 
-            <p>This should give us the following wallpaper:</p>
+             <p>Esto debería darnos como resultado el siguiente fondo de pantalla:</p>
 
-            <p><img class="body-image-portrait" src="imgs/compass_wallpaper.png" alt="Compass wallpaper"></p>
+             <p><img class="body-image-portrait" src="imgs/compass_wallpaper.png" alt="Compass wallpaper"></p>
 
-            <p>The complete sketch code is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/wallpapers/ex2_compass" target="_black">here</a>.</p>
+             <p>El código completo del bosquejo está disponible <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/wallpapers/ex2_compass" target="_black">aquí</a>.</p>
 
             </section>
         </div>

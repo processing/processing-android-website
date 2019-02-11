@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+        <link rel="stylesheet" href="../../../css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Processing para Android</title>
+    </head>
+    
+    <body>
+
+        <nav class="topnav">        
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="https://p5js.org/">p5.js</a></li>
+                <li><a href="https://py.processing.org/">Processing.py</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+            </ul>
+            <ul class="foundation">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav>
+
+        <header>
+            <h1 class="title">Processing para Android</h1>
+        </header>
+
+        <div class="group">
+
+            <nav class="site">
+                <img class="logo" src="../../imgs/logo.png" alt="Logo de Processing para Android">
+                <ul class="leftnav">
+                   <li><a href="../../index.html">Principal</a></li>
+                   <li><a href="../../install.html">Instalar</a></li>
+                   <li><a href="../../reference/index.html">Referencia</a></li>
+                   <li><a id="selected" href="../../tutorials/index.html">Tutoriales</a></li>
+                   <li><a href="../../books/index.html">Libros</a></li>
+                   <li><a href="../../gallery/index.html">Galería</a></li>
+                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
+                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
+                </ul>
+            </nav>
+      
+            <section class="container main-text">
+
+                <div class="lang">
+                  <a href="../../../tutorials/distributing/index.html">EN</a>
+                  <a id="selected" href="index.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
+                <h2>Distribuir aplicaciones</h2>
+                <p>En este tutorial veremos los pasos necesarios para publicar tu bosquejo de Processing como una aplicación en la tienda Google Play.</p>
+
+                <p>Antes de empaquetar la aplicación para su distribución, Processing requiere que proveas los íconos para tu app, fondo de pantalla, o cara del reloj, porque de lo contrario no te dejará utilizar los íconos genéricos predeterminados para el paquete de distribución. Es muy importante que también elijas un nombre de paquete que identifique de forma única tu aplicación en Google Play.</p>
+
+                <h3>Creando íconos personalizados</h3>
+                <p>
+                El modo Android usa un conjunto de íconos predeterminados para mostrar el app en el lanzador (launcher) del sistema Android. Es necesario que uses tus propios íconos para el lanzador, proveyendo estos íconos como archivos .PNG con el nombre icon-36, 48, 72, 96, 144 y 192, que deberás copiar en la carpeta del bosquejo antes de exportar el paquete firmado. Google ha publicado<a href="https://www.google.com/design/spec/style/icons.html" target="_black">guía de diseño de iconos para Android </a> que tu puedes seguir para crear tus propios íconos.</p>
+
+                <p>Si está creando una cara de reloj, también es necesario proporcionar los archivos preview_circular.png y preview_rectangular.png, que se usarán para mostrar una vista previa de la cara en la aplicación complementaria Android Wear que se ejecuta en el teléfono. o en el selector de caras en reloj mismo. Las resoluciones de estos íconos son 320x320 para la vista previa circular y 280x280 para la vista previa rectangular.</p>
+
+                <h3>Configuración la versión y el nombre del paquete</h3>
+                El nombre del paquete es una cadena de texto que a menudo tiene la siguiente forma "com.ejemplo.holamundo", y sigue la <a href="https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html" target ="_black">convención de nomenclatura de paquetes Java</a>, donde el nombre de la aplicación ("holamundo") aparece al final último, precedido por el sitio web de la compañía o persona que desarrolla la aplicación en orden inverso ("com.ejemplo"). Processing construye este nombre de paquete automáticamente al añadir "processing.test" al nombre del boceto. Tu puedes ingresar tu propio nombre de paquete editando el <a href="https://developer.android.com/guide/topics/manifest/manifest-intro.html" target="_black">archivo de manifiesto</a> que Processign genera de manera automática en la carpeta del bosquejo después de ejecutarlo por primera vez desde el PDE (ya sea en un dispositivo o en el emulador). También puedes establecer el código y nombre de la versión. Por ejemplo, en el siguiente archivo de manifiesto, el nombre del paquete es "com.ejemplo.holamundo", el código de la versión 1 y el nombre de la versión 0.5.4:
+                <p>
+
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+          android:versionCode="10" 
+          android:versionName="0.5.4" package="com.ejemplo.holamundo"&gt;
+    &lt;uses-sdk android:minSdkVersion="16" android:targetSdkVersion="26"/&gt;
+    &lt;application android:icon="@drawable/icon" android:label=""&gt;
+        &lt;activity android:name=".MainActivity" 
+                  android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN"/&gt;
+                &lt;category android:name="android.intent.category.LAUNCHER"/&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+&lt;/manifest&gt;
+</pre>
+
+
+                <p>Ten en cuenta que el nombre de paquete de tu app es único, ya que no puede haber dos apps en la tienda Google Play con el mismo nombre de paquete.</p>
+
+                <h3>Creando el paquete firmado</h3>
+                <p>
+                El modo Android simplifica la publicación de su bosquejo al <a href="https://developer.android.com/studio/publish/app-signing.html" target="_black">firmar</a> y <a href="https://developer.android.com/studio/command-line/zipalign.html" target="_black">alinear</a> el app, así tu puedes subirla a la consola de desarrolladores de Google Play sin necesidad de pasos adicionales. Todo lo que necesitas hacer es seleccionar la opción "Export Signed Package" en el menú Archivo o File del PDE:
+                </p>
+
+                <p><img class="body-image" src="imgs/export_option.png" alt="Exportar paquete firmado"></p>
+
+                <p>
+                Después de seleccionar esta opción, Processing te pedirá que crees un nuevo almacén de claves para guardar la clave de lanzamiento que se usa para firmar el paquete del app:
+                </p>
+
+                <p><img class="body-image" src="imgs/kestore_manager.png" alt = "Administrador del almacén de claves"> </p>
+
+                <p>
+                Es muy importante que guardes esta contraseña en algún lugar seguro, ya que tendrás que usarla cada vez que exportes un nuevo paquete firmado. Si bien es posible restablecerlo y crear una nueva clave, mientras distribuyas tu app con el mismo nombre de paquete, deberás firmarla con la misma llave de lanzamiento.
+                </p>
+
+                <p>
+                El paquete firmado (y alineado) se guardará en la subcarpeta "build" dentro de la carpeta del bosquejo, bajo el nombre [Nombre del bosquejo en minúscula] _release_signed_aligned.apk. Una vez que Processing haya generado este archivo, puedes seguir las <a href="https://developer.android.com/distribute/googleplay/start.html">instrucciones de Google</a> para completar el proceso de publicación de tu app en el Play Store.
+                </p>
+
+            </section>
+
+        </div>
+
+        <footer class="footinfo">
+            <small>&copy; The Processing Foundation. Processing para Android es un <a href="../../team.html">proyecto colaborativo</a>.</small>
+        </footer>
+    </body>
+</html>
+
