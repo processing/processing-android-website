@@ -1,0 +1,192 @@
+index
+<p>
+                Esta es una selección creciente de proyectos y aplicaciones creadas con Processing para Android (ordenadas alfabéticamente). Sugiere un nuevo proyecto escribiendo a <a href="mailto:android@processing.org"> android@processing.org </a> o tuiteando a <a href = "https://twitter.com/p5android" target = "_ negro"> @ p5android </a>! </p> <br> <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=com.calsignlabs.apde" target="_black"> APDE </a> </h2>
+                <p> Por William Smith </p>
+                <p> <img class = "body-image" src = "imgs / apde.png" alt = "APDE"> </p>
+                <p> APDE (entorno de desarrollo de procesamiento de Android) es un entorno de desarrollo integrado para crear bocetos de procesamiento en su teléfono / tableta. APDE es compatible con el ciclo completo de edición, compilación y ejecución. No necesita una computadora o un SDK para comenzar a codificar sobre la marcha. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=com.calsignlabs.apde" target="_black"> Google Play </a>, <a href = "https://github.com/Calsign/APDE" target = "_ black"> código fuente </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=com.brunoruchiga.globalgamejam2018" target="_black"> B-RU Mensaje de recepción </a> </ h2 >
+                <p> Por Bruno Ruchiga </p>
+                <p> <img class = "body-image-portrait" src = "imgs / bru_message.png" alt = "B-RU Mensaje de recepción"> </p>
+                <p> Un juego corto sobre un astronauta con poca batería y baja señal, en busca de nuevos mensajes. Desarrollado para Global Game Jam 2018. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=com.brunoruchiga.globalgamejam2018" target="_black"> Google Play </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=processing.test.bugrope" target="_black"> Bug Rope </a> </h2>
+                <p> Por Evan Shellshear </p>
+                <p> <img class = "body-image" src = "imgs / bugrope.png" alt = "Bug Rope"> </p>
+                <p> Un juego para niños en el que el jugador se enfrenta a una invasión de errores. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=processing.test.bugrope" target="_black"> Google Play </a>, <a href = "http://www.simultek.com.au/bugrope.html" target = "_ black"> web </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=processing.test.cardinality" target="_black"> Cardinalidad de Singular Place </a> </h2>
+                <p> Por Penelope Umbrico </p>
+                <p> <img class = "body-image-portrait" src = "imgs / cardinality.png" alt = "Cardinality of Singular Place"> </p>
+                <p> Cardinality of Singular Place utiliza tus coordenadas GPS actuales para generar un paisaje abstracto único, específico de la ubicación. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=processing.test.cardinality" target="_black"> Google Play </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=processing.test.disobedience4_appli" target="_black"> DISOBEDIENCE </a> </h2>
+                <p> Por Jean-Michel Rolland </p>
+                <p> <img class = "body-image" src = "imgs / disobedience.png" alt = "DISOBEDIENCE"> </p>
+                <p> Caja de música generativa reproducida en vivo por su dispositivo. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=processing.test.disobedience4_appli" target="_black"> Google Play </a>, <a href = "http://franetjim.free.fr/disobedience.html" target = "_ black"> web </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=processing.test.elements" target="_black"> Elementos </a> </h2>
+                <p> Por LIA </p>
+                <p> <img class = "body-image" src = "imgs / elements.png" alt = "Elements"> </p>
+                <p> Elements es una aplicación lúdica que te permite crear patrones complejos, combinando la creación de formas con los controles de movimiento y rotación. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=processing.test.elements" target="_black"> Google Play </a>, <a href = "https://experiments.withgoogle.com/android/elements" target = "_ black"> página de Experimentos de Android </a>, <a href = "https://github.com/liasomething/Elements" target = " _black "> código fuente </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=gg.rich.me.fuzo" target="_black"> Fuzo - Conversor de zona horaria </a> < / h2>
+                <p> Por rich.gg </p>
+                <p> <img class = "body-image" src = "imgs / fuzo.png" alt = "Fuzo - Time Zone Converter"> </p>
+                <p> Aplicación de conversión de zona horaria con una interfaz 3D. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=gg.rich.me.fuzo" target="_black"> Google Play </a>, < a href = "https://rich.gg/fuzo/" target = "_ black"> web </a> </p>
+                <br>
+
+                <h2> <a href = "https://play.google.com/store/apps/details? id = net.edumo.gameoflifehd "target =" _ black "> Game of Life HD </a> </h2>
+                <p> Por Eduardo Moriana </p>
+                <p> <img class = "body-image-portrait" src = "imgs / game_of_life_hd.png" alt = "Game of Life HD"> </p>
+                <p> Implementación de GPU del autómata celular Game of Life de Conway, incluido el soporte multitáctil. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=net.edumo.gameoflifehd" target="_black"> Google Play </a>, <a href = "http://edumo.net/" target = "_ black"> web </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=processing.test.generative_music_patterns" target="_black"> Patrones de música generativa </a> </h2>
+                <p> Por Jean-Michel Rolland </p>
+                <p> <img class = "body-image" src = "imgs / music_patterns.png" alt = "Generative Music Patterns"> </p>
+                <p> Colección de patrones musicales generativos creados en una residencia web por Solitude y ZKM. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=processing.test.generative_music_patterns" target="_black"> Google Play </a>, <a href = "http://generative-music-patterns.schloss-post.com/" target = "_ black"> web </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=gg.rich.me.koan" target="_black"> Kōan </a> </h2>
+                <p> Por rich.gg </p>
+                <p> <img class = "body-image" src = "imgs / koan.png" alt = "Kōan"> </p>
+                <p> Kōan es un dibujo, sin duda un plan. Y el arquitecto quiere que lo rompas. Suavemente, metódicamente, la forma en que pulsaría las teclas de un piano si estuviera solo y sereno. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=gg.rich.me.koan" target="_black"> Google Play </a> </ p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=processing.test.caravage" target="_black"> La Révolution des Ténèbres </a> </h2>
+                <p> Por Fran Lejeune y Jean-Michel Rolland </p>
+                <p> <img class = "body-image" src = "imgs / tenebres.png" alt = "La Révolution des Ténèbres"> </p>
+                <p> La Révolution des Ténèbres es un libro multimedia interactivo de ciencia ficción, basado libremente en la vida del pintor Caravaggio. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=processing.test.caravage" target="_black"> Google Play </a>, <a href = "https://vimeo.com/groups/processing/videos/213490372" target = "_ black"> documentación de video </a> </p>
+                <br>
+
+                <h2> <a href="https://nordprojects.co/lantern" target="_black"> Lantern </a> </h2>
+                <p> Por Nord Projects </p>
+                <p> <img class = "body-image" src = "imgs / lantern.jpg" alt = "Look Up"> </p>
+                <p> Lantern transforma cualquier superficie en AR usando Raspberry Pi, un proyector láser y Android Things. </p>
+                <p> Enlaces: <a href="https://experiments.withgoogle.com/lantern" target="_black"> Página de Experimentos de Android </a>, <a href = "https://github.com/nordprojects / lantern "target =" _ black "> código fuente </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=com.ekeneijeoma.lookup" target="_black"> Busque </a> </h2>
+                <p> Por Ekene Ijeoma </p>
+                <p> <img class = "body-image" src = "imgs / lookup.png" alt = "Look Up"> </p>
+                <p> Look Up es una aplicación de arte público participativa que incita a los neoyorquinos a apartar la vista de sus teléfonos y de las intersecciones de las calles para abrazar la diversidad y participar en la serendipia de la ciudad. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=com.ekeneijeoma.lookup" target="_black"> Google Play </a>, <a href = "https://www.androidexperiments.com/experiment/look-up" target = "_ black"> página de Experimentos de Android </a>, <a href = "https://github.com/ekeneijeoma/lookupnyc" target = "_ negro"> código fuente </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=com.juankysoriano.materiallife" target="_black"> Vida material </a> </h2>
+                <p> Por Juanky Soriano </p>
+                <p> <img class = "body-image" src = "imgs / material.png" alt = "Material Life"> </p>
+                <p> Material Life es el primer simulador de Game of Life que utiliza prácticas de diseño de materiales en nuestros dispositivos Android. Utiliza <a href="https://github.com/juankysoriano/rainbow" target="_black"> Rainbow </a>, una bifurcación de Procesamiento para Android, para el dibujo. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=com.juankysoriano.materiallife" target="_black"> Google Play </a>, <a href = "https://experiments.withgoogle.com/android/material-life" target = "_ black"> Página de Experimentos de Android </a>, <a href = "https://github.com/juankysoriano/MaterialLife" target = "_ negro"> código fuente </a> </p>
+                <br>
+
+                <h2> <a href = "https://play.google.com/store/apps/details?id=processing.test.musicbox3d "target =" _ black "> MusicBox3D </a> </h2>
+                <p> Por Bérenger Recoules </p>
+                <p> <img class = "body-image" src = "imgs / musicbox3d.png" alt = "MusicBox3D"> </p>
+                <p> Simulación de la caja de música, en la que cada vez que un cubo ejecuta una revolución completa emite una nota. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=processing.test.musicbox3d" target="_black"> Google Play </a>, <a href = "https://b2renger.github.io/" target = "_ black"> web </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=com.irache.octagon" target="_black"> Octagon </a> </h2>
+                <p> Por Tailor & Wayne </p>
+                <p> <img class = "body-image" src = "imgs / octagon.png" alt = "Pflow"> </p>
+                <p> En este juego, rota tu dispositivo para mover la ardilla voladora dentro de un barril octogonal de 360º y evitar los obstáculos. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=com.irache.octagon" target="_black"> Google Play </a>, <a href = "https://tailorandwayne.com/octagon/" target = "_ black"> web </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=processing.test.gravity_playground" target="_black"> Orbit Simulator </a> </h2>
+                <p> Por Tailor & Wayne </p>
+                <p> <img class = "body-image" src = "imgs / orbit.png" alt = "Orbit Simulator"> </p>
+                <p> Reproduce las leyes de la gravedad con los dedos y el acelerómetro, y genera patrones de asteroides en movimiento. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=processing.test.gravity_playground" target="_black"> Google Play </a>, <a href = "https://tailorandwayne.com/orbit-simulator/" target = "_ black"> web </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=nl.kelleyvanevert.origamipixels" target="_black"> Origami Pixels </a> </h2>
+                <p> Por Kelley van Evert </p>
+                <p> <img class = "body-image" src = "imgs / origami.png" alt = "Origami Pixels"> </p>
+                <p> Convierte patrones 2D en objetos 3D. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=nl.kelleyvanevert.origamipixels" target="_black"> Google Play </a>, <a href = "https://kelleyvanevert.nl/" target = "_ black"> web </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=processing.test.pflow3" target="_black"> Pflow </a> </h2>
+                <p> Por Gabriel Weymouth </p>
+                <p> <img class = "body-image" src = "imgs / pflow.png" alt = "Pflow"> </p>
+                <p> Visualización interactiva del flujo de fluidos. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=processing.test.pflow3" target="_black"> Google Play </a>, <a href = "https://www.southampton.ac.uk/engineering/about/staff/gdw1d12.page" target = "_ black"> web </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=processing.test.pendulum_phases_0_3" target="_black"> Péndulo de fase </a> </h2>
+                <p> Por Bérenger Recoules </p>
+                <p> <img class = "body-image" src = "imgs / pendulum.png" alt = "Phase Pendulum"> </p>
+                <p> Sintetizador audiovisual basado en movimiento armónico. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=processing.test.pendulum_phases_0_3" target="_black"> Google Play </a>, <a href = "https://b2renger.github.io/" target = "_ black"> web </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=processing.springs" target="_black"> Springs </a> </h2>
+                <p> Por Bérenger Recoules </p>
+                <p> <img class = "body-image" src = "imgs / springs.png" alt = "Springs"> </p>
+                <p> Esta aplicación es un instrumento musical único de toque múltiple para hacer sonidos de aviones no tripulados. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=processing.springs" target="_black"> Google Play </a>, <a href = " https://github.com/b2renger/Springs "target =" _ black "> código fuente </a>, <a href="https://b2renger.github.io/" target="_black"> web </ a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=net.andrescolubri.p5androidbook.running_tree" target="_black"> Árbol en ejecución </a> </h2>
+                <p> Por Andres Colubri </p>
+                <p> <img class = "body-image" src = "imgs / running_tree.png" alt = "Running Tree"> </p>
+                <p> Una esfera de reloj que hace crecer un árbol a medida que aumenta el conteo de pasos. El árbol florece cuando el recuento se acerca a los 10.000 pasos. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=net.andrescolubri.p5androidbook.running_tree" target="_black"> Google Play </a>, < a href = "https://github.com/Apress/processing-for-android/tree/master/chapter%2012/runnning_tree" target = "_ black"> código fuente </a> </p><br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=wrathoftheplatypiproductions.freemazegamesurvivetheminotaurslabyrinth" target="_black"> Sobrevive el laberinto del Minotauro </a> </h2>
+                <p> Por la ira de los Platypi </p>
+                <p> <img class = "body-image" src = "imgs / minotaurs_labyrinth.png" alt = "Sobrevive al laberinto del Minotauro"> </p>
+                <p> Juego de aventuras con trampas, armas, magia, monstruos, zombies y aliados. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=wrathoftheplatypiproductions.freemazegamesurvivetheminotaurslabyrinth" target="_black"> Google Play </a>, <a href = " https://www.facebook.com/The-Minotaurs-labyrinth-1122539984550216/ "target =" _ black "> página de Facebook </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=processing.test.swarmpaint_free" target="_black"> Swarmpaint </a> </h2>
+                <p> Por Josh Giesbrecht </p>
+                <p> <img class = "body-image" src = "imgs / swarmpaint.png" alt = "Swarmpaint"> </p>
+                <p> Una aplicación de dibujo generativo para dispositivos Android. Las líneas son creadas por partículas que reaccionan a tu toque de maneras personalizables (y generalmente extrañas). </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=processing.test.swarmpaint_free" target="_black"> Google Play </a>, <a href = "https://thoughtlost.com/swarmpaint-android-app/" target = "_ black"> web </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=be.camaris.p5" target="_black"> Tumbler Shooter </a> </h2>
+                <p> Por Camaris </p>
+                <p> <img class = "body-image-portrait" src = "imgs / tumbler.png" alt = "Tumbler Shooter"> </p>
+                <p> Juego de disparos experimental. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=be.camaris.p5" target="_black"> Google Play </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=com.picorana.vraudioscape" target="_black"> VR Audioscape </a> </h2>
+                <p> Por Sara Di Bartolomeo </p>
+                <p> <img class = "body-image" src = "imgs / vr_audioscape.png" alt = "VR Audioscape"> </p>
+                <p> VR Audioscape es una aplicación de VR que le permite viajar a través de un panorama de procedimientos generado de acuerdo con la música. Reproduzca cualquier tipo de música desde cualquier aplicación en su teléfono, luego ejecútela: automáticamente utilizará como entrada cualquier sonido que salga del teléfono. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=com.picorana.vraudioscape" target="_black"> Google Play </a>, <a href = "https://github.com/picorana/VR_audioscape" target = "_ black"> código fuente </a> </p>
+                <br>
+
+                <h2> <a href="https://play.google.com/store/apps/details?id=net.andrescolubri.p5androidbook.vr_draw" target="_black"> VR Draw </a> </h2>
+                <p> Por Andres Colubri </p>
+                <p> <img class = "body-image" src = "imgs / vr_draw.png" alt = "Draw VR"> </p>
+                <p> Esta aplicación de realidad virtual para auriculares de Cardboard o Daydream permite a los usuarios hacer dibujos en realidad virtual con su mirada y luego volar a través de ellos. </p>
+                <p> Enlaces: <a href="https://play.google.com/store/apps/details?id=net.andrescolubri.p5androidbook.vr_draw" target="_black"> Google Play </a>, < a href = "https://github.com/Apress/processing-for-android/tree/master/chapter%2015/vr_draw" target = "_ black"> código fuente </a> </p>
+                <br>
+            </section>

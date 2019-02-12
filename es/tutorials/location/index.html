@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+        <link rel="stylesheet" href="../../../css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Processing para Android</title>
+    </head>
+    
+    <body>
+
+        <nav class="topnav">        
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="https://p5js.org/">p5.js</a></li>
+                <li><a href="https://py.processing.org/">Processing.py</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+            </ul>
+            <ul class="foundation">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav>
+
+        <header>
+            <h1 class="title">Processing para Android</h1>
+        </header>
+
+        <div class="group">
+
+            <nav class="site">
+                <img class="logo" src="../../imgs/logo.png" alt="Logo de Processing para Android">
+                <ul class="leftnav">
+                   <li><a href="../../index.html">Principal</a></li>
+                   <li><a href="../../install.html">Instalar</a></li>
+                   <li><a href="../../reference/index.html">Referencia</a></li>
+                   <li><a id="selected" href="../../tutorials/index.html">Tutoriales</a></li>
+                   <li><a href="../../books/index.html">Libros</a></li>
+                   <li><a href="../../gallery/index.html">Galería</a></li>
+                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
+                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
+                </ul>
+            </nav>
+      
+            <section class="container main-text">
+
+                <div class="lang">
+                  <a href="../../../tutorials/location/index.html">EN</a>
+                  <a id="selected" href="index.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
+                <h2>Geolocalización y permisos</h2>
+
+                <p>Aprende a cómo acceder la ubicación usando GPS, y configurar correctamente los permisos de tu bosquejo en dipositivos con Android 6+.</p>
+
+                <h3>Las API de geolocalización de Android</h3>
+                
+                <p>
+                Un dispositivo Android puede determinar <a href =
+                "https://developer.android.com/guide/topics/location/strategies.html" target = "_ black"> su ubicación </a> con varios grados de precisión mediante el uso de la información de la red a la que está conectado (WiFi, celular), o de las señales de los satélites GPS (Sistema de posicionamiento global). La ubicación basada en GPS es más precisa, pero requiere estar al aire libre, además de consumir más batería y actualizarse con menos frecuencia que la ubicación basada en la red.
+                </p>
+
+                <h3>Creando un administrador de geolocalización</h3>
+                <p>
+                La estructura básica de un bosquejo que permite acceder a la información de ubicación es muy similar a la que vimos para <a href="../sensors/index.html" target="_black">otros sensores</a>. Podemos obtener el administrador de geolocalización desde el contexto del app, fondo de pantalla o cara de reloj usando la función <code>getContext()</code> en la versión 4.0+ del modo (en 3 puede obtener una referencia a la actividad con <code>getActivity()</code>), y luego agregar un oyente de eventos al administrador:
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> android.content.Context;
+<span style="color: #33997E;">import</span> android.location.Location;
+<span style="color: #33997E;">import</span> android.location.LocationListener;
+<span style="color: #33997E;">import</span> android.location.LocationManager;
+<span style="color: #33997E;">import</span> android.os.Bundle;
+<span style="color: #33997E;">import</span> android.Manifest;
+
+LocationManager&nbsp;locationManager;
+MyLocationListener&nbsp;locationListener;
+
+<span style="color: #E2661A;">boolean</span> hasLocation = <span style="color: #33997E;">false</span>;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span> () {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
+&nbsp;&nbsp;orientation(PORTRAIT);&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">textFont</span>(<span style="color: #006699;">createFont</span>(<span style="color: #7D4793;">&quot;SansSerif&quot;</span>, 26 * displayDensity));
+&nbsp;&nbsp;<span style="color: #006699;">textAlign</span>(<span style="color: #718A62;">CENTER</span>, <span style="color: #718A62;">CENTER</span>);
+&nbsp;&nbsp;requestPermission(<span style="color: #7D4793;">&quot;android.permission.ACCESS_FINE_LOCATION&quot;</span>, <span style="color: #7D4793;">&quot;initLocation&quot;</span>);
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+}
+
+<span style="color: #33997E;">void</span> initLocation(<span style="color: #E2661A;">boolean</span> granted) {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (granted) {    
+&nbsp;&nbsp;&nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;getContext();
+&nbsp;&nbsp;&nbsp;&nbsp;locationListener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> MyLocationListener();
+&nbsp;&nbsp;&nbsp;&nbsp;locationManager&nbsp;=&nbsp;(LocationManager)&nbsp;context.getSystemService(Context.LOCATION_SERVICE);&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,&nbsp;0,&nbsp;0,&nbsp;locationListener);
+&nbsp;&nbsp;&nbsp;&nbsp;hasLocation&nbsp;=&nbsp;<span style="color: #33997E;">true</span>;
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;hasLocation&nbsp;=&nbsp;<span style="color: #33997E;">false</span>;
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">class</span> MyLocationListener <span style="color: #33997E;">implements</span> LocationListener {
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onLocationChanged(Location location) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">println</span>(location.getLatitude(), location.getLongitude());
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onProviderDisabled (<span style="color: #E2661A;">String</span> provider) { }
+
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onProviderEnabled (<span style="color: #E2661A;">String</span> provider) { }
+
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onStatusChanged (<span style="color: #E2661A;">String</span> provider, <span style="color: #E2661A;">int</span> status, Bundle extras) {
+&nbsp;&nbsp;}
+}
+</code></pre>
+
+                <p>
+                Sin embargo, aquí estamos solicitando explícitamente el permiso para acceder la información de geolocalización con la función <code>requestPermission()</code>, y colocando el código de inicialización del administrador y el oyente dentro de la función </code>initLocation()</code> en lugar de hacerlo dentro de la función <code> setup()</code>, como en los ejemplos anteriores. La razón es que en las versiones de Android 6.0 y más nuevas, los permisos se dividen en dos niveles de protección: <a href="https://developer.android.com/guide/topics/security/permissions.html#normal-dangerous"target="_ black">normal y peligroso</a>. Los permisos clasificados como <a href="https://developer.android.com/guide/topics/security/permissions.html#permission-groups" target="_black"> peligrosos</a> determinan el acceso a datos privados del usuario, tales como la ubicación o la lista de contactos, y requiere que el usuario los otorgue de forma individual cuando ejecuta el app, y no cuando la misma es instalada.</p>
+
+                <p>El app mostrará un cuadro de diálogo solicitando permitir o denegar el permiso, y solo entonces se llamará a la función </code>initLocation()</code> con el resultado de la solicitud en el argumento booleano. Esta función, que debe contener el código de inicialización correspondiente al permiso que se solicita, no necesita llamarse initLocation, puede tener un nombre diferente, pero las dos reglas importantes que se deben seguir es que esta función reciba un argumento booleano, y que su nombre sea proporcionado como argumento a la función <code> requestPermission()</code>.</p>
+
+                <p> Sin embargo, aún debemos seleccionar los permisos que necesita el bosquejo, en este caso ACCESS_COARSE_LOCATION y ACCESS_FINE_LOCATION para la ubicación de red y GPS, utilizando el selector de permisos en el PDE:</p>
+
+                <p><img class="body-image" src="imgs/permission_selector.png" alt="Selección de permiso"></p>
+
+                <p>La variable de ubicación que recibimos en el oyente de eventos del sensor contiene toda la información necesaria para especificar la ubicación en latitud y longitud:</p>
+
+<pre><code>
+<span style="color: #33997E;">class</span> MyLocationListener <span style="color: #33997E;">implements</span> LocationListener {
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onLocationChanged(Location location) {
+&nbsp;&nbsp;&nbsp;&nbsp;currentLatitude&nbsp;&nbsp;=&nbsp;(<span style="color: #E2661A;">float</span>)location.getLatitude();
+&nbsp;&nbsp;&nbsp;&nbsp;currentLongitude&nbsp;=&nbsp;(<span style="color: #E2661A;">float</span>)location.getLongitude();
+&nbsp;&nbsp;&nbsp;&nbsp;currentAccuracy&nbsp;&nbsp;=&nbsp;(<span style="color: #E2661A;">float</span>)location.getAccuracy();
+&nbsp;&nbsp;&nbsp;&nbsp;currentProvider&nbsp;&nbsp;=&nbsp;location.getProvider();
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onProviderDisabled (<span style="color: #E2661A;">String</span> provider) { 
+&nbsp;&nbsp;&nbsp;&nbsp;currentProvider&nbsp;=&nbsp;<span style="color: #7D4793;">&quot;&quot;</span>;
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onProviderEnabled (<span style="color: #E2661A;">String</span> provider) { 
+&nbsp;&nbsp;&nbsp;&nbsp;currentProvider&nbsp;=&nbsp;provider;
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onStatusChanged (<span style="color: #E2661A;">String</span> provider, <span style="color: #E2661A;">int</span> status, Bundle extras) {
+&nbsp;&nbsp;}
+}
+</code></pre>
+
+                <h3>Comprobando si la geolocalización está disponible</h3>
+
+                <p>
+                Incluso si agregamos los permisos de geolocalización al bosquejo a través del selector, todavía puede ocurrir que el usuario no los otorge cuando ejecuta al app en su dispositivo. Por esta razón, tenemos que manejar la situación en la que la ubicación no está disponible. Para este fin disponemos de la función <code>checkPermission()</code>, que nos permite asegurarnos de que se haya otorgado un permiso dado y podamos acceder a la funcionalidad asociada:
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (hasPermission(<span style="color: #7D4793;">&quot;android.permission.ACCESS_FINE_LOCATION&quot;</span>)) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;Latitude: &quot;</span> + currentLatitude + <span style="color: #7D4793;">&quot;\n&quot;</span> +
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #7D4793;">&quot;Longitude: &quot;</span> + currentLongitude + <span style="color: #7D4793;">&quot;\n&quot;</span> +
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #7D4793;">&quot;Accuracy: &quot;</span> + currentAccuracy + <span style="color: #7D4793;">&quot;\n&quot;</span> +
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #7D4793;">&quot;Provider: &quot;</span> + currentProvider, 0, 0, <span style="color: #D94A7A;">width</span>, <span style="color: #D94A7A;">height</span>);
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(<span style="color: #7D4793;">&quot;No permissions to access location&quot;</span>, 0, 0, <span style="color: #D94A7A;">width</span>, <span style="color: #D94A7A;">height</span>);
+&nbsp;&nbsp;}
+}
+</code></pre>
+
+                 <p> El código completo de este ejemplo está disponible <a href="https://github.com/codeanticode/processing-android-tutorials/blob/master/location_permissions/ex1_gps" target="_black">aquí</ a >. Una vez que lo ejecute en un dispositivo con Android 6 o superior, el siguiente cuadro de diálogo que solicita los permisos de ubicación debería aparecer antes de mostrar cualquier otra cosa:
+                 </p>
+
+                 <p><img class="body-image-portrait" src="imgs/permission_dialog.png" alt="Diálogo de permiso"></p>
+
+                 <p>Después de permitir que tu aplicación acceda a la ubicación del dispositivo, obtendrás los valores de latitud y lenguaje a través del oyente de ubicación.
+                 </p>
+
+            </section>
+
+        </div>
+
+        <footer class="footinfo">
+            <small>&copy; The Processing Foundation. Processing para Android es un <a href="../../team.html">proyecto colaborativo</a>.</small>
+        </footer>
+    </body>
+</html>
+

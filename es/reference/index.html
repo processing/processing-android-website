@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+        <link rel="stylesheet" href="../../css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Processing para Android</title>
+    </head>
+    
+    <body>
+
+        <nav class="topnav">        
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="https://p5js.org/">p5.js</a></li>
+                <li><a href="https://py.processing.org/">Processing.py</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+            </ul>
+            <ul class="foundation">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav>
+
+        <header>
+            <h1 class="title">Processing para Android</h1>
+        </header>
+
+        <div class="group">
+
+            <nav class="site">
+                <img class="logo" src="../../imgs/logo.png" alt="Logo de Processing para Android">
+                <ul class="leftnav">
+                   <li><a href="../index.html">Principal</a></li>
+                   <li><a href="../install.html">Instalar</a></li>
+                   <li><a id="selected" href="../reference/index.html">Referencia</a></li>
+                   <li><a href="../tutorials/index.html">Tutoriales</a></li>
+                   <li><a href="../books/index.html">Libros</a></li>
+                   <li><a href="../gallery/index.html">Galería</a></li>
+                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
+                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
+                </ul>
+            </nav>
+            
+            <section class="container main-text">
+
+                <div class="lang">
+                  <a href="../../reference/index.html">EN</a>
+                  <a id="selected" href="index.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+            
+                <p>Casi toda la <a href="https://processing.org/reference/" target="_black"> API de procesamiento </a> se puede usar en el modo Android. Hay una serie de nuevas funciones y constantes que son exclusivas del modo Android en la versión 4.0+, especialmente relevantes para fondos de pantalla, caras de miras y aplicaciones de realidad virtual.
+                </p>
+            
+                <h3>Ambiente</h3>
+                <p>
+                  <a href="environment/display.html">displayDensity</a><br>
+                  <a href="environment/orientation.html">orientation()</a><br>
+                  <a href="environment/activity.html">getActivity()</a><br>
+                  <a href="environment/activity.html">getContext()</a><br>
+                  <a href="environment/activity.html">getFragmentManager()</a><br>
+                  <a href="environment/activity.html">getWindow()</a>
+                </p>
+                <br>
+
+                <h3>Eventos de sistema</h3>
+                <p>
+                  <a href="events/backpress.html">backPressed()</a><br>
+                </p>
+                <br>
+
+                <h3>Permisos</h3>
+                <p>
+                  <a href="permissions/query.html">hasPermission()</a><br>
+                  <a href="permissions/request.html">requestPermission()</a>
+                </p> 
+                <br>
+
+                <h3>Multitoque</h3>
+                <p>
+                  <a href="multitouch/touches.html">touches array</a><br>
+                  <a href="multitouch/events.html">touchEnded()</a><br>
+                  <a href="multitouch/events.html">touchMoved()</a><br>
+                  <a href="multitouch/events.html">touchStarted()</a>
+                </p> 
+                <br>
+
+                <h3>Teclado</h3>
+                <p>
+                  <a href="keyboard/virtual.html">closeKeyboard()</a><br>
+                  <a href="keyboard/virtual.html">openKeyboard()</a>
+                </p>
+                <br>
+
+                <h3>Fondos de pantalla</h3>
+                <p>
+                  <a href="wallpapers/offset.html">wallpaperHomeCount()</a><br>
+                  <a href="wallpapers/offset.html">wallpaperOffset()</a><br>
+                  <a href="wallpapers/preview.html">wallpaperPreview()</a>
+                </p>
+                <br>                
+
+                <h3>Caras de reloj</h3>
+                <p>
+                  <a href="wear/mode.html">wearAmbient()</a><br>
+                  <a href="wear/special.html">wearBurnIn()</a><br>
+                  <a href="wear/insets.html">wearInsets()</a><br>
+                  <a href="wear/mode.html">wearInteractive()</a><br>
+                  <a href="wear/special.html">wearLowBit()</a><br>
+                  <a href="wear/shape.html">wearRound()</a><br>
+                  <a href="wear/shape.html">wearSquare()</a>
+                </p>
+                <br>
+
+                <h3>Realidad virtual</h3>
+                <p>
+                  <a href="vr/renderers.html">STEREO</a><br>
+                  <a href="vr/renderers.html">MONO</a><br>
+                  <a href="vr/calculate.html">calculate()</a><br>  
+                  <a href="vr/camera.html">cameraUp()</a><br>
+                  <a href="vr/eye.html">eye()</a><br>
+                  <a href="vr/eye.html">getEyeMatrix()</a><br>
+                  <a href="vr/object.html">getObjectMatrix()</a>
+                </p>
+                <br>
+
+                <h3>API de Android</h3>
+                <p>
+                  La clase PApplet en el modo Android brinda algunas funciones de la API de Android subyacente a efectos de facilitar el maneko de notificaciones del sistema:<br><br>
+                  <a href="https://developer.android.com/reference/android/app/Activity.html#onActivityResult(int,%20int,%20android.content.Intent)" target="_black">onActivityResult()</a><br>
+                  <a href="https://developer.android.com/reference/android/app/Activity.html#onNewIntent(android.content.Intent)" target="_black">onNewIntent()</a>
+                </p>
+                <p>La API de fragmentos para agregr ítems de menu la barra del app también es disponible a través de PApplet:<br><br>
+                  <a href="https://developer.android.com/reference/android/support/v4/app/Fragment.html#onCreateOptionsMenu(android.view.Menu,%20android.view.MenuInflater)" target="_black">onCreateOptionsMenu()</a><br>
+                  <a href="https://developer.android.com/reference/android/support/v4/app/Fragment.html#onOptionsItemSelected(android.view.MenuItem)" target="_black">onOptionsItemSelected()</a><br>
+                  <a href="https://developer.android.com/reference/android/support/v4/app/Fragment.html#onCreateContextMenu(android.view.ContextMenu,%20android.view.View,%20android.view.ContextMenu.ContextMenuInfo)" target="_black">onCreateContextMenu()</a><br>
+                  <a href="https://developer.android.com/reference/android/support/v4/app/Fragment.html#onContextItemSelected(android.view.MenuItem)" target="_black">onContextItemSelected()</a><br>
+                  <a href="https://developer.android.com/reference/android/support/v4/app/Fragment.html#setHasOptionsMenu(boolean)" target="_black">setHasOptionsMenu()</a>
+                </p>
+                <br>                
+
+            </section>
+
+        </div>
+
+        <footer class="footinfo">
+            <small>&copy; The Processing Foundation. Processing para Android es un <a href="../team.html">proyecto colaborativo</a>.</small>
+        </footer>
+    </body>
+</html>
+

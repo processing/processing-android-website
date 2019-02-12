@@ -44,11 +44,18 @@
             </nav>
       
             <section class="container main-text">
+
+                <div class="lang">
+                  <a id="selected" href="display.html">EN</a>
+                  <a href="../../es/reference/environment/display.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
                 <h2>displayDensity</h2>
-                <p>The logical density of the display from getDisplayMetrics().density. According to Android's documentation: This is a scaling factor for the Density Independent Pixel unit, where one DIP is one pixel on an approximately 160 dpi screen (for example a 240x320, 1.5"x2" screen), providing the baseline of the system's display. Thus on a 160dpi screen this density value will be 1; on a 120 dpi screen it would be .75; etc.
+                <p>The logical density of the display from getDisplayMetrics().density from the Android API. According to Android's documentation: This is a scaling factor for the Density Independent Pixel unit, where one DIP is one pixel on an approximately 160 dpi screen (for example a 240x320, 1.5" screen), providing the baseline of the system's display. Thus on a 160dpi screen this density value will be 1; on a 120 dpi screen it would be .75; etc.
                 </p>
 
-                <p>It can be used to scale the graphical element in a sketch, like text and shapes, to present approximately the same size independently of the screen's dpi:
+                <p>This factor can be used to scale the graphical elements in a sketch, like text and shapes, to present approximately the same size independently of the screen's dpi:
                 </p>                
 
                 <pre><code>

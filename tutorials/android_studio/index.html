@@ -44,17 +44,23 @@
             </nav>
       
             <section class="container main-text">
+
+                <div class="lang">
+                  <a id="selected" href="index.html">EN</a>
+                  <a href="../../es/tutorials/android_studio/index.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
             	<h2>Developing with Android Studio</h2>
                 <p>Use Android Studio for advanced Android development with Processing's core library.</p>
 
                 <h3>General steps</h3>
 
                 <p>
-                You should only use <a href="https://developer.android.com/studio/index.html" target="_black">Android Studio</a> for Android development if you've already spent time learning how to develop Android applications using Android Studio (separately from Processing), and want to make use of the Processing core library. Android development in Android Studio is significantly more difficult than desktop Processing/Java development with Eclipse. Take time to learn it if you're going this route: get a book, read some Android development tutorials, check Google's <a href="https://developer.android.com/training/index.html" target="_black">developer materials</a>, etc.
-                </p>
+                <a href="https://developer.android.com/studio/index.html" target="_black">Android Studio</a> is the tool recommended by Google for Android development. If you've already have experience on how to develop Android applications using Android Studio (separately from Processing), and want to make use of the Processing core library in your Android Studio projects, this tutorial can be useful.</p>
 
                 <p>
-                In case you already know how to develop Android apps using this advanced IDE, it is not that difficult either. All our core code is bundled inside the processing-core.zip, which is inside the AndroidMode folder. You just need to copy this file as processing-core.jar and add it as a dependency to your project. Step by step procedure for Android Studio is as follows:</p>
+                All our core code is bundled inside the processing-core.zip, which is inside the AndroidMode folder. You just need to copy this file as processing-core.jar and add it as a dependency to your project. Step by step procedure for Android Studio is as follows:</p>
 
                 <p><b>1.</b> Create an Android project if you haven't already created one:</p>
                 <p><img class="body-image" src="imgs/1_new_project.png" alt="New project"></p>
@@ -144,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 <div class="butterbar">
-                The onRequestPermissionsResult() method in the main activity is needed in the case the app uses any <a href="https://developer.android.com/guide/topics/permissions/requesting.html#normal-dangerous">dangerous permissions</a>. If missing, the results of requesting the permission to the user will not reach the sketch, and it may fail to work properly. onNewIntent() is also needed so the sketch can handle intents sent to the main activity.</div>
+                The <code>onRequestPermissionsResult()</code> method in the main activity is needed in the case the app uses any <a href="https://developer.android.com/guide/topics/permissions/requesting.html#normal-dangerous">dangerous permissions</a>. If missing, the results of requesting the permission to the user will not reach the sketch, and it may fail to work properly. onNewIntent() is also needed so the sketch can handle intents sent to the main activity.</div>
 
 
                 <p><b>8.</b> Finally, create a simple layout for the main activity:</p> 

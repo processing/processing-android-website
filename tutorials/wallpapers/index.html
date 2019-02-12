@@ -44,6 +44,13 @@
             </nav>
       
             <section class="container main-text">
+
+                <div class="lang">
+                  <a id="selected" href="index.html">EN</a>
+                  <a href="../../es/tutorials/wallpapers/index.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
             	<h2>Wallpapers</h2>
                 <p>
                 Use the Android Mode to develop interactive live wallpapers.
@@ -51,7 +58,7 @@
 
                 <h3>What is a live wallpaper?</h3>
                 <p>
-                Live wallpapers are a special type of applications that generate animated and interactive backgrounds in the home screen of the device. Technically, they are an <a href="https://developer.android.com/reference/android/service/wallpaper/WallpaperService.html">Android Service</a>, designed to run for a long time in the background. With the Android mode in Processing, you don't need to worry about these low-level details, and instead focus on the drawing code. Virtually any 2D or 3D sketch can be built as a live wallpaper. All you need to do is to select the Wallpaper option under the Android menu:
+                Live wallpapers are a special type of applications that generate animated and interactive backgrounds in the home screen of the device. Technically, they are an <a href="https://developer.android.com/reference/android/service/wallpaper/WallpaperService.html" target="_black">Android Service</a>, designed to run for a long time in the background. With the Android mode in Processing, you don't need to worry about these low-level details, and instead focus on the drawing code. Virtually any 2D or 3D sketch can be built as a live wallpaper. All you need to do is to select the Wallpaper option under the Android menu:
                 </p>
 
                 <p><img class="body-image" src="imgs/wallpaper_selection.png" alt="Wallpaper selection"></p>
@@ -85,7 +92,7 @@
 &nbsp;&nbsp;currH&nbsp;=&nbsp;<span style="color: #006699;">random</span>(100);
 &nbsp;&nbsp;currB&nbsp;=&nbsp;<span style="color: #006699;">random</span>(100);
 }
-</code></pre>                
+</code></pre>
 
                 <p>We can now add <a href="https://processing.org/examples/easing.html" target="_black">easing</a> to smoothly transition between the colors:</p>
 
@@ -202,16 +209,15 @@ Sensor&nbsp;magnetometer;
                 <p>A couple of important things to note here:</p> 
 
                 <ul> 
-                <li>First, we get the context using <code>context = (Context) getComponent()</code> instead of <code>getActivity()</code>, as it is the case with regular apps, because there is no activity in the case of wallpapers.</li>
+                <li>First, we get the context using <code>context = getContext()</code> instead of <code>getActivity()</code>, as it is the case with regular apps, because there is no activity in the case of wallpapers.</li>
 
                 <li>The same event listener is used to get acceleration and the geomagnetic field, and we use the value returned by <code>event.sensor.getType()</code> to determine which sensor we are receiving values from in <code>onSensorChanged()</code>.</li>
 
-                <li>The rate to read the sensor data is set to <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_NORMAL">SENSOR_DELAY_NORMAL</a>, which is the slowest from all the default rates. It is important to keep battery use in wallpapers at a minimum, as they run in the background constantly. So, when using sensors is a good idea to keep a low update rate that it is still ok for the purpose of generating the background. In fact, you can set a custom rate by doing:
-
+                <li>The rate to read the sensor data is set to <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_NORMAL" target="_ black">SENSOR_DELAY_NORMAL</a>, which is the slowest from all the default rates. It is important to keep battery use in wallpapers at a minimum, as they run in the background constantly. So, when using sensors is a good idea to keep a low update rate that it is still ok for the purpose of generating the background. In fact, you can set a custom rate by doing:
 <pre><code>
 int READING_RATE = 100000; // time in us
 sensorManager.registerListener(listener, compass, READING_RATE);
-</code></pre>                
+</code></pre>
                 </li>
 
                 <p>The gravity and geomagnetic vectors encode all the information required to determine the orientation of the device in relation to the Earth's surface. The <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#getRotationMatrix(float[], float[], float[], float[])" target="_black"><code>getRotationMatrix()</code></a> computes the inclination and rotation matrices, from which we can obtain the orientation of the device in relation to the direction of the geomagnetic field with the <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#getOrientation(float[], float[])" target="_black">getOrientation()</a> function. The complete implementation of <code>onSensorChanged()</code> would read:</p>
@@ -269,7 +275,7 @@ sensorManager.registerListener(listener, compass, READING_RATE);
 
             <p><img class="body-image-portrait" src="imgs/compass_wallpaper.png" alt="Compass wallpaper"></p>
 
-            <p>The complete sketch code is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/wallpapers/ex2_compass" target="_black">here</a></p>
+            <p>The complete sketch code is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/wallpapers/ex2_compass" target="_black">here</a>.</p>
 
             </section>
         </div>

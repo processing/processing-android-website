@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+        <link rel="stylesheet" href="../../../css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Processing para Android</title>
+    </head>
+    
+    <body>
+
+        <nav class="topnav">        
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="https://p5js.org/">p5.js</a></li>
+                <li><a href="https://py.processing.org/">Processing.py</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+            </ul>
+            <ul class="foundation">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav>
+
+        <header>
+            <h1 class="title">Processing para Android</h1>
+        </header>
+
+        <div class="group">
+
+            <nav class="site">
+                <img class="logo" src="../../imgs/logo.png" alt="Logo de Processing para Android">
+                <ul class="leftnav">
+                   <li><a href="../../index.html">Principal</a></li>
+                   <li><a href="../../install.html">Instalar</a></li>
+                   <li><a href="../../reference/index.html">Referencia</a></li>
+                   <li><a id="selected" href="../../tutorials/index.html">Tutoriales</a></li>
+                   <li><a href="../../books/index.html">Libros</a></li>
+                   <li><a href="../../gallery/index.html">Galería</a></li>
+                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
+                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
+                </ul>
+            </nav>
+      
+            <section class="container main-text">
+
+                <div class="lang">
+                  <a href="../../../tutorials/android_studio/index.html">EN</a>
+                  <a id="selected" href="index.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
+                <h2>Programando con Android Studio </h2>
+                <p>Es posible usar Android Studio para el desarrollo avanzado de Android con la biblioteca principal de Processing.</p>
+
+                <h3>Pasos generales</h3>
+
+                <p>
+                <a href="https://developer.android.com/studio/index.html" target="_black">Android Studio</a> es la herramienta recomendada por Google para desarrollo en Android. Si ya tienes experiencia en con la programación de Android app usando Android Studio, y quisieras incorporar la biblioteca principal de Processing para Android en tus proyectos de Android Studio projects, entonces este tutorial puede serte de utilidad.</p>
+
+                <p>
+                Todo el código que define la API de Processing está incluido dentro de archivo processing-core.zip, que está dentro de la subcarpeta AndroidMode en la carpeta de modos dentro de la carpeta de bosquejos. Lo único que tienes que hacer es copiar este archivo como rocessing-core.jar y agregarlo como una dependencia a tu proyecto. El procedimiento paso a paso para hacer esto con Android Studio se detalla a continuación:</p>
+
+                <p><b>1.</b>Crea un proyecto Android si es que todavía no tienes uno:</p>
+                <p><img class="body-image" src="imgs/1_new_project.png" alt="Nuevo proyecto"></p>
+
+                <p><b>2.</b>Selecciona el dispositivo de objetivo:</p>
+                <p><img class="body-image" src="imgs/2_target.png" alt="Seleccionar objectivo"></p>
+
+                <p><b>3.</b>Agrega una activiadad vacía:</p>
+                <p><img class="body-image" src="imgs/3_add_activity.png" alt="Agregando una actividad"></p>
+
+                <p><b>4.</b> Ingresar el nombre para la clase de actividad principal y el archivo de diseño (layout):</p>
+                <p><img class="body-image" src="imgs/4_customize_activity.png" alt="Configurar actividad"></p>
+
+                <p><b>5.</b> Copia processing-core.zip (ubicado en la carpeta AndroidMode en Processing) a app/libs, renómbralo como processing-core.jar y agrégalo como una dependencia jar a el proyecto:</p>
+                <p><img class="body-image" src="imgs/5_module_settings.png" alt="Module settings"></p>
+
+                <p><b>6.</b> Una vez hecho todo lo anterior, escribe el código de tu bosquejo extendiendo la clase PApplet, por ejemplo:</p> 
+             
+<pre><code>
+// Sketch.java
+package tutorials.androidstudio.fragmentsv4;
+
+import processing.core.PApplet;
+
+public class Sketch extends PApplet {
+  public void settings() {
+    size(600, 600);
+  }
+
+  public void setup() { }
+
+  public void draw() {
+    if (mousePressed) {
+      ellipse(mouseX, mouseY, 50, 50);
+    }
+  }
+}
+</code></pre>
+
+                <p><b>7.</b> Inicializa el bosquejo en la actividad principal:</p> 
+
+<pre><code>
+package tutorials.androidstudio.fragmentsv4;
+
+import android.os.Bundle;
+import android.content.Intent;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.support.v7.app.AppCompatActivity;
+
+import processing.android.PFragment;
+import processing.android.CompatUtils;
+import processing.core.PApplet;
+
+public class MainActivity extends AppCompatActivity {
+  private PApplet sketch;
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    FrameLayout frame = new FrameLayout(this);
+    frame.setId(CompatUtils.getUniqueViewId());
+    setContentView(frame, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                                     ViewGroup.LayoutParams.MATCH_PARENT));
+
+    sketch = new Sketch();
+    PFragment fragment = new PFragment(sketch);
+    fragment.setView(frame, this);
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    if (sketch != null) {
+      sketch.onRequestPermissionsResult(
+      requestCode, permissions, grantResults);
+    }
+  }
+
+  @Override
+  public void onNewIntent(Intent intent) {
+    if (sketch != null) {
+      sketch.onNewIntent(intent);
+    }
+  }
+}
+</code></pre>
+
+                <div class = "butterbar">
+                El método <code>onRequestPermissionsResult()</code> en la actividad principal es necesario en caso de que la aplicación utilice cualquier <a href="https://developer.android.com/guide/topics/permissions/requesting.html#normal-dangerous">permiso peligroso</a>. Si hiciera falta, el bosquejo no será notificado de los resultados de solicitar el permiso al usuario, con lo cual es posible que no funcione correctamente. <code>onNewIntent()</code> también es necesario para que el bosquejo pueda manejar los intentos enviados a la actividad principal.</div>
+
+                <p><b>8.</b> Finalmente, crea un diseño (layout) mínimo para la actividad principal:</p>
+
+<pre><code>
+&lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="tutorials.androidstudio.fragmentsv4.MainActivity" >
+
+    &lt;FrameLayout android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+&lt;/RelativeLayout>   
+</code></pre>
+
+                <p>El proyecto completo de Android Studio está disponible <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/android_studio/ex2_fragmentsv4" target="_black">aquí</a>.</p>
+
+                <h3>Usando paquetes de Bintray</h3>
+
+                <p>
+                La biblioteca principal de Processing también está disponible como un paquete en <a href="https://bintray.com/p5android/processing-android/processing-core" target="_black">Bintray</a>. Este paquete se puede importar fácilmente a un proyecto de Gradle usando la siguiente especificación de dependencia:</p>
+
+<pre><code>
+compile 'org.p5android:processing-core:x.y.z'
+</code></pre>
+
+                <p>donde x.y.z es la versión que quisieras utilizar. En Android Studio, el paquete principal de Processing aparecerá como una dependencia de módulo de la siguiente manera: </p>
+                <p><img class="body-image" src="imgs/bintray_package.png" alt="Bintray package"></p>
+
+            </section>
+
+        </div>
+
+        <footer class="footinfo">
+            <small>&copy; The Processing Foundation. Processing para Android es un <a href="../../team.html">proyecto colaborativo</a>.</small>
+        </footer>
+    </body>
+</html>
+

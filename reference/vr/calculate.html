@@ -44,8 +44,15 @@
             </nav>
       
             <section class="container main-text">
+
+                <div class="lang">
+                  <a id="selected" href="calculate.html">EN</a>
+                  <a href="../../es/reference/vr/calculate.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
                <h2>calculate()</h2>
-                <p>The draw() function in a VR app is called twice per frame, one for each eye. This means that code in draw() that only needs to be run once, will be run two times instead. We can put this code inside the calculate() function, which is called once per frame, right before draw().</p>
+                <p>The draw() function in a VR app is called twice per frame, one for each eye. This means that code in draw() that only needs to be run once, will be run two times instead, which can result in errors in the animation or other aspects of the sketch. We can put this code inside the calculate() function, which is called once per frame, right before draw().</p>
 
 <pre><code>
 <span style="color: #33997E;">import</span> processing.vr.*;

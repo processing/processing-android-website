@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+        <link rel="stylesheet" href="../../../css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Processing para Android</title>
+    </head>
+    
+    <body>
+
+        <nav class="topnav">        
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="https://p5js.org/">p5.js</a></li>
+                <li><a href="https://py.processing.org/">Processing.py</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+            </ul>
+            <ul class="foundation">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav>
+
+        <header>
+            <h1 class="title">Processing para Android</h1>
+        </header>
+
+        <div class="group">
+
+            <nav class="site">
+                <img class="logo" src="../../imgs/logo.png" alt="Logo de Processing para Android">
+                <ul class="leftnav">
+                   <li><a href="../../index.html">Principal</a></li>
+                   <li><a href="../../install.html">Instalar</a></li>
+                   <li><a href="../../reference/index.html">Referencia</a></li>
+                   <li><a id="selected" href="../../tutorials/index.html">Tutoriales</a></li>
+                   <li><a href="../../books/index.html">Libros</a></li>
+                   <li><a href="../../gallery/index.html">Galería</a></li>
+                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
+                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
+                </ul>
+            </nav>
+      
+            <section class="container main-text">
+
+                <div class="lang">
+                  <a href="../../../tutorials/wallpapers/index.html">EN</a>
+                  <a id="selected" href="index.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
+                <h2>Fondos de Pantalla</h2>
+                <p>
+                El modo Android nos ofrece la posibilidad de desarrollar fondos de pantalla interactivos animados.
+                </p>
+
+                <h3>¿Qué es un fondo de pantalla animado?</h3>
+                <p>
+                Los fondos de pantalla animado son un tipo especial de apps de Android que generan fondos animados e interactivos en la pantallas de inicio y bloqueo del dispositivo. Técnicamente, son un <a href="https://developer.android.com/reference/android/service/wallpaper/WallpaperService.html" target="_black">Servicio de Android</a>, diseñado para ejecutarse sin interrupción en segundo plano. Gracias al modo Android en Processing, no ncesitamos preocuparnos por los detalles técnicos de como se crean y configuran estos servicios y, en cambio, podmeos concentrarnos en el código de dibujo. Virtualmente cualquier bosquejo 2D o 3D se puede ejecutar como un fondo de pantalla animado. Todo lo que necesitas hacer es seleccionar la opción de "wallscreen" en el menú de Android:
+                </p>
+
+                <p><img class="body-image" src="imgs/wallpaper_selection.png" alt="Seleccionando wallpapers"></p>
+
+                <h3>Creando un fondo de pantalla</h3>
+
+                <p>
+                Comencemos escribiendo un fondo de pantalla muy sencillo que sólamente genere una transición contínua entre colores de fomdp seleccionados al azar. Usaremos el <a href="https://processing.org/reference/colorMode_.html" target="_black"> modo de color HSB </a> para crear transiciones suaves en el tono y la saturación de colores consecutivos. Podemos probar este bosquejo usando el modo Java primero, para averiguar la sincronización correcta de las transiciones. En nuestra primera versión, simplemente cambiamos el tono y la saturación cada 5 segundos sin ninguna transición:
+                </p>
+
+<pre><code>
+<span style="color: #E2661A;">float</span> currH, currB;
+<span style="color: #E2661A;">int</span> lastChange = 0;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">size</span>(400, 400);
+&nbsp;&nbsp;<span style="color: #006699;">colorMode</span>(<span style="color: #718A62;">HSB</span>, 100);
+&nbsp;&nbsp;currH&nbsp;=&nbsp;100;
+&nbsp;&nbsp;currB&nbsp;=&nbsp;100;
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(currH, currB, 100);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (5000 &lt; <span style="color: #006699;">millis</span>() - lastChange) { 
+&nbsp;&nbsp;&nbsp;&nbsp;pickNextColor();
+&nbsp;&nbsp;&nbsp;&nbsp;lastChange&nbsp;=&nbsp;<span style="color: #006699;">millis</span>();
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">void</span> pickNextColor() {
+&nbsp;&nbsp;currH&nbsp;=&nbsp;<span style="color: #006699;">random</span>(100);
+&nbsp;&nbsp;currB&nbsp;=&nbsp;<span style="color: #006699;">random</span>(100);
+}
+</code></pre>
+
+                <p>Tambiém podemos agregar <a href="https://processing.org/examples/easing.html" target="_black">suavizado</a> para obtener una transición contínua entre los colores:</p>
+
+<pre><code>
+<span style="color: #E2661A;">float</span> currH, currB;
+<span style="color: #E2661A;">float</span> nextH, nextB;
+<span style="color: #E2661A;">float</span> easing = 0.001;
+<span style="color: #E2661A;">int</span> lastChange = 0;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">size</span>(400, 400);
+&nbsp;&nbsp;<span style="color: #006699;">colorMode</span>(<span style="color: #718A62;">HSB</span>, 100);
+&nbsp;&nbsp;currH&nbsp;=&nbsp;nextH&nbsp;=&nbsp;100;
+&nbsp;&nbsp;currB&nbsp;=&nbsp;nextB&nbsp;=&nbsp;100;
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(currH, currB, 100);
+&nbsp;&nbsp;updateCurrColor();
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (5000 &lt; <span style="color: #006699;">millis</span>() - lastChange) { 
+&nbsp;&nbsp;&nbsp;&nbsp;pickNextColor();
+&nbsp;&nbsp;&nbsp;&nbsp;lastChange&nbsp;=&nbsp;<span style="color: #006699;">millis</span>();
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">void</span> pickNextColor() {
+&nbsp;&nbsp;nextH&nbsp;=&nbsp;<span style="color: #006699;">random</span>(100);
+&nbsp;&nbsp;nextB&nbsp;=&nbsp;<span style="color: #006699;">random</span>(100);
+}
+
+<span style="color: #33997E;">void</span> updateCurrColor() {
+&nbsp;&nbsp;<span style="color: #666666;">// Easing between current and next colors</span>
+&nbsp;&nbsp;currH&nbsp;+=&nbsp;easing&nbsp;*&nbsp;(nextH&nbsp;-&nbsp;currH);
+&nbsp;&nbsp;currB&nbsp;+=&nbsp;easing&nbsp;*&nbsp;(nextB&nbsp;-&nbsp;currB);
+}
+</code></pre>
+
+                <p>Una vez que estemos conformes con la transición y los tiempos de suavizado, debemos reemplazar <code>size(400, 400)</code> con <code>fullScreen()</code> antes de ejecutar el bosquejo en el dispositivo para asegurarnos de que el fondo de pantalla utilice todo el área de la pantalla del dispositivo.</p>
+
+                <p>Una vez que se haya instalado el bosquejo del fondo de pantalla en el dispositivo, no se mostrará de inmediato. Necesitamos abrir el selector de fondo de pantalla y buscar nuestro bosquejo entre los demás fondos de pantalla disponibles. El selector de fondo de pantalla se verá diferente según la versión de Android en su dispositivo y qué otros fondos de pantalla están instalados, en Android 5.0 y más recientes debería aparecer como sigue:</p>
+
+                <p><img class="body-image-portrait" src="imgs/wallpaper_selector.png" alt="Wallpaper selector"></p>
+
+                <h3>Uso de los datos de los sensores en el fondo de pantalla</h3>
+
+                <p>
+                En el <a href="../sensors/index.html" target="_black"> tutorial de sensores </a> vimos cómo utilizar la API del sensores en Android para leer los valores de aceleración. Podemos usar la misma técnica para obtener la información necesaria para implementar una brújula. En este caso, necesitamos datos del sensor geomagnético así como también del acelerómetro para determinar la orientación del dispositivo con respecto al eje magnético de la Tierra. Podemos comenzamos con el siguiente código de base:
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> android.content.Context;
+<span style="color: #33997E;">import</span> android.hardware.Sensor;
+<span style="color: #33997E;">import</span> android.hardware.SensorManager;
+<span style="color: #33997E;">import</span> android.hardware.SensorEvent;
+<span style="color: #33997E;">import</span> android.hardware.SensorEventListener;
+
+Context&nbsp;context;
+SensorManager&nbsp;manager;
+SensorListener&nbsp;listener;
+Sensor&nbsp;accelerometer;
+Sensor&nbsp;magnetometer;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P2D</span>);
+&nbsp;&nbsp;orientation(PORTRAIT);
+&nbsp;&nbsp;
+&nbsp;&nbsp;context&nbsp;=&nbsp;getContext();&nbsp;&nbsp;
+&nbsp;&nbsp;listener&nbsp;=&nbsp;<span style="color: #33997E;">new</span> SensorListener();
+&nbsp;&nbsp;manager&nbsp;=&nbsp;(SensorManager)context.getSystemService(Context.SENSOR_SERVICE);
+&nbsp;&nbsp;accelerometer&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+&nbsp;&nbsp;magnetometer&nbsp;&nbsp;=&nbsp;manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+&nbsp;&nbsp;manager.registerListener(listener,&nbsp;accelerometer,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);
+&nbsp;&nbsp;manager.registerListener(listener,&nbsp;magnetometer,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);&nbsp;&nbsp;
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(255);
+}
+
+<span style="color: #33997E;">void</span> resume() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;manager.registerListener(listener,&nbsp;accelerometer,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);
+&nbsp;&nbsp;&nbsp;&nbsp;manager.registerListener(listener,&nbsp;magnetometer,&nbsp;SensorManager.SENSOR_DELAY_NORMAL);&nbsp;&nbsp;
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">void</span> pause() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (manager != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;manager.unregisterListener(listener);
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">class</span> SensorListener <span style="color: #33997E;">implements</span> SensorEventListener {
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span>[] gravity = <span style="color: #33997E;">new</span> <span style="color: #E2661A;">float</span>[3];
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span>[] geomagnetic = <span style="color: #33997E;">new</span> <span style="color: #E2661A;">float</span>[3];
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span>[] I = <span style="color: #33997E;">new</span> <span style="color: #E2661A;">float</span>[16];
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span>[] R = <span style="color: #33997E;">new</span> <span style="color: #E2661A;">float</span>[16];
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span> orientation[] = <span style="color: #33997E;">new</span> <span style="color: #E2661A;">float</span>[3]; 
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (event.accuracy == SensorManager.SENSOR_STATUS_ACCURACY_LOW) <span style="color: #33997E;">return</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (event.sensor.getType() ==  Sensor.TYPE_MAGNETIC_FIELD) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">arrayCopy</span>(event.values, geomagnetic);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (event.sensor.getType() ==  Sensor.TYPE_ACCELEROMETER) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">arrayCopy</span>(event.values, gravity);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onAccuracyChanged(Sensor sensor, <span style="color: #E2661A;">int</span> accuracy) { }
+}              
+</code></pre>
+
+                <p>Un par de cosas importantes a tener en cuenta:</p>
+
+                <ul>
+                <li>Primero, obtenemos el contexto usando <code>context = getContext()</code> en lugar de <code>getActivity()</code>, como es el caso de las apps normales, porque hay una actividad principal en el caso de fondos de pantalla, es solo un servicio que sí tiene un contexto.</li>
+
+                <li>El mismo detector de eventos se usa para obtener la aceleración y el campo geomagnético, y usamos el valor devuelto por <code>event.sensor.getType()</code> para determinar de qué sensor estamos recibiendo los valores en <code >onSensorChanged()</code>. </li>
+
+                <li> La velocidad para leer los datos del sensor se establece con el argumento <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#SENSOR_DELAY_NORMAL" target="_ black">SENSOR_DELAY_NORMAL</a>, que es la más lenta de todas las velocidades pre-definidas. Es muy importante mantener al mínimo el uso de la batería en fondos de pantalla, ya que se ejecutan en segundo plano constantemente. Por lo tanto, cuando se utilizan sensores en un fondo de pantalla es una buena idea mantener una tasa de actualización lo más baja posible para el propósito de generar el fondo. De hecho, podemos establecer una velocidad específica haciendo:
+<pre><code>
+int READING_RATE = 100000; // time in us
+sensorManager.registerListener(listener, compass, READING_RATE);
+</code></pre>
+                </li>
+
+                <p> Los vectores de gravedad y geomagnéticos codifican toda la información requerida para determinar la orientación del dispositivo en relación con la superficie de la Tierra. El <a href="https://developer.android.com/reference/android/hardware/SensorManager.html#getRotationMatrix (float [], float [], float [], float [])" target="_ black"><code>getRotationMatrix()</code></a> calcula las matrices de inclinación y rotación, a partir de las cuales podemos obtener la orientación del dispositivo en relación con la dirección del campo geomagnético con <a href = "https://developer.android.com/reference/android/hardware/SensorManager.html#getOrientation(float[], float[])" target ="_black ">getOrientation()</a>. La implementación completa de <code>onSensorChanged()</code> diría:</p>
+
+<pre><code>
+&nbsp;&nbsp;<span style="color: #33997E;">public</span> <span style="color: #33997E;">void</span> onSensorChanged(SensorEvent event) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (event.accuracy == SensorManager.SENSOR_STATUS_ACCURACY_LOW) <span style="color: #33997E;">return</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (event.sensor.getType() ==  Sensor.TYPE_MAGNETIC_FIELD) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">arrayCopy</span>(event.values, geomagnetic);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (event.sensor.getType() ==  Sensor.TYPE_ACCELEROMETER) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">arrayCopy</span>(event.values, gravity);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (SensorManager.getRotationMatrix(R, I, gravity, geomagnetic)) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SensorManager.getOrientation(R,&nbsp;orientation);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;azimuth&nbsp;+=&nbsp;easing&nbsp;*&nbsp;(orientation[0]&nbsp;-&nbsp;azimuth);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pitch&nbsp;+=&nbsp;easing&nbsp;*&nbsp;(orientation[1]&nbsp;-&nbsp;pitch);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roll&nbsp;+=&nbsp;easing&nbsp;*&nbsp;(orientation[2]&nbsp;-&nbsp;roll);
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;}
+</code></pre>
+
+            <p>El último paso es implementar el código de dibujo para la brújula. Una opción sencilla podría ser la siguiente:</p>
+
+<pre><code>
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(255);
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span> cx = <span style="color: #D94A7A;">width</span> * 0.5;
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span> cy = <span style="color: #D94A7A;">height</span> * 0.4;
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span> radius = 0.8 * cx;
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(cx, cy);
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">noFill</span>();
+&nbsp;&nbsp;<span style="color: #006699;">stroke</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">strokeWeight</span>(2);
+&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(0, 0, radius*2, radius*2);
+&nbsp;&nbsp;<span style="color: #006699;">line</span>(0, -cy, 0, -radius);
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(192, 0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();    
+&nbsp;&nbsp;<span style="color: #006699;">rotate</span>(-azimuth);
+&nbsp;&nbsp;<span style="color: #006699;">beginShape</span>();
+&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(-30, 40);
+&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(30, 40);
+&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(0, -radius);
+&nbsp;&nbsp;<span style="color: #006699;">endShape</span>();
+}
+</code></pre>
+
+             <p>Esto debería darnos como resultado el siguiente fondo de pantalla:</p>
+
+             <p><img class="body-image-portrait" src="imgs/compass_wallpaper.png" alt="Compass wallpaper"></p>
+
+             <p>El código completo del bosquejo está disponible <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/wallpapers/ex2_compass" target="_black">aquí</a>.</p>
+
+            </section>
+        </div>
+
+        <footer class="footinfo">
+            <small>&copy; The Processing Foundation. Processing for Android is a <a href="../../team.html">collaborative project</a>.</small>
+        </footer>
+    </body>
+</html>
+
