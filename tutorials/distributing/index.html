@@ -44,10 +44,17 @@
             </nav>
       
             <section class="container main-text">
+
+                <div class="lang">
+                  <a id="selected" href="index.html">EN</a>
+                  <a href="../../es/tutorials/distributing/index.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
             	<h2>Distributing apps</h2>
                 <p>In this tutorial we will cover the steps to publish your Processing sketch as an app in the Google Play store.</p>
 
-                <p>Before packaging the app for release, it is highly recommended that you set the icons for your app, wallpaper, or watch face, otherwise Processing will use a set of default generic icons. It is very important that you also choose a package name that will uniquely identify your app in the store.</p>
+                <p>Before packaging the app for release, it is required that you set the icons for your app, wallpaper, or watch face, because Processing will not use the default generic icons for the release package of your app. It is very important that you also choose a package name that will uniquely identify your app in the store.</p>
 
                 <h3>Setting custom icons</h3>
                 <p>
@@ -58,14 +65,14 @@
                 </p>
 
                 <h3>Setting version and package name</h3>
-                The package name is a string of text that often looks something like "com.example.helloworld", and follows the <a href="https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html" target="_black">Java package naming convention</a> where the app name ("helloworld") is last, and preceeded by the website of the company or person developing the app in reverse order ("com.example"). Processing constructs this package name automatically by prepending "processing.test" to the sketch name. You can set your own package name by editing the <a href="https://developer.android.com/guide/topics/manifest/manifest-intro.html" target="_black">manifest file</a> that Processing generates in the sketch folder after you run it for the first time from the PDE (either on a device or in the emulator). You can also set the version code and version name. For example, in the following manifest file, the package name is "com.example.sketch", version code 1, and version name 0.5.4:
+                The package name is a string of text that often looks something like "com.example.helloworld", and follows the <a href="https://docs.oracle.com/javase/tutorial/java/package/namingpkgs.html" target="_black">Java package naming convention</a> where the app name ("helloworld") is last, and preceeded by the website of the company or person developing the app in reverse order ("com.example"). Processing constructs this package name automatically by prepending "processing.test" to the sketch name. You can set your own package name by editing the <a href="https://developer.android.com/guide/topics/manifest/manifest-intro.html" target="_black">manifest file</a> that Processing generates in the sketch folder after you run it for the first time from the PDE (either on a device or in the emulator). You can also set the version code and version name. For example, in the following manifest file, the package name is "com.example.helloworld", version code 1, and version name 0.5.4:
                 <p> 
 
 <pre>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;manifest xmlns:android="http://schemas.android.com/apk/res/android" 
           android:versionCode="10" 
-          android:versionName="0.5.4" package="com.example.sketch"&gt;
+          android:versionName="0.5.4" package="com.example.helloworld"&gt;
     &lt;uses-sdk android:minSdkVersion="16" android:targetSdkVersion="26"/&gt;
     &lt;application android:icon="@drawable/icon" android:label=""&gt;
         &lt;activity android:name=".MainActivity" 
@@ -96,11 +103,11 @@
                 <p><img class="body-image" src="imgs/kestore_manager.png" alt="Keystore manager"></p>
 
                 <p>
-                Remember this password, as you will have to use it every time you export a new signed package. However, you can reset it and create a new key.
+                Remember this password, as you will have to use it every time you export a new signed package. Even though you can reset it and create a new key, as long as an app is identified with the same package name, it has to have the same release key.
                 </p>
 
                 <p>
-                The signed (and aligned) package will be saved in the build subfolder inside the sketch's folder, under the name [Sketch name in lowercase]_release_signed_aligned.apk. Once you have generated this file, you can follow the <a href="https://developer.android.com/distribute/googleplay/start.html">instructions from Google</a> to complete the publishing process.
+                The signed (and aligned) package will be saved in the build subfolder inside the sketch's folder, under the name [Sketch name in lowercase]_release_signed_aligned.apk. Once you have generated this file, you can follow the <a href="https://developer.android.com/distribute/googleplay/start.html">instructions from Google</a> to complete the publishing process of your app on Google Play.
                 </p>
 
             </section>

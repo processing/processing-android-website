@@ -44,6 +44,13 @@
             </nav>
       
             <section class="container main-text">
+                
+                <div class="lang">
+                  <a id="selected" href="index.html">EN</a>
+                  <a href="../../es/tutorials/watchfaces/index.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
             	<h2>Watch Faces</h2>
                 <p>
                 Use the Android Mode to develop interactive watch faces.
@@ -51,20 +58,15 @@
        
                 <h3>Smartwatches</h3>
                 <p>
-                <a href="https://www.android.com/wear/">Android Wear</a> allows you to create custom smartwatch faces that can represent time in original ways by taking advantage of the display and interaction capabilities of these devices. You can also obtain body sensors data (steps, hearth rate) to visualize the physical activity of the user. Developing watch faces require some special consideration though, due to the limitations of these devices in terms of screen size and battery life. Google has published some guidelines for <a href="https://developer.android.com/training/wearables/watch-faces/index.html">watch face design</a>.
+                <a href="https://www.android.com/wear/" target="_black">Android Wear</a> allows you to create custom smartwatch faces that can represent time in original ways by taking advantage of the display and interaction capabilities of these devices. You can also obtain body sensors data (steps, hearth rate) to visualize the physical activity of the user. Developing watch faces require some special consideration though, due to the limitations of these devices in terms of screen size and battery life. Google has published some guidelines for <a href="https://developer.android.com/training/wearables/watch-faces/index.html" target="_black">watch face design</a>.
                 </p>
 
                 <h3>Getting ready</h3>
                 <p>
-                First of all, developing for a smartwatch requires to pair the watch with a phone that will function as a bridge between the computer you are runnig Processing on, and the watch itself. To do so, you have to setup the devices for debugging over Bluetooth, which is explained <a href="https://developer.android.com/training/wearables/apps/bt-debugging.html">here</a>. Once you have done it, you can select the Watch Face option in the Android menu:
+                First of all, developing for a smartwatch requires to pair the watch with a phone that will function as a bridge between the computer you are runnig Processing on, and the watch itself. To do so, you have to setup the devices for debugging over Bluetooth, which is explained <a href="https://developer.android.com/training/wearables/apps/bt-debugging.html" target="_black">here</a>. Once you have done it, you can select the Watch Face option in the Android menu:
                 </p>
 
                 <p><img class="body-image" src="imgs/watchface_selection.png" alt="Watch face selection"></p>
-
-                <p>
-                After setting up BT debugging and selecting the Watch Face option in Processing, you will not see the watch in the list of connected devices. This is ok, because the watch faces are not installed directly on the watch, but first on the phone paired to it and then get copied automatically over BT into the watch.
-                </p>
-
 
                 <h3>A very simple watch face</h3>
                 <p>
@@ -91,7 +93,7 @@
 </code></pre>
 
                 <p>
-                A couple of things to observe in this code is the use of a frame rate of 1 because the text only changes once every second, so it there is no need to update the screen any faster (which consumes more battery). Also, the watch face is drawn only if the built-in function <code>wearAmbient()</code> returns false. The reason for this is that, in the contrary, it returns true, then it means that the person wearing the watch is not looking at it, so it switches to ambient (or always-on) mode in order to save battery. In ambient mode, the display is updated only once every minute, and <a href="https://www.google.com/design/spec-wear/patterns/interactive-watch-faces.html#interactive-watch-faces-square-round-devices">it is recommended</a> to keep most of the screen black and render only a simplified version of the watch face.</p> 
+                A couple of things to observe in this code is the use of a frame rate of 1 because the text only changes once every second, so it there is no need to update the screen any faster (which consumes more battery). Also, the watch face is drawn only if the built-in function <code>wearAmbient()</code> returns false. The reason for this is that, in the contrary, it returns true, then it means that the person wearing the watch is not looking at it, so it switches to ambient (or always-on) mode in order to save battery. In ambient mode, the display is updated only once every minute, and <a href="https://www.google.com/design/spec-wear/patterns/interactive-watch-faces.html#interactive-watch-faces-square-round-devices" target="_black">it is recommended</a> to keep most of the screen black and render only a simplified version of the watch face.</p> 
 
                 <p>Also, we use the <code>wearInsets()</code> function to get the insets of the screen. In particular, the bottom inset helps to properly center the sketch's output in watches that have a "chin" in the bottom of the screen, like the Moto 360, so the entire frame is shifted downwards by half of that value in order to be properly centered. Another important built-in variable that we are not using in this case is <code>isRound</code>, which tells you whether the shape of the watch is round or square. For a complete list of all the built-in variables available for watch faces, please take a look at the <a href="../../reference/index.html" target="_black">reference page</a>.
                 </p>
@@ -147,7 +149,7 @@
 }
 </code></pre>
 
-                <p>Let's make the watch vibrate when a dot is swallowed by the black tide of time! In order to access the <a href="https://developer.android.com/reference/android/os/Vibrator.html" target="_black">vibrator</a> in the watch, we need to enable the appropriate permission. We do this by opening the "Sketch Permissions" option under the Android menu and selecting the appropriate permission:
+                <p>Let's make the watch vibrate when a dot is reached by the black color. In order to access the <a href="https://developer.android.com/reference/android/os/Vibrator.html" target="_black">vibrator</a> in the watch, we need to enable the appropriate permission. We do this by opening the "Sketch Permissions" option under the Android menu and selecting the appropriate permission:
                 </p>
 
                 <p><img class="body-image" src="imgs/vibrate_permissions.png" alt="Watch face selection"></p>
@@ -169,9 +171,9 @@ Vibrator&nbsp;vibrator;
 &nbsp;&nbsp;Context&nbsp;context&nbsp;=&nbsp;getContext();
 &nbsp;&nbsp;vibrator&nbsp;=&nbsp;(Vibrator)&nbsp;context.getSystemService(Context.VIBRATOR_SERVICE);
 }
-</code></pre>                
+</code></pre>       
 
-                <p>The vibrator() method allows us to set a vibration for a period of time expressed in milliseconds, so for half second vibration:</p>
+                <p>The <code>vibrador()</code> method allows us to set a vibration for a period of time expressed in milliseconds, so for half second vibration:</p>
 
 <pre><code>                
 &nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = dots.<span style="color: #006699;">size</span>()-1; i &gt;= 0; i--) {
@@ -247,7 +249,7 @@ SensorListener&nbsp;listener;
 }
 </code></pre>    
 
-                <p>And finally, we can add some font initialization in setup(), and use the step count values in the draw function, for example here simply to print them as text:</p>
+                <p>And finally, we can add some font initialization in <code>setup()</code>, and use the step count values in the draw function, for example here simply to print them as text:</p>
   
 <pre><code>
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {

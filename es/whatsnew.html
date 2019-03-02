@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+        <link rel="stylesheet" href="../css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Processing para Android</title>
+    </head>
+
+    <body>
+
+        <nav class="topnav">
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="https://p5js.org/">p5.js</a></li>
+                <li><a href="https://py.processing.org/">Processing.py</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+            </ul>
+            <ul class="foundation">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav>
+
+        <header>
+            <h1 class="title">Processing para Android</h1>
+        </header>
+
+        <div class="group">
+
+            <nav class="site">
+                <img class="logo" src="imgs/logo.png" alt="Logo de Processing para Android">
+                <ul class="leftnav">
+                   <li><a href="index.html">Principal</a></li>
+                   <li><a href="install.html">Instalar</a></li>
+                   <li><a href="reference/index.html">Referencia</a></li>
+                   <li><a href="tutorials/index.html">Tutoriales</a></li>
+                   <li><a href="books/index.html">Libros</a></li>
+                   <li><a href="gallery/index.html">Galería</a></li>
+                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Foro</a></li>
+                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
+                </ul>
+            </nav>
+
+            <section class="container main-text">
+
+                <div class="lang">
+                  <a href="../whatsnew.html">EN</a>
+                  <a id="selected" href="whatsnew.html">ES</a>
+                </div>
+                <hr style="clear:both;">   
+
+                <h2> Novedades en la versión 4 </h2>
+                <p> La versión 4.0 del modo Android introduce numerosos cambios y actualizaciones. Lo más importante es que esta versión del modo permite crear fondos de pantalla animados, caras de relojes, y aplicaciones de realidad virtual.</p>
+
+                <h2>Versiones de Android requeridas</h2>
+                <p>
+                Para instalar tus bosquejos como aplicaciones normales o como fondos de pantalla animados, necesitas un dispositivo con Android 4.2 o superior. Para instalar aplicaciones VR, necesitas al menos Android 4.4. Y para ejecutar tu bosquejo como caras de reloj, necesitas un reloj con Android Wear 2.0 o más reciente.
+                </p>
+
+                <h2>Ejecutando bosquejos creados con la versión 3</h2>
+                <p>
+                Si tienes bosquejos que fueron creados con la versión 3.x del modo Android, deberás eliminar manualmente el archivo AndroidManifest.xml en la carpeta del bosquejo, por lo que el modo creará un nuevo manifiesto compatible. No te olvides de configurar nuevamente los permisos requeridos por tu aplicación usando el selector de permisos en el PDE.
+                </p>
+
+                <h2>Sistema de compilación de Gradle</h2>
+                <p>
+                El modo Android ahora usa Gradle como su sistema de compilación, después de que el soporte para ant fuese removido del SDK de Android. Al ejecutar tu bosquejos desde Processing, además de ver diferentes mensajes en la consola durante la compilación del código, no deberías notar ninguna otra diferencia. Sin embargo, esto tiene implicaciones al exportar tu proyecto. Anteriormente, el resultado de la exportación era un proyecto de ant que se podía importar a Eclipse las herramientas de desarrollo de Android (ADT). Google ya no soporta ADT, ya que Android Studio es el entorno de desarrollo predeterminado para Android. La opción de proyecto de exportación en el PDE ahora creará un proyecto de Gradle que se puede compilar directamente desde la línea de comandos usando el Gradle Wrapper incluido, o importar a Android Studio.
+                </p>
+            </section>
+
+        </div>
+
+        <footer class="footinfo">
+            <small>&copy; The Processing Foundation. Processing para Android es un <a href="team.html">proyecto colaborativo</a>.</small>
+        </footer>
+    </body>
+</html>

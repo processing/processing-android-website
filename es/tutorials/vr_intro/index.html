@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+        <link rel="stylesheet" href="../../../css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Processing para Android</title>
+    </head>
+    
+    <body>
+
+        <nav class="topnav">        
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="https://p5js.org/">p5.js</a></li>
+                <li><a href="https://py.processing.org/">Processing.py</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+            </ul>
+            <ul class="foundation">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav>
+
+        <header>
+            <h1 class="title">Processing para Android</h1>
+        </header>
+
+        <div class="group">
+
+            <nav class="site">
+                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
+                <ul class="leftnav">
+                   <li><a href="../../index.html">Home</a></li>
+                   <li><a href="../../install.html">Install</a></li>
+                   <li><a href="../../reference/index.html">Reference</a></li>
+                   <li><a id="selected" href="../../tutorials/index.html">Tutorials</a></li>
+                   <li><a href="../../books/index.html">Books</a></li>
+                   <li><a href="../../gallery/index.html">Gallery</a></li>
+                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
+                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
+                </ul>
+            </nav>
+      
+            <section class="container main-text">
+
+                <div class="lang">
+                  <a href="../../../tutorials/vr_intro/index.html">EN</a>
+                  <a id="selected" href="index.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
+                <h2>Introducción a VR</h2>
+                <p>
+                Demos los primeros pasos con Google VR para escribir aplicaciones inmersivas utilizando Processing.
+                </p>
+
+                <h3>Google VR</h3>
+                <p>
+                <a href="https://vr.google.com/" target="_black">La plataforma Google VR</a> nos permite usar nuestro teléfono inteligente como un portal a la realidad virtual. El modo Android es compatible con Google <a href="https://vr.google.com/cardboard/" target="_black">Cardboard</a> y <a href="https://vr.google.com/ daydream/" target="_ black">Daydream</a>, y nuestos bosquejos en 3D se pueden ejecutar en el teléfono como aplicaciones Cardboard en modo de vista estéreo y que responden al movimiento de la cabeza. Un requisito para programar apps de VR es tener una base de gráficos 3D en Processing, y <a href="https://processing.org/tutorials/p3d/" target="_black">este tutorial</a> puede resultar útil como una introducción a 3D en Processing.
+                </p>
+
+                <h3>Requerimientos</h3>
+                <p>
+                Para usar VR con Cardboard, se necesita un <a href="https://support.google.com/cardboard/answer/6295091?hl=en" target="_black">teléfono compatible</a> con Android 4.1 o superior y un sensor de giroscopio para el seguimiento de los movimientos de la cabeza, y un <a href="https://vr.google.com/cardboard/get-cardboard/" target="_black">visor Cardboard</a>. Si no tienes un visor, puede ejecutar tu bosquejo en modo monoscópico, que se explicará a continuación. Para Daydream, necesitarás el visor <a href="https://vr.google.com/daydream/smartphonevr/" target="_black">Daydream View</a> y un <a href = "https://vr.google.com/daydream/smartphonevr/phones/ "target ="_black">teléfono compatible con Daydream </a>.</p>
+
+                <h3>Primeros pasos</h3>
+                <p>
+                Antes que nada, tienes que seleccionar la opción VR en el menú de Android para asegurarse de que tu bosquejo se compilado como una app VR:
+                </p>
+
+                <p><img class="body-image" src="imgs/vr_selection.png" alt="Selección de app VR"></p>
+
+                <p>
+                Un bosquejo para VR debe incluir como mínimo la importación de la biblioteca VR y el motor de renderizado STEREO:
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> processing.vr.*;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+}
+</code></pre>
+
+                <p>
+                Si corremos el código de arriba, deberíamos obtener una vista estéreo vacía en nuestro teléfono:
+                </p>
+
+                <p><img class="body-image" src="imgs/stereo_view.png" alt="Vista estéro"></p>
+
+                <p>
+                El motor de renderizado estéreo funciona dibujando cada cuadro dos veces, una para cada ojo. Puede saber qué ojo se está dibujando en cada llamada de la función <code>draw()</code> podemos usar la variable <code> eyeType </code> que es provista por la biblioteca VR:
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> processing.vr.*;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;PGraphicsVR&nbsp;pvr&nbsp;=&nbsp;(PGraphicsVR)g;
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (pvr.eyeType == PVR.<span style="color: #718A62;">LEFT</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(200, 50, 50);
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> <span style="color: #669900;">if</span> (pvr.eyeType == PVR.<span style="color: #718A62;">RIGHT</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(50, 50, 200);
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> <span style="color: #669900;">if</span> (pvr.eyeType == PVR.MONOCULAR) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">background</span>(50, 200, 50);
+&nbsp;&nbsp;}
+}
+</code></pre>
+
+                <p><img class="body-image" src="imgs/eyes.png" alt="Left and right eyes"></p>
+
+                <p>
+                Podemos observar que <code> eyeType </code> también podría ser <code>MONOSCOPIC</code>, lo cual sucede si estamos usando el motor de renderizado <code>MONO</code> en lugar de <code>STEREO</code>. Con el motor de renderizado monoscópico, cada cuadro se dibuja solo una vez, pero la cámara la escena aún responde a los movimientos del teléfono en el espacio físico.
+                </p>
+
+                <p>Una vez configurado el motor de renderizado VR, no que hacer nada especial para agregar objetos 3D a la escena virtual. Todas las funciones de dibujado de primitivas y formas 3D del motor de renderizado P3D están disponibles en VR. Podemos agregar texturas, luces y efectos basados ​​en sombreadores (shaders), como se demuestra en el siguiente bosquejo (código completo disponible <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/vr/ ex1_toon_stereo "target ="_black">aquí</a>):
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> processing.vr.*;
+
+<span style="color: #E2661A;">PShader</span> toon;
+<span style="color: #E2661A;">boolean</span> shaderEnabled = <span style="color: #33997E;">true</span>;  
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);  
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(204);
+&nbsp;&nbsp;toon&nbsp;=&nbsp;<span style="color: #006699;">loadShader</span>(<span style="color: #7D4793;">&quot;ToonFrag.glsl&quot;</span>, <span style="color: #7D4793;">&quot;ToonVert.glsl&quot;</span>);
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (shaderEnabled == <span style="color: #33997E;">true</span>) <span style="color: #006699;">shader</span>(toon);
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(80); 
+&nbsp;&nbsp;<span style="color: #006699;">directionalLight</span>(204, 204, 204, 1, 1, -1);
+&nbsp;&nbsp;<span style="color: #006699;">sphere</span>(150);
+}&nbsp;&nbsp;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>mousePressed</b></span>() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (shaderEnabled) {
+&nbsp;&nbsp;&nbsp;&nbsp;shaderEnabled&nbsp;=&nbsp;<span style="color: #33997E;">false</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">resetShader</span>();
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;shaderEnabled&nbsp;=&nbsp;<span style="color: #33997E;">true</span>;
+&nbsp;&nbsp;}
+}
+</code></pre>
+
+                <p>Es importante notar el uso de la llamada <code>translate(width/2, height/2) </code> que asegura de que la escena esté correctamente centrada delante de nuestros ojos. Esto es necesario porque, de manera predeterminada, Processing elige como orígen la esquina superior izquierda de la pantalla, lo cual es conveniente para dibujo en 2D, pero no tanto en realidad virtual. La resultado del este bosquejo debería verse así: </p>
+
+                <p><img class="body-image" src="imgs/toon_stereo.png" alt="Example de sombreado de caricatura"></p>
+
+                <h3>Creando una escena 3D más compleja</h3>
+
+                <p>En este nuevo ejemplo, crearemos una escena 3D con algunos objetos más. Empecemos definiendo una cuadrícula 2D como referencia.</p>
+
+                <p>Debido a que el rendimiento es muy importante en VR a efecto mantener la velocidad de dibujado de cuadros lo más alta posible y así evitar <a href="Evitar simulación de enfermedad en el usuario target="_black"> mareo</a> en el usuario, podemos hacer uso de objetos PShape para guardar geometría estática en memoria y así evitar tener que volver a generarla en cada cuadro:
+                <p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> processing.vr.*;
+
+<span style="color: #E2661A;">PShape</span> grid;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+&nbsp;&nbsp;
+&nbsp;&nbsp;grid&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>();
+&nbsp;&nbsp;grid.<span style="color: #006699;">beginShape</span>(<span style="color: #718A62;">LINES</span>);
+&nbsp;&nbsp;grid.<span style="color: #006699;">stroke</span>(255);
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> x = -10000; x &lt; +10000; x += 250) {
+&nbsp;&nbsp;&nbsp;&nbsp;grid.<span style="color: #006699;">vertex</span>(x, +1000, +10000);
+&nbsp;&nbsp;&nbsp;&nbsp;grid.<span style="color: #006699;">vertex</span>(x, +1000, -10000);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> z = -10000; z &lt; +10000; z += 250) {
+&nbsp;&nbsp;&nbsp;&nbsp;grid.<span style="color: #006699;">vertex</span>(+10000, +1000, z);
+&nbsp;&nbsp;&nbsp;&nbsp;grid.<span style="color: #006699;">vertex</span>(-10000, +1000, z);      
+&nbsp;&nbsp;}&nbsp;&nbsp;
+&nbsp;&nbsp;grid.<span style="color: #006699;">endShape</span>();  
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(grid);
+}
+</code></pre>
+
+                <p>Observa cómo la coordenadas Y de los vértices de la cuadrícula es +1000, ya que el eje Y en Processing apunta hacia abajo, por lo que los objetos debajo de nuestra línea de visión en VR deben tener coordenadas positivas.</p>
+
+                <p>¡Ahora podemos añadir algunos objetos! Para optimizar el rendimiento, podemos agrupar varias formas 3D dentro de un solo grupo PShape, que es más rápido que manejar cada objeto por separado, de la siguiente manera:
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> processing.vr.*;
+
+<span style="color: #E2661A;">PShape</span> grid;
+<span style="color: #E2661A;">PShape</span> cubes;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+&nbsp;&nbsp;
+&nbsp;&nbsp;grid&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>();
+&nbsp;&nbsp;grid.<span style="color: #006699;">beginShape</span>(<span style="color: #718A62;">LINES</span>);
+&nbsp;&nbsp;grid.<span style="color: #006699;">stroke</span>(255);
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> x = -10000; x &lt; +10000; x += 250) {
+&nbsp;&nbsp;&nbsp;&nbsp;grid.<span style="color: #006699;">vertex</span>(x, +1000, +10000);
+&nbsp;&nbsp;&nbsp;&nbsp;grid.<span style="color: #006699;">vertex</span>(x, +1000, -10000);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> z = -10000; z &lt; +10000; z += 250) {
+&nbsp;&nbsp;&nbsp;&nbsp;grid.<span style="color: #006699;">vertex</span>(+10000, +1000, z);
+&nbsp;&nbsp;&nbsp;&nbsp;grid.<span style="color: #006699;">vertex</span>(-10000, +1000, z);      
+&nbsp;&nbsp;}&nbsp;&nbsp;
+&nbsp;&nbsp;grid.<span style="color: #006699;">endShape</span>();  
+&nbsp;&nbsp;
+&nbsp;&nbsp;cubes&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>(<span style="color: #718A62;">GROUP</span>);
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i &lt; 100; i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> x = <span style="color: #006699;">random</span>(-1000, +1000); 
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> y = <span style="color: #006699;">random</span>(-1000, +1000);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> z = <span style="color: #006699;">random</span>(-1000, +1000);    
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> r = <span style="color: #006699;">random</span>(50, 150);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">PShape</span> cube = <span style="color: #006699;">createShape</span>(<span style="color: #718A62;">BOX</span>, r, r, r);
+&nbsp;&nbsp;&nbsp;&nbsp;cube.<span style="color: #006699;">setStroke</span>(<span style="color: #33997E;">false</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;cube.<span style="color: #006699;">setFill</span>(<span style="color: #006699;">color</span>(180));
+&nbsp;&nbsp;&nbsp;&nbsp;cube.<span style="color: #006699;">translate</span>(x, y, z);
+&nbsp;&nbsp;&nbsp;&nbsp;cubes.<span style="color: #006699;">addChild</span>(cube);
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">lights</span>();
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(cubes);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(grid);
+}
+</code></pre>
+
+                <p>El resultado final de este bosquejo debería verse como sigue, claro que variando de acuerdo al punto de vista de la cámara en VR:</p>
+
+                <p><img class="body-image" src="imgs/grid_and_boxes.png" alt="Grid and boxes"></p>
+
+                <br><br>
+
+                </section>
+
+        </div>
+
+        <footer class="footinfo">
+            <small>&copy; The Processing Foundation. Processing para Android es un <a href="../../team.html">proyecto colaborativo</a>.</small>
+        </footer>
+    </body>
+</html>
+
