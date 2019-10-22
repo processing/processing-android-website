@@ -57,19 +57,19 @@
 <pre><code>
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
 &nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>();
-&nbsp;&nbsp;<span style="color: #006699;">textFont</span>(<span style="color: #006699;">createFont</span>(<span style="color: #7D4793;">&quot;SansSerif&quot;</span>, 24));
+&nbsp;&nbsp;<span style="color: #006699;">textFont</span>(<span style="color: #006699;">createFont</span>(<span style="color: #7D4793;">&quot;SansSerif&quot;</span>, 24 * displayDensity));
 &nbsp;&nbsp;<span style="color: #006699;">textAlign</span>(<span style="color: #718A62;">CENTER</span>, <span style="color: #718A62;">CENTER</span>);
 }&nbsp;&nbsp;&nbsp;&nbsp;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
 &nbsp;&nbsp;<span style="color: #006699;">background</span>(255);
 &nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i &lt; touches.<span style="color: #33997E;">length</span>; i++) {
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> d = 50 * touches[i].area;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> d = (100 + 100 * touches[i].area) * displayDensity;
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(0, 255 * touches[i].pressure);
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(touches[i].x, touches[i].y, d, d);
 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255, 0, 0);
-&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(touches[i].id, touches[i].x, touches[i].y);
-&nbsp;&nbsp;}&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">text</span>(touches[i].id, touches[i].x + d/2, touches[i].y - d/2);
+&nbsp;&nbsp;}&nbsp;
 }
 </code></pre>
 
