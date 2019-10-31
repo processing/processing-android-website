@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">      
+        <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
         <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
-        <link rel="stylesheet" href="../../css/main.css">
+        <link rel="stylesheet" href="../../../css/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>Processing for Android</title>
     </head>
@@ -16,7 +16,7 @@
                 <li><a href="https://processing.org/">Processing</a></li>
                 <li><a href="https://p5js.org/">p5.js</a></li>
                 <li><a href="https://py.processing.org/">Processing.py</a></li>
-                <li><a href="http://pi.processing.org/">Processing for Pi</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
             </ul>
             <ul class="foundation">
                 <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
@@ -46,41 +46,34 @@
             <section class="container main-text">
 
                 <div class="lang">
-                  <a id="selected" href="renderers.html">EN</a>
-                  <a href="../../es/reference/vr/renderers.html">ES</a>
+                  <a href="../../../reference/raycasting/plane.html">EN</a>
+                  <a id="selected" href="plane.html">ES</a>
                 </div>
                 <hr style="clear:both;">
 
-                <h2>VR renderers</h2>
-                <p>The built-in VR library includes two renderers: VR (or STEREO) and MONO. The VR/STEREO renderer will generate a stereo view of the sketch, rendering each frame twice (once for each eye) and applying the approriate eye transformations.</p>
+                <h2>intersectsPlane()</h2>
+                <p>Esta función devuelve verdadero si el rayo dado intersecta el plano XY centrado en el origen de las coordenadas globales. Devuelve un objeto PVector que contiene las coordenadas de la intersección entre el rayo y el plano. El rayo se puede calcular automáticamente a partir de las coordenadas de la pantalla:
+                </p>
 
-<pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
+                <pre><code>
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {  
+&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
+&nbsp;&nbsp;<span style="color: #E2661A;">PVector</span> p = intersectsPlane(<span style="color: #D94A7A;">mouseX</span>, <span style="color: #D94A7A;">mouseY</span>);
+&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
 }
+                </code></pre>
 
+                <p>También se puede proporcionar un rayo con origen y dirección arbitrarios:
+                </p>
+
+                <pre><code>
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
-&nbsp;&nbsp;<span style="color: #006699;">box</span>(300);
+&nbsp;&nbsp;<span style="color: #E2661A;">PVector</span> origin = <span style="color: #33997E;">new</span> <span style="color: #006699;">PVector</span>(0, 0, 0);
+&nbsp;&nbsp;<span style="color: #E2661A;">PVector</span> direction = <span style="color: #33997E;">new</span> <span style="color: #006699;">PVector</span>(0, 0, 1);
+&nbsp;&nbsp;<span style="color: #E2661A;">PVector</span> p = intersectsPlane(origin, direction);
+&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
 }
-</code></pre>
-
-                <p>Meanwhile, the MONO renderer will generate a monoscopic view, still reflecting the movement of the phone.</p>
-
-<pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(MONO);
-}
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
-&nbsp;&nbsp;<span style="color: #006699;">box</span>(300);
-}&nbsp;&nbsp;  
-</code></pre>
+                </code></pre>
 
             </section>
 

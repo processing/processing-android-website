@@ -16,7 +16,7 @@
                 <li><a href="https://processing.org/">Processing</a></li>
                 <li><a href="https://p5js.org/">p5.js</a></li>
                 <li><a href="https://py.processing.org/">Processing.py</a></li>
-                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+                <li><a href="http://pi.processing.org/">Processing for Pi</a></li>
             </ul>
             <ul class="foundation">
                 <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
@@ -46,27 +46,44 @@
             <section class="container main-text">
 
                 <div class="lang">
-                  <a id="selected" href="object.html">EN</a>
-                  <a href="../../es/reference/vr/object.html">ES</a>
+                  <a id="selected" href="renderers.html">EN</a>
+                  <a href="../../es/reference/ar/renderer.html">ES</a>
                 </div>
                 <hr style="clear:both;">
 
-                <h2>Object matrix</h2>
-                <p>The object matrix contains the XYZ vectors defining the eye coordinate system as the first three columns, and the eye position as the fourth. It can be used to compute things like the intersection between an object and the line of sight</p>
+                <h2>AR renderer</h2>
+                <p>The built-in AR library includes the AR renderer. This renderer will generate a view of the sketch superimposed to the camera image and automatically updated as the device moves in space. The tracking surfaces are automatically handled as well.</p>
 
 <pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
+<span style="color: #33997E;">import</span> processing.ar.*;
 
-PMatrix3D&nbsp;objMat&nbsp;=&nbsp;<span style="color: #33997E;">new</span> PMatrix3D();
+ARTracker&nbsp;tracker;
+ARAnchor&nbsp;anchor;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(AR);
+&nbsp;&nbsp;tracker&nbsp;=&nbsp;<span style="color: #33997E;">new</span> ARTracker(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;tracker.<span style="color: #006699;">start</span>();  
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;getObjectMatrix(objMat);
+&nbsp;&nbsp;<span style="color: #006699;">lights</span>();
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mousePressed</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (anchor != <span style="color: #33997E;">null</span>) anchor.dispose();
+&nbsp;&nbsp;&nbsp;&nbsp;ARTrackable&nbsp;hit&nbsp;=&nbsp;tracker.<span style="color: #006699;">get</span>(<span style="color: #D94A7A;">mouseX</span>, <span style="color: #D94A7A;">mouseY</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (hit != <span style="color: #33997E;">null</span>) anchor = <span style="color: #33997E;">new</span> ARAnchor(hit);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">else</span> anchor = <span style="color: #33997E;">null</span>;
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (anchor != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;anchor.attach();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">box</span>(100);
+&nbsp;&nbsp;&nbsp;&nbsp;anchor.detach();
+&nbsp;&nbsp;}
 }
 </code></pre>
+
             </section>
 
         </div>

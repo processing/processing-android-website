@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">      
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+        <link rel="stylesheet" href="../../css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Processing for Android</title>
+    </head>
+    
+    <body>
+
+        <nav class="topnav">        
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="https://p5js.org/">p5.js</a></li>
+                <li><a href="https://py.processing.org/">Processing.py</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+            </ul>
+            <ul class="foundation">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav>
+
+        <header>            
+            <h1 class="title">Processing for Android</h1>
+        </header>
+
+        <div class="group">
+
+            <nav class="site">
+                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
+                <ul class="leftnav">
+                   <li><a href="../../index.html">Home</a></li>
+                   <li><a href="../../install.html">Install</a></li>
+                   <li><a id="selected" href="../../reference/index.html">Reference</a>
+                   <li><a href="../../tutorials/index.html">Tutorials</a></li>
+                   <li><a href="../../books/index.html">Books</a></li>
+                   <li><a href="../../gallery/index.html">Gallery</a></li>
+                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
+                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
+                </ul>
+            </nav>
+      
+            <section class="container main-text">
+
+                <div class="lang">
+                  <a id="selected" href="calculate.html">EN</a>
+                  <a href="../../es/reference/ar/trackable.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
+               <h2>ARTrackable</h2>
+                <p>This class provides methods to query the status of a trackable surface. Anchors are attached to a trackable.</p>
+
+                <ul>
+                   <li>String id()<br><p>A unique string ID for the trackable.</p></li>
+                   <li>PMatrix3D matrix()<br><p>It returns the pose matrix associated to this trackable.</p></li>
+                   <li>transform()<br><p>Applies the pose matrix to the scene.</p></li>
+                   <li>float[] getPolygon()<br><p>Returns the list of points [x0, z0, x1, z1...] defining the current boundary of the trackable (it can change from frame to frame).</p></li>
+                   <li>float lengthX()<br><p>Returns the total extent of the trackable along X.</p></li>
+                   <li>float lengthY()<br><p>Returns the total extent of the trackable along Y</p></li>
+                   <li>float lengthZ()<br><p>Returns the total extent of the trackable along Z</p></li>
+                   <li>boolean isSelected()<br><p>Returns true if the trackable is selected.</p></li>
+                   <li>boolean isNew()<br><p>Returns true if this is a trackable detected in the last frame.</p></li>
+                   <li>boolean isTracking()<br><p>Returns true if the trackable is being tracked.</p></li>
+                   <li>boolean isPaused()<br><p>Returns true if the tracking of this trackable is currently paused.</p></li>
+                   <li>boolean isStopped()<br><p>Returns true if the tracking of this trackable is stopped, if so, the trackable will be automatically removed in the next frame.</p></li>
+                   <li>boolean isPlane()<br><p>Returns true if the trackable is a plane.</p></li>
+                   <li>boolean isPointCloud()<br><p>Returns true if the trackable is a point cloud.</p></li>
+                   <li>boolean isFloorPlane()<br><p>Returns true if the trackable is a floor plane.</p></li>
+                   <li>boolean isFloorPlane()<br><p>Returns true if the trackable is a ceiling plane.</p></li>
+                   <li>boolean isWallPlane()<br><p>Returns true if the trackable is a wall plane.</p></li>
+                </ul>
+
+                <pre><code>
+<span style="color: #33997E;">import</span> processing.ar.*;
+
+ARTracker&nbsp;tracker;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(AR);
+&nbsp;&nbsp;tracker&nbsp;=&nbsp;<span style="color: #33997E;">new</span> ARTracker(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;tracker.<span style="color: #006699;">start</span>();
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">lights</span>();
+
+&nbsp;&nbsp;<span style="color: #666666;">// Draw trackable planes</span>
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i &lt; tracker.count(); i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;ARTrackable&nbsp;trackable&nbsp;=&nbsp;tracker.<span style="color: #006699;">get</span>(i);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (!trackable.isTracking()) <span style="color: #33997E;">continue</span>;
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;trackable.transform();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mousePressed</span> &amp;&amp; trackable.isSelected(<span style="color: #D94A7A;">mouseX</span>, <span style="color: #D94A7A;">mouseY</span>)) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255, 0, 0, 100);
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255, 100);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">beginShape</span>(<span style="color: #718A62;">QUADS</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> lx = trackable.lengthX();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> lz = trackable.lengthZ();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(-lx/2, 0, -lz/2);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(-lx/2, 0, +lz/2);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(+lx/2, 0, +lz/2);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(+lx/2, 0, -lz/2);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">endShape</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();
+&nbsp;&nbsp;}
+}
+                </code></pre>                
+
+
+            </section>
+
+        </div>
+
+        <footer class="footinfo">
+            <small>&copy; The Processing Foundation. Processing for Android is a <a href=../../team.html>collaborative project</a>.</small>
+        </footer>
+    </body>
+</html>
+

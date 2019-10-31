@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">      
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+        <link rel="stylesheet" href="../../css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Processing for Android</title>
+    </head>
+    
+    <body>
+
+        <nav class="topnav">        
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="https://p5js.org/">p5.js</a></li>
+                <li><a href="https://py.processing.org/">Processing.py</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+            </ul>
+            <ul class="foundation">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav>
+
+        <header>            
+            <h1 class="title">Processing for Android</h1>
+        </header>
+
+        <div class="group">
+
+            <nav class="site">
+                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
+                <ul class="leftnav">
+                   <li><a href="../../index.html">Home</a></li>
+                   <li><a href="../../install.html">Install</a></li>
+                   <li><a id="selected" href="../../reference/index.html">Reference</a>
+                   <li><a href="../../tutorials/index.html">Tutorials</a></li>
+                   <li><a href="../../books/index.html">Books</a></li>
+                   <li><a href="../../gallery/index.html">Gallery</a></li>
+                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
+                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
+                </ul>
+            </nav>
+      
+            <section class="container main-text">
+
+                <div class="lang">
+                  <a id="selected" href="calculate.html">EN</a>
+                  <a href="../../es/reference/ar/anchor.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
+               <h2>ARAnchor</h2>
+                <p>This class represents a fixed position with respect to a trackable. The user needs to create them explicitly at any arbitrary position, or at the intersection with the touch pointer.</p>
+
+                <ul>
+                   <li>ARAnchor(ARTrackable trackable, float x, float y, float z)<br><p>Creates a new anchor attached to the given trackable with position (x, y, z) with respect to the trackable.</p></li>
+                   <li>ARAnchor(ARTrackable trackable)<br><p>Creates a new anchor at the hit position in the given trackable, which must be returned by ARTracker.get(mx, my).</p></li>
+                   <li>dispose()<br><p>Releases the resources used by the anchor. It should be done immediately after an anchor is no longer being tracked.</p></li>
+                   <li>String id()<br><p>Returns a unique string ID for this anchor.</p></li>
+                   <li>PMatrix3D matrix()<br><p>Returns the pose matrix of this anchor.</p></li>
+                   <li>attach()<br><p>Applies the pose matrix of this anchor, so that all the geometry drawn afterwards is fixed with respect to the anchor.</p></li>
+                   <li>detach()<br><p>Clears the pose matrix of this anchor, so geometry can be drawn normally.</p></li>
+                   <li>isTracking()<br><p>Returns true if the anchor is currently being tracked.</p></li>
+                   <li>isPaused()<br><p>Returns true if the anchor is currently paused.</p></li>
+                   <li>isStopped()<br><p>Returns true if the anchor is no longer tracked, it should be disposed.</p></li>
+                   <li>isDisposed()<br><p>Returns true if the anchor has been disposed.</p></li>
+                </ul>
+
+                <pre><code>
+<span style="color: #33997E;">import</span> processing.ar.*;
+
+ARTracker&nbsp;tracker;
+ARAnchor&nbsp;touchAnchor;
+<span style="color: #E2661A;">ArrayList</span>&lt;ARAnchor&gt; trackAnchors;
+<span style="color: #E2661A;">float</span> angle;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(AR);
+&nbsp;&nbsp;tracker&nbsp;=&nbsp;<span style="color: #33997E;">new</span> ARTracker(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;tracker.<span style="color: #006699;">start</span>();
+&nbsp;&nbsp;trackAnchors&nbsp;=&nbsp;<span style="color: #33997E;">new</span> <span style="color: #E2661A;">ArrayList</span>&lt;ARAnchor&gt;();
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">lights</span>();
+
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mousePressed</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// Create new anchor at the current touch point</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (touchAnchor != <span style="color: #33997E;">null</span>) touchAnchor.dispose();
+&nbsp;&nbsp;&nbsp;&nbsp;ARTrackable&nbsp;hit&nbsp;=&nbsp;tracker.<span style="color: #006699;">get</span>(<span style="color: #D94A7A;">mouseX</span>, <span style="color: #D94A7A;">mouseY</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (hit != <span style="color: #33997E;">null</span>) touchAnchor = <span style="color: #33997E;">new</span> ARAnchor(hit);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">else</span> touchAnchor = <span style="color: #33997E;">null</span>;
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;<span style="color: #666666;">// Draw objects attached to each anchor</span>
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (ARAnchor anchor : trackAnchors) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (anchor.isTracking()) drawBox(anchor, 255, 255, 255);
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// It is very important to dispose anchors once they </span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// are no longer tracked.</span>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (anchor.isStopped()) anchor.dispose();
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (touchAnchor != <span style="color: #33997E;">null</span>) drawBox(touchAnchor, 255, 0, 0);
+
+&nbsp;&nbsp;<span style="color: #666666;">// Conveniency function in the tracker object to remove </span>
+&nbsp;&nbsp;<span style="color: #666666;">// disposed anchors from a list</span>
+&nbsp;&nbsp;tracker.clearAnchors(trackAnchors);
+
+&nbsp;&nbsp;<span style="color: #666666;">// Draw trackable planes</span>
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i &lt; tracker.count(); i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;ARTrackable&nbsp;trackable&nbsp;=&nbsp;tracker.<span style="color: #006699;">get</span>(i);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (!trackable.isTracking()) <span style="color: #33997E;">continue</span>;
+
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;trackable.transform();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mousePressed</span> &amp;&amp; trackable.isSelected(<span style="color: #D94A7A;">mouseX</span>, <span style="color: #D94A7A;">mouseY</span>)) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255, 0, 0, 100);
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255, 100);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">beginShape</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span>[] points = trackable.getPolygon();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> n = 0; n &lt; points.<span style="color: #33997E;">length</span> / 2; n++) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> x = points[2 * n];
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> z = points[2 * n + 1];
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(x, 0, z);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">endShape</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;angle&nbsp;+=&nbsp;0.1;
+}
+
+<span style="color: #33997E;">void</span> drawBox(ARAnchor anchor, <span style="color: #E2661A;">int</span> r, <span style="color: #E2661A;">int</span> g, <span style="color: #E2661A;">int</span> b) {
+&nbsp;&nbsp;anchor.attach();
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(r, g, b);
+&nbsp;&nbsp;<span style="color: #006699;">rotateY</span>(angle);
+&nbsp;&nbsp;<span style="color: #006699;">box</span>(0.15f);
+&nbsp;&nbsp;anchor.detach();
+}
+
+<span style="color: #33997E;">void</span> trackableEvent(ARTrackable t) {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (trackAnchors.<span style="color: #006699;">size</span>() &lt; 10) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> x0 = 0, y0 = 0;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (t.isWallPlane()) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// The new trackable is a wall, so adding the anchor </span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// 0.3 meters to its side</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x0&nbsp;=&nbsp;0.3;
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> <span style="color: #669900;">if</span> (t.isFloorPlane()) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// The new trackable is a floor plane, so adding the </span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// anchor 0.3 meters above it</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y0&nbsp;=&nbsp;0.3;
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// The new trackable is a floor plane, so adding the </span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// anchor 0.3 meters below it</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;y0&nbsp;=&nbsp;-0.3;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;trackAnchors.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> ARAnchor(t, x0, y0, 0));
+&nbsp;&nbsp;}
+}
+                </code></pre>                
+
+
+            </section>
+
+        </div>
+
+        <footer class="footinfo">
+            <small>&copy; The Processing Foundation. Processing for Android is a <a href=../../team.html>collaborative project</a>.</small>
+        </footer>
+    </body>
+</html>
+

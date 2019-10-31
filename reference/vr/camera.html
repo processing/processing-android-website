@@ -34,7 +34,7 @@
                 <ul class="leftnav">
                    <li><a href="../../index.html">Home</a></li>
                    <li><a href="../../install.html">Install</a></li>
-                   <li><a id="selected" href="../../reference/index.html">Reference</a></li>
+                   <li><a id="selected" href="../../reference/index.html">Reference</a>
                    <li><a href="../../tutorials/index.html">Tutorials</a></li>
                    <li><a href="../../books/index.html">Books</a></li>
                    <li><a href="../../gallery/index.html">Gallery</a></li>
@@ -46,26 +46,43 @@
             <section class="container main-text">
 
                 <div class="lang">
-                  <a id="selected" href="camera.html">EN</a>
+                  <a id="selected" href="calculate.html">EN</a>
                   <a href="../../es/reference/vr/camera.html">ES</a>
                 </div>
+                <hr style="clear:both;">
 
-               <h2>Camera orientation</h2>
-                <p>By default, Processing's 3-D coordinates have the origin placed are the top left corner of the screen, and the Y axis pointing down. Calling the cameraUp() function this setting is overriden by the more common in VR with the origin at the center of the screen, and the Y axis pointing up.</p>
+               <h2>VRCamera</h2>
+                <p>The VRCamera object provides some utility functions to facilitate setting the view in VR.</p>
 
-<pre><code>
+                <ul>
+                   <li>sticky()<br><p>It sets the coordinates to the eye system, so it is easier to draw elements that are static with respect to the head movement.</p></li>
+                   <li>noSticky()<br><p>It returns the coordinats to the default world system, removing any transformartions that might have been applied in eye space.</p></li>
+                   <li>setPosition(float x, float y, float z)<br><p>Sets the camera position to the point (x, y, z).</p></li>
+                   <li>setNear(float near)<br><p>Sets the Z distance to the near plane.</p></li>
+                   <li>setFar(float far)<br><p>Sets the Z distance to the far plane.</p></li>
+                </ul>
+
+                <pre><code>
 <span style="color: #33997E;">import</span> processing.vr.*;
 
+VRCamera&nbsp;cam;
+
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
 &nbsp;&nbsp;cameraUp();
-}&nbsp;
+}
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
-&nbsp;&nbsp;<span style="color: #006699;">box</span>(300);  
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(200, 0, 150);
+&nbsp;&nbsp;cam.setPosition(0,&nbsp;0,&nbsp;400);
+&nbsp;&nbsp;<span style="color: #666666;">//...</span>
+&nbsp;&nbsp;cam.sticky();
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(0, 0, 200);
+&nbsp;&nbsp;circle(0,&nbsp;0,&nbsp;50);
+&nbsp;&nbsp;cam.noSticky();
 }
-</code></pre>
+                </code></pre>                
+
 
             </section>
 

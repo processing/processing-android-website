@@ -34,7 +34,7 @@
                 <ul class="leftnav">
                    <li><a href="../../index.html">Home</a></li>
                    <li><a href="../../install.html">Install</a></li>
-                   <li><a id="selected" href="../../reference/index.html">Reference</a></li>
+                   <li><a id="selected" href="../../reference/index.html">Reference</a>
                    <li><a href="../../tutorials/index.html">Tutorials</a></li>
                    <li><a href="../../books/index.html">Books</a></li>
                    <li><a href="../../gallery/index.html">Gallery</a></li>
@@ -46,48 +46,43 @@
             <section class="container main-text">
 
                 <div class="lang">
-                  <a id="selected" href="eye.html">EN</a>
-                  <a href="../../es/reference/vr/eye.html">ES</a>
+                  <a id="selected" href="calculate.html">EN</a>
+                  <a href="../../es/reference/ar/tracker.html">ES</a>
                 </div>
+                <hr style="clear:both;">
 
-                <h2>Eye transformation</h2>
-                <p>The eye transformation allows to use the coordinates relative to the viewer:</p>
+               <h2>ARTracker</h2>
+                <p>At least one ARTracker object is needed in the sketch to handle all trackable entities (only planes at this point) detected in the scene.</p>
+
+                <ul>
+                   <li>start()<br><p>Starts tracking.</p></li>
+                   <li>stop()<br><p>Stops tracking.</p></li>
+                   <li>count()<br><p>Returns the current number of trackable planes in the scene.</p></li>
+                   <li>ARTrackable get(int i)<br><p>Returns the i-th trackable plane.</p></li>
+                   <li>ARTrackable get(String id)<br><p>Returns the trackable with the given id.</p></li>
+                   <li>ARTrackable get(int mx, int my)<br><p>Returns the trackable that's being hit by the current touch pointer.</p></li>
+                   <li>clearAnchors(Collection<ARAnchor> anchors)<br><p>Disposes the anchors in the list that are no longer being tracked and removes them from the list.</p></li>
+                </ul>
 
 <pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
+<span style="color: #33997E;">import</span> processing.ar.*;
+
+ARTracker&nbsp;tracker;
+ARAnchor&nbsp;anchor;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(AR);
+&nbsp;&nbsp;tracker&nbsp;=&nbsp;<span style="color: #33997E;">new</span> ARTracker(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;tracker.<span style="color: #006699;">start</span>();  
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// draw scene...</span>
-
-&nbsp;&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
-&nbsp;&nbsp;&nbsp;eye();
-&nbsp;&nbsp;&nbsp;<span style="color: #006699;">translate</span>(0, 0, 100);
-&nbsp;&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(0, 0, 50, 50);
-&nbsp;&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i &lt; tracker.count(); i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;ARTrackable&nbsp;trackable&nbsp;=&nbsp;tracker.<span style="color: #006699;">get</span>(i);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
+&nbsp;&nbsp;}
 }
-</code></pre>
-
-<p>One can retrieve the matrix holding this transformation:</p>
-
-<pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
-
-PMatrix3D&nbsp;eyeMat&nbsp;=&nbsp;<span style="color: #33997E;">new</span> PMatrix3D();
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
-}
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
-&nbsp;&nbsp;getEyeMatrix(eyeMat);
-&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
-}&nbsp;
-</code></pre>
+</code></pre>            
 
             </section>
 

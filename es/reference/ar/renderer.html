@@ -4,7 +4,7 @@
         <meta charset="utf-8">      
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
         <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
-        <link rel="stylesheet" href="../../css/main.css">
+        <link rel="stylesheet" href="../../../css/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>Processing for Android</title>
     </head>
@@ -46,40 +46,42 @@
             <section class="container main-text">
 
                 <div class="lang">
-                  <a id="selected" href="renderers.html">EN</a>
-                  <a href="../../es/reference/vr/renderers.html">ES</a>
+                  <a href="../../../reference/ar/renderer.html">EN</a>
+                  <a id="selected" href="renderer.html">ES</a> 
                 </div>
                 <hr style="clear:both;">
 
-                <h2>VR renderers</h2>
-                <p>The built-in VR library includes two renderers: VR (or STEREO) and MONO. The VR/STEREO renderer will generate a stereo view of the sketch, rendering each frame twice (once for each eye) and applying the approriate eye transformations.</p>
+                <h2>Motore de renderizado en AR</h2>
+                <p>La biblioteca AR integrada con el mode Android incluye el motor de renderizado AR. Este motor generará una vista del bosquejo superpuesto a la imágen de la cámara y se actualizará automáticamente a medida que el dispositivo se mueva en el espacio. Las superficies de traqueado también se actualizan automáticamente.</p>
 
 <pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
+<span style="color: #33997E;">import</span> processing.ar.*;
+
+ARTracker&nbsp;tracker;
+ARAnchor&nbsp;anchor;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(AR);
+&nbsp;&nbsp;tracker&nbsp;=&nbsp;<span style="color: #33997E;">new</span> ARTracker(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;tracker.<span style="color: #006699;">start</span>();  
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
-&nbsp;&nbsp;<span style="color: #006699;">box</span>(300);
+&nbsp;&nbsp;<span style="color: #006699;">lights</span>();
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mousePressed</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (anchor != <span style="color: #33997E;">null</span>) anchor.dispose();
+&nbsp;&nbsp;&nbsp;&nbsp;ARTrackable&nbsp;hit&nbsp;=&nbsp;tracker.<span style="color: #006699;">get</span>(<span style="color: #D94A7A;">mouseX</span>, <span style="color: #D94A7A;">mouseY</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (hit != <span style="color: #33997E;">null</span>) anchor = <span style="color: #33997E;">new</span> ARAnchor(hit);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">else</span> anchor = <span style="color: #33997E;">null</span>;
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (anchor != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;anchor.attach();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">box</span>(100);
+&nbsp;&nbsp;&nbsp;&nbsp;anchor.detach();
+&nbsp;&nbsp;}
 }
-</code></pre>
-
-                <p>Meanwhile, the MONO renderer will generate a monoscopic view, still reflecting the movement of the phone.</p>
-
-<pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(MONO);
-}
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
-&nbsp;&nbsp;<span style="color: #006699;">box</span>(300);
-}&nbsp;&nbsp;  
 </code></pre>
 
             </section>

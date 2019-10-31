@@ -16,7 +16,7 @@
                 <li><a href="https://processing.org/">Processing</a></li>
                 <li><a href="https://p5js.org/">p5.js</a></li>
                 <li><a href="https://py.processing.org/">Processing.py</a></li>
-                <li><a href="http://pi.processing.org/">Processing for Pi</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
             </ul>
             <ul class="foundation">
                 <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
@@ -46,42 +46,25 @@
             <section class="container main-text">
 
                 <div class="lang">
-                  <a id="selected" href="renderers.html">EN</a>
-                  <a href="../../es/reference/vr/renderers.html">ES</a>
+                  <a id="selected" href="object.html">EN</a>
+                  <a href="../../es/reference/3d/object.html">ES</a>
                 </div>
                 <hr style="clear:both;">
 
-                <h2>VR renderers</h2>
-                <p>The built-in VR library includes two renderers: VR (or STEREO) and MONO. The VR/STEREO renderer will generate a stereo view of the sketch, rendering each frame twice (once for each eye) and applying the approriate eye transformations.</p>
+                <h2>Object matrix</h2>
+                <p>The object matrix contains the XYZ vectors defining the eye coordinate system as the first three columns, and the eye position as the fourth. It can be used to compute things like the intersection between an object and the line of sight</p>
 
 <pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
+PMatrix3D&nbsp;objMat&nbsp;=&nbsp;<span style="color: #33997E;">new</span> PMatrix3D();
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
-&nbsp;&nbsp;<span style="color: #006699;">box</span>(300);
+&nbsp;&nbsp;getObjectMatrix(objMat);
 }
 </code></pre>
-
-                <p>Meanwhile, the MONO renderer will generate a monoscopic view, still reflecting the movement of the phone.</p>
-
-<pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(MONO);
-}
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
-&nbsp;&nbsp;<span style="color: #006699;">box</span>(300);
-}&nbsp;&nbsp;  
-</code></pre>
-
             </section>
 
         </div>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">      
+        <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
         <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
-        <link rel="stylesheet" href="../../css/main.css">
+        <link rel="stylesheet" href="../../../css/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>Processing for Android</title>
     </head>
@@ -16,7 +16,7 @@
                 <li><a href="https://processing.org/">Processing</a></li>
                 <li><a href="https://p5js.org/">p5.js</a></li>
                 <li><a href="https://py.processing.org/">Processing.py</a></li>
-                <li><a href="http://pi.processing.org/">Processing for Pi</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
             </ul>
             <ul class="foundation">
                 <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
@@ -46,41 +46,45 @@
             <section class="container main-text">
 
                 <div class="lang">
-                  <a id="selected" href="renderers.html">EN</a>
-                  <a href="../../es/reference/vr/renderers.html">ES</a>
+                  <a href="../../../reference/raycasting/screen.html">EN</a>
+                  <a id="selected" href="screen.html">ES</a>
                 </div>
                 <hr style="clear:both;">
 
-                <h2>VR renderers</h2>
-                <p>The built-in VR library includes two renderers: VR (or STEREO) and MONO. The VR/STEREO renderer will generate a stereo view of the sketch, rendering each frame twice (once for each eye) and applying the approriate eye transformations.</p>
+                <h2>rayFromScreen()</h2>
+                <p>Esta función crea un rayo que emerge de un punto en el plano de la pantalla y perpendicular a él. Como el rayo comprende una posición de origen y una dirección de unidad, devuelve dos objetos PVector. Se puede pasar una matriz de PVector donde se almacenarán los dos vectores, y en ese caso la función devolverá la matriz como un valor de resultado. Si la matriz es nula, la función inicializará la matriz:
+                </p>
 
-<pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
+                <pre><code>
+<span style="color: #E2661A;">PVector</span>[] ray;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
-&nbsp;&nbsp;<span style="color: #006699;">box</span>(300);
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;ray&nbsp;=&nbsp;getRayFromScreen(<span style="color: #D94A7A;">mouseX</span>, <span style="color: #D94A7A;">mouseY</span>, ray);
+&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
 }
-</code></pre>
+                </code></pre>
 
-                <p>Meanwhile, the MONO renderer will generate a monoscopic view, still reflecting the movement of the phone.</p>
+                <p>Alternativamente, uno puede pasar dos objetos PVector no nulos donde se almacenará el origen y la dirección del rayo:
+                </p>
 
-<pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
+                <pre><code>
+<span style="color: #E2661A;">PVector</span> origin = <span style="color: #33997E;">new</span> <span style="color: #006699;">PVector</span>();
+<span style="color: #E2661A;">PVector</span> direction = <span style="color: #33997E;">new</span> <span style="color: #006699;">PVector</span>();
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(MONO);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);  
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
-&nbsp;&nbsp;<span style="color: #006699;">box</span>(300);
-}&nbsp;&nbsp;  
-</code></pre>
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;getRayFromScreen(<span style="color: #D94A7A;">mouseX</span>, <span style="color: #D94A7A;">mouseY</span>, origin, direction);
+}
+                </code></pre>
 
             </section>
 

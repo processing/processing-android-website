@@ -46,35 +46,25 @@
             <section class="container main-text">
 
                 <div class="lang">
-                  <a href="../../../reference/vr/calculate.html">EN</a>
-                  <a id="selected" href="calculate.html">ES</a>
+                  <a href="../../../reference/3d/object.html">EN</a>
+                  <a id="selected" href="object.html">ES</a>
                 </div>
                 <hr style="clear:both;">
 
-               <h2>calculate()</h2>
-                <p>La función draw() en una app de VR se llama dos veces por cuadro, una vez para cada ojo. Esto significa que cualquier  código en draw() que solo necesite ejecutarse una vez, se ejecutará en vez dos veces, lo cual puede dar lugar a errores en la animación u otros aspectos del bosquejo. Para solucionar este problema, podemos poner este código dentro de la función calculate(), que se llama una vez por cuadro, justo antes de draw().</p>
+                <h2>Matriz de objeto</h2>
+                <p>La matriz de objeto contiene los vectores XYZ que definen el sistema de coordenadas del ojo como las tres primeras columnas, y la posición del ojo como la cuarta. Se puede usar para hacer cálculos como la intersección entre un objeto y la línea de visión.</p>
 
 <pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
+PMatrix3D&nbsp;objMat&nbsp;=&nbsp;<span style="color: #33997E;">new</span> PMatrix3D();
 
-<span style="color: #E2661A;">float</span> x, y, z;
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
-}&nbsp;&nbsp;&nbsp;&nbsp;
-
-<span style="color: #33997E;">void</span> calculate() {
-&nbsp;&nbsp;<span style="color: #666666;">// update position variables, e.g.:</span>
-&nbsp;&nbsp;x&nbsp;+=&nbsp;0.1;&nbsp;
-&nbsp;&nbsp;y&nbsp;+=&nbsp;0.1;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;z&nbsp;+=&nbsp;0.1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">translate</span>(x, y, z);
-&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
+&nbsp;&nbsp;getObjectMatrix(objMat);
 }
 </code></pre>
-
             </section>
 
         </div>

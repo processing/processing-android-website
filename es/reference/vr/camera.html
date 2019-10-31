@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-8">      
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
         <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
         <link rel="stylesheet" href="../../../css/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <title>Processing para Android</title>
+        <title>Processing for Android</title>
     </head>
     
     <body>
@@ -23,21 +23,21 @@
             </ul>
         </nav>
 
-        <header>
-            <h1 class="title">Processing para Android</h1>
+        <header>            
+            <h1 class="title">Processing for Android</h1>
         </header>
 
         <div class="group">
 
             <nav class="site">
-                <img class="logo" src="../../../imgs/logo.png" alt="Logo de Processing para Android">
+                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
                 <ul class="leftnav">
-                   <li><a href="../../index.html">Principal</a></li>
-                   <li><a href="../../install.html">Instalar</a></li>
-                   <li><a id="selected" href="../../reference/index.html">Referencia</a></li>
-                   <li><a href="../../tutorials/index.html">Tutoriales</a></li>
-                   <li><a href="../../books/index.html">Libros</a></li>
-                   <li><a href="../../gallery/index.html">Galería</a></li>
+                   <li><a href="../../index.html">Home</a></li>
+                   <li><a href="../../install.html">Install</a></li>
+                   <li><a id="selected" href="../../reference/index.html">Reference</a>
+                   <li><a href="../../tutorials/index.html">Tutorials</a></li>
+                   <li><a href="../../books/index.html">Books</a></li>
+                   <li><a href="../../gallery/index.html">Gallery</a></li>
                    <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
                    <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
                 </ul>
@@ -51,29 +51,45 @@
                 </div>
                 <hr style="clear:both;">
 
-               <h2>Orientación de la cámara</h2>
-               <p> Por defecto, las coordenadas 3D en Processing están referidas a un origen ubicado en la esquina superior izquierda de la pantalla, y con el eje Y apuntando hacia abajo. Al llamar a la función cameraUp(), esta configuración es reemplazada por la más común en VR, que consiste en el origen ubicado en el centro de la pantalla y el eje Y apuntando hacia arriba.</p>
+               <h2>VRCamera</h2>
+                <p>El objecto VRCamera ofrece algunas utilidades para facilitar la configurión de la vista en VR.</p>
 
-<pre><code>
+                <ul>
+                    <li> sticky () <br> <p> Establece las coordenadas para el sistema centrado en el punto de vista, por lo que es más fácil dibujar elementos que son estáticos con respecto al movimiento de la cabeza. </p> </li>
+                    <li> noSticky () <br> <p> Reinstaura el sistema global por defecto, eliminando cualquier transformación que pueda haberse aplicado en el espacio centrado en el punto de vista. </p> </li>
+                    <li> setPosition (flotante x, flotante y, flotante z) <br> <p> Establece la posición de la cámara en el punto (x, y, z). </p> </li>
+                    <li> setNear (flotante cerca) <br> <p> Establece la distancia Z al plano cercano. </p> </li>
+                    <li> setFar (flotante lejos) <br> <p> Establece la distancia Z al plano lejano. </p> </li>
+                </ul>
+
+                <pre><code>
 <span style="color: #33997E;">import</span> processing.vr.*;
 
+VRCamera&nbsp;cam;
+
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
 &nbsp;&nbsp;cameraUp();
-}&nbsp;
+}
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
-&nbsp;&nbsp;<span style="color: #006699;">box</span>(300);  
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(200, 0, 150);
+&nbsp;&nbsp;cam.setPosition(0,&nbsp;0,&nbsp;400);
+&nbsp;&nbsp;<span style="color: #666666;">//...</span>
+&nbsp;&nbsp;cam.sticky();
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(0, 0, 200);
+&nbsp;&nbsp;circle(0,&nbsp;0,&nbsp;50);
+&nbsp;&nbsp;cam.noSticky();
 }
-</code></pre>
+                </code></pre>                
+
 
             </section>
 
         </div>
 
         <footer class="footinfo">
-            <small>&copy; The Processing Foundation. Processing para Android es un <a href="../../team.html">proyecto colaborativo</a>.</small>
+            <small>&copy; The Processing Foundation. Processing for Android is a <a href=../../team.html>collaborative project</a>.</small>
         </footer>
     </body>
 </html>

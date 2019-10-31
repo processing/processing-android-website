@@ -4,7 +4,7 @@
         <meta charset="utf-8">      
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
         <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
-        <link rel="stylesheet" href="../../css/main.css">
+        <link rel="stylesheet" href="../../../css/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>Processing for Android</title>
     </head>
@@ -16,7 +16,7 @@
                 <li><a href="https://processing.org/">Processing</a></li>
                 <li><a href="https://p5js.org/">p5.js</a></li>
                 <li><a href="https://py.processing.org/">Processing.py</a></li>
-                <li><a href="http://pi.processing.org/">Processing for Pi</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
             </ul>
             <ul class="foundation">
                 <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
@@ -34,7 +34,7 @@
                 <ul class="leftnav">
                    <li><a href="../../index.html">Home</a></li>
                    <li><a href="../../install.html">Install</a></li>
-                   <li><a id="selected" href="../../reference/index.html">Reference</a></li>
+                   <li><a id="selected" href="../../reference/index.html">Reference</a>
                    <li><a href="../../tutorials/index.html">Tutorials</a></li>
                    <li><a href="../../books/index.html">Books</a></li>
                    <li><a href="../../gallery/index.html">Gallery</a></li>
@@ -46,41 +46,43 @@
             <section class="container main-text">
 
                 <div class="lang">
-                  <a id="selected" href="renderers.html">EN</a>
-                  <a href="../../es/reference/vr/renderers.html">ES</a>
+                  <a href="../../../reference/ar/tracker.html">EN</a>
+                  <a id="selected" href="tracker.html">ES</a> 
                 </div>
                 <hr style="clear:both;">
 
-                <h2>VR renderers</h2>
-                <p>The built-in VR library includes two renderers: VR (or STEREO) and MONO. The VR/STEREO renderer will generate a stereo view of the sketch, rendering each frame twice (once for each eye) and applying the approriate eye transformations.</p>
+               <h2>ARTracker</h2>
+                <p>Se necesita al menos un objeto ARTracker en el bosquejo para manejar todas las entidades traqueables (solo planos en este momento) detectadas en la escena.</p>
+
+                <ul>
+                    <li> start() <br> <p> Inicia el seguimiento. </p> </li>
+                    <li> stop() <br> <p> Detiene el seguimiento. </p> </li>
+                    <li> count() <br> <p> Devuelve el número actual de planos traqueables en la escena. </p> </li>
+                    <li> ARTrackable get(int i) <br> <p> Devuelve el i-ésimo plano traqueable. </p> </li>
+                    <li> ARTrackable get(String id) <br> <p> Devuelve el traqueable con el ID dada. </p> </li>
+                    <li> ARTrackable get(int mx, int my) <br> <p> Devuelve el traqueables que está siendo seleccionado por el puntero táctil. </p> </li>
+                    <li> clearAnchors(Collection<ARAnchor> anchors) <br> <p> Libera los anclajes en la lista que ya no se estan siendo seguidos y los elimina de la lista. </p> </li>
+                </ul>
 
 <pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
+<span style="color: #33997E;">import</span> processing.ar.*;
+
+ARTracker&nbsp;tracker;
+ARAnchor&nbsp;anchor;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(AR);
+&nbsp;&nbsp;tracker&nbsp;=&nbsp;<span style="color: #33997E;">new</span> ARTracker(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;tracker.<span style="color: #006699;">start</span>();  
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
-&nbsp;&nbsp;<span style="color: #006699;">box</span>(300);
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i &lt; tracker.count(); i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;ARTrackable&nbsp;trackable&nbsp;=&nbsp;tracker.<span style="color: #006699;">get</span>(i);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
+&nbsp;&nbsp;}
 }
-</code></pre>
-
-                <p>Meanwhile, the MONO renderer will generate a monoscopic view, still reflecting the movement of the phone.</p>
-
-<pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(MONO);
-}
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);
-&nbsp;&nbsp;<span style="color: #006699;">box</span>(300);
-}&nbsp;&nbsp;  
-</code></pre>
+</code></pre>            
 
             </section>
 

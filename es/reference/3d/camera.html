@@ -46,48 +46,24 @@
             <section class="container main-text">
 
                 <div class="lang">
-                  <a href="../../../reference/vr/eye.html">EN</a>
-                  <a id="selected" href="eye.html">ES</a>
+                  <a href="../../../reference/3d/camera.html">EN</a>
+                  <a id="selected" href="camera.html">ES</a>
                 </div>
                 <hr style="clear:both;">
 
-                <h2> Transformación ocular</h2>
-                <p>La transformación ocular permite utilizar las coordenadas en relación con el espectador en VR:</p>
+               <h2>Orientación de la cámara</h2>
+               <p> Por defecto, las coordenadas 3D en Processing están referidas a un origen ubicado en la esquina superior izquierda de la pantalla, y con el eje Y apuntando hacia abajo. Al llamar a la función cameraUp(), esta configuración es reemplazada por la más común en VR, que consiste en el origen ubicado en el centro de la pantalla y el eje Y apuntando hacia arriba.</p>
 
 <pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
-
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
-}
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;&nbsp;<span style="color: #666666;">// draw scene...</span>
-
-&nbsp;&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
-&nbsp;&nbsp;&nbsp;eye();
-&nbsp;&nbsp;&nbsp;<span style="color: #006699;">translate</span>(0, 0, 100);
-&nbsp;&nbsp;&nbsp;<span style="color: #006699;">ellipse</span>(0, 0, 50, 50);
-&nbsp;&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();
-}
-</code></pre>
-
-<p>La matrix que contiene esta transformación puede ser obtenida de la siguiente manera:</p>
-
-<pre><code>
-<span style="color: #33997E;">import</span> processing.vr.*;
-
-PMatrix3D&nbsp;eyeMat&nbsp;=&nbsp;<span style="color: #33997E;">new</span> PMatrix3D();
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
-}
-
-<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
-&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
-&nbsp;&nbsp;getEyeMatrix(eyeMat);
-&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
+&nbsp;&nbsp;cameraUp();
 }&nbsp;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">box</span>(300);  
+}
 </code></pre>
 
             </section>

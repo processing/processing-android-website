@@ -52,13 +52,13 @@
                 <hr style="clear:both;">
 
                 <h2>Motores de renderizado en VR</h2>
-                <p>La biblioteca VR que se está incorporada en el modo Android por defecto incluye dos motores de renderizado: STEREO y MONO. El motor STEREO genera una vista estéreo del bosquejo, dibujando cada cuadro dos veces (una vez para cada ojo) y aplicando las transformaciones oculares correspondientes.</p>
+                <p>La biblioteca VR que se está incorporada en el modo Android por defecto incluye dos motores de renderizado: VR (o STEREO) y MONO. El motor VR/STEREO genera una vista estéreo del bosquejo, dibujando cada cuadro dos veces (una vez para cada ojo) y aplicando las transformaciones oculares correspondientes.</p>
 
 <pre><code>
 <span style="color: #33997E;">import</span> processing.vr.*;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {

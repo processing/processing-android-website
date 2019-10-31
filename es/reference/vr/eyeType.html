@@ -52,13 +52,13 @@
                 <hr style="clear:both;">
 
                 <h2>eyeType</h2>
-                <p>Esta variable indica qué está siendo dibujando por el motor de renderizado VR. Será IZQUIERDA o DERECHA cuando se usa el motor STEREO, o MONOSCOPIC cuando use el motor MONO.</p>
+                <p>Esta variable indica qué está siendo dibujando por el motor de renderizado VR. Será IZQUIERDA o DERECHA cuando se usa el motor VR/STEREO, o MONOSCOPIC cuando use el motor MONO.</p>
 
 <pre><code>
 <span style="color: #33997E;">import</span> processing.vr.*;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);  
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);  
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {

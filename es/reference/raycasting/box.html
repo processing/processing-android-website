@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+        <link rel="stylesheet" href="../../../css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Processing for Android</title>
+    </head>
+    
+    <body>
+
+        <nav class="topnav">        
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="https://p5js.org/">p5.js</a></li>
+                <li><a href="https://py.processing.org/">Processing.py</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+            </ul>
+            <ul class="foundation">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav>
+
+        <header>            
+            <h1 class="title">Processing for Android</h1>
+        </header>
+
+        <div class="group">
+
+            <nav class="site">
+                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
+                <ul class="leftnav">
+                   <li><a href="../../index.html">Home</a></li>
+                   <li><a href="../../install.html">Install</a></li>
+                   <li><a id="selected" href="../../reference/index.html">Reference</a></li>
+                   <li><a href="../../tutorials/index.html">Tutorials</a></li>
+                   <li><a href="../../books/index.html">Books</a></li>
+                   <li><a href="../../gallery/index.html">Gallery</a></li>
+                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
+                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
+                </ul>
+            </nav>
+      
+            <section class="container main-text">
+
+                <div class="lang">
+                  <a href="../../../reference/raycasting/box.html">EN</a>
+                  <a id="selected" href="box.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
+                <h2>intersectsBox()</h2>
+                <p>Esta función devuelve verdadero si el rayo dado intersecta una caja de tamaño s con un posición determinada por las transformaciones de geometría actualmente aplicadas a la escena. El rayo se puede calcular automáticamente a partir de las coordenadas de la pantalla tal como se indica en el siguiente ejemplo:
+                </p>
+
+                <pre><code>
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(200, 0, 150);
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);  
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mousePressed</span> &amp;&amp; intersectsSphere(70, 0, 0)) <span style="color: #006699;">fill</span>(0, 0, 255);
+&nbsp;&nbsp;<span style="color: #669900;">else</span> <span style="color: #006699;">fill</span>(255, 0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">box</span>(70);
+}
+                </code></pre>
+
+                <p>También se puede proporcionar un rayo con origen y dirección arbitrarios:
+                </p>
+
+
+                <pre><code>
+<span style="color: #E2661A;">PVector</span> origin = <span style="color: #33997E;">new</span> <span style="color: #006699;">PVector</span>();
+<span style="color: #E2661A;">PVector</span> direction = <span style="color: #33997E;">new</span> <span style="color: #006699;">PVector</span>();
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">P3D</span>);
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;origin.<span style="color: #006699;">set</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2, 0);
+&nbsp;&nbsp;direction.<span style="color: #006699;">set</span>(-<span style="color: #D94A7A;">width</span>/2, -<span style="color: #D94A7A;">height</span>/2).<span style="color: #006699;">normalize</span>();
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(200, 0, 150);
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);  
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mousePressed</span> &amp;&amp; intersectsSphere(70, origin, direction)) <span style="color: #006699;">fill</span>(0, 0, 255);
+&nbsp;&nbsp;<span style="color: #669900;">else</span> <span style="color: #006699;">fill</span>(255, 0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">box</span>(70);
+}
+                </code></pre>
+
+                <p>La función acepta diferentes valores de ancho / alto / profundidad para la caja:
+                </p>
+
+                <pre><code>
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #666666;">// ...</span>
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(<span style="color: #D94A7A;">width</span>/2, <span style="color: #D94A7A;">height</span>/2);  
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mousePressed</span> &amp;&amp; intersectsBox(100, 120, 80, origin, direction)) <span style="color: #006699;">fill</span>(0, 0, 255);
+&nbsp;&nbsp;<span style="color: #669900;">else</span> <span style="color: #006699;">fill</span>(255, 0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">box</span>(100, 120, 80);
+}
+                </code></pre>
+
+            </section>
+
+        </div>
+
+        <footer class="footinfo">
+            <small>&copy; The Processing Foundation. Processing for Android is a <a href=../../team.html>collaborative project</a>.</small>
+        </footer>
+    </body>
+</html>
+
