@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+        <link rel="stylesheet" href="../../css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Processing for Android</title>
+    </head>
+    
+    <body>
+
+        <nav class="topnav">        
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="https://p5js.org/">p5.js</a></li>
+                <li><a href="https://py.processing.org/">Processing.py</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+            </ul>
+            <ul class="foundation">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav>
+
+        <header>
+            <h1 class="title">Processing for Android</h1>
+        </header>
+
+        <div class="group">
+
+            <nav class="site">
+                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
+                <ul class="leftnav">
+                   <li><a href="../../index.html">Home</a></li>
+                   <li><a href="../../install.html">Install</a></li>
+                   <li><a href="../../reference/index.html">Reference</a></li>
+                   <li><a id="selected" href="../../tutorials/index.html">Tutorials</a></li>
+                   <li><a href="../../books/index.html">Books</a></li>
+                   <li><a href="../../gallery/index.html">Gallery</a></li>
+                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
+                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
+                </ul>
+            </nav>
+      
+            <section class="container main-text">
+
+ <!--                <div class="lang">
+                  <a id="selected" href="index.html">EN</a>
+                  <a href="../../es/tutorials/vr_advanced/index.html">ES</a>
+                </div>
+                <hr style="clear:both;"> -->
+
+            	<h2>Interaction and movement in VR</h2>
+                <p>
+                Create immersive VR experiences through interaction and movement.
+                </p>        
+
+                <h3>Journey through space</h3>
+                <p>
+                In this tutorial, we will create a virtual environment where we can see a small planetary system from a fixed vantage point, and then select and follow each of the planets as they revolve around the central star. This needs a number of more advance techniques to allow the user of the VR sketch to pick object in the scene and have the position of the VR camera change dynamically in each frame.
+                </p>
+                <p>
+                We will go step by step, first creating the objects in the scene, then adding movement to them, and finally implementing object selection and camera positioning. 
+                </p>
+
+                <h3>A simple solar system</h3>
+                <p>Our solar system will have a central sun and only to planets. All of these elements are spheres, which we can store in PShape objects to optimize the performance of our sketch by avoiding the spheres being recreated in each frame. Since we want these spheres to look like planets, we cannot simply paint them with a solid fill color. The easiest way to give our planets a realistic appearance is to texture them with images that were generated from actual planet photographs, or with some algorithm that reproduce the shapes of landmasses and other features as seen from above. More specifically, we need images of planet surfaces represented as "equirectangular projections" so they can be used to wrap our sphere correctly. We will use the following three images for the sun and the two planets:                    
+                </p>
+
+                <p><img class="body-image" src="imgs/sol.jpg" alt="Sun texture"></p>
+                <p><img class="body-image" src="imgs/mercury.jpg" alt="Mercury texture"></p>
+                <p><img class="body-image" src="imgs/earthlike.jpg" alt="Earth-like texture"></p>
+
+                <p>There are many resources online to get more images like this, for example <a href="http://planetpixelemporium.com" target="_black">this one</a> has equirectangular projection images for all the planets in the solar system.</p>
+
+                <p>Let's start by adding the sun to our VR scene:</p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> processing.vr.*;
+
+<span style="color: #E2661A;">PShape</span> sol;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">VR</span>);
+&nbsp;&nbsp;<span style="color: #006699;">cameraUp</span>();
+
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
+&nbsp;&nbsp;<span style="color: #006699;">sphereDetail</span>(40);
+
+&nbsp;&nbsp;sol&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>(<span style="color: #718A62;">SPHERE</span>, 100);
+&nbsp;&nbsp;sol.setTexture(<span style="color: #006699;">loadImage</span>(<span style="color: #7D4793;">&quot;sol.jpg&quot;</span>));
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(sol);
+}
+</code></pre>
+
+                <p>In the <code>setup()</code> function we set the VR renderer and with <code>cameraUp()</code> we make sure thast the scene is already centered in the middle of the screen with the Y axis pointing up, which is the standard configuration to work in VR. We also disable strokes and set a sphere detail that's high enough so the individual faces making up the spheres are not recognizable. We set our image as the texture of the PShape with the <code>setTexture()</code> call, which should also be done during setup to avoid slowing down the sketch.</p>
+
+                <p>Running this sketch shoud give us the sun centered in our VR scene:</p>
+
+                <p><img class="body-image" src="imgs/vr_sun.png" alt="Sun"></p>
+
+                <p>Similarly, we can add the planets to the scene, applying some inital translations to they are not overlapping with the sun:</p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> processing.vr.*;
+
+<span style="color: #E2661A;">PShape</span> sol;
+<span style="color: #E2661A;">PShape</span> planet1;
+<span style="color: #E2661A;">PShape</span> planet2;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">VR</span>);
+&nbsp;&nbsp;<span style="color: #006699;">cameraUp</span>();
+
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
+&nbsp;&nbsp;<span style="color: #006699;">sphereDetail</span>(40);
+
+&nbsp;&nbsp;sol&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>(<span style="color: #718A62;">SPHERE</span>, 100);
+&nbsp;&nbsp;sol.setTexture(<span style="color: #006699;">loadImage</span>(<span style="color: #7D4793;">&quot;sol.jpg&quot;</span>));
+&nbsp;&nbsp;
+&nbsp;&nbsp;planet1&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>(<span style="color: #718A62;">SPHERE</span>, 20);
+&nbsp;&nbsp;planet1.setTexture(<span style="color: #006699;">loadImage</span>(<span style="color: #7D4793;">&quot;mercury.jpg&quot;</span>));
+
+&nbsp;&nbsp;planet2&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>(<span style="color: #718A62;">SPHERE</span>, 50);
+&nbsp;&nbsp;planet2.setTexture(<span style="color: #006699;">loadImage</span>(<span style="color: #7D4793;">&quot;earthlike.jpg&quot;</span>));  
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(sol);
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(300, 0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(planet1);
+&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();
+
+&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(600, 0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(planet2);
+&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();  
+}
+</code></pre>
+
+
+                <p>This sketch renders a static system with a sun and two planets:</p>
+
+                <p><img class="body-image" src="imgs/vr_planets.png" alt="Sun and planets"></p>
+
+                <p>Now, it is time to add movement! The sun can remain immovile in our scene, but the plants should revolve around the sun. We implement the orbital rotations fo the planets by using the <code>rotateY()</code> function and adding a couple of variables to keep track of the rotation angle for each planet:</p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> processing.vr.*;
+
+<span style="color: #E2661A;">PShape</span> sol;
+<span style="color: #E2661A;">PShape</span> planet1;
+<span style="color: #E2661A;">PShape</span> planet2;
+
+<span style="color: #E2661A;">float</span> orbitalAngle1;
+<span style="color: #E2661A;">float</span> orbitalAngle2;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">VR</span>);
+&nbsp;&nbsp;<span style="color: #006699;">cameraUp</span>();
+
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
+&nbsp;&nbsp;<span style="color: #006699;">sphereDetail</span>(40);
+
+&nbsp;&nbsp;sol&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>(<span style="color: #718A62;">SPHERE</span>, 100);
+&nbsp;&nbsp;sol.setTexture(<span style="color: #006699;">loadImage</span>(<span style="color: #7D4793;">&quot;sol.jpg&quot;</span>));
+&nbsp;&nbsp;
+&nbsp;&nbsp;planet1&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>(<span style="color: #718A62;">SPHERE</span>, 20);
+&nbsp;&nbsp;planet1.setTexture(<span style="color: #006699;">loadImage</span>(<span style="color: #7D4793;">&quot;mercury.jpg&quot;</span>));
+
+&nbsp;&nbsp;planet2&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>(<span style="color: #718A62;">SPHERE</span>, 50);
+&nbsp;&nbsp;planet2.setTexture(<span style="color: #006699;">loadImage</span>(<span style="color: #7D4793;">&quot;earthlike.jpg&quot;</span>));  
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;">calculate</span>() {
+&nbsp;&nbsp;orbitalAngle1&nbsp;+=&nbsp;0.002;
+&nbsp;&nbsp;orbitalAngle2&nbsp;+=&nbsp;0.001;
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(sol);
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
+&nbsp;&nbsp;<span style="color: #006699;">rotateY</span>(orbitalAngle1);  
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(300, 0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(planet1);
+&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();
+
+&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
+&nbsp;&nbsp;<span style="color: #006699;">rotateY</span>(orbitalAngle2);
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(600, 0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(planet2);
+&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();  
+}
+</code></pre>
+
+                <p>In VR sketches it is very important to note that we have another function in addition to <code>setup()</code> and <code>draw()</code>, which is <code>calculate()</code>. This function should contain all the code that performs non-visual calculations that should happen before drawing a new frame in the scene. In normal Processing sketches, we just put that code directly inside <code>draw()</code>, but this is not a good idea in VR since in that case, <code>draw()</code> gets called twice per frame, once for each eye. The <code>calculate()</code> function, on the other hand, gets called just before <code>draw()</code>. In this particular case, we simply update the two orbital angles.</p>
+
+                <p>In order to increase the realism of our planetary system, we should also incorporate rotation of the planets around their own axes. In order to do that, we need to add two new variables to keep track of the additional angles, and the corresponding rotateY() calls after the translations (so the rotations happen around the spheres' axes and not the origina of coordinates):</p>
+
+<pre><code>
+...
+<span style="color: #E2661A;">float</span> rotationAngle1;
+<span style="color: #E2661A;">float</span> rotationAngle2;
+...
+<span style="color: #33997E;">void</span> <span style="color: #006699;">calculate</span>() {
+&nbsp;&nbsp;orbitalAngle1&nbsp;+=&nbsp;0.002;
+&nbsp;&nbsp;orbitalAngle2&nbsp;+=&nbsp;0.001;
+&nbsp;&nbsp;rotationAngle1&nbsp;+=&nbsp;0.02;
+&nbsp;&nbsp;rotationAngle2&nbsp;+=&nbsp;0.02;
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(sol);
+
+&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
+&nbsp;&nbsp;<span style="color: #006699;">rotateY</span>(orbitalAngle1);
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(300, 0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">rotateY</span>(rotationAngle1);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(planet1);
+&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();
+
+&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
+&nbsp;&nbsp;<span style="color: #006699;">rotateY</span>(orbitalAngle2);
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(600, 0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">rotateY</span>(rotationAngle2);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(planet2);
+&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();
+}
+</code></pre>
+
+                <p>Our mini solar system is almost ready! One aspect that's not very convincing right now is the black background. We need a convincing star field that surrounds our scene. An easy way to implement it could be placing a large-enough sphere containing our sun and planets, and texturing it with a equirectangular projection image of the night sky. For instance, <a href="http://paulbourke.net/miscellaneous/astronomy/" target="_black">this page</a> contains very detailed resources on astronomical projections, including suitable images to texture a skymap sphere.</p>
+
+<pre><code>
+<span style="color: #E2661A;">PShape</span> stars;
+...
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;...
+&nbsp;&nbsp;stars&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>(<span style="color: #718A62;">SPHERE</span>, 1000);
+&nbsp;&nbsp;stars.setTexture(<span style="color: #006699;">loadImage</span>(<span style="color: #7D4793;">&quot;startfield.jpg&quot;</span>));
+&nbsp;&nbsp;...
+}
+
+...
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(stars);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(sol);
+&nbsp;&nbsp;...
+}
+</code></pre>
+
+                <p>With this latest addition, we arrive to a nicely looking solar system with moving planets with the backgrop of a 360 degrees starfield:</p>
+
+                <p><img class="body-image" src="imgs/vr_starfield.png" alt="Starfield"></p>
+
+                <p>As a final (and important detail) we can enable lights so that planets are correctly shaded dependig on their orientation towards the sun. Let's try incorporating a single point light centered in the origin of coordinates, which is the location of the sun, we only need a single line of code to do that:</p>
+
+<pre><code>
+&nbsp;&nbsp;...
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(sol);
+&nbsp;&nbsp;
+&nbsp;&nbsp;<span style="color: #006699;">pointLight</span>(255, 255, 255, 0, 0, 0);
+
+&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
+&nbsp;&nbsp;...
+</code></pre>
+
+                <p>Notice that the <code>pointLight()</code> call is after drawing the sun's shape, so it's not affected by its own light. The results seem to be quite satisfactory:</p>
+
+                <p><img class="body-image" src="imgs/vr_sunlight.png" alt="Sunlight"></p>
+
+                <h3>Selecting objects in VR</h3>
+
+                <p>Up to this point, the viewers of our sketch don't have the possibilty of moving in VR. This can be fine in many instances, but here we could make our planetary system much more immersive if the users are able to navigate around and look at the scene from different vantage points. There are many ways to implement motion in VR, one choice is to let users selecting a planet with their gaze, and then transporting to the selected planet when they tap with the headset.</p>
+
+                <p>So, there are two steps in our interaction. First, the users should get some cue of what planet are they looking at, and second enacting the selection when tapping while the planet is being looked at.</p>
+
+                <p>Processing for Android includes a number of functions to perform "ray-casting" selection of objects in VR. In a ray casting algorithm, a line is extended forward from the position of the viewer's eyes, and objects that are intersected by that line would be selected. There are many ray-casting algorithms depending on the type of objects one needs to select, and Processing includes ray-casting selection for boxes and spheres with the <code>interesectsBox()</code> and <code>interesectsSphere()</code> functions. Even though this may appear limited, more complex objects can be enclosed by a bounding box or sphere, and calculating the intersection with those bounding geometries is often good enough.</p>
+
+                <p>Both <code>interesectsBox()</code> and <code>interesectsSphere()</code> work in the same way: one needs to apply all the transformations to place the box or sphere in the desired location, and then call interesectsBox/Sphere with the size of the object as the argument to get the result of the interesection. The following code shows the use of this technique to highlight the sphere corresponding to the planet 1 if it is being looked at:</p>
+
+<pre><code>
+&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
+&nbsp;&nbsp;<span style="color: #006699;">rotateY</span>(orbitalAngle1);
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(300, 0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">rotateY</span>(rotationAngle1);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #006699;">intersectsSphere</span>(20, 0, 0)) {
+&nbsp;&nbsp;&nbsp;&nbsp;planet1.setTint(<span style="color: #006699;">color</span>(255, 0, 0));
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;planet1.setTint(<span style="color: #006699;">color</span>(255));
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(planet1);
+&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();
+</code></pre>
+
+                <p>The call to <code>interesectsSphere()</code> has three arguments, the first is the radius of the sphere to intersect, and the other two are the screen coordinates of the starting point for the ray. The value (0, 0) denotes the center of the screen which corresponds exactly to the eyes, but one can use any other (x, y) value in case the ray starts from a different point on the screen.</p>
+
+                <h3>Setting the view point in VR</h3>
+
+                <p>Movement in VR requires the position of the viewer's eye to be set depending on interaction, animation, etc. The VR library in Processing includes a <code>VRCamera</code> class that helps implementing such changes in position. VRCamera's <code>setPosition()</code> function takes a (x, y, z) position in world coordinates, and places the VR view point at exactly that location.</p>
+
+                <p>To use a VRCamera, we only need to add the variable to the sketch, and create it in <code>setup()</code>:</p>
+
+<pre><code>
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">VR</span>);
+&nbsp;&nbsp;<span style="color: #006699;">cameraUp</span>();
+&nbsp;&nbsp;
+&nbsp;&nbsp;cam&nbsp;=&nbsp;<span style="color: #33997E;">new</span> VRCamera(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;cam.setNear(10);
+&nbsp;&nbsp;cam.setFar(1500);
+&nbsp;&nbsp;...
+</code></pre>
+
+                <p>VRCamera also allows us to set the near and far planes, which mean how close or how far one can view into the virtual space.</p>
+
+                <p>In the solar system sketch we discussed before, planets move along their orbints around the sun and also rotate around their own axes. So if we were to place the VR camera at a location fixed with respect to one of the planets, we'd need to calculate the world coordinates of that location. In order to do that, we can construct a transformation matrix that encapsulates all the transformations in the same order they are applied with drawing the planet (rotation/translation/rotation). Something like this:</p>
+
+<pre><code>
+&nbsp;&nbsp;PMatrix3D&nbsp;mat&nbsp;=&nbsp;<span style="color: #33997E;">new</span> PMatrix3D();
+&nbsp;&nbsp;<span style="color: #E2661A;">float</span> cx, cy, cz;
+&nbsp;&nbsp;mat.<span style="color: #006699;">rotateY</span>(orbitalAngle1);
+&nbsp;&nbsp;mat.<span style="color: #006699;">translate</span>(300, 0, 0);
+&nbsp;&nbsp;mat.<span style="color: #006699;">rotateY</span>(rotationAngle1);
+&nbsp;&nbsp;mat.<span style="color: #006699;">translate</span>(-2 * 20, 0, 0);
+
+&nbsp;&nbsp;cx&nbsp;=&nbsp;mat.multX(0,&nbsp;0,&nbsp;0);
+&nbsp;&nbsp;cy&nbsp;=&nbsp;mat.multY(0,&nbsp;0,&nbsp;0);
+&nbsp;&nbsp;cz&nbsp;=&nbsp;mat.multZ(0,&nbsp;0,&nbsp;0);
+&nbsp;&nbsp;...
+&nbsp;&nbsp;cam.setPosition(cx, cy, cz);
+</code></pre>
+
+                <p>We apply the transformation on the (0, 0, 0) poisition, which is the default placement of the sphere before any transformations. In this way, the (cx, cy, cz) contains the final location of planet 1's sphere.</p>
+
+                <p>We can combine this transformation code with the earlier sphere ray-casting selection to apply the transformation only when the desired sphere is selected by the viewer. Again, the transformation code that produces (cx, cy, cz) should be placed in calculate() to avoid duplicated evaluation. In the end, the complete sketch would read like follows:</p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> processing.vr.*;
+
+<span style="color: #E2661A;">VRCamera</span> cam;
+
+<span style="color: #E2661A;">PShape</span> stars;
+<span style="color: #E2661A;">PShape</span> sol;
+<span style="color: #E2661A;">PShape</span> planet1;
+<span style="color: #E2661A;">PShape</span> planet2;
+
+<span style="color: #E2661A;">float</span> orbitalAngle1;
+<span style="color: #E2661A;">float</span> orbitalAngle2;
+<span style="color: #E2661A;">float</span> rotationAngle1;
+<span style="color: #E2661A;">float</span> rotationAngle2;
+
+<span style="color: #E2661A;">int</span> followPlanet;
+PMatrix3D&nbsp;mat&nbsp;=&nbsp;<span style="color: #33997E;">new</span> PMatrix3D();
+<span style="color: #E2661A;">float</span> cx, cy, cz;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">VR</span>);
+&nbsp;&nbsp;<span style="color: #006699;">cameraUp</span>();
+&nbsp;&nbsp;
+&nbsp;&nbsp;cam&nbsp;=&nbsp;<span style="color: #33997E;">new</span> VRCamera(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;cam.setNear(10);
+&nbsp;&nbsp;cam.setFar(1500);
+
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
+&nbsp;&nbsp;<span style="color: #006699;">sphereDetail</span>(40);
+
+&nbsp;&nbsp;stars&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>(<span style="color: #718A62;">SPHERE</span>, 1000);
+&nbsp;&nbsp;stars.setTexture(<span style="color: #006699;">loadImage</span>(<span style="color: #7D4793;">&quot;startfield.jpg&quot;</span>));
+
+&nbsp;&nbsp;sol&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>(<span style="color: #718A62;">SPHERE</span>, 100);
+&nbsp;&nbsp;sol.setTexture(<span style="color: #006699;">loadImage</span>(<span style="color: #7D4793;">&quot;sol.jpg&quot;</span>));
+
+&nbsp;&nbsp;planet1&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>(<span style="color: #718A62;">SPHERE</span>, 20);
+&nbsp;&nbsp;planet1.setTexture(<span style="color: #006699;">loadImage</span>(<span style="color: #7D4793;">&quot;mercury.jpg&quot;</span>));
+
+&nbsp;&nbsp;planet2&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>(<span style="color: #718A62;">SPHERE</span>, 50);
+&nbsp;&nbsp;planet2.setTexture(<span style="color: #006699;">loadImage</span>(<span style="color: #7D4793;">&quot;earthlike.jpg&quot;</span>));
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;">calculate</span>() {
+&nbsp;&nbsp;orbitalAngle1&nbsp;+=&nbsp;0.002;
+&nbsp;&nbsp;orbitalAngle2&nbsp;+=&nbsp;0.001;
+&nbsp;&nbsp;rotationAngle1&nbsp;+=&nbsp;0.02;
+&nbsp;&nbsp;rotationAngle2&nbsp;+=&nbsp;0.02;
+
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (0 &lt; followPlanet) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> d;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> r;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> oa;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> ra;
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (followPlanet == 1) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d&nbsp;=&nbsp;300;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r&nbsp;=&nbsp;20;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oa&nbsp;=&nbsp;orbitalAngle1;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ra&nbsp;=&nbsp;rotationAngle1;
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d&nbsp;=&nbsp;600;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r&nbsp;=&nbsp;50;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oa&nbsp;=&nbsp;orbitalAngle2;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ra&nbsp;=&nbsp;rotationAngle2;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+
+&nbsp;&nbsp;&nbsp;&nbsp;mat.reset();
+&nbsp;&nbsp;&nbsp;&nbsp;mat.<span style="color: #006699;">rotateY</span>(oa);
+&nbsp;&nbsp;&nbsp;&nbsp;mat.<span style="color: #006699;">translate</span>(d, 0, 0);
+&nbsp;&nbsp;&nbsp;&nbsp;mat.<span style="color: #006699;">rotateY</span>(ra);
+&nbsp;&nbsp;&nbsp;&nbsp;mat.<span style="color: #006699;">translate</span>(-2 * r, 0, 0);
+
+&nbsp;&nbsp;&nbsp;&nbsp;cx&nbsp;=&nbsp;mat.multX(0,&nbsp;0,&nbsp;0);
+&nbsp;&nbsp;&nbsp;&nbsp;cy&nbsp;=&nbsp;mat.multY(0,&nbsp;0,&nbsp;0);
+&nbsp;&nbsp;&nbsp;&nbsp;cz&nbsp;=&nbsp;mat.multZ(0,&nbsp;0,&nbsp;0);
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">background</span>(0);
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(stars);
+
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (0 &lt; followPlanet) cam.setPosition(cx, cy, cz);
+
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(sol);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #006699;">intersectsSphere</span>(100, 0, 0) &amp;&amp; <span style="color: #D94A7A;">mousePressed</span>) followPlanet = 0;
+
+&nbsp;&nbsp;<span style="color: #006699;">pointLight</span>(255, 255, 255, 0, 0, 0);
+
+&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
+&nbsp;&nbsp;<span style="color: #006699;">rotateY</span>(orbitalAngle1);
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(300, 0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">rotateY</span>(rotationAngle1);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (followPlanet != 1 &amp;&amp; <span style="color: #006699;">intersectsSphere</span>(2 * 20, 0, 0)) {
+&nbsp;&nbsp;&nbsp;&nbsp;planet1.setTint(<span style="color: #006699;">color</span>(255, 0, 0));
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mousePressed</span>) followPlanet = 1;
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;planet1.setTint(<span style="color: #006699;">color</span>(255));
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(planet1);
+&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();
+
+&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
+&nbsp;&nbsp;<span style="color: #006699;">rotateY</span>(orbitalAngle2);
+&nbsp;&nbsp;<span style="color: #006699;">translate</span>(600, 0, 0);
+&nbsp;&nbsp;<span style="color: #006699;">rotateY</span>(rotationAngle2);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (followPlanet != 2 &amp;&amp; <span style="color: #006699;">intersectsSphere</span>(2 * 50, 0, 0)) {
+&nbsp;&nbsp;&nbsp;&nbsp;planet2.setTint(<span style="color: #006699;">color</span>(255, 0, 0));
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mousePressed</span>) followPlanet = 2;
+&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;planet2.setTint(<span style="color: #006699;">color</span>(255));
+&nbsp;&nbsp;}
+&nbsp;&nbsp;<span style="color: #006699;">shape</span>(planet2);
+&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();
+}
+</code></pre>
+
+                <p>The logic in the <code>draw()</code> function works like this: if the planet is not selected already, Processing will find if the ray from the eye intersects the sphere, and if so, tints it red and makes VRCamera to follow the planet by setting its position to (cx, cy, cz). If the users selects the sun, the camera's position returns to the intital fixed placement.</p>
+
+            </section>
+
+        </div>
+
+        <footer class="footinfo">
+            <small>&copy; The Processing Foundation. Processing for Android is a <a href="../../team.html">collaborative project</a>.</small>
+        </footer>
+    </body>
+</html>
+
