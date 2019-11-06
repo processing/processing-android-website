@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+        <link rel="stylesheet" href="../../css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>Processing for Android</title>
+    </head>
+    
+    <body>
+
+        <nav class="topnav">        
+            <ul class="left">
+                <li><a href="https://processing.org/">Processing</a></li>
+                <li><a href="https://p5js.org/">p5.js</a></li>
+                <li><a href="https://py.processing.org/">Processing.py</a></li>
+                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+            </ul>
+            <ul class="foundation">
+                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+            </ul>
+        </nav>
+
+        <header>
+            <h1 class="title">Processing for Android</h1>
+        </header>
+
+        <div class="group">
+
+            <nav class="site">
+                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
+                <ul class="leftnav">
+                   <li><a href="../../index.html">Home</a></li>
+                   <li><a href="../../install.html">Install</a></li>
+                   <li><a href="../../reference/index.html">Reference</a></li>
+                   <li><a id="selected" href="../../tutorials/index.html">Tutorials</a></li>
+                   <li><a href="../../books/index.html">Books</a></li>
+                   <li><a href="../../gallery/index.html">Gallery</a></li>
+                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
+                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
+                </ul>
+            </nav>
+      
+            <section class="container main-text">
+
+                <div class="lang">
+                  <a id="selected" href="index.html">EN</a>
+                  <a href="../../es/tutorials/ar_intro/index.html">ES</a>
+                </div>
+                <hr style="clear:both;">
+
+            	<h2>AR in Processing</h2>
+                <p>
+                Using the Android mode in Processing to create AR apps!
+                </p>
+
+                <h3>ARCore</h3>
+                <p>
+                Google offers a framework to create Augmented Reality (AR) apps for Android, called <a href="https://developers.google.com/ar" target="_black">ARCore</a>. Phone-based AR typically involves drawing digital 3D content on top of the physical world, as seen from the perspective of the phone's camera, in such a way that the digital contents convincingly appear to be part of the real-world environment. Doing this requires applying complex algorithms in real-time to recognize objects in the physical environment, such as walls, pieces of furniture, even people, and determining the pose (position and orientation) of the phone relative to the world over time. Fortunately for us, ARCore handles all of these calculations automatically, and provides an <a href="https://developers.google.com/ar/reference" target="_black">API</a> to access the real world features and attach digital contents to them from our code. While it is possible to access ARCore directly from Processing, the Android mode includes an AR library that makes it easier to use ARCore in our Processing sketches and apply Processing's drawing API to create AR content.
+                </p>
+
+                <p><a href="https://experiments.withgoogle.com/hidden-world" target="_black"><img class="body-image" src="imgs/hidden_world.gif" alt="Hidden World"></a></p>
+
+                <p>AR is a rapidly growing field, thanks to frameworks such as ARCore on Android (and <a href="https://developer.apple.com/augmented-reality/arkit/" target="_black">ARKit</a> on iOS) and to the fast pace of technical improvement of smartphones. The integration of real-world environments with digital contents is opening many new possibilities for phone-mediated experiences in the physical world. The <a href="https://experiments.withgoogle.com/collection/ar" target="_black">AR experiments</a> from Google and the <a href="https://github.com/olucurious/Awesome-ARKit" target="_black">Awesome ARKit</a> list of AR apps for iOS are good resources to find projects making creative use of AR.
+                </p>
+
+                <h3>Requirements</h3>
+                <p>In order to ensure a good AR experience, Google certifies devices to be supported by ARCore. The official list of supported devices is available <a href="https://developers.google.com/ar/discover/supported-devices" target="_black">here</a>. The devices in that list should work with Processing as well to create AR projects.
+
+                <h3>Getting started</h3>
+
+                <p>
+                You need to select the AR option in the Android menu to make sure that your sketch is built as an AR app:
+                </p>
+
+                <p><img class="body-image" src="imgs/ar_selection.png" alt="AR selection"></p>
+
+                <p>
+                While in VR you can make pretty much turn any 3D Processing sketch into VR simply by importing the VR library and using the VR renderer, using AR requires a few more steps. First of all, we need to add an ARTracker to our sketch, and call its <code>start() function</code> to get AR tracking going. The other two classes in the AR library are ARTrackble and ARAnchor, they represent a surface that can be tracked in real-world space (such as a table or a wall), and a point in space that remains fixed relative to a given trackable surface. These concepts will hopefully become clearer as we go through the tutorial. For the time being, a basic skeleton for an AR sketch in Processing could look like the following code, where we just launch tracking and print the currently detected trackable objects to the console:
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> processing.ar.*;
+
+<span style="color: #E2661A;">ARTracker</span> tracker;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">AR</span>);
+&nbsp;&nbsp;tracker&nbsp;=&nbsp;<span style="color: #33997E;">new</span> ARTracker(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;tracker.<span style="color: #006699;">start</span>();
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();  
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">lights</span>();
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i &lt; tracker.count(); i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">ARTrackable</span> t = tracker.<span style="color: #006699;">get</span>(i);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">println</span>(<span style="color: #7D4793;">&quot;Trackable&quot;</span>, i, t);
+&nbsp;&nbsp;}&nbsp;&nbsp;
+}
+</code></pre>
+
+                <h3>Drawing trackables</h3>
+
+                <p>
+                Trackable objects in Processing are limited to plane surfaces, even though the underlying <a href="https://developers.google.com/ar/reference/java/arcore/reference/com/google/ar/core/Trackable" target="_black">trackable in ARCore</a> can represent other kind of features in physical space, such as cloud points. Each trackable object contains basic information about it, including size and current status (whether is being tracked, paused, or stopped). In order to draw a trackable plane, we first need to apply the transformation that turns Processing's coordiantes into the trackable system, in this way, it is easy to represent points relative to the trackable plane that spans X and Z axis irrespective of its orientation with respect to Processing's coordiante system. We can retrieve the size of the trackable along each axis with the lengthX() and lengthZ() functions, and call the transform() function before making any drawing:
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> processing.ar.*;
+
+<span style="color: #E2661A;">ARTracker</span> tracker;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">AR</span>);
+&nbsp;&nbsp;tracker&nbsp;=&nbsp;<span style="color: #33997E;">new</span> ARTracker(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;tracker.<span style="color: #006699;">start</span>();
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();  
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">lights</span>();
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i &lt; tracker.count(); i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">ARTrackable</span> t = tracker.<span style="color: #006699;">get</span>(i);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;t.transform();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> lx = t.lengthX();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> lz = t.lengthZ();    
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255, 100);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">beginShape</span>(<span style="color: #718A62;">QUADS</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(-lx/2, 0, -lz/2);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(-lx/2, 0, +lz/2);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(+lx/2, 0, +lz/2);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(+lx/2, 0, -lz/2);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">endShape</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();  
+&nbsp;&nbsp;}&nbsp;&nbsp;
+}
+</code></pre>
+
+                <p>
+                The sketch above should draw all the trackable planes being detected by the phone as we move around:
+                </p>
+
+                <p><img class="body-image" src="imgs/ar_trackables.png" alt="trackable planes"></p>
+                
+                <p>
+                It is easy to test if a trackable is being selected by the user using the touchscreen, all we need to is to call the <code>isSelected(x, y)</code> with the (x, y) coordinates of the touch point:
+                </p>
+
+<pre><code>
+&nbsp;&nbsp;&nbsp;&nbsp;...    
+&nbsp;&nbsp;&nbsp;&nbsp;t.transform();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> lx = t.lengthX();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> lz = t.lengthZ();    
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mousePressed</span> &amp;&amp; t.isSelected(<span style="color: #D94A7A;">mouseX</span>, <span style="color: #D94A7A;">mouseY</span>)) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255, 0, 0, 100);
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255, 100);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">beginShape</span>(<span style="color: #718A62;">QUADS</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(-lx/2, 0, -lz/2);
+&nbsp;&nbsp;&nbsp;&nbsp;...
+</code></pre>
+
+                <p>
+                Adding the code above to our previous sketch should result in the following interaction when touching a plane in the camera image:
+                </p>
+
+
+                <p><img class="body-image" src="imgs/ar_trackable_selection.png" alt="trackable selection"></p>
+
+                <h3>Using anchors</h3>
+
+                <p>
+                Once we have trackable surfaces in our AR scene, we can attach anchors to them. <a href="https://developers.google.com/ar/develop/developer-guides/anchors" target="_black">trackable in ARCore</a> are essentially positions in space that are fixed relative to the trackable they are attached to, and allow us to make virtual objects appear to stay in place in the scene. Anchor objects in Processing are created with the relative coordinates they will have relative to their parent trackable. Extending our code above, we could add new anchors exactly when a trackable is detected for the first time. That event can be handled by adding the <code>trackableEvent()</code> function to our code, which will receive the trackable being detected as an argument. We need to keep track of all the anchors in our scene manually, for example by storing them in a list, and removing them when they are no longer being tracked. The following code does all of that:
+                </p>
+
+<pre><code>
+<span style="color: #33997E;">import</span> processing.ar.*;
+
+<span style="color: #E2661A;">ARTracker</span> tracker;
+<span style="color: #E2661A;">ArrayList</span>&lt;<span style="color: #E2661A;">ARAnchor</span>&gt; trackAnchors = <span style="color: #33997E;">new</span> <span style="color: #E2661A;">ArrayList</span>&lt;<span style="color: #E2661A;">ARAnchor</span>&gt;();
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">AR</span>);
+&nbsp;&nbsp;tracker&nbsp;=&nbsp;<span style="color: #33997E;">new</span> ARTracker(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;tracker.<span style="color: #006699;">start</span>();
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();  
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">lights</span>();
+&nbsp;&nbsp;drawAnchors();
+&nbsp;&nbsp;drawTrackables();
+}
+
+<span style="color: #33997E;">void</span> trackableEvent(<span style="color: #E2661A;">ARTrackable</span> t) {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (trackAnchors.<span style="color: #006699;">size</span>() &lt; 10 &amp;&amp; t.isFloorPlane()) {
+&nbsp;&nbsp;&nbsp;&nbsp;trackAnchors.<span style="color: #006699;">add</span>(<span style="color: #33997E;">new</span> ARAnchor(t, 0, 0, 0));
+&nbsp;&nbsp;}
+}
+
+<span style="color: #33997E;">void</span> drawAnchors() {
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">ARAnchor</span> anchor : trackAnchors) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (anchor.isTracking()) drawSphere(anchor, 0.05);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (anchor.isStopped()) anchor.dispose();
+&nbsp;&nbsp;}
+&nbsp;&nbsp;tracker.clearAnchors(trackAnchors);&nbsp;&nbsp;&nbsp;
+}
+
+<span style="color: #33997E;">void</span> drawTrackables() {
+&nbsp;&nbsp;<span style="color: #669900;">for</span> (<span style="color: #E2661A;">int</span> i = 0; i &lt; tracker.count(); i++) {
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">ARTrackable</span> t = tracker.<span style="color: #006699;">get</span>(i);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">pushMatrix</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;t.transform();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> lx = t.lengthX();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #E2661A;">float</span> lz = t.lengthZ();    
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #669900;">if</span> (<span style="color: #D94A7A;">mousePressed</span> &amp;&amp; t.isSelected(<span style="color: #D94A7A;">mouseX</span>, <span style="color: #D94A7A;">mouseY</span>)) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255, 0, 0, 100);
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<span style="color: #669900;">else</span> {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">fill</span>(255, 100);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;drawPlane(lx,&nbsp;lz);
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">popMatrix</span>();  
+&nbsp;&nbsp;}&nbsp;&nbsp;
+}
+
+<span style="color: #33997E;">void</span> drawSphere(<span style="color: #E2661A;">ARAnchor</span> anchor, <span style="color: #E2661A;">float</span> r) {
+&nbsp;&nbsp;anchor.attach();
+&nbsp;&nbsp;<span style="color: #006699;">fill</span>(#CF79F5);
+&nbsp;&nbsp;<span style="color: #006699;">sphere</span>(r);
+&nbsp;&nbsp;anchor.detach();
+}
+
+<span style="color: #33997E;">void</span> drawPlane(<span style="color: #E2661A;">float</span> lx, <span style="color: #E2661A;">float</span> lz) {
+&nbsp;&nbsp;<span style="color: #006699;">beginShape</span>(<span style="color: #718A62;">QUADS</span>);
+&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(-lx/2, 0, -lz/2);
+&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(-lx/2, 0, +lz/2);
+&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(+lx/2, 0, +lz/2);
+&nbsp;&nbsp;<span style="color: #006699;">vertex</span>(+lx/2, 0, -lz/2);
+&nbsp;&nbsp;<span style="color: #006699;">endShape</span>();  
+}
+</code></pre>
+
+                <p>
+                In the code above, we create a new anchor at the point (0, 0, 0) relative to the trackable being detected, but only if is a horizontal surface (i.e.: a floor), which we can detect by calling <code>isFloorPlane()</code>. A similar function, isWallPlane(), allows us to know if the trackable is a vertical plane (i.e.: a wall). It is important to notice the dimensions of the objects in AR, for example, the radius of the spheres being drawn at the anchor positions is only 0.05. The reason is that ARCore's translation units <a href="https://developers.google.com/ar/reference/c/group/concepts#poses-and-coordinate-spaces" target="_black">are meters</a>, so everything in our AR sketch should be scaled to sizes that are consistent with the real-world dimensions, as expressed in meters.
+                </p>
+
+                <p>It is also important that we dispose an anchor once is no longer tracked with the line <code>if (anchor.isStopped()) anchor.dispose();</code> to make sure we don't waste resources with anchors that are no longer active (anchors that are simply paused should not be disposed as they can be tracked again later, but those stopped are not going to be restarted). We should also remove the disposed anchors from our array list, we can do that in our sketch, or use the utility function <code>clearAnchors</code> provided in the ARTracker class. The result of our latest code should be the following:
+                </p>
+
+                <p><img class="body-image" src="imgs/ar_anchors.png" alt="Anchor drawing"></p>
+
+                <h3>Hitting trackables</h3>
+
+                <p>
+                A typical interaction in AR is to move around an object along a trackable plane, for example to find its best placement interactively. The AR library in Processing offers functionality that makes implementing such interaction very easy. The ARTracker class has a <code>get()</code> function that takes an (x, y) touch position, and returns the trackable hit by that touch point. We can then create a new anchor for that hit trackable, and the anchor will be placed exactly at the position on the trackable that's at the intersection with the touch pointer. As the pointer moves around, we need to keep disposing the anchor at the previous position and creating another one at the new position. This is done with the following code (to be added to last version of our sketch):
+                <p>
+
+
+<pre><code>
+<span style="color: #33997E;">import</span> processing.ar.*;
+
+<span style="color: #E2661A;">ARTracker</span> tracker;
+<span style="color: #E2661A;">ArrayList</span>&lt;<span style="color: #E2661A;">ARAnchor</span>&gt; trackAnchors = <span style="color: #33997E;">new</span> <span style="color: #E2661A;">ArrayList</span>&lt;<span style="color: #E2661A;">ARAnchor</span>&gt;();
+<span style="color: #E2661A;">ARAnchor</span> touchAnchor;
+<span style="color: #E2661A;">PShape</span> obj;
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(<span style="color: #718A62;">AR</span>);
+&nbsp;&nbsp;obj&nbsp;=&nbsp;<span style="color: #006699;">loadShape</span>(<span style="color: #7D4793;">&quot;model.obj&quot;</span>);
+&nbsp;&nbsp;tracker&nbsp;=&nbsp;<span style="color: #33997E;">new</span> ARTracker(<span style="color: #33997E;">this</span>);
+&nbsp;&nbsp;tracker.<span style="color: #006699;">start</span>();
+&nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();  
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
+&nbsp;&nbsp;<span style="color: #006699;">lights</span>();
+&nbsp;&nbsp;drawObject(touchAnchor);
+&nbsp;&nbsp;drawAnchors();
+&nbsp;&nbsp;drawTrackables();
+}
+
+<span style="color: #33997E;">void</span> <span style="color: #006699;"><b>mousePressed</b></span>() {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (touchAnchor != <span style="color: #33997E;">null</span>) touchAnchor.dispose();
+&nbsp;&nbsp;<span style="color: #E2661A;">ARTrackable</span> hit = tracker.<span style="color: #006699;">get</span>(<span style="color: #D94A7A;">mouseX</span>, <span style="color: #D94A7A;">mouseY</span>);
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (hit != <span style="color: #33997E;">null</span>) touchAnchor = <span style="color: #33997E;">new</span> ARAnchor(hit);
+&nbsp;&nbsp;<span style="color: #669900;">else</span> touchAnchor = <span style="color: #33997E;">null</span>;
+}
+...
+<span style="color: #33997E;">void</span> drawObject(<span style="color: #E2661A;">ARAnchor</span> anchor) {
+&nbsp;&nbsp;<span style="color: #669900;">if</span> (anchor != <span style="color: #33997E;">null</span>) {
+&nbsp;&nbsp;&nbsp;&nbsp;anchor.attach();
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #006699;">shape</span>(obj);
+&nbsp;&nbsp;&nbsp;&nbsp;anchor.detach();
+&nbsp;&nbsp;}
+}
+</code></pre>
+
+                <p>
+                Here we are using a custom OBJ model to draw at the placement of the hit anchor. If all is correct in the code, the output would look similar to the following:
+                </p>
+
+                <p><img class="body-image" src="imgs/ar_objects.png" alt="Detecting trackable hitting"></p>
+
+                <p>The complete sketch code is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/ar/ex1_ar_intro" target="_black">here</a>.</p>
+
+            </section>
+
+        </div>
+
+        <footer class="footinfo">
+            <small>&copy; The Processing Foundation. Processing for Android is a <a href="../../team.html">collaborative project</a>.</small>
+        </footer>
+    </body>
+</html>
+
