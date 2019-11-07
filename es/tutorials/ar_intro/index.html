@@ -6,7 +6,7 @@
         <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
         <link rel="stylesheet" href="../../../css/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <title>Processing for Android</title>
+        <title>Processing para Android</title>
     </head>
     
     <body>
@@ -24,7 +24,7 @@
         </nav>
 
         <header>
-            <h1 class="title">Processing for Android</h1>
+            <h1 class="title">Processing para Android</h1>
         </header>
 
         <div class="group">
@@ -51,38 +51,38 @@
                 </div>
                 <hr style="clear:both;">
 
-            	<h2>AR in Processing</h2>
+            	<h2>RA en Processing</h2>
                 <p>
                 Cómo crear apps de Realidad Aumentada usando Processing para Android.
                 </p>
 
                 <h3>ARCore</h3>
                 <p>
-                Google ofrece un marco para crear aplicaciones de Realidad Aumentada (AR) para Android, llamado <a href="https://developers.google.com/ar" target="_black"> ARCore </a>. La AR basada en el teléfono generalmente implica dibujar contenido digital en 3D en la parte superior del mundo físico, como se ve desde la perspectiva de la cámara del teléfono, de tal manera que los contenidos digitales parecen ser convincentemente parte del entorno del mundo real. Hacer esto requiere aplicar algoritmos complejos en tiempo real para reconocer objetos en el entorno físico, como paredes, muebles, incluso personas, y determinar la pose (posición y orientación) del teléfono en relación con el mundo a lo largo del tiempo. Afortunadamente para nosotros, ARCore maneja todos estos cálculos automáticamente y proporciona una <a href="https://developers.google.com/ar/reference" target="_black"> API </a> para acceder al mundo real características y adjuntarles contenidos digitales desde nuestro código. Si bien es posible acceder a ARCore directamente desde Processing, el modo Android incluye una biblioteca AR que hace que sea más fácil usar ARCore en nuestros bocetos de Processing y aplicar la API de dibujo de Processing para crear contenido AR.
+                Google ofrece un entorno de trabajo para crear aplicaciones de Realidad Aumentada (RA) para Android, llamado <a href="https://developers.google.com/ar" target="_black"> ARCore </a>. Experiencias de RA en teléfonos inteligentes generalmente involucran el dibujado de contenido digital en 3D superpuesto al mundo físico, tal como se lo vé desde la perspectiva de la cámara del teléfono, de tal manera que los contenidos digitales parecen ser parte del entorno del mundo físico de manera convincente. Esto requiere algoritmos complejos en tiempo real para reconocer objetos en el entorno físico, como paredes, muebles, incluso personas, y determinar la pose (posición y orientación) del teléfono en relación con el espacio a lo largo del tiempo. Afortunadamente para nosotros, ARCore maneja todos estos cálculos automáticamente y proporciona una <a href="https://developers.google.com/ar/reference" target="_black">API</a> para acceder a las características identificadas en el espacio físoco y adjuntarles contenidos digitales desde nuestro código. Si bien es posible acceder a ARCore directamente desde Processing, el modo Android incluye una biblioteca de RA que hace que sea más fácil usar ARCore en nuestros bosquejos de Processing y aplicar la API de dibujo de Processing para crear contenido en RA.
                 </p>
 
                 <p><a href="https://experiments.withgoogle.com/hidden-world" target="_black"><img class="body-image" src="imgs/hidden_world.gif" alt="Hidden World"></a></p>
 
                 <p>
-                AR es un campo en rápido crecimiento, gracias a marcos como ARCore en Android (y <a href="https://developer.apple.com/augmented-reality/arkit/" target="_black"> ARKit </a> en iOS) y al rápido ritmo de mejora técnica de los teléfonos inteligentes. La integración de entornos del mundo real con contenidos digitales está abriendo muchas posibilidades nuevas para experiencias mediadas por teléfono en el mundo físico. Los <a href="https://experiments.withgoogle.com/collection/ar" target="_black"> Experimentos AR </a> de Google y los <a href = "https://github.com/olucurious / Awesome-ARKit "target =" _ black "> La lista Awesome ARKit </a> de aplicaciones AR para iOS son buenos recursos para encontrar proyectos que hagan un uso creativo de AR.
+                AR es un campo en rápido crecimiento, gracias a entornos como ARCore en Android (y <a href="https://developer.apple.com/augmented-reality/arkit/" target="_black">ARKit</a> en iOS) y al rápido ritmo de mejora técnica de los teléfonos inteligentes. La integración de los espacios físicos con contenidos digitales está abriendo muchas nuevas posibilidades para experiencias "físicas" mediadas a través de los teléfonos inteligentes. Los <a href="https://experiments.withgoogle.com/collection/ar" target="_black">Experimentos AR</a> de Google y la lista <a href = "https://github.com/olucurious/Awesome-ARKit "target =" _ black ">Awesome ARKit</a> de aplicaciones RA para iOS son buenos recursos para encontrar proyectos que hagan un uso creativo de RA.
                 </p>
 
                 <h3>Requisitos</h3>
 
                 <p>
-                Con el fin de garantizar una buena experiencia de AR, Google certifica los dispositivos compatibles con ARCore. La lista oficial de dispositivos compatibles está disponible <a href="https://developers.google.com/ar/discover/supported-devices" target="_black"> aquí </a>. Los dispositivos en esa lista también deberían funcionar con Processing para crear proyectos AR.
+                Con el fin de garantizar una buena experiencia de RA, Google certifica los dispositivos móblies compatibles con ARCore. La lista oficial de dispositivos compatibles está disponible <a href="https://developers.google.com/ar/discover/supported-devices" target="_black">aquí</a>. Los dispositivos en esa lista también deberían funcionar sin problemas con Processing para crear proyectos de RA.
                 </p>
 
                 <h3>Configuración inicial</h3>
 
                 <p>
-                Debe seleccionar la opción AR en el menú de Android para asegurarse de que su boceto esté construido como una aplicación AR:
+                El primer paso es seleccionar la opción AR en el menú de Android para asegurarse de nuestro bosquejo sea compilado como una aplicación AR:
                 </p>
 
                 <p><img class="body-image" src="imgs/ar_selection.png" alt="AR selection"></p>
 
                 <p>
-                Mientras que en la realidad virtual puede convertir prácticamente cualquier boceto de procesamiento 3D en realidad virtual simplemente importando la biblioteca de realidad virtual y utilizando el renderizador de realidad virtual, el uso de AR requiere unos pocos pasos más. En primer lugar, necesitamos agregar un ARTracker a nuestro boceto, y llamar a su función <code> start () </code> para que el seguimiento AR continúe. Las otras dos clases en la biblioteca AR son ARTrackble y ARAnchor, representan una superficie que se puede rastrear en el espacio del mundo real (como una mesa o una pared) y un punto en el espacio que permanece fijo en relación con una superficie rastreable dada. . Es de esperar que estos conceptos se aclaren a medida que avancemos en el tutorial. Por el momento, un esqueleto básico para un boceto AR en Procesamiento podría verse como el siguiente código, donde solo iniciamos el seguimiento e imprimimos los objetos rastreables actualmente detectados en la consola:
+                Mientras que prácticamente cualquier bosquejo 3D de Processing se puede visualizar en RV simplemente importando la biblioteca de realidad virtual y utilizando el motor de renderizado VR, el uso de RA es un poco más complejo y require algunos pasos más. En primer lugar, necesitamos agregar un objeto ARTracker a nuestro boceto, y llamar a su función <code>start()</code> para iniciar el seguimiento en RA. Las otras dos clases en la biblioteca AR son ARTrackble y ARAnchor, que representan respectivamente una superficie que se puede seguir o "trackear" en el espacio físico (como pueden ser una mesa o una pared) y un punto en el espacio que permanece fijo en relación con una superficie trackeable dada. Estos conceptos se irán aclarando a medida que avancemos en el tutorial. Por el momento, un esqueleto básico para un boceto de RA en Processing está provisto en el siguiente código, donde sólamente iniciamos el seguimiento e imprimimos en la consola los objetos trackeables detectados en cada cuadro:
                 </p>
 
 <pre><code>
@@ -106,10 +106,10 @@
 }
 </code></pre>
 
-                <h3>Dibujando trackables</h3>
+                <h3>Dibujando trackeables</h3>
 
                 <p>
-                Los objetos rastreables en Processing están limitados a superficies planas, aunque el <a href = "https://developers.google.com/ar/reference/java/arcore/reference/com/google/ar/core/Trackable" objetivo subyacente = "_ black"> rastreable en ARCore </a> puede representar otro tipo de características en el espacio físico, como los puntos de nubes. Cada objeto rastreable contiene información básica sobre él, incluido el tamaño y el estado actual (ya sea que se esté rastreando, pausando o deteniendo). Para dibujar un plano rastreable, primero debemos aplicar la transformación que convierte a los coordinadores de Processing en el sistema rastreable, de esta manera, es fácil representar puntos relativos al plano rastreable que abarca los ejes X y Z, independientemente de su orientación con respeto al sistema coordiante de Processing. Podemos recuperar el tamaño del rastreable a lo largo de cada eje con las funciones lengthX () y lengthZ (), y llamar a la función transform () antes de hacer cualquier dibujo:
+                Los objetos trackeables en Processing están limitados a superficies planas, aunque el  <a href = "https://developers.google.com/ar/reference/java/arcore/reference/com/google/ar/core/Trackable" target="_black"> objeto trackable de ARCore</a> subyacenbte puede representar otro tipo de características en el espacio físico, tales como nubes de puntos. Cada objeto trackeable contiene información básica acerca de la entidad física que representa, incluido el tamaño y el estado actual (ya sea que se lo esté trackeando, pausado o detenido). Para dibujar un plano trackeable, primero debemos aplicar la transformación que convierte a los coordinates globales de Processing en el sistema del trackeable, de esta manera, es fácil representar puntos relativos al plano trackeable que abarca los ejes X y Z, independientemente de su orientación con respeto al sistema de coordenadas de Processing. Podemos obtener el tamaño del trackeable a lo largo de cada eje con las funciones lengthX() y lengthZ (), y llamar a la función transform() antes de hacer cualquier dibujo:
                 </p>
 
 <pre><code>
@@ -145,13 +145,13 @@
 </code></pre>
 
                 <p>
-                The sketch above should draw all the trackable planes being detected by the phone as we move around:
+                El bosquejo anterior debería dibujar todos los planos trackeables que el teléfono detecta mientras nos movemos en el espacio:
                 </p>
 
                 <p><img class="body-image" src="imgs/ar_trackables.png" alt="trackable planes"></p>
                 
                 <p>
-                It is easy to test if a trackable is being selected by the user using the touchscreen, all we need to is to call the <code>isSelected(x, y)</code> with the (x, y) coordinates of the touch point:
+                También es fácil determinar si el usuario está seleccionando un trackable usando la pantalla táctil, todo lo que tenemos que hacer es llamar al <code>isSelected(x, y)</code> con las coordenadas (x, y) del puntero de toque:
                 </p>
 
 <pre><code>
@@ -170,7 +170,7 @@
 </code></pre>
 
                 <p>
-                Agregar el código anterior a nuestro boceto anterior debería generar la siguiente interacción al tocar un plano en la imagen de la cámara:
+                Si agregamos este código a nuestro bosquejo previos deberíamos obtener la siguiente interacción al tocar un plano en la imágen de la cámara:
                 </p>
 
 
@@ -179,7 +179,7 @@
                 <h3>Usando anclas</h3>
 
                 <p>
-                Una vez que tenemos superficies rastreables en nuestra escena AR, podemos unir anclas a ellas. <a href="https://developers.google.com/ar/develop/developer-guides/anchors" target="_black"> rastreable en ARCore </a> son esencialmente posiciones en el espacio que se fijan en relación con el rastreable están unidos y nos permiten hacer que los objetos virtuales parezcan permanecer en su lugar en la escena. Los objetos de anclaje en Processing se crean con las coordenadas relativas que tendrán en relación con su padre rastreable. Extendiendo nuestro código anterior, podríamos agregar nuevos anclajes exactamente cuando se detecte un seguimiento por primera vez. Ese evento puede manejarse agregando la función <code> trackableEvent () </code> a nuestro código, que recibirá el trackable detectado como un argumento. Necesitamos hacer un seguimiento de todos los anclajes en nuestra escena manualmente, por ejemplo almacenándolos en una lista y eliminándolos cuando ya no se están rastreando. El siguiente código hace todo eso:
+                Una vez que tenemos superficies rastreables en nuestra escena de RA, podemos unir anclas a las mismas. <a href="https://developers.google.com/ar/develop/developer-guides/anchors" target="_black">Anchors o anclas en ARCore</a> son esencialmente posiciones en el espacio que se fijan en relación con el trackeable al que están unidas y nos permiten hacer que los objetos virtuales permanezcan en su lugar en la escena. Los objetos de anclaje en Processing se crean con las coordenadas relativas que tendrán en relación con su trackeable pariente. Extendiendo nuestro código anterior, podríamos agregar nuevos anclajes exactamente cuando se detecte un trackeable por primera vez. Ese evento puede manejarse agregando la función <code>trackableEvent()</code> a nuestro código, que recibirá el trackable detectado como argumento. Necesitamos hacer un seguimiento de todos los anclajes en nuestra escena manualmente, por ejemplo almacenándolos en una lista y eliminándolos cuando ya no se están rastreando. El siguiente código hace todo eso:
                 </p>
 
 <pre><code>
@@ -250,19 +250,23 @@
 </code></pre>
 
                 <p>
-                En el código anterior, creamos un nuevo anclaje en el punto (0, 0, 0) en relación con el rastreable que se detecta, pero solo si hay una superficie horizontal (es decir, un piso), que podemos detectar llamando a <code> isFloorPlane () </code>. Una función similar, esWallPlane (), nos permite saber si el trackable es un plano vertical (es decir, una pared). Es importante observar las dimensiones de los objetos en AR, por ejemplo, el radio de las esferas que se dibujan en las posiciones de anclaje es de solo 0.05. La razón es que las unidades de traducción de ARCore <a href="https://developers.google.com/ar/reference/c/group/concepts#poses-and-coordinate-spaces" target="_black"> son metros </a>, por lo que todo en nuestro boceto AR debe ajustarse a tamaños que sean consistentes con las dimensiones del mundo real, como se expresa en metros.
+                En el código anterior, creamos un nuevo anclaje en el punto (0, 0, 0) en relación con el trackeable que se ha detectado, pero sólamente si representa una superficie horizontal (es decir, un piso), lo cual podemos determinar llamando la función <code>isFloorPlane()</code>. Una función similar, <code>isWallPlane()</code>, nos permite saber si el trackable es un plano vertical (es decir, una pared). Es importante observar que las dimensiones de los objetos en RA son bastante pequeñas en comparación con un bosquejo de 3D típico (por ejemplo, el radio de las esferas que se dibujan en las posiciones de anclaje es solamente 0.05).
                 </p>
 
+                <div class = "butterbar">
+                La razón es que las unidades de traslación en ARCore <a href="https://developers.google.com/ar/reference/c/group/concepts#poses-and-coordinate-spaces" target="_black">son en metros</a>, por lo que todos los objetos en nuestros bosquejos de RA deben ajustarse a tamaños que sean consistentes con las dimensiones del mundo real expresadas en el sistema decimal.
+                </div>       
+                
                 <p>
-                También es importante que eliminemos un ancla una vez que ya no se rastrea con la línea <code> if (anchor.isStopped ()) anchor.dispose (); </code> para asegurarnos de que no desperdiciemos recursos con anclas que ya no están activas (las anclas que simplemente están en pausa no deben desecharse ya que pueden rastrearse nuevamente más tarde, pero las detenidas no se reiniciarán). También deberíamos eliminar los anclajes desechados de nuestra lista de matrices, podemos hacerlo en nuestro boceto o usar la función de utilidad <code> clearAnchors </code> provista en la clase ARTracker. El resultado de nuestro último código debería ser el siguiente:
+                También es importante que desechemos un ancla una vez que ya no sea rastreada con la suguiente línea de código: <code>if (anchor.isStopped ()) anchor.dispose ();</code>. De esta manera nos asegurarmos de que no desperdiciar recursos con anclas que ya no están activas (las anclas que simplemente están en pausa no deben desecharse ya que pueden rastrearse nuevamente más tarde, pero las detenidas no se reiniciarán de nuevo). También deberíamos eliminar los anclajes desechados de nuestra lista de matrices, podemos hacerlo manualmente desde nuestro bosquejo o usar la función de utilidad <code>clearAnchors</code> provista en la clase ARTracker. El resultado de nuestro último código debería ser el siguiente:
                 </p>
 
                 <p><img class="body-image" src="imgs/ar_anchors.png" alt="Anchor drawing"></p>
 
-                <h3>Golpeando rastreables</h3>
+                <h3>Tocando trackeables</h3>
 
                 <p>
-                Una interacción típica en AR es moverse alrededor de un objeto a lo largo de un plano rastreable, por ejemplo, para encontrar su mejor ubicación interactivamente. La biblioteca AR en Processing ofrece una funcionalidad que facilita la implementación de dicha interacción. La clase ARTracker tiene una función <code> get () </code> que toma una posición táctil (x, y) y devuelve el golpe rastreable por ese punto táctil. Entonces podemos crear un nuevo ancla para ese golpe rastreable, y el ancla se colocará exactamente en la posición del rastreable que está en la intersección con el puntero táctil. A medida que el puntero se mueve, debemos seguir colocando el ancla en la posición anterior y crear otro en la nueva posición. Esto se hace con el siguiente código (que se agregará a la última versión de nuestro boceto):
+                Una interacción típica en A es desplazar un objeto (virtual) a lo largo de un plano trackeable, por ejemplo, con el fin de encontrar su mejor ubicación en el espacio físico de manera interactiva. La biblioteca AR en Processing ofrece una funcionalidad que facilita la implementación de dichas interacciones. La clase ARTracker provee una función <code>get()</code> que toma una posición táctil (x, y) como argumento y devuelve el trackeable que está siendo tocado por el puntero táctil. De esta forma, podemos crear un nuevo ancla para ese trackeable tocado, y el ancla se colocará exactamente en la posición del trackeable que se encuentra en la intersección con el puntero táctil. A medida que el puntero se mueve, debemos desechar el ancla en la posición anterior y crear otra en la nueva posición. Esto se hace con el siguiente código (para ser agregado a la versión previa de nuesto bosquejo):
                 <p>
 
 
@@ -306,19 +310,19 @@
 </code></pre>
 
                 <p>
-                Aquí estamos utilizando un modelo OBJ personalizado para dibujar en la ubicación del anclaje de impacto. Si todo es correcto en el código, el resultado sería similar al siguiente:
+                En este ejemplo utilizamos un modelo OBJ cargado desde la la carpeta de datos del bosquejo para dibujar en la ubicación del anclaje de toque. Si todo es correcto en el código, el resultado sería similar al siguiente:
                 </p>
 
                 <p><img class="body-image" src="imgs/ar_objects.png" alt="Detecting trackable hitting"></p>
 
-                <p>El código de boceto completo está disponible <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/ar/ex1_ar_intro" target="_black">aquí</a>.</p>
+                <p>El código del bosquejo completo está disponible <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/ar/ex1_ar_intro" target="_black">aquí</a>.</p>
 
             </section>
 
         </div>
 
         <footer class="footinfo">
-            <small>&copy; The Processing Foundation. Processing for Android is a <a href="../../team.html">collaborative project</a>.</small>
+            <small>&copy; The Processing Foundation. Processing para Android es un <a href="../../team.html">proyecto colaborativo</a>.</small>
         </footer>
     </body>
 </html>

@@ -58,7 +58,7 @@
 
                 <h3>ARCore</h3>
                 <p>
-                Google offers a framework to create Augmented Reality (AR) apps for Android, called <a href="https://developers.google.com/ar" target="_black">ARCore</a>. Phone-based AR typically involves drawing digital 3D content on top of the physical world, as seen from the perspective of the phone's camera, in such a way that the digital contents convincingly appear to be part of the real-world environment. Doing this requires applying complex algorithms in real-time to recognize objects in the physical environment, such as walls, pieces of furniture, even people, and determining the pose (position and orientation) of the phone relative to the world over time. Fortunately for us, ARCore handles all of these calculations automatically, and provides an <a href="https://developers.google.com/ar/reference" target="_black">API</a> to access the real world features and attach digital contents to them from our code. While it is possible to access ARCore directly from Processing, the Android mode includes an AR library that makes it easier to use ARCore in our Processing sketches and apply Processing's drawing API to create AR content.
+                Google offers a framework to create Augmented Reality (AR) apps for Android, called <a href="https://developers.google.com/ar" target="_black">ARCore</a>. Phone-based AR experiences typically involve drawing digital 3D content on top of the physical world, as seen from the perspective of the phone's camera, in such a way that the digital contents convincingly appear to be part of the real-world environment. Doing this requires applying complex algorithms in real-time to recognize objects in the physical environment, such as walls, pieces of furniture, even people, and determining the pose (position and orientation) of the phone relative to the world over time. Fortunately for us, ARCore handles all of these calculations automatically, and provides an <a href="https://developers.google.com/ar/reference" target="_black">API</a> to access the real-world features and attach digital contents to them from our code. While it is possible to access ARCore directly from Processing, the Android mode includes an AR library that makes it easier to use ARCore in our Processing sketches and apply Processing's drawing API to create AR content.
                 </p>
 
                 <p><a href="https://experiments.withgoogle.com/hidden-world" target="_black"><img class="body-image" src="imgs/hidden_world.gif" alt="Hidden World"></a></p>
@@ -78,7 +78,7 @@
                 <p><img class="body-image" src="imgs/ar_selection.png" alt="AR selection"></p>
 
                 <p>
-                While in VR you can make pretty much turn any 3D Processing sketch into VR simply by importing the VR library and using the VR renderer, using AR requires a few more steps. First of all, we need to add an ARTracker to our sketch, and call its <code>start() function</code> to get AR tracking going. The other two classes in the AR library are ARTrackble and ARAnchor, they represent a surface that can be tracked in real-world space (such as a table or a wall), and a point in space that remains fixed relative to a given trackable surface. These concepts will hopefully become clearer as we go through the tutorial. For the time being, a basic skeleton for an AR sketch in Processing could look like the following code, where we just launch tracking and print the currently detected trackable objects to the console:
+                While in VR you can make pretty much turn any 3D Processing sketch into VR simply by importing the VR library and using the VR renderer, using AR requires a few more steps. First of all, we need to add an ARTracker to our sketch, and call its <code>start() function</code> to get AR tracking going. The other two classes in the AR library are ARTrackble and ARAnchor, they represent a surface that can be tracked in real-world space (such as a table or a wall), and a point in space that remains fixed relative to a given trackable surface. These concepts will hopefully become clearer as we go through the tutorial. For the time being, a basic skeleton for an AR sketch in Processing could look like the following code, where we just launch tracking and print to the console the trackable objects detected in each frame:
                 </p>
 
 <pre><code>
@@ -105,7 +105,7 @@
                 <h3>Drawing trackables</h3>
 
                 <p>
-                Trackable objects in Processing are limited to plane surfaces, even though the underlying <a href="https://developers.google.com/ar/reference/java/arcore/reference/com/google/ar/core/Trackable" target="_black">trackable in ARCore</a> can represent other kind of features in physical space, such as cloud points. Each trackable object contains basic information about it, including size and current status (whether is being tracked, paused, or stopped). In order to draw a trackable plane, we first need to apply the transformation that turns Processing's coordiantes into the trackable system, in this way, it is easy to represent points relative to the trackable plane that spans X and Z axis irrespective of its orientation with respect to Processing's coordiante system. We can retrieve the size of the trackable along each axis with the lengthX() and lengthZ() functions, and call the transform() function before making any drawing:
+                Trackable objects in Processing are limited to plane surfaces, even though the underlying <a href="https://developers.google.com/ar/reference/java/arcore/reference/com/google/ar/core/Trackable" target="_black">trackable in ARCore</a> can represent other kind of features in physical space, such as cloud points. Each trackable object contains basic information about the physical entity it represents, including size and current status (whether is being tracked, paused, or stopped). In order to draw a trackable plane, we first need to apply the transformation that turns Processing's world coordinates into the trackable system, in this way, it is easy to represent points relative to the trackable plane that spans X and Z axis irrespective of its orientation with respect to Processing's coordinate system. We can retrieve the size of the trackable along each axis with the lengthX() and lengthZ() functions, and call the transform() function before making any drawing:
                 </p>
 
 <pre><code>
@@ -175,7 +175,7 @@
                 <h3>Using anchors</h3>
 
                 <p>
-                Once we have trackable surfaces in our AR scene, we can attach anchors to them. <a href="https://developers.google.com/ar/develop/developer-guides/anchors" target="_black">trackable in ARCore</a> are essentially positions in space that are fixed relative to the trackable they are attached to, and allow us to make virtual objects appear to stay in place in the scene. Anchor objects in Processing are created with the relative coordinates they will have relative to their parent trackable. Extending our code above, we could add new anchors exactly when a trackable is detected for the first time. That event can be handled by adding the <code>trackableEvent()</code> function to our code, which will receive the trackable being detected as an argument. We need to keep track of all the anchors in our scene manually, for example by storing them in a list, and removing them when they are no longer being tracked. The following code does all of that:
+                Once we have trackable surfaces in our AR scene, we can attach anchors to them. <a href="https://developers.google.com/ar/develop/developer-guides/anchors" target="_black">Anchors in ARCore</a> are essentially positions in space that are fixed relative to the trackable they are attached to, and allow us to make virtual objects appear to stay in place in the scene. Anchor objects in Processing are created with the relative coordinates they will have relative to their parent trackable. Extending our code above, we could add new anchors exactly when a trackable is detected for the first time. That event can be handled by adding the <code>trackableEvent()</code> function to our code, which will receive the trackable being detected as an argument. We need to keep track of all the anchors in our scene manually, for example by storing them in a list, and removing them when they are no longer being tracked. The following code does all of that:
                 </p>
 
 <pre><code>
@@ -246,8 +246,13 @@
 </code></pre>
 
                 <p>
-                In the code above, we create a new anchor at the point (0, 0, 0) relative to the trackable being detected, but only if is a horizontal surface (i.e.: a floor), which we can detect by calling <code>isFloorPlane()</code>. A similar function, isWallPlane(), allows us to know if the trackable is a vertical plane (i.e.: a wall). It is important to notice the dimensions of the objects in AR, for example, the radius of the spheres being drawn at the anchor positions is only 0.05. The reason is that ARCore's translation units <a href="https://developers.google.com/ar/reference/c/group/concepts#poses-and-coordinate-spaces" target="_black">are meters</a>, so everything in our AR sketch should be scaled to sizes that are consistent with the real-world dimensions, as expressed in meters.
+                In the code above, we create a new anchor at the point (0, 0, 0) relative to the trackable being detected, but only if is a horizontal surface (i.e.: a floor), which we can detect by calling <code>isFloorPlane()</code>. A similar function, <code>isWallPlane()</code>, allows us to know if the trackable is a vertical plane (i.e.: a wall). It is important to notice the dimensions of the objects in AR are rather small in comparison with a typical 3D sketch (for example, the radius of the spheres being drawn at the anchor positions is only 0.05). 
                 </p>
+
+
+                <div class = "butterbar">
+                The reason is that ARCore's translation units <a href="https://developers.google.com/ar/reference/c/group/concepts#poses-and-coordinate-spaces" target="_black">are meters</a>, so everything in our AR sketch should be scaled to sizes that are consistent with the real-world dimensions, as expressed in the decimal system.
+                </div>                
 
                 <p>It is also important that we dispose an anchor once is no longer tracked with the line <code>if (anchor.isStopped()) anchor.dispose();</code> to make sure we don't waste resources with anchors that are no longer active (anchors that are simply paused should not be disposed as they can be tracked again later, but those stopped are not going to be restarted). We should also remove the disposed anchors from our array list, we can do that in our sketch, or use the utility function <code>clearAnchors</code> provided in the ARTracker class. The result of our latest code should be the following:
                 </p>
@@ -301,7 +306,7 @@
 </code></pre>
 
                 <p>
-                Here we are using a custom OBJ model to draw at the placement of the hit anchor. If all is correct in the code, the output would look similar to the following:
+                Here we are using an OBJ model loaded from the sketch's data folder to draw at the placement of the hit anchor. If all is correct in the code, the output would look similar to the following:
                 </p>
 
                 <p><img class="body-image" src="imgs/ar_objects.png" alt="Detecting trackable hitting"></p>
