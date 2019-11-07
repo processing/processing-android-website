@@ -30,14 +30,14 @@
         <div class="group">
 
             <nav class="site">
-                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
+                <img class="logo" src="../../imgs/logo.png" alt="Logo de Processing para Android">
                 <ul class="leftnav">
-                   <li><a href="../../index.html">Home</a></li>
-                   <li><a href="../../install.html">Install</a></li>
-                   <li><a href="../../reference/index.html">Reference</a></li>
-                   <li><a id="selected" href="../../tutorials/index.html">Tutorials</a></li>
-                   <li><a href="../../books/index.html">Books</a></li>
-                   <li><a href="../../gallery/index.html">Gallery</a></li>
+                   <li><a href="../../index.html">Principal</a></li>
+                   <li><a href="../../install.html">Instalar</a></li>
+                   <li><a href="../../reference/index.html">Referencia</a></li>
+                   <li><a id="selected" href="../../tutorials/index.html">Tutoriales</a></li>
+                   <li><a href="../../books/index.html">Libros</a></li>
+                   <li><a href="../../gallery/index.html">Galería</a></li>
                    <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
                    <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
                 </ul>
@@ -51,29 +51,29 @@
                 </div>
                 <hr style="clear:both;">
 
-                <h2>Introducción a VR</h2>
+                <h2>Introducción a RV</h2>
                 <p>
-                Demos los primeros pasos con Google VR para escribir aplicaciones inmersivas utilizando Processing.
+                Demos los primeros pasos con Google RV para escribir aplicaciones inmersivas utilizando Processing.
                 </p>
 
-                <h3>Google VR</h3>
+                <h3>Google RV</h3>
                 <p>
-                <a href="https://vr.google.com/" target="_black">La plataforma Google VR</a> nos permite usar nuestro teléfono inteligente como un portal a la realidad virtual. El modo Android es compatible con Google <a href="https://vr.google.com/cardboard/" target="_black">Cardboard</a> y <a href="https://vr.google.com/ daydream/" target="_ black">Daydream</a>, y nuestos bosquejos en 3D se pueden ejecutar en el teléfono como aplicaciones Cardboard en modo de vista estéreo y que responden al movimiento de la cabeza. Un requisito para programar apps de VR es tener una base de gráficos 3D en Processing, y <a href="https://processing.org/tutorials/p3d/" target="_black">este tutorial</a> puede resultar útil como una introducción a 3D en Processing.
+                <a href="https://vr.google.com/" target="_black">La plataforma Google RV</a> nos permite usar nuestro teléfono inteligente como un portal a la realidad virtual. El modo Android es compatible con Google <a href="https://vr.google.com/cardboard/" target="_black">Cardboard</a> y <a href="https://vr.google.com/ daydream/" target="_ black">Daydream</a>, y nuestos bosquejos en 3D se pueden ejecutar en el teléfono como aplicaciones Cardboard en modo de vista estéreo y que responden al movimiento de la cabeza. Un requisito para programar apps de RV es tener una base de gráficos 3D en Processing, y <a href="https://processing.org/tutorials/p3d/" target="_black">este tutorial</a> puede resultar útil como una introducción a 3D en Processing.
                 </p>
 
                 <h3>Requerimientos</h3>
                 <p>
-                Para usar VR con Cardboard, se necesita un <a href="https://support.google.com/cardboard/answer/6295091?hl=en" target="_black">teléfono compatible</a> con Android 4.1 o superior y un sensor de giroscopio para el seguimiento de los movimientos de la cabeza, y un <a href="https://vr.google.com/cardboard/get-cardboard/" target="_black">visor Cardboard</a>. Si no tienes un visor, puede ejecutar tu bosquejo en modo monoscópico, que se explicará a continuación. Para Daydream, necesitarás el visor <a href="https://vr.google.com/daydream/smartphonevr/" target="_black">Daydream View</a> y un <a href = "https://vr.google.com/daydream/smartphonevr/phones/ "target ="_black">teléfono compatible con Daydream </a>.</p>
+                Para usar RV con Cardboard, se necesita un <a href="https://support.google.com/cardboard/answer/6295091?hl=en" target="_black">teléfono compatible</a> con Android 4.1 o superior y un sensor de giroscopio para el seguimiento de los movimientos de la cabeza, y un <a href="https://vr.google.com/cardboard/get-cardboard/" target="_black">visor Cardboard</a>. Si no tienes un visor, puede ejecutar tu bosquejo en modo monoscópico, que se explicará a continuación. Para Daydream, necesitarás el visor <a href="https://vr.google.com/daydream/smartphonevr/" target="_black">Daydream View</a> y un <a href = "https://vr.google.com/daydream/smartphonevr/phones/ "target ="_black">teléfono compatible con Daydream </a>.</p>
 
                 <h3>Primeros pasos</h3>
                 <p>
-                Antes que nada, tienes que seleccionar la opción VR en el menú de Android para asegurarse de que tu bosquejo se compilado como una app VR:
+                Antes que nada, tienes que seleccionar la opción RV en el menú de Android para asegurarse de que tu bosquejo se compilado como una app RV:
                 </p>
 
-                <p><img class="body-image" src="imgs/vr_selection.png" alt="Selección de app VR"></p>
+                <p><img class="body-image" src="imgs/vr_selection.png" alt="Selección de app RV"></p>
 
                 <p>
-                Un bosquejo para VR debe incluir como mínimo la importación de la biblioteca VR y el motor de renderizado STEREO:
+                Un bosquejo para RV debe incluir como mínimo la importación de la biblioteca RV y el motor de renderizado STEREO:
                 </p>
 
 <pre><code>
@@ -94,7 +94,7 @@
                 <p><img class="body-image" src="imgs/stereo_view.png" alt="Vista estéro"></p>
 
                 <p>
-                El motor de renderizado estéreo funciona dibujando cada cuadro dos veces, una para cada ojo. Puede saber qué ojo se está dibujando en cada llamada de la función <code>draw()</code> podemos usar la variable <code> eyeType </code> que es provista por la biblioteca VR:
+                El motor de renderizado estéreo funciona dibujando cada cuadro dos veces, una para cada ojo. Puede saber qué ojo se está dibujando en cada llamada de la función <code>draw()</code> podemos usar la variable <code> eyeType </code> que es provista por la biblioteca RV:
                 </p>
 
 <pre><code>
@@ -122,7 +122,7 @@
                 Podemos observar que <code> eyeType </code> también podría ser <code>MONOSCOPIC</code>, lo cual sucede si estamos usando el motor de renderizado <code>MONO</code> en lugar de <code>STEREO</code>. Con el motor de renderizado monoscópico, cada cuadro se dibuja solo una vez, pero la cámara la escena aún responde a los movimientos del teléfono en el espacio físico.
                 </p>
 
-                <p>Una vez configurado el motor de renderizado VR, no que hacer nada especial para agregar objetos 3D a la escena virtual. Todas las funciones de dibujado de primitivas y formas 3D del motor de renderizado P3D están disponibles en VR. Podemos agregar texturas, luces y efectos basados ​​en sombreadores (shaders), como se demuestra en el siguiente bosquejo (código completo disponible <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/vr/ ex1_toon_stereo "target ="_black">aquí</a>):
+                <p>Una vez configurado el motor de renderizado RV, no que hacer nada especial para agregar objetos 3D a la escena virtual. Todas las funciones de dibujado de primitivas y formas 3D del motor de renderizado P3D están disponibles en RV. Podemos agregar texturas, luces y efectos basados ​​en sombreadores (shaders), como se demuestra en el siguiente bosquejo (código completo disponible <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/vr/ ex1_toon_stereo "target ="_black">aquí</a>):
                 </p>
 
 <pre><code>
@@ -164,7 +164,7 @@
 
                 <p>En este nuevo ejemplo, crearemos una escena 3D con algunos objetos más. Empecemos definiendo una cuadrícula 2D como referencia.</p>
 
-                <p>Debido a que el rendimiento es muy importante en VR a efecto mantener la velocidad de dibujado de cuadros lo más alta posible y así evitar <a href="Evitar simulación de enfermedad en el usuario target="_black"> mareo</a> en el usuario, podemos hacer uso de objetos PShape para guardar geometría estática en memoria y así evitar tener que volver a generarla en cada cuadro:
+                <p>Debido a que el rendimiento es muy importante en RV a efecto mantener la velocidad de dibujado de cuadros lo más alta posible y así evitar <a href="Evitar simulación de enfermedad en el usuario target="_black"> mareo</a> en el usuario, podemos hacer uso de objetos PShape para guardar geometría estática en memoria y así evitar tener que volver a generarla en cada cuadro:
                 <p>
 
 <pre><code>
@@ -196,7 +196,7 @@
 }
 </code></pre>
 
-                <p>Observa cómo la coordenadas Y de los vértices de la cuadrícula es +1000, ya que el eje Y en Processing apunta hacia abajo, por lo que los objetos debajo de nuestra línea de visión en VR deben tener coordenadas positivas.</p>
+                <p>Observa cómo la coordenadas Y de los vértices de la cuadrícula es +1000, ya que el eje Y en Processing apunta hacia abajo, por lo que los objetos debajo de nuestra línea de visión en RV deben tener coordenadas positivas.</p>
 
                 <p>¡Ahora podemos añadir algunos objetos! Para optimizar el rendimiento, podemos agrupar varias formas 3D dentro de un solo grupo PShape, que es más rápido que manejar cada objeto por separado, de la siguiente manera:
                 </p>
@@ -246,7 +246,7 @@
 }
 </code></pre>
 
-                <p>El resultado final de este bosquejo debería verse como sigue, claro que variando de acuerdo al punto de vista de la cámara en VR:</p>
+                <p>El resultado final de este bosquejo debería verse como sigue, claro que variando de acuerdo al punto de vista de la cámara en RV:</p>
 
                 <p><img class="body-image" src="imgs/grid_and_boxes.png" alt="Grid and boxes"></p>
 

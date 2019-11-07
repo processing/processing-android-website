@@ -51,28 +51,30 @@
                 </div>
                 <hr style="clear:both;">
 
-            	<h2>Interaction and movement in VR</h2>
+            	<h2>Advanced VR</h2>
                 <p>
-                Create immersive VR experiences through interaction and movement.
+                Designing experiences in Virtual Reality through interaction and movement.
                 </p>        
 
-                <h3>Journey through space</h3>
+                <h3>Journey through (virtual) space</h3>
+
                 <p>
                 In this tutorial, we will create a virtual environment where we can see a small planetary system from a fixed vantage point, and then select and follow each of the planets as they revolve around the central star. This needs a number of more advance techniques to allow the user of the VR sketch to pick object in the scene and have the position of the VR camera change dynamically in each frame.
                 </p>
+
                 <p>
                 We will go step by step, first creating the objects in the scene, then adding movement to them, and finally implementing object selection and camera positioning. 
                 </p>
 
-                <h3>A simple solar system</h3>
-                <p>Our solar system will have a central sun and only to planets. All of these elements are spheres, which we can store in PShape objects to optimize the performance of our sketch by avoiding the spheres being recreated in each frame. Since we want these spheres to look like planets, we cannot simply paint them with a solid fill color. The easiest way to give our planets a realistic appearance is to texture them with images that were generated from actual planet photographs, or with some algorithm that reproduce the shapes of landmasses and other features as seen from above. More specifically, we need images of planet surfaces represented as "equirectangular projections" so they can be used to wrap our sphere correctly. We will use the following three images for the sun and the two planets:                    
+                <h3>A simplified solar system</h3>
+                <p>Our solar system will have a central sun and only two orbiting planets. All of these elements are spheres, which we can store in PShape objects to optimize the performance of our sketch by avoiding the spheres being recreated in each frame. Since we want these spheres to look like planets, we cannot simply paint them with a solid fill color. The easiest way to give our planets a realistic appearance is to texture them with images that were generated from actual planet photographs, or with a generartive algorithm that is able to reproduce the shapes of landmasses and other planetary features as seen from space. More specifically, we need images of planet surfaces represented as <a href="https://en.wikipedia.org/wiki/Equirectangular_projection" target="_black">equirectangular projections</a> so they can be used to wrap our spheres correctly. We will use the following three images for the sun and the two planets:                    
                 </p>
 
                 <p><img class="body-image" src="imgs/sol.jpg" alt="Sun texture"></p>
                 <p><img class="body-image" src="imgs/mercury.jpg" alt="Mercury texture"></p>
                 <p><img class="body-image" src="imgs/earthlike.jpg" alt="Earth-like texture"></p>
 
-                <p>There are many resources online to get more images like this, for example <a href="http://planetpixelemporium.com" target="_black">this one</a> has equirectangular projection images for all the planets in the solar system.</p>
+                <p>There are many resources online to get more images like this, for example <a href="http://planetpixelemporium.com" target="_black">this one</a> has equirectangular projection images for all the planets in our solar system.</p>
 
                 <p>Let's start by adding the sun to our VR scene:</p>
 
@@ -104,7 +106,7 @@
 
                 <p><img class="body-image" src="imgs/vr_sun.png" alt="Sun"></p>
 
-                <p>Similarly, we can add the planets to the scene, applying some inital translations to they are not overlapping with the sun:</p>
+                <p>Similarly, we can add the planets to the scene, applying some initial translations to they are not overlapping with the sun:</p>
 
 <pre><code>
 <span style="color: #33997E;">import</span> processing.vr.*;
@@ -151,7 +153,7 @@
 
                 <p><img class="body-image" src="imgs/vr_planets.png" alt="Sun and planets"></p>
 
-                <p>Now, it is time to add movement! The sun can remain immovile in our scene, but the plants should revolve around the sun. We implement the orbital rotations fo the planets by using the <code>rotateY()</code> function and adding a couple of variables to keep track of the rotation angle for each planet:</p>
+                <p>Now, it is time to add movement! The sun can remain immovile in our scene, but the plants should revolve around the sun. We implement the orbital rotations fo the planets by using the <code>rotateY()</code> function and adding a couple of variables to keep track of the rotation angle for each planet and to increase it in each frame:</p>
 
 <pre><code>
 <span style="color: #33997E;">import</span> processing.vr.*;
@@ -203,7 +205,7 @@
 }
 </code></pre>
 
-                <p>In VR sketches it is very important to note that we have another function in addition to <code>setup()</code> and <code>draw()</code>, which is <code>calculate()</code>. This function should contain all the code that performs non-visual calculations that should happen before drawing a new frame in the scene. In normal Processing sketches, we just put that code directly inside <code>draw()</code>, but this is not a good idea in VR since in that case, <code>draw()</code> gets called twice per frame, once for each eye. The <code>calculate()</code> function, on the other hand, gets called just before <code>draw()</code>. In this particular case, we simply update the two orbital angles.</p>
+                <p>In VR sketches it is very important to note that we have another function in addition to <code>setup()</code> and <code>draw()</code>, which is <code>calculate()</code>. This function should contain all the code that performs non-visual calculations that should happen before drawing a new frame in the scene. In normal Processing sketches, we just put that code directly inside <code>draw()</code>, but this is not a good idea in VR since in that case, <code>draw()</code> gets called twice per frame, once for each eye. The <code>calculate()</code> function, on the other hand, gets called just once before <code>draw()</code>. In this particular case, we simply update the two orbital angles.</p>
 
                 <p>In order to increase the realism of our planetary system, we should also incorporate rotation of the planets around their own axes. In order to do that, we need to add two new variables to keep track of the additional angles, and the corresponding rotateY() calls after the translations (so the rotations happen around the spheres' axes and not the origina of coordinates):</p>
 
@@ -239,7 +241,7 @@
 }
 </code></pre>
 
-                <p>Our mini solar system is almost ready! One aspect that's not very convincing right now is the black background. We need a convincing star field that surrounds our scene. An easy way to implement it could be placing a large-enough sphere containing our sun and planets, and texturing it with a equirectangular projection image of the night sky. For instance, <a href="http://paulbourke.net/miscellaneous/astronomy/" target="_black">this page</a> contains very detailed resources on astronomical projections, including suitable images to texture a skymap sphere.</p>
+                <p>Our mini solar system is almost ready! One aspect that's not very realistic right now is the black background. We need a convincing star field that surrounds our scene. An easy way to implement it could be placing a large-enough sphere containing our sun and planets, and texturing it with a equirectangular projection image of the night sky. For instance, <a href="http://paulbourke.net/miscellaneous/astronomy/" target="_black">this page</a> contains very detailed resources on astronomical projections, including suitable images to texture a skymap sphere.</p>
 
 <pre><code>
 <span style="color: #E2661A;">PShape</span> stars;
@@ -261,7 +263,7 @@
 }
 </code></pre>
 
-                <p>With this latest addition, we arrive to a nicely looking solar system with moving planets with the backgrop of a 360 degrees starfield:</p>
+                <p>With this latest addition, we arrive to a nicely looking solar system with planets revolving around the central sun and with the backdrop of a 360 degrees starfield:</p>
 
                 <p><img class="body-image" src="imgs/vr_starfield.png" alt="Starfield"></p>
 
@@ -283,11 +285,11 @@
 
                 <h3>Selecting objects in VR</h3>
 
-                <p>Up to this point, the viewers of our sketch don't have the possibilty of moving in VR. This can be fine in many instances, but here we could make our planetary system much more immersive if the users are able to navigate around and look at the scene from different vantage points. There are many ways to implement motion in VR, one choice is to let users selecting a planet with their gaze, and then transporting to the selected planet when they tap with the headset.</p>
+                <p>Up to this point, the viewers of our sketch don't have the possibilty of moving in VR. This can be fine in many instances, but here we could make our planetary system much more immersive if the users are able to navigate around and look at the scene from different vantage points. There are many ways to implement motion in VR, one choice is to let users selecting a planet with their gaze, and then transporting to the selected planet when they tap with the VR headset.</p>
 
                 <p>So, there are two steps in our interaction. First, the users should get some cue of what planet are they looking at, and second enacting the selection when tapping while the planet is being looked at.</p>
 
-                <p>Processing for Android includes a number of functions to perform "ray-casting" selection of objects in VR. In a ray casting algorithm, a line is extended forward from the position of the viewer's eyes, and objects that are intersected by that line would be selected. There are many ray-casting algorithms depending on the type of objects one needs to select, and Processing includes ray-casting selection for boxes and spheres with the <code>interesectsBox()</code> and <code>interesectsSphere()</code> functions. Even though this may appear limited, more complex objects can be enclosed by a bounding box or sphere, and calculating the intersection with those bounding geometries is often good enough.</p>
+                <p>Processing for Android includes a number of functions to perform "ray-casting" selection of objects in VR. In a ray casting algorithm, a line is extended forward from the position of the viewer's eyes, and objects that are intersected by that line would be selected. There are many ray-casting algorithms depending on the type of objects one needs to select, and Processing includes ray-casting selection for boxes and spheres with the <code>interesectsBox()</code> and <code>interesectsSphere()</code> functions. Even though this may appear limited, more complex objects can be enclosed by a bounding box or sphere, and calculating the intersection with those bounding geometries is often good enough in applications that require object selection in VR.</p>
 
                 <p>Both <code>interesectsBox()</code> and <code>interesectsSphere()</code> work in the same way: one needs to apply all the transformations to place the box or sphere in the desired location, and then call interesectsBox/Sphere with the size of the object as the argument to get the result of the interesection. The following code shows the use of this technique to highlight the sphere corresponding to the planet 1 if it is being looked at:</p>
 
@@ -324,9 +326,9 @@
 &nbsp;&nbsp;...
 </code></pre>
 
-                <p>VRCamera also allows us to set the near and far planes, which mean how close or how far one can view into the virtual space.</p>
+                <p>VRCamera also allows us to set the near and far planes, which determine how close or how far one can view into the virtual space.</p>
 
-                <p>In the solar system sketch we discussed before, planets move along their orbints around the sun and also rotate around their own axes. So if we were to place the VR camera at a location fixed with respect to one of the planets, we'd need to calculate the world coordinates of that location. In order to do that, we can construct a transformation matrix that encapsulates all the transformations in the same order they are applied with drawing the planet (rotation/translation/rotation). Something like this:</p>
+                <p>In the solar system sketch we discussed before, planets move along their orbints around the sun and also rotate around their own axes. So if we were to place the VR camera at a location fixed with respect to one of the planets, we'd need to calculate the world coordinates of that location. In order to do that, we can construct a transformation matrix that encapsulates all the transformations in the same order they are applied with drawing the planet (rotation around the sun/translation to orbit/rotation around the planet's axis). We can do this as follows:</p>
 
 <pre><code>
 &nbsp;&nbsp;PMatrix3D&nbsp;mat&nbsp;=&nbsp;<span style="color: #33997E;">new</span> PMatrix3D();
@@ -343,7 +345,7 @@
 &nbsp;&nbsp;cam.setPosition(cx, cy, cz);
 </code></pre>
 
-                <p>We apply the transformation on the (0, 0, 0) poisition, which is the default placement of the sphere before any transformations. In this way, the (cx, cy, cz) contains the final location of planet 1's sphere.</p>
+                <p>We apply the transformation on the (0, 0, 0) poisition, which is the default placement of the sphere before any subsequent transformations. In this way, the point (cx, cy, cz) contains the final location of planet 1's sphere.</p>
 
                 <p>We can combine this transformation code with the earlier sphere ray-casting selection to apply the transformation only when the desired sphere is selected by the viewer. Again, the transformation code that produces (cx, cy, cz) should be placed in calculate() to avoid duplicated evaluation. In the end, the complete sketch would read like follows:</p>
 
@@ -464,7 +466,9 @@ PMatrix3D&nbsp;mat&nbsp;=&nbsp;<span style="color: #33997E;">new</span> PMatrix3
 }
 </code></pre>
 
-                <p>The logic in the <code>draw()</code> function works like this: if the planet is not selected already, Processing will find if the ray from the eye intersects the sphere, and if so, tints it red and makes VRCamera to follow the planet by setting its position to (cx, cy, cz). If the users selects the sun, the camera's position returns to the intital fixed placement.</p>
+                <p>The logic in the <code>draw()</code> function works like this: if the planet is not selected already, Processing will find if the ray from the eye intersects the sphere, and if so, tints it red and makes VRCamera to follow the planet by setting its position to (cx, cy, cz). If the user selects the sun, the camera's position returns to the intital fixed placement.</p>
+
+                <p><img class="body-image" src="imgs/vr_selection.gif" alt="Object selection"></p>
 
                 <p>The complete sketch code is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/vr/ex3_solar_system" target="_black">here</a>.</p>
 
