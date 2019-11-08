@@ -70,9 +70,9 @@
                 <p>Our solar system will have a central sun and only two orbiting planets. All of these elements are spheres, which we can store in PShape objects to optimize the performance of our sketch by avoiding the spheres being recreated in each frame. Since we want these spheres to look like planets, we cannot simply paint them with a solid fill color. The easiest way to give our planets a realistic appearance is to texture them with images that were generated from actual planet photographs, or with a generartive algorithm that is able to reproduce the shapes of landmasses and other planetary features as seen from space. More specifically, we need images of planet surfaces represented as <a href="https://en.wikipedia.org/wiki/Equirectangular_projection" target="_black">equirectangular projections</a> so they can be used to wrap our spheres correctly. We will use the following three images for the sun and the two planets:                    
                 </p>
 
-                <p><img class="body-image" src="imgs/sol.jpg" alt="Sun texture"></p>
-                <p><img class="body-image" src="imgs/mercury.jpg" alt="Mercury texture"></p>
-                <p><img class="body-image" src="imgs/earthlike.jpg" alt="Earth-like texture"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/vr_advanced/sol.jpg" alt="Sun texture"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/vr_advanced/mercury.jpg" alt="Mercury texture"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/vr_advanced/earthlike.jpg" alt="Earth-like texture"></p>
 
                 <p>There are many resources online to get more images like this, for example <a href="http://planetpixelemporium.com" target="_black">this one</a> has equirectangular projection images for all the planets in our solar system.</p>
 
@@ -104,7 +104,7 @@
 
                 <p>Running this sketch shoud give us the sun centered in our VR scene:</p>
 
-                <p><img class="body-image" src="imgs/vr_sun.png" alt="Sun"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/vr_advanced/vr_sun.png" alt="Sun"></p>
 
                 <p>Similarly, we can add the planets to the scene, applying some initial translations to they are not overlapping with the sun:</p>
 
@@ -151,7 +151,7 @@
 
                 <p>This sketch renders a static system with a sun and two planets:</p>
 
-                <p><img class="body-image" src="imgs/vr_planets.png" alt="Sun and planets"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/vr_advanced/vr_planets.png" alt="Sun and planets"></p>
 
                 <p>Now, it is time to add movement! The sun can remain immovile in our scene, but the plants should revolve around the sun. We implement the orbital rotations fo the planets by using the <code>rotateY()</code> function and adding a couple of variables to keep track of the rotation angle for each planet and to increase it in each frame:</p>
 
@@ -265,7 +265,7 @@
 
                 <p>With this latest addition, we arrive to a nicely looking solar system with planets revolving around the central sun and with the backdrop of a 360 degrees starfield:</p>
 
-                <p><img class="body-image" src="imgs/vr_starfield.png" alt="Starfield"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/vr_advanced/vr_starfield.png" alt="Starfield"></p>
 
                 <p>As a final (and important detail) we can enable lights so that planets are correctly shaded dependig on their orientation towards the sun. Let's try incorporating a single point light centered in the origin of coordinates, which is the location of the sun, we only need a single line of code to do that:</p>
 
@@ -281,7 +281,7 @@
 
                 <p>Notice that the <code>pointLight()</code> call is after drawing the sun's shape, so it's not affected by its own light. The results seem to be quite satisfactory:</p>
 
-                <p><img class="body-image" src="imgs/vr_sunlight.png" alt="Sunlight"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/vr_advanced/vr_sunlight.png" alt="Sunlight"></p>
 
                 <h3>Selecting objects in VR</h3>
 
@@ -468,7 +468,7 @@ PMatrix3D&nbsp;mat&nbsp;=&nbsp;<span style="color: #33997E;">new</span> PMatrix3
 
                 <p>The logic in the <code>draw()</code> function works like this: if the planet is not selected already, Processing will find if the ray from the eye intersects the sphere, and if so, tints it red and makes VRCamera to follow the planet by setting its position to (cx, cy, cz). If the user selects the sun, the camera's position returns to the intital fixed placement.</p>
 
-                <p><img class="body-image" src="imgs/vr_selection.gif" alt="Object selection"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/vr_advanced/vr_selection.gif" alt="Object selection"></p>
 
                 <p>The complete sketch code is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/vr/ex3_solar_system" target="_black">here</a>.</p>
 

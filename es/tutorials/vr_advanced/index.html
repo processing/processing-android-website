@@ -30,7 +30,7 @@
         <div class="group">
 
             <nav class="site">
-                <img class="logo" src="../../imgs/logo.png" alt="Logo de Processing para Android">
+                <img class="logo" src="../../../imgs/logo.png" alt="Logo de Processing para Android">
                 <ul class="leftnav">
                    <li><a href="../../index.html">Principal</a></li>
                    <li><a href="../../install.html">Instalar</a></li>
@@ -72,9 +72,9 @@
                 Nuestro sistema solar tendrá un sol central y solo dos los planetas orbitando alrededor del sol. Todos estos elementos son esferas, que podemos almacenar en objetos de tipo PShape para optimizar el rendimiento de nuestro bosquejo evitando que las esferas se vuelvan a recrear en cada cuadro. Como queremos que estas esferas aparezcan como planetas, no podemos simplemente pintarlas con un color de relleno sólido. La forma más fácil de dar a nuestros planetas una apariencia realista es texturizarlos con imágenes que generadas a partir de fotografías reales de planetas, o con un algoritmo generativo que reproduzca las masas de tierra y otras características planetarias al ser vistas desde el espacio. Más específicamente, necesitamos imágenes de las superficies de los planetas representadas como <a href="https://es.wikipedia.org/wiki/Proyecci%C3%B3n_cil%C3%ADndrica_equidistante" target="_black">proyecciones cilíndricas equidistantes</a> para que puedan usarse para envolver nuestra esferas correctamente. Utilizaremos las siguientes tres imágenes para el sol y los dos planetas:
                 </p>
 
-                <p><img class="body-image" src="imgs/sol.jpg" alt="Texture del sol"></p>
-                <p><img class="body-image" src="imgs/mercury.jpg" alt="Textura de mercury"></p>
-                <p><img class="body-image" src="imgs/earthlike.jpg" alt="Textura simil planeta tierra"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/vr_advanced/sol.jpg" alt="Texture del sol"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/vr_advanced/mercury.jpg" alt="Textura de mercury"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/vr_advanced/earthlike.jpg" alt="Textura simil planeta tierra"></p>
 
                 <p>Existen una gran candidad de recursos en línea para obtener más imágenes como estas, por ejemplo <a href="http://planetpixelemporium.com" target="_black"> este </a> ofrece imágenes de proyección cilíndricas equidistantes para todos los planetas de nuestro sistema solar.</p>
 
@@ -108,7 +108,7 @@
 
                 <p>La ejecución de este bosquejo debería darnos el sol centrado en la escena de RV:</p>
 
-                <p><img class="body-image" src="imgs/vr_sun.png" alt="Sol"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/vr_advanced/vr_sun.png" alt="Sol"></p>
 
                 <p>Del mismo modo, podemos agregar los planetas a la escena, aplicando algunas desplazamientos iniciales para que no se superpongan con el sol:</p>
 
@@ -155,7 +155,7 @@
 
                 <p>Este bosquejo representa un sistema estático con un sol y dos planetas alrededor del mismo:</p>
 
-                <p><img class="body-image" src="imgs/vr_planets.png" alt="Sol y planetas"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/vr_advanced/vr_planets.png" alt="Sol y planetas"></p>
 
                 <p>¡Ahora es el momento de agregar movimiento! El sol puede permanecer inmóvil en nuestra escena, pero las plantas deben girar alrededor del sol. Implementamos las rotaciones orbitales de los planetas utilizando la función <code>rotateY()</code> y agregando un par de variables para guardar del ángulo de rotación de cada planeta e incrementarlo en cada cuadro:</p>
 
@@ -275,7 +275,7 @@
 
                 <p>Con esta última incorporación, deberíamos obtener un sistema solar bastante convincente con planetas en rotación alrededor del sol con un campo estelar de 360 grados como fondo:</p>
 
-                <p><img class="body-image" src="imgs/vr_starfield.png" alt="Campo estelar"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/vr_advanced/vr_starfield.png" alt="Campo estelar"></p>
 
                 <p>Como un último (e importante) detalle podemos habilitar luces para que los planetas estén sombreados correctamente dependiendo de su orientación hacia el sol. Veamos el efecto de incorporar un único punto de luz centrado en el origen de las coordenadas, que es precisamente la ubicación del sol. Para lograr esto, solo necesitamos una línea de código adicional:</p>
 
@@ -291,7 +291,7 @@
 
                 <p>Observemos que la llamada <code>pointLight()</code> ocurre después de dibujar el objeto PShape del sol, por lo cual el mismo no es afectada por su propia luz. Los resultados son bastante buenos:</p>
 
-                <p><img class="body-image" src="imgs/vr_sunlight.png" alt="Luz solar"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/vr_advanced/vr_sunlight.png" alt="Luz solar"></p>
 
                 <h3>Seleccionando objetos en RV</h3>
 
@@ -478,7 +478,7 @@ PMatrix3D&nbsp;mat&nbsp;=&nbsp;<span style="color: #33997E;">new</span> PMatrix3
 
                 <p>La lógica en la función <code>draw()</code> es la siguiente: si el planeta aún no está seleccionado, Processing determinará si el rayo del visión desde el ojo del usuario se cruza con la esfera, y si es así, la tiñe de rojo y configura VRCamera para seguir al planeta estableciendo su posición en (cx, cy, cz). Si el usuario selecciona el sol, la posición de la cámara retorna a la posición fija inicial.</p>
 
-                <p><img class="body-image" src="imgs/vr_selection.gif" alt="Seleccion de objectos"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/vr_advanced/vr_selection.gif" alt="Seleccion de objectos"></p>
 
                 <p>El código del bosquejo completo está disponible <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/vr/ex3_solar_system" target="_black">aquí</a>.</p>
 

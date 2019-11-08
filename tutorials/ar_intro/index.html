@@ -61,7 +61,7 @@
                 Google offers a framework to create Augmented Reality (AR) apps for Android, called <a href="https://developers.google.com/ar" target="_black">ARCore</a>. Phone-based AR experiences typically involve drawing digital 3D content on top of the physical world, as seen from the perspective of the phone's camera, in such a way that the digital contents convincingly appear to be part of the real-world environment. Doing this requires applying complex algorithms in real-time to recognize objects in the physical environment, such as walls, pieces of furniture, even people, and determining the pose (position and orientation) of the phone relative to the world over time. Fortunately for us, ARCore handles all of these calculations automatically, and provides an <a href="https://developers.google.com/ar/reference" target="_black">API</a> to access the real-world features and attach digital contents to them from our code. While it is possible to access ARCore directly from Processing, the Android mode includes an AR library that makes it easier to use ARCore in our Processing sketches and apply Processing's drawing API to create AR content.
                 </p>
 
-                <p><a href="https://experiments.withgoogle.com/hidden-world" target="_black"><img class="body-image" src="imgs/hidden_world.gif" alt="Hidden World"></a></p>
+                <p><a href="https://experiments.withgoogle.com/hidden-world" target="_black"><img class="body-image" src="../../imgs/tutorials/ar_intro/hidden_world.gif" alt="Hidden World"></a></p>
 
                 <p>AR is a rapidly growing field, thanks to frameworks such as ARCore on Android (and <a href="https://developer.apple.com/augmented-reality/arkit/" target="_black">ARKit</a> on iOS) and to the fast pace of technical improvement of smartphones. The integration of real-world environments with digital contents is opening many new possibilities for phone-mediated experiences in the physical world. The <a href="https://experiments.withgoogle.com/collection/ar" target="_black">AR experiments</a> from Google and the <a href="https://github.com/olucurious/Awesome-ARKit" target="_black">Awesome ARKit</a> list of AR apps for iOS are good resources to find projects making creative use of AR.
                 </p>
@@ -75,7 +75,7 @@
                 You need to select the AR option in the Android menu to make sure that your sketch is built as an AR app:
                 </p>
 
-                <p><img class="body-image" src="imgs/ar_selection.png" alt="AR selection"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/ar_intro/ar_selection.png" alt="AR selection"></p>
 
                 <p>
                 While in VR you can make pretty much turn any 3D Processing sketch into VR simply by importing the VR library and using the VR renderer, using AR requires a few more steps. First of all, we need to add an ARTracker to our sketch, and call its <code>start() function</code> to get AR tracking going. The other two classes in the AR library are ARTrackble and ARAnchor, they represent a surface that can be tracked in real-world space (such as a table or a wall), and a point in space that remains fixed relative to a given trackable surface. These concepts will hopefully become clearer as we go through the tutorial. For the time being, a basic skeleton for an AR sketch in Processing could look like the following code, where we just launch tracking and print to the console the trackable objects detected in each frame:
@@ -144,7 +144,7 @@
                 The sketch above should draw all the trackable planes being detected by the phone as we move around:
                 </p>
 
-                <p><img class="body-image" src="imgs/ar_trackables.png" alt="trackable planes"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/ar_intro/ar_trackables.png" alt="trackable planes"></p>
                 
                 <p>
                 It is easy to test if a trackable is being selected by the user using the touchscreen, all we need to is to call the <code>isSelected(x, y)</code> with the (x, y) coordinates of the touch point:
@@ -170,7 +170,7 @@
                 </p>
 
 
-                <p><img class="body-image" src="imgs/ar_trackable_selection.png" alt="trackable selection"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/ar_intro/ar_trackable_selection.png" alt="trackable selection"></p>
 
                 <h3>Using anchors</h3>
 
@@ -257,7 +257,7 @@
                 <p>It is also important that we dispose an anchor once is no longer tracked with the line <code>if (anchor.isStopped()) anchor.dispose();</code> to make sure we don't waste resources with anchors that are no longer active (anchors that are simply paused should not be disposed as they can be tracked again later, but those stopped are not going to be restarted). We should also remove the disposed anchors from our array list, we can do that in our sketch, or use the utility function <code>clearAnchors</code> provided in the ARTracker class. The result of our latest code should be the following:
                 </p>
 
-                <p><img class="body-image" src="imgs/ar_anchors.png" alt="Anchor drawing"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/ar_intro/ar_anchors.png" alt="Anchor drawing"></p>
 
                 <h3>Hitting trackables</h3>
 
@@ -309,7 +309,7 @@
                 Here we are using an OBJ model loaded from the sketch's data folder to draw at the placement of the hit anchor. If all is correct in the code, the output would look similar to the following:
                 </p>
 
-                <p><img class="body-image" src="imgs/ar_objects.png" alt="Detecting trackable hitting"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/ar_intro/ar_objects.png" alt="Detecting trackable hitting"></p>
 
                 <p>The complete sketch code is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/ar/ex1_ar_intro" target="_black">here</a>.</p>
 

@@ -30,7 +30,7 @@
         <div class="group">
 
             <nav class="site">
-                <img class="logo" src="../../imgs/logo.png" alt="Logo de Processing para Android">
+                <img class="logo" src="../../../imgs/logo.png" alt="Logo de Processing para Android">
                 <ul class="leftnav">
                    <li><a href="../../index.html">Principal</a></li>
                    <li><a href="../../install.html">Instalar</a></li>
@@ -53,12 +53,12 @@
 
                 <h2>Introducción a RV</h2>
                 <p>
-                Demos los primeros pasos con Google RV para escribir aplicaciones inmersivas utilizando Processing.
+                Demos los primeros pasos con Google VR para escribir aplicaciones inmersivas utilizando Processing.
                 </p>
 
-                <h3>Google RV</h3>
+                <h3>Google VR</h3>
                 <p>
-                <a href="https://vr.google.com/" target="_black">La plataforma Google RV</a> nos permite usar nuestro teléfono inteligente como un portal a la realidad virtual. El modo Android es compatible con Google <a href="https://vr.google.com/cardboard/" target="_black">Cardboard</a> y <a href="https://vr.google.com/ daydream/" target="_ black">Daydream</a>, y nuestos bosquejos en 3D se pueden ejecutar en el teléfono como aplicaciones Cardboard en modo de vista estéreo y que responden al movimiento de la cabeza. Un requisito para programar apps de RV es tener una base de gráficos 3D en Processing, y <a href="https://processing.org/tutorials/p3d/" target="_black">este tutorial</a> puede resultar útil como una introducción a 3D en Processing.
+                <a href="https://vr.google.com/" target="_black">La plataforma Google VR</a> nos permite usar nuestro teléfono inteligente como un portal a la realidad virtual. El modo Android es compatible con Google <a href="https://vr.google.com/cardboard/" target="_black">Cardboard</a> y <a href="https://vr.google.com/ daydream/" target="_ black">Daydream</a>, y nuestos bosquejos en 3D se pueden ejecutar en el teléfono como aplicaciones Cardboard en modo de vista estéreo y que responden al movimiento de la cabeza. Un requisito para programar apps de RV es tener una base de gráficos 3D en Processing, y <a href="https://processing.org/tutorials/p3d/" target="_black">este tutorial</a> puede resultar útil como una introducción a 3D en Processing.
                 </p>
 
                 <h3>Requerimientos</h3>
@@ -70,17 +70,17 @@
                 Antes que nada, tienes que seleccionar la opción RV en el menú de Android para asegurarse de que tu bosquejo se compilado como una app RV:
                 </p>
 
-                <p><img class="body-image" src="imgs/vr_selection.png" alt="Selección de app RV"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/vr_intro/vr_selection.png" alt="Selección de app RV"></p>
 
                 <p>
-                Un bosquejo para RV debe incluir como mínimo la importación de la biblioteca RV y el motor de renderizado STEREO:
+                Un bosquejo para RV debe incluir como mínimo la importación de la biblioteca RV y el motor de renderizado VR (o STEREO):
                 </p>
 
 <pre><code>
 <span style="color: #33997E;">import</span> processing.vr.*;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
@@ -91,7 +91,7 @@
                 Si corremos el código de arriba, deberíamos obtener una vista estéreo vacía en nuestro teléfono:
                 </p>
 
-                <p><img class="body-image" src="imgs/stereo_view.png" alt="Vista estéro"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/vr_intro/stereo_view.png" alt="Vista estéro"></p>
 
                 <p>
                 El motor de renderizado estéreo funciona dibujando cada cuadro dos veces, una para cada ojo. Puede saber qué ojo se está dibujando en cada llamada de la función <code>draw()</code> podemos usar la variable <code> eyeType </code> que es provista por la biblioteca RV:
@@ -101,7 +101,7 @@
 <span style="color: #33997E;">import</span> processing.vr.*;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
@@ -116,13 +116,13 @@
 }
 </code></pre>
 
-                <p><img class="body-image" src="imgs/eyes.png" alt="Left and right eyes"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/vr_intro/eyes.png" alt="Left and right eyes"></p>
 
                 <p>
-                Podemos observar que <code> eyeType </code> también podría ser <code>MONOSCOPIC</code>, lo cual sucede si estamos usando el motor de renderizado <code>MONO</code> en lugar de <code>STEREO</code>. Con el motor de renderizado monoscópico, cada cuadro se dibuja solo una vez, pero la cámara la escena aún responde a los movimientos del teléfono en el espacio físico.
+                Podemos observar que <code> eyeType </code> también podría ser <code>MONOSCOPIC</code>, lo cual sucede si estamos usando el motor de renderizado <code>MONO</code> en lugar de <code>VR</code> o <code>STEREO</code>. Con el motor de renderizado monoscópico, cada cuadro se dibuja solo una vez, pero la cámara la escena aún responde a los movimientos del teléfono en el espacio físico.
                 </p>
 
-                <p>Una vez configurado el motor de renderizado RV, no que hacer nada especial para agregar objetos 3D a la escena virtual. Todas las funciones de dibujado de primitivas y formas 3D del motor de renderizado P3D están disponibles en RV. Podemos agregar texturas, luces y efectos basados ​​en sombreadores (shaders), como se demuestra en el siguiente bosquejo (código completo disponible <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/vr/ ex1_toon_stereo "target ="_black">aquí</a>):
+                <p>Una vez configurado el motor de renderizado de RV, no que hacer nada especial para agregar objetos 3D a la escena virtual. Todas las funciones de dibujado de primitivas y formas 3D del motor de renderizado P3D están disponibles en RV. Podemos agregar texturas, luces y efectos basados ​​en sombreadores (shaders), como se demuestra en el siguiente bosquejo (código completo disponible <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/vr/ ex1_toon_stereo "target ="_black">aquí</a>):
                 </p>
 
 <pre><code>
@@ -132,7 +132,7 @@
 <span style="color: #E2661A;">boolean</span> shaderEnabled = <span style="color: #33997E;">true</span>;  
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);  
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);  
 &nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
 &nbsp;&nbsp;<span style="color: #006699;">fill</span>(204);
 &nbsp;&nbsp;toon&nbsp;=&nbsp;<span style="color: #006699;">loadShader</span>(<span style="color: #7D4793;">&quot;ToonFrag.glsl&quot;</span>, <span style="color: #7D4793;">&quot;ToonVert.glsl&quot;</span>);
@@ -158,7 +158,7 @@
 
                 <p>Es importante notar el uso de la llamada <code>translate(width/2, height/2) </code> que asegura de que la escena esté correctamente centrada delante de nuestros ojos. Esto es necesario porque, de manera predeterminada, Processing elige como orígen la esquina superior izquierda de la pantalla, lo cual es conveniente para dibujo en 2D, pero no tanto en realidad virtual. La resultado del este bosquejo debería verse así: </p>
 
-                <p><img class="body-image" src="imgs/toon_stereo.png" alt="Example de sombreado de caricatura"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/vr_intro/toon_stereo.png" alt="Example de sombreado de caricatura"></p>
 
                 <h3>Creando una escena 3D más compleja</h3>
 
@@ -173,7 +173,7 @@
 <span style="color: #E2661A;">PShape</span> grid;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
 &nbsp;&nbsp;
 &nbsp;&nbsp;grid&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>();
 &nbsp;&nbsp;grid.<span style="color: #006699;">beginShape</span>(<span style="color: #718A62;">LINES</span>);
@@ -208,7 +208,7 @@
 <span style="color: #E2661A;">PShape</span> cubes;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
 &nbsp;&nbsp;
 &nbsp;&nbsp;grid&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>();
 &nbsp;&nbsp;grid.<span style="color: #006699;">beginShape</span>(<span style="color: #718A62;">LINES</span>);
@@ -248,7 +248,7 @@
 
                 <p>El resultado final de este bosquejo debería verse como sigue, claro que variando de acuerdo al punto de vista de la cámara en RV:</p>
 
-                <p><img class="body-image" src="imgs/grid_and_boxes.png" alt="Grid and boxes"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/vr_intro/grid_and_boxes.png" alt="Grid and boxes"></p>
 
                 <br><br>
 

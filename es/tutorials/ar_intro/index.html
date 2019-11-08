@@ -30,7 +30,7 @@
         <div class="group">
 
             <nav class="site">
-                <img class="logo" src="../../imgs/logo.png" alt="Logo de Processing para Android">
+                <img class="logo" src="../../../imgs/logo.png" alt="Logo de Processing para Android">
                 <ul class="leftnav">
                    <li><a href="../../index.html">Principal</a></li>
                    <li><a href="../../install.html">Instalar</a></li>
@@ -58,10 +58,10 @@
 
                 <h3>ARCore</h3>
                 <p>
-                Google ofrece un entorno de trabajo para crear aplicaciones de Realidad Aumentada (RA) para Android, llamado <a href="https://developers.google.com/ar" target="_black"> ARCore </a>. Experiencias de RA en teléfonos inteligentes generalmente involucran el dibujado de contenido digital en 3D superpuesto al mundo físico, tal como se lo vé desde la perspectiva de la cámara del teléfono, de tal manera que los contenidos digitales parecen ser parte del entorno del mundo físico de manera convincente. Esto requiere algoritmos complejos en tiempo real para reconocer objetos en el entorno físico, como paredes, muebles, incluso personas, y determinar la pose (posición y orientación) del teléfono en relación con el espacio a lo largo del tiempo. Afortunadamente para nosotros, ARCore maneja todos estos cálculos automáticamente y proporciona una <a href="https://developers.google.com/ar/reference" target="_black">API</a> para acceder a las características identificadas en el espacio físoco y adjuntarles contenidos digitales desde nuestro código. Si bien es posible acceder a ARCore directamente desde Processing, el modo Android incluye una biblioteca de RA que hace que sea más fácil usar ARCore en nuestros bosquejos de Processing y aplicar la API de dibujo de Processing para crear contenido en RA.
+                Google ofrece un entorno de trabajo para crear aplicaciones de Realidad Aumentada (RA) para Android, llamado <a href="https://developers.google.com/ar" target="_black">ARCore</a>. Experiencias de RA en teléfonos inteligentes generalmente involucran el dibujo de contenido digital 3D superpuesto al mundo físico, tal como se lo vé desde la perspectiva de la cámara del teléfono, de tal manera que los contenidos digitales aparentan ser parte del espacio real de manera convincente. Esto requiere el uso de algoritmos bastante complejos para reconocer objetos en el entorno físico, como paredes, muebles, incluso personas, y determinar la pose (posición y orientación) del teléfono en relación con el espacio en tiempo real. Afortunadamente para nosotros, ARCore maneja todos estos cálculos automáticamente y proporciona una <a href="https://developers.google.com/ar/reference" target="_black">API</a> para acceder a las características reconocidas en el espacio físico y adjuntarles contenidos digitales desde nuestro código. Si bien es posible acceder a ARCore directamente desde Processing, el modo Android incluye una biblioteca de RA que hace que sea más fácil usar ARCore en nuestros bosquejos de Processing y aplicar la API de dibujo de Processing para crear contenido en RA.
                 </p>
 
-                <p><a href="https://experiments.withgoogle.com/hidden-world" target="_black"><img class="body-image" src="imgs/hidden_world.gif" alt="Hidden World"></a></p>
+                <p><a href="https://experiments.withgoogle.com/hidden-world" target="_black"><img class="body-image" src="../../../imgs/tutorials/ar_intro/hidden_world.gif" alt="Hidden World"></a></p>
 
                 <p>
                 AR es un campo en rápido crecimiento, gracias a entornos como ARCore en Android (y <a href="https://developer.apple.com/augmented-reality/arkit/" target="_black">ARKit</a> en iOS) y al rápido ritmo de mejora técnica de los teléfonos inteligentes. La integración de los espacios físicos con contenidos digitales está abriendo muchas nuevas posibilidades para experiencias "físicas" mediadas a través de los teléfonos inteligentes. Los <a href="https://experiments.withgoogle.com/collection/ar" target="_black">Experimentos AR</a> de Google y la lista <a href = "https://github.com/olucurious/Awesome-ARKit "target =" _ black ">Awesome ARKit</a> de aplicaciones RA para iOS son buenos recursos para encontrar proyectos que hagan un uso creativo de RA.
@@ -79,7 +79,7 @@
                 El primer paso es seleccionar la opción AR en el menú de Android para asegurarse de nuestro bosquejo sea compilado como una aplicación AR:
                 </p>
 
-                <p><img class="body-image" src="imgs/ar_selection.png" alt="AR selection"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/ar_intro/ar_selection.png" alt="AR selection"></p>
 
                 <p>
                 Mientras que prácticamente cualquier bosquejo 3D de Processing se puede visualizar en RV simplemente importando la biblioteca de realidad virtual y utilizando el motor de renderizado VR, el uso de RA es un poco más complejo y require algunos pasos más. En primer lugar, necesitamos agregar un objeto ARTracker a nuestro boceto, y llamar a su función <code>start()</code> para iniciar el seguimiento en RA. Las otras dos clases en la biblioteca AR son ARTrackble y ARAnchor, que representan respectivamente una superficie que se puede seguir o "trackear" en el espacio físico (como pueden ser una mesa o una pared) y un punto en el espacio que permanece fijo en relación con una superficie trackeable dada. Estos conceptos se irán aclarando a medida que avancemos en el tutorial. Por el momento, un esqueleto básico para un boceto de RA en Processing está provisto en el siguiente código, donde sólamente iniciamos el seguimiento e imprimimos en la consola los objetos trackeables detectados en cada cuadro:
@@ -148,7 +148,7 @@
                 El bosquejo anterior debería dibujar todos los planos trackeables que el teléfono detecta mientras nos movemos en el espacio:
                 </p>
 
-                <p><img class="body-image" src="imgs/ar_trackables.png" alt="trackable planes"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/ar_intro/ar_trackables.png" alt="trackable planes"></p>
                 
                 <p>
                 También es fácil determinar si el usuario está seleccionando un trackable usando la pantalla táctil, todo lo que tenemos que hacer es llamar al <code>isSelected(x, y)</code> con las coordenadas (x, y) del puntero de toque:
@@ -174,7 +174,7 @@
                 </p>
 
 
-                <p><img class="body-image" src="imgs/ar_trackable_selection.png" alt="trackable selection"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/ar_intro/ar_trackable_selection.png" alt="trackable selection"></p>
 
                 <h3>Usando anclas</h3>
 
@@ -261,7 +261,7 @@
                 También es importante que desechemos un ancla una vez que ya no sea rastreada con la suguiente línea de código: <code>if (anchor.isStopped ()) anchor.dispose ();</code>. De esta manera nos asegurarmos de que no desperdiciar recursos con anclas que ya no están activas (las anclas que simplemente están en pausa no deben desecharse ya que pueden rastrearse nuevamente más tarde, pero las detenidas no se reiniciarán de nuevo). También deberíamos eliminar los anclajes desechados de nuestra lista de matrices, podemos hacerlo manualmente desde nuestro bosquejo o usar la función de utilidad <code>clearAnchors</code> provista en la clase ARTracker. El resultado de nuestro último código debería ser el siguiente:
                 </p>
 
-                <p><img class="body-image" src="imgs/ar_anchors.png" alt="Anchor drawing"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/ar_intro/ar_anchors.png" alt="Anchor drawing"></p>
 
                 <h3>Tocando trackeables</h3>
 
@@ -313,7 +313,7 @@
                 En este ejemplo utilizamos un modelo OBJ cargado desde la la carpeta de datos del bosquejo para dibujar en la ubicación del anclaje de toque. Si todo es correcto en el código, el resultado sería similar al siguiente:
                 </p>
 
-                <p><img class="body-image" src="imgs/ar_objects.png" alt="Detecting trackable hitting"></p>
+                <p><img class="body-image" src="../../../imgs/tutorials/ar_intro/ar_objects.png" alt="Detecting trackable hitting"></p>
 
                 <p>El código del bosquejo completo está disponible <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/ar/ex1_ar_intro" target="_black">aquí</a>.</p>
 

@@ -70,17 +70,17 @@
                 You need to select the VR option in the Android menu to make sure that your sketch is built as a VR app:
                 </p>    
 
-                <p><img class="body-image" src="imgs/vr_selection.png" alt="VR selection"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/vr_intro/vr_selection.png" alt="VR selection"></p>
 
                 <p>
-                A basic sketch for VR needs to include the library import, and the STEREO renderer:
+                A basic sketch for VR needs to include the library import, and the VR (or STEREO) renderer:
                 </p> 
 
 <pre><code>
 <span style="color: #33997E;">import</span> processing.vr.*;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
@@ -91,17 +91,17 @@
                 With this code, you should get an empty stereo view on your phone:
                 </p> 
 
-                <p><img class="body-image" src="imgs/stereo_view.png" alt="Stereo view"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/vr_intro/stereo_view.png" alt="Stereo view"></p>
 
                 <p>
-                The stereo renderer works by drawing each frame twice, once for each eye. You can know what eye is being drawn in each call of the <code>draw()</code> function using the <code>eyeType</code> variable in the VR renderer:
+                The VR/STEREO renderer works by drawing each frame twice, once for each eye. You can know what eye is being drawn in each call of the <code>draw()</code> function using the <code>eyeType</code> variable in the VR renderer:
                 </p> 
 
 <pre><code>
 <span style="color: #33997E;">import</span> processing.vr.*;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
 }
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>draw</b></span>() {
@@ -116,10 +116,10 @@
 }
 </code></pre>
 
-                <p><img class="body-image" src="imgs/eyes.png" alt="Left and right eyes"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/vr_intro/eyes.png" alt="Left and right eyes"></p>
 
                 <p>
-                You can notice that <code>eyeType</code> could also be <code>MONOSCOPIC</code>, which happens if you use the <code>MONO</code> renderer instead of <code>STEREO</code>. With the monoscopic renderer, the frame is drawn just once but the camera still responds to the movements of the phone.
+                You can notice that <code>eyeType</code> could also be <code>MONOSCOPIC</code>, which happens if you use the <code>MONO</code> renderer instead of <code>VR</code> or <code>STEREO</code>. With the monoscopic renderer, the frame is drawn just once but the camera still responds to the movements of the phone.
                 </p> 
 
                 <p>There is nothing special to add 3D objects to the scene, you simply use the same functions for drawing 3D primitives and shapes with the P3D renderer. You can also add textures, lights, and shader-based effects, like in the following sketch (full code available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/vr/ex1_toon_stereo" target="_black">here</a>):
@@ -132,7 +132,7 @@
 <span style="color: #E2661A;">boolean</span> shaderEnabled = <span style="color: #33997E;">true</span>;  
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);  
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);  
 &nbsp;&nbsp;<span style="color: #006699;">noStroke</span>();
 &nbsp;&nbsp;<span style="color: #006699;">fill</span>(204);
 &nbsp;&nbsp;toon&nbsp;=&nbsp;<span style="color: #006699;">loadShader</span>(<span style="color: #7D4793;">&quot;ToonFrag.glsl&quot;</span>, <span style="color: #7D4793;">&quot;ToonVert.glsl&quot;</span>);
@@ -159,7 +159,7 @@
 
                 <p>Notice the use of <code>translate(width/2, height/2)</code> to make sure that the scene is properly centered in front of of our eyes. This is needed because by default Processing sets the origin to be the upper left corner of the screen, which is convenient for 2D drawing, but not so much in VR. The output should look like this:</p>
 
-                <p><img class="body-image" src="imgs/toon_stereo.png" alt="Toon shading example"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/vr_intro/toon_stereo.png" alt="Toon shading example"></p>
 
                 <h3>Creating a more complex 3D scene</h3>
 
@@ -174,7 +174,7 @@
 <span style="color: #E2661A;">PShape</span> grid;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
 &nbsp;&nbsp;
 &nbsp;&nbsp;grid&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>();
 &nbsp;&nbsp;grid.<span style="color: #006699;">beginShape</span>(<span style="color: #718A62;">LINES</span>);
@@ -208,7 +208,7 @@
 <span style="color: #E2661A;">PShape</span> cubes;
 
 <span style="color: #33997E;">void</span> <span style="color: #006699;"><b>setup</b></span>() {
-&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(STEREO);
+&nbsp;&nbsp;<span style="color: #006699;">fullScreen</span>(VR);
 &nbsp;&nbsp;
 &nbsp;&nbsp;grid&nbsp;=&nbsp;<span style="color: #006699;">createShape</span>();
 &nbsp;&nbsp;grid.<span style="color: #006699;">beginShape</span>(<span style="color: #718A62;">LINES</span>);
@@ -248,7 +248,7 @@
 
                 <p>The final result should look like this, depending on your viewpoint:</p>
 
-                <p><img class="body-image" src="imgs/grid_and_boxes.png" alt="Grid and boxes"></p>
+                <p><img class="body-image" src="../../imgs/tutorials/vr_intro/grid_and_boxes.png" alt="Grid and boxes"></p>
 
                 <br><br>
 
