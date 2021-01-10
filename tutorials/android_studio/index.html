@@ -1,85 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
-        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
-        <link rel="stylesheet" href="../../css/main.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <title>Processing for Android</title>
-    </head>
-    
-    <body>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+    <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+    <link rel="stylesheet" href="../../css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Processing for Android</title>
+</head>
 
-        <nav class="topnav">        
-            <ul class="left">
-                <li><a href="https://processing.org/">Processing</a></li>
-                <li><a href="https://p5js.org/">p5.js</a></li>
-                <li><a href="https://py.processing.org/">Processing.py</a></li>
-                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
-            </ul>
-            <ul class="foundation">
-                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
-            </ul>
-        </nav>
+<body>
 
-        <header>            
-            <h1 class="title">Processing for Android</h1>
-        </header>
+<nav class="topnav">
+    <ul class="left">
+        <li><a href="https://processing.org/">Processing</a></li>
+        <li><a href="https://p5js.org/">p5.js</a></li>
+        <li><a href="https://py.processing.org/">Processing.py</a></li>
+        <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+    </ul>
+    <ul class="foundation">
+        <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+    </ul>
+</nav>
 
-        <div class="group">
+<header>
+    <h1 class="title">Processing for Android</h1>
+</header>
 
-            <nav class="site">
-                <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
-                <ul class="leftnav">
-                   <li><a href="../../index.html">Home</a></li>
-                   <li><a href="../../install.html">Install</a></li>
-                   <li><a href="../../reference/index.html">Reference</a></li>
-                   <li><a id="selected" href="../../tutorials/index.html">Tutorials</a></li>
-                   <li><a href="../../books/index.html">Books</a></li>
-                   <li><a href="../../gallery/index.html">Gallery</a></li>
-                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
-                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
-                </ul>
-            </nav>
-      
-            <section class="container main-text">
+<div class="group">
 
-                <div class="lang">
-                  <a id="selected" href="index.html">EN</a>
-                  <a href="../../es/tutorials/android_studio/index.html">ES</a>
-                </div>
-                <hr style="clear:both;">
+    <nav class="site">
+        <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
+        <ul class="leftnav">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../install.html">Install</a></li>
+            <li><a href="../../reference/index.html">Reference</a></li>
+            <li><a id="selected" href="../../tutorials/index.html">Tutorials</a></li>
+            <li><a href="../../books/index.html">Books</a></li>
+            <li><a href="../../gallery/index.html">Gallery</a></li>
+            <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
+            <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
+        </ul>
+    </nav>
 
-            	<h2>Developing with Android Studio</h2>
-                <p>Use Android Studio for advanced Android development with Processing's core library.</p>
+    <section class="container main-text">
 
-                <h3>General steps</h3>
+        <div class="lang">
+            <a id="selected" href="index.html">EN</a>
+            <a href="../../es/tutorials/android_studio/index.html">ES</a>
+        </div>
+        <hr style="clear:both;">
 
-                <p>
-                <a href="https://developer.android.com/studio/index.html" target="_black">Android Studio</a> is the tool recommended by Google for Android development. If you've already have experience on how to develop Android applications using Android Studio (separately from Processing), and want to make use of the Processing core library in your Android Studio projects, this tutorial can be useful.</p>
+        <h2>Developing with Android Studio</h2>
+        <p>Use Android Studio for advanced Android development with Processing's core library.</p>
 
-                <p>
-                All our core code is bundled inside the processing-core.zip, which is inside the AndroidMode folder. You just need to copy this file as processing-core.jar and add it as a dependency to your project. Step by step procedure for Android Studio is as follows:</p>
+        <h3>General steps</h3>
 
-                <p><b>1.</b> Create an Android project if you haven't already created one:</p>
-                <p><img class="body-image" src="../../imgs/tutorials/android_studio/1_new_project.png" alt="New project"></p>
+        <p>
+            <a href="https://developer.android.com/studio/index.html" target="_black">Android Studio</a> is the tool recommended by Google for Android development. If you've already have experience on how to develop Android applications using Android Studio (separately from Processing), and want to make use of the Processing core library in your Android Studio projects, this tutorial can be useful.</p>
 
-                <p><b>2.</b> Select the target device:</p>
-                <p><img class="body-image" src="../../imgs/tutorials/android_studio/2_target.png" alt="Select target"></p>
+        <p>
+            All our core code is bundled inside the processing-core.zip, which is inside the AndroidMode folder. You just need to copy this file as processing-core.jar and add it as a dependency to your project. Step by step procedure for Android Studio is as follows:</p>
 
-                <p><b>3.</b> Add an empty activity:</p>
-                <p><img class="body-image" src="../../imgs/tutorials/android_studio/3_add_activity.png" alt="Add activity"></p>
+        <p><b>1.</b> Create an Android project if you haven't already created one. Start with selecting an Empty Activity:</p>
+        <p><img class="body-image" src="../../imgs/tutorials/android_studio/1selectActivity.png" alt="Select Activity"></p>
 
-                <p><b>4.</b> Set the name for the main activity class and the layout file:</p>
-                <p><img class="body-image" src="../../imgs/tutorials/android_studio/4_customize_activity.png" alt="Customize activity"></p>
+        <p><b>2.</b> Enter project name, package name and minimum SDK version. Keep the 'Use legacy android.support libraries' option unchecked as the latest android processing core is migrated to androidx. After that click on 'Finish' button:</p>
+        <p><img class="body-image" src="../../imgs/tutorials/android_studio/2projectName.png" alt="Select target"></p>
 
-                <p><b>5.</b> Copy processing-core.zip (located in the AndroidMode folder in Processing) to /app/libs, rename it to processing-core.jar, and add it as a jar dependency to the project:</p>
-                <p><img class="body-image" src="../../imgs/tutorials/android_studio/5_module_settings.png" alt="Module settings"></p>
+        <p><b>3.</b> Copy processing-core.zip (located in the AndroidMode folder in Processing) to /app/libs, rename it to processing-core.jar:</p>
+        <p><img class="body-image" src="../../imgs/tutorials/android_studio/3copyzip.png" alt="Module settings"></p>
 
-                <p><b>6.</b> Then, write your sketch code by extending PApplet, for example:</p> 
-             
-<pre><code>
+        <p><b>4.</b> To add it as a jar dependency, Click on File -> Project Structure. A dialog box will appear:</p>
+        <p><img class="body-image" src="../../imgs/tutorials/android_studio/4ClickFile.png" alt="Module settings"></p>
+
+        <p><b>5.</b> Select 'dependencies' in the left most panel and then click on 'app' in modules panel. Click on plus button under Declared Dependencies and then click on Jar Dependency. Another dialog box will appear:</p>
+        <p><img class="body-image" src="../../imgs/tutorials/android_studio/5Addjar.png" alt="Module settings"></p>
+
+        <p><b>6.</b> In the add jar dialog enter path as 'libs/processing-core.jar' and in Step 2, enter scope as 'implementation'. Click on 'OK', 'Apply' and then again 'OK':</p>
+        <p><img class="body-image" src="../../imgs/tutorials/android_studio/6addjardialog.png" alt="Module settings"></p>
+
+        <p><b>7.</b> Then, write your sketch code by extending PApplet, for example:</p>
+
+        <pre><code>
 // Sketch.java
 package tutorials.androidstudio.fragmentsv4;
 
@@ -100,62 +103,62 @@ public class Sketch extends PApplet {
 }
 </code></pre>
 
-                <p><b>7.</b> Initialize the sketch in the main activity:</p> 
+        <p><b>8.</b> Initialize the sketch in the main activity:</p>
 
-<pre><code>
+        <pre><code>
 package tutorials.androidstudio.fragmentsv4;
 
-import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.support.v7.app.AppCompatActivity;
-
 import processing.android.PFragment;
 import processing.android.CompatUtils;
 import processing.core.PApplet;
 
 public class MainActivity extends AppCompatActivity {
-  private PApplet sketch;
+    private PApplet sketch;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    FrameLayout frame = new FrameLayout(this);
-    frame.setId(CompatUtils.getUniqueViewId());
-    setContentView(frame, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                                                     ViewGroup.LayoutParams.MATCH_PARENT));
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        FrameLayout frame = new FrameLayout(this);
+        frame.setId(CompatUtils.getUniqueViewId());
+        setContentView(frame, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
 
-    sketch = new Sketch();
-    PFragment fragment = new PFragment(sketch);
-    fragment.setView(frame, this);
-  }
-
-  @Override
-  public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-    if (sketch != null) {
-      sketch.onRequestPermissionsResult(
-      requestCode, permissions, grantResults);
+        sketch = new Sketch();
+        PFragment fragment = new PFragment(sketch);
+        fragment.setView(frame, this);
     }
-  }
 
-  @Override
-  public void onNewIntent(Intent intent) {
-    if (sketch != null) {
-      sketch.onNewIntent(intent);
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if (sketch != null) {
+            sketch.onRequestPermissionsResult(
+                    requestCode, permissions, grantResults);
+        }
     }
-  }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (sketch != null) {
+            sketch.onNewIntent(intent);
+        }
+    }
 }
 </code></pre>
 
 
-                <div class="butterbar">
-                The <code>onRequestPermissionsResult()</code> method in the main activity is needed in the case the app uses any <a href="https://developer.android.com/guide/topics/permissions/requesting.html#normal-dangerous">dangerous permissions</a>. If missing, the results of requesting the permission to the user will not reach the sketch, and it may fail to work properly. onNewIntent() is also needed so the sketch can handle intents sent to the main activity.</div>
+        <div class="butterbar">
+            The <code>onRequestPermissionsResult()</code> method in the main activity is needed in the case the app uses any <a href="https://developer.android.com/guide/topics/permissions/requesting.html#normal-dangerous">dangerous permissions</a>. If missing, the results of requesting the permission to the user will not reach the sketch, and it may fail to work properly. onNewIntent() is also needed so the sketch can handle intents sent to the main activity.</div>
 
 
-                <p><b>8.</b> Finally, create a simple layout for the main activity:</p> 
+        <p><b>9.</b> Finally, create a simple layout for the main activity:</p>
 
-<pre><code>
+        <pre><code>
 &lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
@@ -167,30 +170,30 @@ public class MainActivity extends AppCompatActivity {
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-&lt;/RelativeLayout>   
+&lt;/RelativeLayout>
 </code></pre>
 
-                <p>The complete Android Studio project is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/android_studio/ex2_fragmentsv4" target="_black">here</a>.</p>
+        <p>The complete Android Studio project is available <a href="https://github.com/codeanticode/processing-android-tutorials/tree/master/android_studio/ex2_fragmentsv4" target="_black">here</a>.</p>
 
-                <h3>Using Bintray packages</h3>
+        <h3>Using Bintray packages</h3>
 
-                <p>
-                The processing-core library is also available as a package on <a href="https://bintray.com/p5android/processing-android/processing-core" target="_black">Bintray</a>. This package can be easily imported into a Gradle project using the following dependency snippet:</p> 
+        <p>
+            The processing-core library is also available as a package on <a href="https://bintray.com/p5android/processing-android/processing-core" target="_black">Bintray</a>. This package can be easily imported into a Gradle project using the following dependency snippet:</p>
 
-<pre><code>
+        <pre><code>
 compile 'org.p5android:processing-core:x.y.z'
 </code></pre>
 
-                <p>where x.y.z is the desired version to use. In Android Studio, the processing-core package will appear as a module dependency as follows:</p>
-                <p><img class="body-image" src="../imgs/android_studio/bintray_package.png" alt="Bintray package"></p>
+        <p>where x.y.z is the desired version to use. In Android Studio, the processing-core package will appear as a module dependency as follows:</p>
+        <p><img class="body-image" src="../../imgs/tutorials/android_studio/bintray_package.png" alt="Bintray package"></p>
 
-            </section>
+    </section>
 
-        </div>
+</div>
 
-        <footer class="footinfo">
-            <small>&copy; The Processing Foundation. Processing for Android is a <a href="../../team.html">collaborative project</a>.</small>
-        </footer>
-    </body>
+<footer class="footinfo">
+    <small>&copy; The Processing Foundation. Processing for Android is a <a href="../../team.html">collaborative project</a>.</small>
+</footer>
+</body>
 </html>
 
