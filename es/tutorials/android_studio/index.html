@@ -62,22 +62,25 @@
                 <p>
                 Todo el código que define la API de Processing está incluido dentro de archivo processing-core.zip, que está dentro de la subcarpeta AndroidMode en la carpeta de modos dentro de la carpeta de bosquejos. Lo único que tienes que hacer es copiar este archivo como rocessing-core.jar y agregarlo como una dependencia a tu proyecto. El procedimiento paso a paso para hacer esto con Android Studio se detalla a continuación:</p>
 
-                <p><b>1.</b>Crea un proyecto Android si es que todavía no tienes uno:</p>
-                <p><img class="body-image" src="../../../imgs/tutorials/android_studio/1_new_project.png" alt="Nuevo proyecto"></p>
+                <p><b>1.</b>Cree un proyecto de Android si aún no lo ha creado. Comience seleccionando una actividad vacía:</p>
+                <p><img class="body-image" src="../../../imgs/tutorials/android_studio/1selectActivity.png" alt="Select Activity"></p>
 
-                <p><b>2.</b>Selecciona el dispositivo de objetivo:</p>
-                <p><img class="body-image" src="../../../imgs/tutorials/android_studio/2_target.png" alt="Seleccionar objectivo"></p>
+                <p><b>2.</b>Ingrese el nombre del proyecto, el nombre del paquete y la versión mínima del SDK. Mantenga la opción 'Use legacy android.support libraries' sin marcar, ya que el último núcleo de procesamiento de Android se migra a androidx. Después de eso, haga clic en el botón 'Finish':</p>
+                <p><img class="body-image" src="../../../imgs/tutorials/android_studio/2projectName.png" alt="Select target"></p>
 
-                <p><b>3.</b>Agrega una activiadad vacía:</p>
-                <p><img class="body-image" src="../../../imgs/tutorials/android_studio/3_add_activity.png" alt="Agregando una actividad"></p>
+                <p><b>3.</b> Copia processing-core.zip (ubicado en la carpeta AndroidMode en Processing) a app/libs, renómbralo como processing-core.jar y agrégalo como una dependencia jar a el proyecto:</p>
+                <p><img class="body-image" src="../../../imgs/tutorials/android_studio/3copyzip.png" alt="Module settings"></p>
 
-                <p><b>4.</b> Ingresar el nombre para la clase de actividad principal y el archivo de diseño (layout):</p>
-                <p><img class="body-image" src="../../../imgs/tutorials/android_studio/4_customize_activity.png" alt="Configurar actividad"></p>
+                <p><b>4.</b> Para agregarlo como una dependencia de jar, haga clic en Archivo -> Estructura del proyecto. Un cuadro de diálogo aparecerá:</p>
+                <p><img class="body-image" src="../../../imgs/tutorials/android_studio/4ClickFile.png" alt="Module settings"></p>
 
-                <p><b>5.</b> Copia processing-core.zip (ubicado en la carpeta AndroidMode en Processing) a app/libs, renómbralo como processing-core.jar y agrégalo como una dependencia jar a el proyecto:</p>
-                <p><img class="body-image" src="../../../imgs/tutorials/android_studio/5_module_settings.png" alt="Module settings"></p>
+                <p><b>5.</b> Seleccione 'dependencies' en el panel más a la izquierda y luego haga clic en 'app' en el panel de módulos. Haga clic en el botón más bajo Declared Dependencies y luego haga clic en Jar Dependency. Aparecerá otro cuadro de diálogo:</p>
+                <p><img class="body-image" src="../../../imgs/tutorials/android_studio/5Addjar.png" alt="Module settings"></p>
 
-                <p><b>6.</b> Una vez hecho todo lo anterior, escribe el código de tu bosquejo extendiendo la clase PApplet, por ejemplo:</p> 
+                <p><b>6.</b> En el cuadro de diálogo Agregar jar, ingrese la ruta como 'libs / processing-core.jar' y en el Paso 2, ingrese el alcance como 'implementación'. Haga clic en 'OK', 'Apply' y luego nuevamente en 'OK':</p>
+                <p><img class="body-image" src="../../../imgs/tutorials/android_studio/6addjardialog.png" alt="Module settings"></p>
+
+                <p><b>7.</b> Una vez hecho todo lo anterior, escribe el código de tu bosquejo extendiendo la clase PApplet, por ejemplo:</p>
              
 <pre><code>
 // Sketch.java
@@ -100,58 +103,58 @@ public class Sketch extends PApplet {
 }
 </code></pre>
 
-                <p><b>7.</b> Inicializa el bosquejo en la actividad principal:</p> 
+                <p><b>8.</b> Inicializa el bosquejo en la actividad principal:</p>
 
 <pre><code>
 package tutorials.androidstudio.fragmentsv4;
 
-import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.support.v7.app.AppCompatActivity;
-
 import processing.android.PFragment;
 import processing.android.CompatUtils;
 import processing.core.PApplet;
 
 public class MainActivity extends AppCompatActivity {
-  private PApplet sketch;
+    private PApplet sketch;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    FrameLayout frame = new FrameLayout(this);
-    frame.setId(CompatUtils.getUniqueViewId());
-    setContentView(frame, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                                                     ViewGroup.LayoutParams.MATCH_PARENT));
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        FrameLayout frame = new FrameLayout(this);
+        frame.setId(CompatUtils.getUniqueViewId());
+        setContentView(frame, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
 
-    sketch = new Sketch();
-    PFragment fragment = new PFragment(sketch);
-    fragment.setView(frame, this);
-  }
-
-  @Override
-  public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-    if (sketch != null) {
-      sketch.onRequestPermissionsResult(
-      requestCode, permissions, grantResults);
+        sketch = new Sketch();
+        PFragment fragment = new PFragment(sketch);
+        fragment.setView(frame, this);
     }
-  }
 
-  @Override
-  public void onNewIntent(Intent intent) {
-    if (sketch != null) {
-      sketch.onNewIntent(intent);
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if (sketch != null) {
+            sketch.onRequestPermissionsResult(
+                    requestCode, permissions, grantResults);
+        }
     }
-  }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (sketch != null) {
+            sketch.onNewIntent(intent);
+        }
+    }
 }
 </code></pre>
 
                 <div class = "butterbar">
                 El método <code>onRequestPermissionsResult()</code> en la actividad principal es necesario en caso de que la aplicación utilice cualquier <a href="https://developer.android.com/guide/topics/permissions/requesting.html#normal-dangerous">permiso peligroso</a>. Si hiciera falta, el bosquejo no será notificado de los resultados de solicitar el permiso al usuario, con lo cual es posible que no funcione correctamente. <code>onNewIntent()</code> también es necesario para que el bosquejo pueda manejar los intentos enviados a la actividad principal.</div>
 
-                <p><b>8.</b> Finalmente, crea un diseño (layout) mínimo para la actividad principal:</p>
+                <p><b>9.</b> Finalmente, crea un diseño (layout) mínimo para la actividad principal:</p>
 
 <pre><code>
 &lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
