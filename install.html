@@ -1,126 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
-        <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
-        <link rel="stylesheet" href="css/main.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <title>Processing for Android</title>
-    </head>
 
-    <body>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+    <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/install.css">
+    <script src="js/install.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Processing for Android</title>
+</head>
 
-        <nav class="topnav">
-            <ul class="left">
-                <li><a href="https://processing.org/">Processing</a></li>
-                <li><a href="https://p5js.org/">p5.js</a></li>
-                <li><a href="https://py.processing.org/">Processing.py</a></li>
-                <li><a href="https://pi.processing.org/">Processing for Pi</a></li>            
-            </ul>
-            <ul class="foundation">
-                <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+<body>
+
+    <nav class="topnav">
+        <ul class="left">
+            <li><a href="https://processing.org/">Processing</a></li>
+            <li><a href="https://p5js.org/">p5.js</a></li>
+            <li><a href="https://py.processing.org/">Processing.py</a></li>
+            <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+        </ul>
+        <ul class="foundation">
+            <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1 class="title">Processing for Android</h1>
+    </header>
+
+    <div class="group">
+
+        <nav class="site">
+            <img class="logo" src="imgs/logo.png" alt="Processing for Android logo">
+            <ul class="leftnav">
+                <li><a href="index.html">Home</a></li>
+                <li><a id="selected" href="install.html">Install</a></li>
+                <li><a href="reference/index.html">Reference</a></li>
+                <li><a href="tutorials/index.html">Tutorials</a></li>
+                <li><a href="books/index.html">Books</a></li>
+                <li><a href="gallery/index.html">Gallery</a></li>
+                <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
+                <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
             </ul>
         </nav>
 
-        <header>
-            <h1 class="title">Processing for Android</h1>
-        </header>
+        <section class="container main-text">
 
-        <div class="group">
+            <div class="lang">
+                <a id="selected" href="install.html">EN</a>
+                <a href="es/install.html">ES</a>
+            </div>
+            <hr style="clear:both;">
 
-            <nav class="site">
-                <img class="logo" src="imgs/logo.png" alt="Processing for Android logo">
-                <ul class="leftnav">
-                   <li><a href="index.html">Home</a></li>
-                   <li><a id="selected" href="install.html">Install</a></li>
-                   <li><a href="reference/index.html">Reference</a></li>
-                   <li><a href="tutorials/index.html">Tutorials</a></li>
-                   <li><a href="books/index.html">Books</a></li>
-                   <li><a href="gallery/index.html">Gallery</a></li>
-                   <li><a href="https://discourse.processing.org/c/processing-android" target="_black">Forum</a></li>
-                   <li><a href="https://github.com/processing/processing-android" target="_black">GitHub</a></li>
-                </ul>
-            </nav>
+            <h2>The Android Mode</h2>
+            <p>The main component of Processing for Android is the Android mode, a <a
+                    href="https://processing.org/reference/environment/#Programming_modes" target="_black">programming
+                    mode</a> for the Processing Development Environment (PDE) that adds all the options needed to run
+                Processing sketches on Android devices and also in the emulator.</p>
 
-            <section class="container main-text">
+            <div class="butterbar">
+                You need to install Processing first in order to use the Android mode. Once you have <a
+                    href="https://www.processing.org/download/" target="_black">downloaded</a> the Processing package
+                corresponding to your Operating System, follow the instructions below to add the Android mode.
+            </div>
 
-                <div class="lang">
-                  <a id="selected" href="install.html">EN</a>
-                  <a href="es/install.html">ES</a>
+            <p>
+                To install the latest version of Android mode in Processing, first make sure a PDE window is open, then click on 'Install Android Mode' below.
+            </p>
+
+            <p>
+            <div class="btn_tooltip" id="btn_tooltip">
+                <a href="#" class="shield-button" id="openInProcessing">
+                    <div class="btn_logo-container">
+                        <img src="./imgs/logo.png" alt="Processing Logo" class="btn_logo">
+                    </div>
+                    <div class="btn_text-container">
+                        Install Android Mode
+                    </div>
+                </a>
+                <div class="btn_tooltiptext">
+                    <p><span class="ellipsis">Opening in Processing</span></p>
+                    <p>If nothing happens, <a href="https://processing.org/download/" target="_blank">download
+                            Processing</a> and try again.</p>
+                    <p>Or <a href="https://github.com/processing/processing-android/releases/download/latest/AndroidMode.pdex"
+                            target="_blank">download the file</a> directly.</p>
                 </div>
-                <hr style="clear:both;">
+            </div>
+            </p>
 
-                <h2>The Android Mode</h2>
-                <p>The main component of Processing for Android is the Android mode, a <a href="https://processing.org/reference/environment/#Programming_modes" target="_black">programming mode</a> for the Processing Development Environment (PDE) that adds all the options needed to run Processing sketches on Android devices and also in the emulator.</p>
+            <p>You could also use only the Android core library to develop Android apps with the IDE of your choice, see
+                <a href="tutorials/android_studio/index.html" target="_black">this tutorial</a> for more details.
+            </p>
 
-                <div class="butterbar">
-                You need to install Processing first in order to use the Android mode. Once you have <a href="https://www.processing.org/download/" target="_black">downloaded</a> the Processing package corresponding to your Operating System, follow the instructions below to add the Android mode.
-                </div>
+            <h2>Contributions Manager</h2>
+            <p>
+                The latest stable release of the Android mode can also be installed through the Contribution Manager (CM) in
+                the PDE. To open the CM, click the arrow in the mode selector in the menu bar, and choose "Add Mode...":
+            </p>
 
-                <p>You could also use only the Android core library to develop Android apps with the IDE of your choice, see <a href="tutorials/android_studio/index.html" target="_black">this tutorial</a> for more details.</p>
+            <p><img class="body-image" src="imgs/install/mode_selector.png" alt="Mode Selector in Processing"></p>
 
-                <h2>Quick install</h2>
+            <p>
+                Once the CM window shows up, select the Android Mode from the list, and then click the install button in
+                the bottom of the window:
+            </p>
 
-                <p>
-                Open a Processing editor window then click the link below:
-                </p>
+            <p><img class="body-image" src="imgs/install/cm.png" alt="Contribution Manager"></p>
 
-                <p>
-                <strong><a href="pde://github.com/processing/processing-android/releases/download/latest/AndroidMode.pdex" target="_black">Install Android Mode</a></strong>
-                </p>
+            <p>
+                After installing the mode, you will be able to switch into it using the mode selector in the menu bar.
+                Follow the <a href="tutorials/getting_started/index.html" target="_black">Getting Started tutorial</a>
+                for the first steps with the Android mode.
+            </p>
 
-                <p>
-                This will install the latest version of the Android mode.
-                </p>
+            <h2>Changelog</h2>
 
-                <h2>Contributions Manager</h2>
-                <p>
-                The latest stable release of the Android mode can be installed through the Contribution Manager (CM) in the PDE. To open the CM, click the arrow in the mode selector in the menu bar, and choose "Add Mode...":
-                </p>
+            <!-- ADD NEWER RELEASES HERE -->
 
-                <p><img class="body-image" src="imgs/install/mode_selector.png" alt="Mode Selector in Processing"></p>
+            <h3 id="4.6-releases">The 4.6 release: project structure and SDK improvements</h3>
+            <p>
+                Version 4.6 introduces <a href="whatsnew.html" target="_black">key updates</a> to the Android mode,
+                including a reorganization of the project structure to <a
+                    href="https://github.com/processing/processing-android/wiki/Building-Processing-for-Android#developingdebuggingtesting-the-core-and-vr-libraries-with-android-studio">facilitate
+                    debugging and development</a></p>
 
-                <p>
-                Once the CM window shows up, select the Android Mode from the list, and then click the install button in the bottom of the window:
-                </p>
+            <h3 id="4.5-releases">The 4.5 release: Processing 4.0!</h3>
+            <p>
+                Version 4.5 brings <a href="whatsnew.html" target="_black">several enhancements</a> to the Android mode,
+                with a focus on compatibility with Processing 4.0.</p>
 
-                <p><img class="body-image" src="imgs/install/cm.png" alt="Contribution Manager"></p>
+            <h3 id="4.1-releases">The 4.1 release: integrated debugger and Augmented Reality</h3>
+            <p>
+                Version 4.1 introduces <a href="whatsnew.html" target="_black">two significant additions</a> to
+                Processing for Android: an integrated debugger, just like the one available in the <a
+                    href="https://vimeo.com/140134398" target="_black">Java mode</a>, and a new AR library based on <a
+                    href="https://developers.google.com/ar" target="_black">ARCore</a>.</p>
 
-                <p>
-                After installing the mode, you will be able to switch into it using the mode selector in the menu bar. Follow the <a href="tutorials/getting_started/index.html" target="_black">Getting Started tutorial</a> for the first steps with the Android mode.
-                </p>
+            <h3 id="4.0-releases">The 4.0 release: wallpapers, watch faces, and Realidad Virtual</h3>
+            <p>
+                Version 4.0 brings <a href="whatsnew.html" target="_black">several improvements</a> to the Android mode,
+                incuding new functionality for creating <a
+                    href="https://android-developers.blogspot.com/2010/02/live-wallpapers.html" target="_black">live
+                    wallpapers</a>, <a href="https://developer.android.com/training/wearables/watch-faces/index.html"
+                    target="_black">watch faces</a>, and <a href="https://vr.google.com" target="_black">VR</a> apps.
+                You will find more on how to use this functionality in the tutorials and the reference pages of this
+                site.</p>
 
-                <h2>Changelog</h2>
+            <h2>Pre-releases</h2>
+            <p>
+                Pre-release versions, as well as older stable releases, are are not available in the CM, and need to be
+                installed manually. In order to do this, first download the AndroidMode-xyz.zip file for the desired
+                release or pre-release from the <a href="https://github.com/processing/processing-android/releases"
+                    target="_black">releases section</a> in the GitHub repo of the Android Mode. Uncompress the zip file
+                and then move the AndroidMode folder into the modes folder inside inside the sketchbook folder.
+            </p>
+        </section>
 
-                <!-- ADD NEWER RELEASES HERE -->
+    </div>
 
-                <h3 id="4.6-releases">The 4.6 release: project structure and SDK improvements</h3>
-                <p>
-                Version 4.6 introduces <a href="whatsnew.html" target="_black">key updates</a> to the Android mode, including a reorganization of the project structure to <a href="https://github.com/processing/processing-android/wiki/Building-Processing-for-Android#developingdebuggingtesting-the-core-and-vr-libraries-with-android-studio">facilitate debugging and development</a></p>
-                
-                <h3 id="4.5-releases">The 4.5 release: Processing 4.0!</h3>
-                <p>
-                Version 4.5 brings <a href="whatsnew.html" target="_black">several enhancements</a> to the Android mode, with a focus on compatibility with Processing 4.0.</p>
+    <footer class="footinfo">
+        <small>&copy; The Processing Foundation. Processing for Android is a <a href="team.html">collaborative
+                project</a>.</small>
+    </footer>
+</body>
 
-                <h3 id="4.1-releases">The 4.1 release: integrated debugger and Augmented Reality</h3>
-                <p>
-                Version 4.1 introduces <a href="whatsnew.html" target="_black">two significant additions</a> to Processing for Android: an integrated debugger, just like the one available in the <a href="https://vimeo.com/140134398" target="_black">Java mode</a>, and a new AR library based on <a href="https://developers.google.com/ar" target="_black">ARCore</a>.</p>
-                
-                <h3 id="4.0-releases">The 4.0 release: wallpapers, watch faces, and Realidad Virtual</h3>
-                <p>
-                Version 4.0 brings <a href="whatsnew.html" target="_black">several improvements</a> to the Android mode, incuding new functionality for creating <a href="https://android-developers.blogspot.com/2010/02/live-wallpapers.html" target="_black">live wallpapers</a>, <a href="https://developer.android.com/training/wearables/watch-faces/index.html" target="_black">watch faces</a>, and <a href="https://vr.google.com" target="_black">VR</a> apps. You will find more on how to use this functionality in the tutorials and the reference pages of this site.</p>
-
-                <h2>Pre-releases</h2>
-                <p>
-                Pre-release versions, as well as older stable releases, are are not available in the CM, and need to be installed manually. In order to do this, first download the AndroidMode-xyz.zip file for the desired release or pre-release from the <a href="https://github.com/processing/processing-android/releases" target="_black">releases section</a> in the GitHub repo of the Android Mode. Uncompress the zip file and then move the AndroidMode folder into the modes folder inside inside the sketchbook folder.
-                </p>
-            </section>
-
-        </div>
-
-        <footer class="footinfo">
-            <small>&copy; The Processing Foundation. Processing for Android is a <a href="team.html">collaborative project</a>.</small>
-        </footer>
-    </body>
 </html>
