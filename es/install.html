@@ -76,22 +76,28 @@
             </p>
 
             <p>
-            <div class="btn_tooltip" id="btn_tooltip">
-                <a href="#" class="shield-button" id="openInProcessing">
-                    <div class="btn_logo-container">
-                        <img src="../imgs/logo_processing.svg" alt="Logotipo de Processing" class="btn_logo">
+                <div class="btn_tooltip" id="btn_tooltip">
+                    <a href="#" class="shield-button" id="openInProcessing">
+                        <div class="btn_logo-container">
+                            <img src="../imgs/logo_processing.svg" alt="Logotipo de Processing" class="btn_logo">
+                        </div>
+                        <div class="btn_text-container">
+                            Instalar Modo Android
+                        </div>
+                    </a>
+                    <div class="btn_tooltiptext">
+                        <script>
+                            if (isMobile()) {
+                                document.write('<p>Advertencia: Abrir en Processing podría no funcionar en dispositivos móviles. Por favor, usa una computadora de escritorio para instalar el Modo Android.</p>');
+                            } else {
+                                document.write('<p><span class="ellipsis">Abriendo en Processing</span></p>');
+                                document.write('<p>Si esto tarda más de un minuto, asegúrate de que Processing está instalado y en funcionamiento. <a href="https://www.processing.org/download/" target="_black">Descargar Processing</a> </p>');
+                            }
+                        </script>
                     </div>
-                    <div class="btn_text-container">
-                        Instalar Modo Android
-                    </div>
-                </a>
-                <div class="btn_tooltiptext">
-                    <p><span class="ellipsis">Abriendo en Processing</span></p>
-                    <p>Si esto tarda más de un minuto, asegúrate de que Processing está instalado y en funcionamiento. <a
-                            href="https://www.processing.org/download/" target="_black">Descargar Processing</a> </p>
                 </div>
-            </div>
             </p>
+
 
             <p>
                 Nota: Puedes ver un mensaje de advertencia. Asegúrate de confiar en este sitio web y luego haz clic en
