@@ -74,21 +74,29 @@
             </p>
 
             <p>
-            <div class="btn_tooltip" id="btn_tooltip">
-                <a href="#" class="shield-button" id="openInProcessing">
-                    <div class="btn_logo-container">
-                        <img src="./imgs/logo_processing.svg" alt="Processing Logo" class="btn_logo">
+                <div class="btn_tooltip" id="btn_tooltip">
+                    <a href="#" class="shield-button" id="openInProcessing">
+                        <div class="btn_logo-container">
+                            <img src="./imgs/logo_processing.svg" alt="Processing Logo" class="btn_logo">
+                        </div>
+                        <div class="btn_text-container">
+                            Install Android Mode
+                        </div>
+                    </a>
+                    <div class="btn_tooltiptext">
+                        <script>
+                            function isMobile() {
+                                return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                            }
+                            if (isMobile()) {
+                                document.write('<p>Warning: Opening in Processing might not work on mobile devices. Please use a desktop computer to install Android Mode.</p>');
+                            } else {
+                                document.write('<p><span class="ellipsis">Opening in Processing</span></p>');
+                                document.write('<p>If this takes longer than a minute, make sure Processing is installed and running. <a href="https://www.processing.org/download/" target="_black">Download Processing</a> </p>');
+                            }
+                        </script>
                     </div>
-                    <div class="btn_text-container">
-                        Install Android Mode
-                    </div>
-                </a>
-                <div class="btn_tooltiptext">
-                    <p><span class="ellipsis">Opening in Processing</span></p>
-                    <p>If this takes longer than a minute, make sure Processing is installed and running. <a
-                            href="https://www.processing.org/download/" target="_black">Download Processing</a> </p>
                 </div>
-            </div>
             </p>
 
             <p>
