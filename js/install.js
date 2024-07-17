@@ -26,8 +26,12 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 function isMobile() {
     // Some browsers support the navigator.userAgent property, which returns true if the device is mobile
-    if (navigator.userAgentData && navigator.userAgentData.mobile !== undefined) {
-        return navigator.userAgentData.mobile;
+    if (
+      navigator.userAgentData &&
+      navigator.userAgentData.mobile !== undefined &&
+      navigator.userAgentData.mobile
+    ) {
+      return true;
     }
 
     // Fallback: Use regular expression to test the user agent string for common mobile device identifiers
