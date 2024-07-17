@@ -33,7 +33,7 @@
     <div class="group">
 
         <nav class="site">
-            <img class="logo" src="imgs/logo.png" alt="Processing for Android logo">
+            <img class="logo" src="./imgs/logo_processing_android.svg" alt="Processing for Android logo">
             <ul class="leftnav">
                 <li><a href="index.html">Home</a></li>
                 <li><a id="selected" href="install.html">Install</a></li>
@@ -66,15 +66,18 @@
                 corresponding to your Operating System, follow the instructions below to add the Android mode.
             </div>
 
+            <h2>Option 1: Quick Install</h2>
+
             <p>
-                To install the latest version of Android mode in Processing, first make sure a PDE window is open, then click on 'Install Android Mode' below.
+                To install the latest version of Android mode in Processing, open a Processing editor window then click
+                on 'Install Android Mode' below.
             </p>
 
             <p>
             <div class="btn_tooltip" id="btn_tooltip">
                 <a href="#" class="shield-button" id="openInProcessing">
                     <div class="btn_logo-container">
-                        <img src="./imgs/logo.png" alt="Processing Logo" class="btn_logo">
+                        <img src="./imgs/logo_processing.svg" alt="Processing Logo" class="btn_logo">
                     </div>
                     <div class="btn_text-container">
                         Install Android Mode
@@ -82,22 +85,22 @@
                 </a>
                 <div class="btn_tooltiptext">
                     <p><span class="ellipsis">Opening in Processing</span></p>
-                    <p>If nothing happens, <a href="https://processing.org/download/" target="_blank">download
-                            Processing</a> and try again.</p>
-                    <p>Or <a href="https://github.com/processing/processing-android/releases/download/latest/AndroidMode.pdex"
-                            target="_blank">download the file</a> directly.</p>
+                    <p>If this takes longer than a minute, make sure Processing is installed and running. <a
+                            href="https://www.processing.org/download/" target="_black">Download Processing</a> </p>
                 </div>
             </div>
             </p>
 
-            <p>You could also use only the Android core library to develop Android apps with the IDE of your choice, see
-                <a href="tutorials/android_studio/index.html" target="_black">this tutorial</a> for more details.
+            <p>
+                Note: You may see a warning message. Make sure you trust this website then click on
+                'Yes' to install the mode.
             </p>
 
-            <h2>Contributions Manager</h2>
+            <h2>Option 2: Contributions Manager</h2>
             <p>
-                The latest stable release of the Android mode can also be installed through the Contribution Manager (CM) in
-                the PDE. To open the CM, click the arrow in the mode selector in the menu bar, and choose "Add Mode...":
+                Alternatively, the latest stable release of the Android mode can be safely installed through the
+                Contribution Manager (CM) in the PDE. To open the CM, click the arrow in the mode selector in the menu
+                bar, and choose "Manage Mode...":
             </p>
 
             <p><img class="body-image" src="imgs/install/mode_selector.png" alt="Mode Selector in Processing"></p>
@@ -118,16 +121,25 @@
             <h2>Option 3: Use Processing for Android as a library</h2>
 
             <p>
+                You can also use the Processing for Android core library on its own to develop apps in your preferred
+                IDE. For more details and instructions on using the core library in Android Studio, see <a
+                    href="tutorials/android_studio/index.html" target="_blank">this tutorial</a>.
+            </p>
 
+            <h2>Installing pre-releases and older releases</h2>
             <p>
+                Pre-release versions, as well as older stable releases, are not available in the CM, and need to be
+                installed manually. Head to the <a href="https://github.com/processing/processing-android/releases"
+                    target="_black">releases section</a> of the GitHub repo for the Android Mode. Select and download
+                the AndroidMode-xyz.zip file for the desired release or pre-release. Uncompress the zip file and
+                then move the AndroidMode folder into the modes folder inside inside the sketchbook folder.
+            </p>
 
-            <h2>Pre-releases</h2>
+            <h2>Required Android versions</h2>
             <p>
-                Pre-release versions, as well as older stable releases, are are not available in the CM, and need to be
-                installed manually. In order to do this, first download the AndroidMode-xyz.zip file for the desired
-                release or pre-release from the <a href="https://github.com/processing/processing-android/releases"
-                    target="_black">releases section</a> in the GitHub repo of the Android Mode. Uncompress the zip file
-                and then move the AndroidMode folder into the modes folder inside inside the sketchbook folder.
+                In order to install your sketches as regular apps or live wallapers, you need a device running Android
+                4.2 or higher. To install VR apps, you need at least Android 4.4. And to run watch faces, you need a
+                watch with Android Wear 2.0 or newer.
             </p>
         </section>
 
