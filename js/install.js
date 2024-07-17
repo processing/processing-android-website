@@ -1,3 +1,4 @@
+// Behavior for the "Install Android Mode" button and tooltip
 document.addEventListener('DOMContentLoaded', function () {
     const tooltip = document.getElementById('btn_tooltip');
     const openInProcessing = document.getElementById('openInProcessing');
