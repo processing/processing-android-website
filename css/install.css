@@ -1,0 +1,102 @@
+/* Styling the install button for pde:// URI protocol */
+
+.shield-button {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 2px solid #cccccc;
+    border-radius: 50px;
+    padding: 8px 20px 8px 15px; /* top right bottom left */
+    cursor: pointer;
+    transition: border-color 0.3s, background-color 0.3s;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.shield-button:hover {
+    border-color: #a9a9a9;
+    background-color: #f2f2f2;
+}
+
+.shield-button:active {
+    border-color: #a9a9a9;
+    background-color: #e0e0e0;
+}
+
+.btn_logo-container {
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 5px;
+}
+
+.btn_logo {
+    width: 30px;
+    height: 30px;
+}
+
+.btn_text-container {
+    color: #333333;
+}
+
+.btn_text {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #6f6f6f;
+}
+
+.btn_tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.btn_tooltip .btn_tooltiptext {
+    visibility: hidden;
+    width: 250px;
+    background-color: #555;
+    color: #fff;
+    text-align: left;
+    border-radius: 6px;
+    padding: 8px 10px 10px 25px; /* top right bottom left */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position the tooltip above the button */
+    left: 50%;
+    margin-left: -125px; /* Center the tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.btn_tooltip .btn_tooltiptext::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* link in tooltip: no underline, light blue, no clicked color */
+.btn_tooltip .btn_tooltiptext a {
+    text-decoration: none;
+    color: #8ec8f7; 
+}
+
+.btn_tooltip.show .btn_tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+@keyframes ellipsis {
+    0%  { content: " .  "; }
+    33% { content: " .. "; }
+    66% { content: " ..."; }
+}
+
+.ellipsis::after {
+    content: "";
+    display: inline-block;
+    animation: ellipsis 1.2s infinite;
+}
