@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+    <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+    <link rel="stylesheet" href="../../../css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Processing para Android</title>
+<!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/script.js" data-site="KCUSYTHO" defer></script>
+    <!-- / Fathom -->
+</head>
+
+<body>
+
+<nav class="topnav">
+    <ul class="left">
+        <li><a href="https://processing.org/">Processing</a></li>
+        <li><a href="https://p5js.org/">p5.js</a></li>
+        <li><a href="https://py.processing.org/">Processing.py</a></li>
+        <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+    </ul>
+    <ul class="foundation">
+        <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+    </ul>
+</nav>
+
+<header>
+    <h1 class="title">Processing para Android</h1>
+</header>
+
+<div class="group">
+
+    <nav class="site">
+        <img class="logo" src="../../../imgs/logo.png" alt="Logo de Processing para Android">
+        <ul class="leftnav">
+            <li><a href="../../index.html">Principal</a></li>
+            <li><a href="../../install.html">Instalar</a></li>
+            <li><a href="../../reference/index.html">Referencia</a></li>
+            <li><a id="selected" href="../../tutorials/index.html">Tutoriales</a></li>
+            <li><a href="../../books/index.html">Libros</a></li>
+            <li><a href="../../gallery/index.html">Galería</a></li>
+            <li><a href="https://discourse.processing.org/c/processing-android" target="_blank">Forum</a></li>
+            <li><a href="https://github.com/processing/processing-android" target="_blank">GitHub</a></li>
+        </ul>
+    </nav>
+
+    <section class="container main-text">
+
+        <div class="lang">
+            <a href="../../../tutorials/processing_with_compose/index.html">EN</a>
+            <a id="selected" href="index.html">ES</a>
+        </div>
+        <hr style="clear:both;">
+
+        <h2>Processing con Jetpack Compose</h2>
+        <p>Cómo configurar un proyecto moderno de Android y ejecutar un bosquejo de Processing dentro de una vista de Android con Jetpack Compose.</p>
+
+        <h3>Introducción</h3>
+
+        <p>
+            Todos sabemos que desde 2026 <a href="https://developer.android.com/develop/ui/compose/first" target="_blank">Android se ha vuelto Compose-first</a>, así que si quieres empezar una nueva aplicación de Android se recomienda construir el 100% de tu interfaz usando Jetpack Compose. Si dentro de esta aplicación planeas usar un bosquejo de Processing, este tutorial es para ti.
+        </p>
+
+        <p><b>1.</b> Crea un proyecto de Android si aún no lo has creado. Comienza seleccionando una Compose Empty Activity:</p>
+        <p><img class="body-image" src="../../../imgs/tutorials/processing_with_compose/1composeEmptyActivity.png" alt="Seleccionar Compose Empty Activity"></p>
+
+        <p><b>2.</b> Ingresa el nombre del proyecto, el nombre del paquete y la versión mínima del SDK. Después haz clic en el botón 'Finish':</p>
+        <p><img class="body-image" src="../../../imgs/tutorials/processing_with_compose/2projectName.png" alt="Elegir el nombre y la configuración del proyecto"></p>
+
+        <p><b>3.</b> Ahora necesitamos obtener la biblioteca principal de Processing que vamos a usar dentro de nuestra app. Este paso se realiza fuera de Android Studio y primero necesitarás descargar el <a href="https://processing.org/download" target="_blank">Processing launcher.</a></p>
+        <p><img class="body-image" src="../../../imgs/tutorials/processing_with_compose/3processingLauncher.png" alt="El Processing Launcher"></p>
+
+        <p><b>4.</b> Haz clic en el botón 'New Sketch' y después ve al menú 'Manage Modes':</p>
+        <p><img class="body-image" src="../../../imgs/tutorials/processing_with_compose/4manageModes.png" alt="Menú Manage Modes en el Processing Launcher"></p>
+
+        <p><b>5.</b> Selecciona 'Android Mode for Processing 4' y haz clic en 'Install':</p>
+        <p><img class="body-image" src="../../../imgs/tutorials/processing_with_compose/5installAndroidManageMode.png" alt="Instalar el modo Android"></p>
+
+        <p><b>6.</b> Después de la instalación, dentro de tu carpeta de Processing vas a encontrar el archivo 'processing-core.zip' (el mío estaba en Documents/Processing/modes/AndroidMode). Necesitas renombrarlo a processing-core.jar y moverlo a la carpeta app/lib dentro del proyecto de Android que creaste antes:</p>
+        <p><img class="body-image" src="../../../imgs/tutorials/processing_with_compose/6processingCoreJar.png" alt="Colocar el processing-core.jar"></p>
+
+        <p><b>7.</b> Ahora, dentro del archivo 'build.gradle.kts' a nivel de app de tu proyecto, agrega la siguiente implementación dentro de dependencies:</p>
+
+        <pre><code>
+        dependencies {
+            ...
+            implementation(files("lib/processing-core.jar"))
+            ...
+        }
+        </code></pre>
+
+        <p><b>8.</b> Crea un nuevo archivo llamado MyKotlinSketch y escribe tu bosquejo usando Kotlin; todo funcionará bien gracias a la interoperabilidad con Java. Pero si tienes un bosquejo en Java y solo quieres copiarlo y pegarlo, no hay problema, también funcionará bien:</p>
+
+        <pre><code>
+        // MyKotlinSketch.kt
+        import processing.core.PApplet
+
+        class MyKotlinSketch: PApplet() {
+            override fun settings() {
+                fullScreen()
+            }
+
+            override fun setup() {}
+
+            override fun draw() {
+                if (mousePressed) {
+                    fill(23F, 234F, 40F)
+                    ellipse(mouseX.toFloat(), mouseY.toFloat(), 50f, 50f)
+                }
+            }
+        }
+        </code></pre>
+
+        <p><b>9.a</b> Nuestro bosquejo necesita un fragment dentro del cual ejecutarse, así que el siguiente paso es agregar la <a href="https://developer.android.com/jetpack/androidx/releases/fragment" target="_blank">dependencia fragment-compose</a> a nuestro proyecto. Primero, necesitas agregar las siguientes líneas a tu 'libs.versions.toml':</p>
+
+        <pre><code>
+        // libs.versions.toml
+        [versions]
+        fragmentVersion = "1.9.1" //usa la versión del enlace.
+
+        [libraries]
+        androidx-compose-fragment = { group = "androidx.fragment", name = "fragment-compose", version.ref = "fragmentVersion" }
+        </code></pre>
+
+        <p><b>9.b</b> Después agrega esta línea a tu app/build.gradle.kts:</p>
+
+        <pre><code>
+        // app/build.gradle.kts
+        dependencies {
+            ...
+            implementation(libs.androidx.compose.fragment)
+            ...
+        }
+        </code></pre>
+
+
+        <p><b>10.</b> Crea un archivo llamado MyProcessingFragment; será el fragment que extenderá PFragment de la biblioteca de Processing. Este recibe un bosquejo de Processing en el constructor, así que le pasaremos una instancia de nuestro MyKotlinSketch. De esta forma el fragment funcionará como el contenedor de nuestro bosquejo:</p>
+
+        <pre><code>
+        // MyProcessingFragment.kt
+        import processing.android.PFragment
+
+        class MyProcessingFragment : PFragment(MyKotlinSketch())
+        </code></pre>
+
+        <p><b>11.</b> Finalmente, el código de nuestra 'MainActivity' debería quedar de la siguiente manera:</p>
+
+        <pre><code>
+        class MainActivity : FragmentActivity() {
+            override fun onCreate(savedInstanceState: Bundle?) {
+                super.onCreate(savedInstanceState)
+                enableEdgeToEdge()
+                setContent {
+                    ProcessingWithComposeTheme {
+                        AndroidFragment&lt;MyProcessingFragment&gt;(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .systemGestureExclusion()
+                        )
+                    }
+                }
+            }
+        }
+        </code></pre>
+
+        <p>Esto te dará un bosquejo de Processing ejecutándose en pantalla completa en una aplicación de Android construida con Jetpack Compose, como se muestra a continuación:</p>
+        <img class="body-image-portrait" src="../../../imgs/tutorials/processing_with_compose/fullScreenResult.png" alt="Resultado final del tutorial en pantalla completa">
+
+        <p>Algunos puntos importantes sobre esta implementación:</p>
+
+        <p><b>- FragmentActivity:</b> Es necesaria para usar el composable AndroidFragment.</p>
+
+        <p><b>- .systemGestureExclusion():</b> Con esto evitamos que se activen gestos del sistema al dibujar en la pantalla.</p>
+
+        <p><b>fullScreen() en el bloque settings de MyKotlinSketch:</b> Permite que nuestro bosquejo ocupe todo el espacio disponible de su contenedor padre. Por ejemplo, si usáramos .padding(50.dp) junto con .fillMaxSize() (o incluso un tamaño fijo), obtendríamos un resultado como este:</p>
+
+        <p><img class="body-image-portrait" src="../../../imgs/tutorials/processing_with_compose/paddingResult.png" alt="Resultado final del tutorial con padding"></p>
+
+        <p>El proyecto usado para escribir este tutorial está disponible <a href="https://github.com/manoellribeiro/processing-jetpack-compose-tutorial" target="_blank">aquí</a>.</p>
+
+    </section>
+
+</div>
+
+<footer class="footinfo">
+    <small>&copy; The Processing Foundation. Processing para Android es un <a href="../../team.html">proyecto colaborativo</a>.</small>
+</footer>
+</body>
+</html>

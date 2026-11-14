@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Merriweather:300">
+    <link rel="icon" type="image/png" href="https://android.processing.org/favicon.png">
+    <link rel="stylesheet" href="../../css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Processing for Android</title>
+<!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/script.js" data-site="KCUSYTHO" defer></script>
+    <!-- / Fathom -->
+</head>
+
+<body>
+
+<nav class="topnav">
+    <ul class="left">
+        <li><a href="https://processing.org/">Processing</a></li>
+        <li><a href="https://p5js.org/">p5.js</a></li>
+        <li><a href="https://py.processing.org/">Processing.py</a></li>
+        <li><a href="https://pi.processing.org/">Processing for Pi</a></li>
+    </ul>
+    <ul class="foundation">
+        <li><a href="https://processingfoundation.org/">Processing Foundation</a></li>
+    </ul>
+</nav>
+
+<header>
+    <h1 class="title">Processing for Android</h1>
+</header>
+
+<div class="group">
+
+    <nav class="site">
+        <img class="logo" src="../../imgs/logo.png" alt="Processing for Android logo">
+        <ul class="leftnav">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../install.html">Install</a></li>
+            <li><a href="../../reference/index.html">Reference</a></li>
+            <li><a id="selected" href="../../tutorials/index.html">Tutorials</a></li>
+            <li><a href="../../books/index.html">Books</a></li>
+            <li><a href="../../gallery/index.html">Gallery</a></li>
+            <li><a href="https://discourse.processing.org/c/processing-android" target="_blank">Forum</a></li>
+            <li><a href="https://github.com/processing/processing-android" target="_blank">GitHub</a></li>
+        </ul>
+    </nav>
+
+    <section class="container main-text">
+
+        <div class="lang">
+            <a id="selected" href="index.html">EN</a>
+            <a href="../../es/tutorials/processing_with_compose/index.html">ES</a>
+        </div>
+        <hr style="clear:both;">
+
+        <h2>Processing with Jetpack Compose</h2>
+        <p>How to config a modern android project and run a processing sketch inside a jetpack compose android view.</p>
+
+        <h3>Introduction</h3>
+
+        <p>
+            We all know that since 2026 <a href="https://developer.android.com/develop/ui/compose/first" target="_blank">Android has become Compose-first</a>, so if you want to start a new android application it is recommended to build 100% of your UI using Jetpack Compose. If inside this application you are planning to use a processing sketch, this tutorial is for you.
+        </p>
+
+        <p><b>1.</b> Create an Android project if you haven't already created one. Start with selecting a Compose Empty Activity:</p>
+        <p><img class="body-image" src="../../imgs/tutorials/processing_with_compose/1composeEmptyActivity.png" alt="Select Compose Empty Activity"></p>
+
+        <p><b>2.</b> Enter project name, package name and minimum SDK version. After that click on 'Finish' button:</p>
+        <p><img class="body-image" src="../../imgs/tutorials/processing_with_compose/2projectName.png" alt="Choose project name and settings"></p>
+
+        <p><b>3.</b> Now we need to get the processing core library we are going to use inside our app, This step is outside Android Studio and you will need to first download the <a href="https://processing.org/download" target="_blank">Processing launcher.</a></p>
+        <p><img class="body-image" src="../../imgs/tutorials/processing_with_compose/3processingLauncher.png" alt="The Processing Launcher"></p>
+
+        <p><b>4.</b> You should click on the 'New Sketch' button and after go to the 'Manage Modes' menu:</p>
+        <p><img class="body-image" src="../../imgs/tutorials/processing_with_compose/4manageModes.png" alt="Manage Mode menu on Processing Launcher"></p>
+
+        <p><b>5.</b> Select 'Android Mode for Processing 4' and click 'Install':</p>
+        <p><img class="body-image" src="../../imgs/tutorials/processing_with_compose/5installAndroidManageMode.png" alt="Install Android Manage Mode"></p>
+
+        <p><b>6.</b> After installing, inside your Processing folder you are going to find the file 'processing-core.zip' (mine was under Documents/Processing/modes/AndroidMode). You need to rename it to processing-core.jar and move it to the folder app/lib inside the android project you just created before:</p>
+        <p><img class="body-image" src="../../imgs/tutorials/processing_with_compose/6processingCoreJar.png" alt="Place the processing-core.jar"></p>
+
+        <p><b>7.</b> Now inside your project's app level 'build.gradle.kts' you will add the following implementation inside dependencies:</p>
+
+        <pre><code>
+        dependencies {
+            ...
+            implementation(files("lib/processing-core.jar"))
+            ...
+        }
+        </code></pre>
+
+        <p><b>8.</b> Create a new file called MyKotlinSketch and write down your sketch using Kotlin and everything will work fine because of the interoperability with Java, but if you have a Java sketch and just want to copy/paste it, no problem it will work fine too:</p>
+
+        <pre><code>
+        // MyKotlinSketch.kt
+        import processing.core.PApplet
+
+        class MyKotlinSketch: PApplet() {
+            override fun settings() {
+                fullScreen()
+            }
+
+            override fun setup() {}
+
+            override fun draw() {
+                if (mousePressed) {
+                    fill(23F, 234F, 40F)
+                    ellipse(mouseX.toFloat(), mouseY.toFloat(), 50f, 50f)
+                }
+            }
+        }
+        </code></pre>
+
+        <p><b>9.a</b> Our sketch needs a fragment to run within, so the next step is to add the <a href="https://developer.android.com/jetpack/androidx/releases/fragment" target="_blank">fragment-compose dependency</a> to our project. First, you need to add the following line to your 'libs.versions.toml':</p>
+
+        <pre><code>
+        // libs.versions.toml
+        [versions]
+        fragmentVersion = "1.9.1" //use the version from the link.
+
+        [libraries]
+        androidx-compose-fragment = { group = "androidx.fragment", name = "fragment-compose", version.ref = "fragmentVersion" }
+        </code></pre>
+
+        <p><b>9.b</b> Then you will add this line to your app/build.gradle.kts:</p>
+
+        <pre><code>
+        // app/build.gradle.kts
+        dependencies {
+            ...
+            implementation(libs.androidx.compose.fragment)
+            ...
+        }
+        </code></pre>
+
+
+        <p><b>10.</b> Create a file called MyProcessingFragment, it will be the fragment that will extend the PFragment from the processing library. It accepts a processing sketch in the constructor, so we will add an instance of our MyKotlinSketch. This way the fragment will work as the container for our sketch:</p>
+
+        <pre><code>
+        // MyProcessingFragment.kt
+        import processing.android.PFragment
+
+        class MyProcessingFragment : PFragment(MyKotlinSketch())
+        </code></pre>
+
+        <p><b>11.</b> Finally, the code of our 'MainActivity' should be as following:</p>
+
+        <pre><code>
+        class MainActivity : FragmentActivity() {
+            override fun onCreate(savedInstanceState: Bundle?) {
+                super.onCreate(savedInstanceState)
+                enableEdgeToEdge()
+                setContent {
+                    ProcessingWithComposeTheme {
+                        AndroidFragment&lt;MyProcessingFragment&gt;(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .systemGestureExclusion()
+                        )
+                    }
+                }
+            }
+        }
+        </code></pre>
+
+        <p>This will give you a processing sketch running full screen in an android application built with Jetpack Compose as following:</p>
+        <img class="body-image-portrait" src="../../imgs/tutorials/processing_with_compose/fullScreenResult.png" alt="Tutorial final result in full screen">
+
+        <p>Some important points about this implementation:</p>
+
+        <p><b>- FragmentActivity:</b> It is required to use the AndroidFragment composable.</p>
+
+        <p><b>- .systemGestureExclusion():</b> Using this we prevent triggering gestures when drawing on the screen.</p>
+
+        <p><b>fullScreen() at settings block of MyKotlinSketch:</b> It allows our sketch to fill all the space available of its parent. For example, if we used .padding(50.dp) alongside with .fillMaxSize() (or even a fixed size), we would have a result like that:</p>
+
+        <p><img class="body-image-portrait" src="../../imgs/tutorials/processing_with_compose/paddingResult.png" alt="Tutorial final result with padding"></p>
+
+        <p>The project used to write this tutorial is available <a href="https://github.com/manoellribeiro/processing-jetpack-compose-tutorial" target="_blank">here</a>.</p>
+
+    </section>
+
+</div>
+
+<footer class="footinfo">
+    <small>&copy; The Processing Foundation. Processing for Android is a <a href="../../team.html">collaborative project</a>.</small>
+</footer>
+</body>
+</html>
+
